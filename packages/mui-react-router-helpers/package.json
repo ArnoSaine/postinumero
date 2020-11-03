@@ -1,0 +1,32 @@
+{
+  "name": "@postinumero/mui-react-router-helpers",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/mui-react-router-helpers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/mui-react-router-helpers"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./": "./src/"
+  },
+  "main": "./src/index.js",
+  "dependencies": {
+    "@arnosaine/cra-template-helpers": "^0.2.0",
+    "babel-preset-react-app": "^9.1.2"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "4",
+    "react-router-dom": "5 || 6"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

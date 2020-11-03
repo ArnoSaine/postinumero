@@ -1,0 +1,32 @@
+{
+  "name": "@postinumero/i18next-helpers",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/i18next-helpers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/i18next-helpers"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./": "./src/"
+  },
+  "main": "./src/index.js",
+  "dependencies": {
+    "@arnosaine/cra-template-helpers": "^0.2.0",
+    "babel-preset-react-app": "^9.1.2",
+    "react-i18next": "^11.3.4"
+  },
+  "peerDependencies": {
+    "react": "16"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@postinumero/mui-datatables",
+  "version": "0.3.0",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/mui-datatables",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/mui-datatables"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "dependencies": {
+    "@postinumero/use-pager-query-param": "^0.1.1"
+  },
+  "peerDependencies": {
+    "mui-datatables": "2",
+    "react-router-dom": "5",
+    "use-query-params": "0.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "893ed0295b2a82b8ec5476e2380fc694a043974c"
+}

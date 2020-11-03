@@ -1,0 +1,27 @@
+{
+  "name": "@postinumero/storage",
+  "version": "0.2.1",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/storage",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/storage"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "dependencies": {
+    "@postinumero/map-get-with-default": "^0.1.0"
+  },
+  "devDependencies": {
+    "react": "^16.8.6"
+  },
+  "peerDependencies": {
+    "react": "16.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

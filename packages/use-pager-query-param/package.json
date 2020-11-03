@@ -1,0 +1,24 @@
+{
+  "name": "@postinumero/use-pager-query-param",
+  "version": "0.1.1",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/use-pager-query-param",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/use-pager-query-param"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "dependencies": {
+    "@postinumero/use-query-param-with-default-value": "^0.1.0"
+  },
+  "peerDependencies": {
+    "use-query-params": "0.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@postinumero/babel-preset-i18next",
+  "version": "0.1.0",
+  "description": "Extract translation keys from the application and packages code.",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/babel-preset-i18next",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/babel-preset-i18next"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "dependencies": {
+    "babel-plugin-i18next-extract": "^0.7.2",
+    "find-root": "^1.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

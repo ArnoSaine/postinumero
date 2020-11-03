@@ -1,0 +1,24 @@
+{
+  "name": "@postinumero/use-query-param-with-default-value",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/use-query-param-with-default-value",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/use-query-param-with-default-value"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
+  "peerDependencies": {
+    "use-query-params": "0.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

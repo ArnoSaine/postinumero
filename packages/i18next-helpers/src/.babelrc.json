@@ -1,0 +1,3 @@
+{
+  "presets": ["react-app", "@arnosaine/cra-template-helpers/babel-preset"]
+}

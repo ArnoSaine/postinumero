@@ -1,0 +1,38 @@
+{
+  "name": "@postinumero/library-scripts",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/library-scripts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/library-scripts"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "type": "module",
+  "bin": "./lib/main.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "node ./src/main.mjs build",
+    "prepare": "node ./src/main.mjs prepare",
+    "watch": "node ./src/main.mjs watch"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/runtime": "^7.9.6",
+    "@postinumero/babel-preset-react-lib-experimental": "^0.1.0",
+    "cross-spawn": "^7.0.2",
+    "fs-extra": "^9.0.0",
+    "rimraf": "^3.0.2",
+    "yargs": "^15.3.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

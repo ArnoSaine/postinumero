@@ -1,0 +1,31 @@
+{
+  "name": "@postinumero/babel-preset-experimental",
+  "version": "0.1.1",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/babel-preset-experimental",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/babel-preset-experimental"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "main": "./main.js",
+  "dependencies": {
+    "@babel/plugin-proposal-do-expressions": "^7.8.3",
+    "@babel/plugin-proposal-export-default-from": "^7.8.3",
+    "@babel/plugin-proposal-function-bind": "^7.8.3",
+    "@babel/plugin-proposal-function-sent": "^7.8.3",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.8.3",
+    "@babel/plugin-proposal-partial-application": "^7.8.3",
+    "@babel/plugin-proposal-pipeline-operator": "^7.8.3",
+    "@babel/plugin-proposal-private-methods": "^7.8.3",
+    "@babel/plugin-proposal-throw-expressions": "^7.8.3",
+    "@babel/plugin-syntax-import-meta": "^7.8.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

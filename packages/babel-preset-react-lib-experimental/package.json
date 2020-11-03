@@ -1,0 +1,22 @@
+{
+  "name": "@postinumero/babel-preset-react-lib-experimental",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/babel-preset-react-lib-experimental",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/babel-preset-react-lib-experimental"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "main": "./main.js",
+  "dependencies": {
+    "@postinumero/babel-preset-react-app-experimental": "^0.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

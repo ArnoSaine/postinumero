@@ -1,0 +1,28 @@
+{
+  "name": "@postinumero/i18next-pouchdb-backend",
+  "version": "0.1.1",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/i18next-pouchdb-backend",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/i18next-pouchdb-backend"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "type": "module",
+  "exports": "./src/main.js",
+  "main": "./src/main.js",
+  "dependencies": {
+    "@arnosaine/cra-template-helpers": "^0.2.0",
+    "@postinumero/callbackify-class": "^0.2.0",
+    "babel-preset-react-app": "^9.1.2",
+    "lodash": "^4.17.15",
+    "pouchdb-find": "^7.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

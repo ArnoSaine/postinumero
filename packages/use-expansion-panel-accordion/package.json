@@ -1,0 +1,21 @@
+{
+  "name": "@postinumero/use-expansion-panel-accordion",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/use-expansion-panel-accordion",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/use-expansion-panel-accordion"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "peerDependencies": {
+    "react": "16.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

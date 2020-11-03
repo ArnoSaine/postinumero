@@ -1,0 +1,25 @@
+{
+  "name": "@postinumero/callbackify-class",
+  "version": "0.2.0",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/callbackify-class",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/callbackify-class"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "type": "module",
+  "exports": "./src/main.js",
+  "main": "./src/main.js",
+  "dependencies": {
+    "@arnosaine/cra-template-helpers": "^0.2.0",
+    "babel-preset-react-app": "^9.1.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

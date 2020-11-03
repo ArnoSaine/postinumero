@@ -1,0 +1,12 @@
+{
+  "name": "@postinumero/root",
+  "private": true,
+  "license": "ISC",
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "postinstall": "npm run bootstrap"
+  },
+  "devDependencies": {
+    "lerna": "^3.13.4"
+  }
+}
