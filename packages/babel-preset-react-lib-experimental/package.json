@@ -14,7 +14,9 @@
   },
   "main": "./main.js",
   "dependencies": {
-    "@postinumero/babel-preset-react-app-experimental": "^0.1.0"
+    "@postinumero/babel-preset-experimental": "^0.1.2",
+    "babel-preset-react-app": "^10.0.0",
+    "lodash": "^4.17.20"
   },
   "publishConfig": {
     "access": "public"
