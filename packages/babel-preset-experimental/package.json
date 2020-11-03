@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/babel-preset-experimental",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/babel-preset-experimental",
   "repository": {
     "type": "git",
@@ -24,6 +24,9 @@
     "@babel/plugin-proposal-private-methods": "^7.8.3",
     "@babel/plugin-proposal-throw-expressions": "^7.8.3",
     "@babel/plugin-syntax-import-meta": "^7.8.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3"
   },
   "publishConfig": {
     "access": "public"

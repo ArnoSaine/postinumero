@@ -7,22 +7,28 @@ module.exports = function (api, opts) {
   return {
     plugins: [
       // Adds syntax support for bind operator (::)
-      '@babel/plugin-proposal-function-bind',
+      require('@babel/plugin-proposal-function-bind').default,
 
       // Adds support for experimental features from stage 1
-      '@babel/plugin-proposal-export-default-from',
-      '@babel/plugin-proposal-logical-assignment-operators',
-      ['@babel/plugin-proposal-pipeline-operator', pipelineOperator],
-      '@babel/plugin-proposal-do-expressions',
-      '@babel/plugin-proposal-partial-application',
+      require('@babel/plugin-proposal-export-default-from').default,
+      require('@babel/plugin-proposal-logical-assignment-operators').default,
+      [
+        require('@babel/plugin-proposal-pipeline-operator').default,
+        pipelineOperator,
+      ],
+      require('@babel/plugin-proposal-do-expressions').default,
+      require('@babel/plugin-proposal-partial-application').default,
 
       // Adds support for experimental features from stage 2
-      '@babel/plugin-proposal-function-sent',
-      '@babel/plugin-proposal-throw-expressions',
+      require('@babel/plugin-proposal-function-sent').default,
+      require('@babel/plugin-proposal-throw-expressions').default,
 
       // Adds support for experimental features from stage 3
-      '@babel/plugin-syntax-import-meta',
-      ['@babel/plugin-proposal-private-methods', privateMethods],
+      require('@babel/plugin-syntax-import-meta').default,
+      [
+        require('@babel/plugin-proposal-private-methods').default,
+        privateMethods,
+      ],
     ],
   };
 };
