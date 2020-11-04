@@ -1,0 +1,37 @@
+{
+  "package": {
+    "type": "module",
+    "main": "./lib/main.js",
+    "files": ["lib"],
+    "scripts": {
+      "build": "npm-run-all build:*",
+      "build:app": "react-scripts build",
+      "build:lib": "library-scripts build",
+      "prepare": "npm run build:lib",
+      "prepublishOnly": "cross-env CI=true npm test",
+      "test": "react-scripts test",
+      "watch": "library-scripts watch"
+    },
+    "eslintConfig": {
+      "extends": ["react-app", "react-app/jest"]
+    },
+    "dependencies": {
+      "@babel/runtime": "7"
+    },
+    "devDependencies": {
+      "@arnosaine/react-scripts": "latest",
+      "@postinumero/library-scripts": "0.1",
+      "@testing-library/jest-dom": "5",
+      "@testing-library/react": "11",
+      "@testing-library/user-event": "12",
+      "cross-env": "7",
+      "npm-run-all": "4",
+      "react": "17",
+      "react-dom": "17"
+    },
+    "peerDependencies": {
+      "react": "17",
+      "react-dom": "17"
+    }
+  }
+}
