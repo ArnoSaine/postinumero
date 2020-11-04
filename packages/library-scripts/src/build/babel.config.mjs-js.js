@@ -1,4 +1,4 @@
-import preset from './babel-preset.mjs';
+import preset from './babel-preset.js';
 
 export default {
   presets: [[preset, { extension: 'js' }]],
