@@ -1,12 +1,12 @@
 {
-  "name": "@postinumero/cra-component-template",
+  "name": "@postinumero/cra-template-component",
   "version": "0.1.0",
   "description": "A template for React component",
-  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/cra-component-template",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/cra-template-component",
   "repository": {
     "type": "git",
     "url": "https://github.com/ArnoSaine/postinumero.git",
-    "directory": "packages/cra-component-template"
+    "directory": "packages/cra-template-component"
   },
   "license": "ISC",
   "author": {

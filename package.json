@@ -4,7 +4,11 @@
   "license": "ISC",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "postinstall": "npm run bootstrap"
+    "postinstall": "npm run bootstrap",
+    "my-lib": "npx --package file:./packages/library-scripts library-scripts init my-lib",
+    "my-component": "npx create-react-app --scripts-version @arnosaine/react-scripts --template file:./packages/cra-component-template my-component",
+    "my-lib-published": "npx @postinumero/library-scripts init my-lib-published",
+    "my-component-published": "npx create-react-app --scripts-version @arnosaine/react-scripts --template @postinumero/component my-component-published"
   },
   "devDependencies": {
     "lerna": "^3.13.4"
