@@ -6,7 +6,7 @@ User roles and rights based rendering.
 
 ### `<Auth>`
 
-Wraps the application with the auth context. Other components and hooks are available in the children.
+Wraps components with the auth context. Other components and hooks are available in the children.
 
 ```js
 import { Auth } from '@postinumero/react-auth';
