@@ -1,6 +1,7 @@
 {
   "name": "@postinumero/use-pager-query-param",
-  "version": "0.1.1",
+  "version": "0.2.0",
+  "description": "Hook for syncing a pager component with a URL query parameter.",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/use-pager-query-param",
   "repository": {
     "type": "git",
@@ -12,13 +13,26 @@
     "name": "Arno Saine",
     "email": "arno@mowhi.com"
   },
-  "dependencies": {
-    "@postinumero/use-query-param-with-default-value": "^0.1.0"
+  "type": "module",
+  "exports": "./lib/main.js",
+  "main": "./lib/main.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "library-scripts build",
+    "prepare": "npm run build",
+    "watch": "library-scripts watch"
   },
-  "peerDependencies": {
-    "use-query-params": "0.6"
+  "dependencies": {
+    "@babel/runtime": "^7.12.5",
+    "@postinumero/use-query-param-with-default-value": "^0.2.0",
+    "use-query-params": "^1.1.9"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@postinumero/library-scripts": "^0.1.0"
   }
 }

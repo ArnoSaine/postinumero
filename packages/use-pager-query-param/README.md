@@ -4,12 +4,6 @@ Hook for syncing a pager component with a URL query parameter.
 
 `page = 0` maps to empty query parameter (or `?page=1`), `page = 1` maps to `?page=2` etc.
 
-## Install
-
-```sh
-npm install use-query-params @postinumero/use-pager-query-param
-```
-
 ## API
 
 ### `usePagerQueryParam(name: string)`
