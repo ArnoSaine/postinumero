@@ -2,12 +2,6 @@
 
 Like `useQueryParam` from [use-query-params](https://www.npmjs.com/package/use-query-params), but if current value is same as the default, param is removed from the URL.
 
-## Install
-
-```sh
-npm install use-query-params @postinumero/use-query-param-with-default-value
-```
-
 ## Example
 
 ```js
