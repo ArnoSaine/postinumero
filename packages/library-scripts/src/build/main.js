@@ -2,6 +2,7 @@ import spawn from 'cross-spawn';
 import { fileURLToPath } from 'url';
 import { dirname, extname, join } from 'path';
 import fs from 'fs-extra';
+import yargs from 'yargs';
 import options from './options.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,7 +21,11 @@ const babelBin = fs.existsSync(join(npmBin, 'babel'))
   : join(myBin, 'babel');
 
 export default ({ NODE_ENV, args }) => (...commandArgs) => {
-  fs.removeSync(outDir);
+  const { argv } = yargs(commandArgs);
+  const srcDirs = argv._.length ? argv._ : ['src'];
+  const outDirArg = argv.outDir ?? outDir;
+  fs.removeSync(outDirArg);
+  fs.ensureDirSync(outDirArg);
 
   for (const [outFileExtension, type] of options(process.env)) {
     const configFile = join(
@@ -33,9 +38,9 @@ export default ({ NODE_ENV, args }) => (...commandArgs) => {
     spawn(
       babelBin,
       [
-        'src',
+        ...srcDirs,
         '--out-dir',
-        outDir,
+        outDirArg,
         '--out-file-extension',
         outFileExtension,
         '--config-file',
