@@ -8,7 +8,7 @@ import { outDir } from './build/main.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const { argv } = yargs;
+const { argv } = yargs();
 
 const type = argv.type ?? 'module';
 
