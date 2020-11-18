@@ -10,6 +10,10 @@ test('CommonJS', () => {
   ]);
 });
 
+test('CommonJS without main', () => {
+  expect(options({})).toStrictEqual([['.js', 'cjs']]);
+});
+
 test('CommonJS bin', () => {
   expect(options({ npm_package_bin: './lib/main.js' })).toStrictEqual([
     ['.js', 'cjs'],
@@ -38,6 +42,12 @@ test('ES module', () => {
   expect(
     options({ npm_package_type: 'module', npm_package_main: './lib/main.js' })
   ).toStrictEqual([['.js', 'mjs']]);
+});
+
+test('ES module without main', () => {
+  expect(options({ npm_package_type: 'module' })).toStrictEqual([
+    ['.js', 'mjs'],
+  ]);
 });
 
 test('ES module bin', () => {
