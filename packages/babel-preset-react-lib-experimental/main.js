@@ -1,9 +1,19 @@
 const merge = require('merge-deep');
-const presetEnv = require('@babel/preset-env').default;
+
+let presetEnv;
+try {
+  // If multiple versions of @babel/preset-env are installed, we must use the
+  // same as babel-preset-react-app uses.
+  presetEnv = require('babel-preset-react-app/node_modules/@babel/preset-env')
+    .default;
+} catch {
+  presetEnv = require('@babel/preset-env').default;
+}
 
 module.exports = function (api, { env, reactApp, ...opts }) {
   const presetReactApp = require('babel-preset-react-app')(api, {
-    // For @babel/plugin-transform-runtime. Use same Babel runtime as other packages.
+    // For @babel/plugin-transform-runtime. Use same Babel runtime as other
+    // packages.
     absoluteRuntime: false,
     // For @babel/preset-react.
     runtime: 'automatic',
