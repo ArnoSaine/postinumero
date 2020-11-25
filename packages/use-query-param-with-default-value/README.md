@@ -15,9 +15,9 @@ import useQueryParamWithDefaultValue from '@postinumero/use-query-param-with-def
 import { BooleanParam } from 'use-query-params';
 // …
 const defaultValue = 1;
-const [boolean, setBoolean] = useQueryParamWithDefaultValue(
+const [myBoolean, setMyBoolean] = useQueryParamWithDefaultValue(
   defaultValue,
-  'boolean',
+  'myBoolean',
   BooleanParam
 );
 ```

@@ -1,7 +1,7 @@
 {
   "name": "@postinumero/use-query-param-with-default-value",
-  "version": "0.2.1",
-  "description": "Like `useQueryParam` `use-query-params`, but if current value is same as the default, param is removed from the URL.",
+  "version": "0.2.2",
+  "description": "Like `useQueryParam` from `use-query-params`, but if current value is same as the default, param is removed from the URL.",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/use-query-param-with-default-value",
   "repository": {
     "type": "git",

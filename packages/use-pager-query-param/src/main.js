@@ -9,6 +9,7 @@ export default function usePagerQueryParam(name) {
     NumberParam
   );
   const zeroBasedValue = value - 1;
-  const setZeroBasedValue = (zeroBasedValue) => setValue(zeroBasedValue + 1);
+  const setZeroBasedValue = (zeroBasedValue, ...rest) =>
+    setValue(zeroBasedValue + 1, ...rest);
   return [zeroBasedValue, setZeroBasedValue];
 }

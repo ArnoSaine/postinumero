@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/use-pager-query-param",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Hook for syncing a pager component with a URL query parameter.",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/use-pager-query-param",
   "repository": {
