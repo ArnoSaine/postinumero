@@ -10,6 +10,10 @@ test('CommonJS', () => {
   ]);
 });
 
+test('CommonJS without extension', () => {
+  expect(options({ npm_package_main: 'lib' })).toStrictEqual([['.js', 'cjs']]);
+});
+
 test('CommonJS without main', () => {
   expect(options({})).toStrictEqual([['.js', 'cjs']]);
 });

@@ -1,8 +1,6 @@
 import { extname } from 'path';
 import lodash from 'lodash';
 
-const extnameSafe = (path = '') => extname(path);
-
 export default (env) => {
   const extensions = lodash.uniq(
     [
@@ -19,7 +17,9 @@ export default (env) => {
     ]
       .filter(Boolean)
       .map(extname)
+      .filter(Boolean)
   );
+
   return (extensions.length ? extensions.sort() : ['.js']).map((extension) => [
     extension,
     extension === '.js'
