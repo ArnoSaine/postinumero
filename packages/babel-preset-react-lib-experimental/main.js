@@ -1,3 +1,4 @@
+const { strict: assert } = require('assert');
 const merge = require('merge-deep');
 
 let presetEnv;
@@ -23,9 +24,16 @@ module.exports = function (api, { env, reactApp, ...opts }) {
     ...reactApp,
   });
 
-  const presetReactAppPresetEnvOptions = presetReactApp.presets.find(
+  const presetReactAppPresetEnv = presetReactApp.presets.find(
     ([preset]) => preset === presetEnv
-  )[1];
+  );
+
+  assert(
+    presetReactAppPresetEnv,
+    'Find @babel/preset-env options of babel-preset-react-app'
+  );
+
+  const presetReactAppPresetEnvOptions = presetReactAppPresetEnv[1];
 
   Object.assign(presetReactAppPresetEnvOptions, env);
 
