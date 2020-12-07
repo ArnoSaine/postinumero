@@ -4,7 +4,7 @@ import fs from 'fs-extra';
 import yargs from 'yargs';
 import lodash from 'lodash';
 import sortPackageJson from 'sort-package-json';
-import { outDir } from './build/main.js';
+import { outDirDefault } from './build/main.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -15,8 +15,8 @@ const type = argv.type ?? 'module';
 const packageJson = fs.readJsonSync(join(__dirname, '..', 'package.json'));
 const bin = lodash.last(packageJson.name.split('/'));
 
-const jsEntry = `./${outDir}/main.js`;
-const cjsEntry = `./${outDir}/main.cjs`;
+const jsEntry = `./${outDirDefault}/main.js`;
+const cjsEntry = `./${outDirDefault}/main.cjs`;
 
 export default (name) =>
   sortPackageJson({
@@ -33,7 +33,7 @@ export default (name) =>
     main:
       // If type is commonjs, only .js extension is used.
       type === 'commonjs' ? jsEntry : cjsEntry,
-    files: [outDir],
+    files: [outDirDefault],
     scripts: {
       build: `${bin} build`,
       prepare: 'npm run build',

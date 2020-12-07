@@ -1,4 +1,4 @@
-import options from './options';
+import options from './options.js';
 
 test('this package', () => {
   expect(options(process.env)).toStrictEqual([['.js', 'mjs']]);
