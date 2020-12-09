@@ -25,7 +25,7 @@ library-scripts build
 ### Override defaults
 
 ```sh
-library-scripts build --out-file-extension .js --type mjs --out-dir lib/mjs
+library-scripts build --type mjs --out-dir lib/mjs
 ```
 
 ## `watch`

@@ -3,7 +3,6 @@ import { fileURLToPath } from 'url';
 import { dirname, extname, join } from 'path';
 import fs from 'fs-extra';
 import yargs from 'yargs';
-import { strict as assert } from 'assert';
 import options from './options.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -66,13 +65,8 @@ const createBuild = ({ args, commandArgs, NODE_ENV, outDir, srcDirs }) => ({
 
 export default ({ args, NODE_ENV }) => (...commandArgs) => {
   const { argv } = yargs(commandArgs);
-  const { outDir = outDirDefault, outFileExtension, type } = argv;
+  const { outDir = outDirDefault, outFileExtension = '.js', type } = argv;
   const srcDirs = argv._.length ? argv._ : ['src'];
-  assert.equal(
-    !outFileExtension,
-    !type,
-    '`--type` and `--out-file-extension` are both set or unset'
-  );
 
   const build = createBuild({
     args,
