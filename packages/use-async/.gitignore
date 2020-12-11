@@ -12,6 +12,7 @@
 /build
 /cjs
 /mjs
+/loading-state
 
 # misc
 .DS_Store

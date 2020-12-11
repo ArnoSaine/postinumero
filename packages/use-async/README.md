@@ -88,3 +88,24 @@ If there are components currently mounted using any of the hooks and the same ar
 #### Returns
 
 Resolves with `undefined`, when `fn(...args)` resolves.
+
+## Not ready for Suspense?
+
+Import from `@postinumero/use-async/loading-state` to use the `{isLoading, data, error}` style API. Example:
+
+```js
+import { create } from '@postinumero/use-async/loading-state';
+import axios from 'axios';
+
+const [, , useAxiosSafe] = create(axios);
+
+function User({ id }) {
+  const { isLoading, data, error } = useAxiosSafe(`/api/users/${id}`);
+
+  if (isLoading) {
+    return 'Loading...';
+  }
+
+  return <div>First name: {data.data.first_name}</div>;
+}
+```

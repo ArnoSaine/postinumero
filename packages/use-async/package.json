@@ -14,17 +14,30 @@
     "email": "arno@mowhi.com"
   },
   "type": "module",
-  "exports": "./mjs/main.js",
+  "exports": {
+    ".": "./mjs/main.js",
+    "./create": "./mjs/create.js",
+    "./recall": "./mjs/recall.js",
+    "./useAsync": "./mjs/useAsync.js",
+    "./useAsyncSafe": "./mjs/useAsyncSafe.js",
+    "./loading-state": "./mjs/loading-state/main.js",
+    "./loading-state/create": "./mjs/loading-state/create.js",
+    "./loading-state/recall": "./mjs/loading-state/recall.js",
+    "./loading-state/useAsync": "./mjs/loading-state/useAsync.js",
+    "./loading-state/useAsyncSafe": "./mjs/loading-state/useAsyncSafe.js"
+  },
   "main": "./cjs/main.js",
   "module": "./mjs/main.js",
   "files": [
     "cjs",
-    "mjs"
+    "mjs",
+    "loading-state"
   ],
   "scripts": {
     "build": "npm-run-all build:*",
     "build:app": "react-scripts build",
     "build:lib": "npm-run-all build:lib-*",
+    "postbuild:lib": "npm run update-submodules",
     "build:lib-cjs": "library-scripts build --type cjs --out-dir cjs",
     "build:lib-mjs": "library-scripts build --type mjs --out-dir mjs",
     "prepare": "npm run build:lib",
@@ -33,6 +46,7 @@
     "startOnly": "react-scripts start",
     "test": "concurrently \"npm run watch\" \"react-scripts test\"",
     "testOnly": "react-scripts test",
+    "update-submodules": "node scripts/update-submodules",
     "watch": "concurrently \"npm:watch:*\"",
     "watch:lib-cjs": "library-scripts watch --type cjs --out-dir cjs",
     "watch:lib-mjs": "library-scripts watch --type mjs --out-dir mjs"
@@ -70,6 +84,7 @@
     "@testing-library/user-event": "^12.5.0",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.3",
+    "fs-extra": "^9.0.1",
     "npm-run-all": "^4.1.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

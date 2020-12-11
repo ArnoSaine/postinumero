@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { Suspense } from 'react';
 import create from './create.js';
 
 const f = jest.fn();
@@ -7,23 +6,23 @@ const f = jest.fn();
 const [useF, recallF, useFSafe] = create(f);
 
 function Foo() {
-  useF();
-  return 'foo';
+  const { isLoading } = useF();
+  return isLoading ? 'loading' : 'foo';
 }
 
 function FooSafe() {
-  useFSafe();
-  return 'foo safe';
+  const { isLoading } = useFSafe();
+  return isLoading ? 'loading' : 'foo safe';
 }
 
 test('use created shortcuts', async () => {
   const { getByText } = render(
-    <Suspense fallback="loading">
+    <>
       <Foo />
       <FooSafe />
-    </Suspense>
+    </>
   );
-  screen.getByText('loading');
+  screen.getByText('loadingloading');
   await waitFor(() => {
     expect(getByText('foofoo safe')).toBeInTheDocument();
   });

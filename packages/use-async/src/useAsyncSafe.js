@@ -21,7 +21,8 @@ export default normalizeArgs(function useAsyncSafe(...args) {
   if (memoized.value) {
     return memoized.value;
   }
-
-  // Throw memoized suspender or create one and throw it.
-  throw memoized.suspender ?? callAndSuspend(args, memoized);
+  if (!memoized.suspender) {
+    callAndSuspend(args, memoized);
+  }
+  throw memoized.suspender;
 });
