@@ -1,21 +1,72 @@
 import { render, waitFor } from '@testing-library/react';
 import { Suspense } from 'react';
-import create from './main';
+import useAsync from './useAsync.js';
 
-const counter = jest.fn();
+test('call on new mount', async () => {
+  const f = jest.fn();
 
-function f({ x: { y } }) {
-  counter();
-  return y;
-}
+  function Foo() {
+    useAsync(f);
+    return 'foo';
+  }
 
-const [useF] = create(f);
+  function Bar() {
+    useAsync(f);
+    return 'bar';
+  }
 
-function C(props) {
-  return useF(props);
-}
+  const { queryByText, rerender } = render(
+    <Suspense fallback="loading">
+      <Foo />
+    </Suspense>
+  );
+  expect(f).toHaveBeenCalledTimes(1);
+  await waitFor(() => {
+    expect(queryByText('loading')).toBeInTheDocument();
+  });
+  await waitFor(() => {
+    expect(queryByText('foo')).toBeInTheDocument();
+  });
+
+  rerender(
+    <Suspense fallback="loading">
+      <Foo />
+      <Bar />
+    </Suspense>
+  );
+
+  rerender(
+    <Suspense fallback="loading">
+      <Bar />
+    </Suspense>
+  );
+
+  rerender(<Suspense fallback="loading" />);
+  await waitFor(() => {
+    expect(queryByText('foo')).not.toBeInTheDocument();
+  });
+  expect(f).toHaveBeenCalledTimes(1);
+
+  rerender(
+    <Suspense fallback="loading">
+      <Foo />
+    </Suspense>
+  );
+  expect(f).toHaveBeenCalledTimes(2);
+});
 
 test('call on params change', async () => {
+  const counter = jest.fn();
+
+  function f({ x: { y } }) {
+    counter();
+    return y;
+  }
+
+  function C(props) {
+    return useAsync(f, [props]);
+  }
+
   jest.useFakeTimers();
   const { queryByText, rerender } = render(
     <Suspense fallback="loading">

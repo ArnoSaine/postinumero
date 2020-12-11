@@ -1,36 +1,23 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import create from './main';
+import useAsyncSafe from './useAsyncSafe.js';
 
 async function f() {
   throw new Error('oops');
 }
 
-const [useF] = create(f);
-
 function C() {
-  return useF();
+  return useAsyncSafe(f)[0].message;
 }
 
 test('suspend, then render error', async () => {
-  const spy = jest.spyOn(console, 'error');
-  spy.mockImplementation(() => {});
-
   const { getByText } = render(
     <Suspense fallback="loading">
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <C />
-      </ErrorBoundary>
+      <C />
     </Suspense>
   );
   screen.getByText('loading');
   await waitFor(() => {
     expect(getByText('oops')).toBeInTheDocument();
   });
-  spy.mockRestore();
 });
-
-function ErrorFallback({ error }) {
-  return error.message;
-}
