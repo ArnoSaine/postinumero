@@ -7,16 +7,10 @@ import get from '@postinumero/map-get-with-default';
 
 const map = new Map();
 
-console.log(map.get('x')); // => undefined
+// Using the proposed bind operator (::) (https://github.com/tc39/proposal-bind-operator)
+console.log(map::get('x', () => 'foo')); // => 'foo'
 
-// Using proposed bind operator (::) (https://github.com/tc39/proposal-bind-operator)
-const set = map::get('x', () => new Set());
-// Same as:
-// const set = get.call(map, "x", () => new Set());
+console.log(get(map, 'x', () => 'foo2')); // => 'foo'
 
-console.log(map.get('x')); // => Set(0) {}
-
-set.add(1);
-
-console.log(map.get('x')); // => Set(1) {1}
+console.log(map.get('x')); // => 'foo'
 ```
