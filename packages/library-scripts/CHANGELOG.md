@@ -1,4 +1,4 @@
-# x.y.z
+# 0.1.3
 
 - When `--type` is set, default to `.js` out file extension
 
