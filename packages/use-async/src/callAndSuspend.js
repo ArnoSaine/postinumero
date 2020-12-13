@@ -1,17 +1,20 @@
-async function callSafe(...args) {
-  const funcArgs = args.pop();
-  const [func] = args;
-  try {
-    return [null, await func(...funcArgs)];
-  } catch (error) {
-    return [error];
+import callAsyncIterator from './callAsyncIterator.js';
+import callSafe from './utils/callSafe.js';
+import isAsyncIterator from './utils/isAsyncIterator.js';
+
+function call(args, memoized) {
+  const [func, , funcArgs] = args;
+  if (memoized.cancel) {
+    memoized.cancel();
   }
+  const result = func(...funcArgs);
+  return isAsyncIterator(result) ? callAsyncIterator(result, memoized) : result;
 }
 
-async function call(args, memoized) {
-  memoized.value = await callSafe(...args);
+async function createSuspenderAndCall(args, memoized) {
+  memoized.value = await callSafe(call, args, memoized);
 }
 
 export default function callAndSuspend(args, memoized) {
-  return (memoized.suspender = call(args, memoized));
+  return (memoized.suspender = createSuspenderAndCall(args, memoized));
 }

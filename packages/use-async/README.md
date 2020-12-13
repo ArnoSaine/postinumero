@@ -1,28 +1,61 @@
 # @postinumero/use-async
 
-Create suspending hook from an async function.
+Create a suspending hook from an async function, an async generator or a function that returns an async iterator.
 
-- Uses [memoizee](https://www.npmjs.com/package/memoizee) and [json-stable-stringify](https://www.npmjs.com/package/json-stable-stringify) as a normalizer to cache resolved values
+- Uses [memoizee](https://www.npmjs.com/package/memoizee) and [json-stable-stringify](https://www.npmjs.com/package/json-stable-stringify) as a normalizer to cache resolved/yielded values
 - `recall` function for re-executing the function and rerendering related components from anywhere
 
-## Example
+## Examples
+
+### Get data using axios
 
 ```js
+import { Suspense } from 'react';
 import { create } from '@postinumero/use-async';
 import axios from 'axios';
 
 const [useAxios] = create(axios);
 
-function User({ id }) {
-  const { data } = useAxios(`/api/users/${id}`);
+function Todo({ id }) {
+  const { data } = useAxios(`https://jsonplaceholder.typicode.com/todos/${id}`);
 
-  return <div>First name: {data.first_name}</div>;
+  return <pre>{JSON.stringify(data, null, 2)}</pre>;
 }
 
 function App() {
   return (
     <Suspense fallback="Loading...">
-      <User id="1" />
+      <Todo id="1" />
+    </Suspense>
+  );
+}
+```
+
+### Render timestamps with setInterval
+
+```js
+import { Suspense } from 'react';
+import { create } from '@postinumero/use-async';
+import { Repeater } from '@repeaterjs/repeater';
+
+const [useTimestamp] = create(
+  () =>
+    new Repeater(async (push, stop) => {
+      push(Date.now());
+      const interval = setInterval(() => push(Date.now()), 1000);
+      await stop;
+      clearInterval(interval);
+    })
+);
+
+function Timestamp() {
+  return <div>Timestamp: {useTimestamp()}</div>;
+}
+
+function App() {
+  return (
+    <Suspense fallback="Loading...">
+      <Timestamp />
     </Suspense>
   );
 }
@@ -41,7 +74,7 @@ For creating shortcut functions of the rest of the API, without needing to pass 
 
 #### Returns
 
-An array of functions `[useAsync, recall, useAsyncSafe]`. Each functions take just the `...args` as their arguments.
+An array of functions `[useAsync, recall, useAsyncSafe]`. Each of the returned function take just the `...args` as its arguments.
 
 ### `useAsync(fn[, config[, args]])`
 
