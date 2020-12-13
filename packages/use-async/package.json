@@ -1,12 +1,12 @@
 {
   "name": "@postinumero/use-async",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Create a suspending hook from an async function, an async generator or a function that returns an async iterator.",
-  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/react-auth",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/use-async",
   "repository": {
     "type": "git",
     "url": "https://github.com/ArnoSaine/postinumero.git",
-    "directory": "packages/react-auth"
+    "directory": "packages/use-async"
   },
   "license": "ISC",
   "author": {
