@@ -1,6 +1,7 @@
 import { render, waitFor } from '@testing-library/react';
 import { Suspense } from 'react';
 import useAsync from './useAsync.js';
+import delay from 'delay';
 
 test('call on new mount', async () => {
   const f = jest.fn();
@@ -29,17 +30,13 @@ test('call on new mount', async () => {
   });
 
   rerender(
-    <Suspense fallback="loading">
+    <>
       <Foo />
       <Bar />
-    </Suspense>
+    </>
   );
 
-  rerender(
-    <Suspense fallback="loading">
-      <Bar />
-    </Suspense>
-  );
+  rerender(<Bar />);
 
   rerender(<Suspense fallback="loading" />);
   await waitFor(() => {
@@ -47,6 +44,7 @@ test('call on new mount', async () => {
   });
   expect(f).toHaveBeenCalledTimes(1);
 
+  await delay(100);
   rerender(
     <Suspense fallback="loading">
       <Foo />
@@ -83,10 +81,10 @@ test('call on params change', async () => {
   });
 
   rerender(
-    <Suspense fallback="loading">
+    <>
       <C x={{ y: 'foo' }} />
       <C x={{ y: 'foo' }} />
-    </Suspense>
+    </>
   );
   await waitFor(() => {
     expect(queryByText('foofoo')).toBeInTheDocument();
@@ -105,10 +103,10 @@ test('call on params change', async () => {
   expect(counter).toHaveBeenCalledTimes(2);
 
   rerender(
-    <Suspense fallback="loading">
+    <>
       <C x={{ y: 'bar' }} />
       <C x={{ y: 'bar' }} />
-    </Suspense>
+    </>
   );
   await waitFor(() => {
     expect(queryByText('barbar')).toBeInTheDocument();
