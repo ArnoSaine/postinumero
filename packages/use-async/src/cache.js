@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import stringify from 'fast-json-stable-stringify';
 import memoize from 'memoizee';
 import get from '@postinumero/map-get-with-default';
@@ -22,9 +23,29 @@ export function getItem(func, config, args) {
   )(...args);
 }
 
-export function removeItem(func, config, args) {
+function removeItem(func, config, args) {
   cache
     .get(func)
     .get(config)
     .delete(...args);
+}
+
+export function useItem(...args) {
+  const memoized = getItem(...args);
+  useEffect(() => {
+    const { updaters, cleanupTimeout } = memoized;
+    if (cleanupTimeout) {
+      clearTimeout(cleanupTimeout);
+    }
+    return () => {
+      memoized.cleanupTimeout = setTimeout(() => {
+        if (!updaters.size) {
+          memoized.cancel?.();
+          removeItem(...args);
+        }
+      }, 0);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [memoized]);
+  return memoized;
 }
