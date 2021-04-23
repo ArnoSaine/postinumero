@@ -124,7 +124,7 @@ Resolves with `undefined`, when `fn(...args)` resolves.
 
 ## Not ready for Suspense?
 
-Import from `@postinumero/use-async/loading-state` to use the `{isLoading, data, error}` style API. Example:
+Import from `@postinumero/use-async/loading-state` to use the `{ isLoading, data, error }` style API. Example:
 
 ```js
 import { create } from '@postinumero/use-async/loading-state';
