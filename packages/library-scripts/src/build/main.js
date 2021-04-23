@@ -1,6 +1,6 @@
 import spawn from 'cross-spawn';
 import { fileURLToPath } from 'url';
-import { dirname, extname, join } from 'path';
+import { dirname, extname, join, sep } from 'path';
 import fs from 'fs-extra';
 import yargs from 'yargs';
 import options from './options.js';
@@ -18,7 +18,12 @@ const myBin = join(__dirname, '../../node_modules/.bin');
 // package's node_modules/.bin.). Use absolute path.
 const babelBin = fs.existsSync(join(npmBin, 'babel'))
   ? 'babel'
-  : join(myBin, 'babel');
+  : __dirname
+      .split(sep)
+      .map((part, index, parts) => parts.slice(0, parts.length - index))
+      .map((parts) => parts.join(sep))
+      .map((parts) => join(parts, 'node_modules/.bin/babel'))
+      .find((path) => fs.pathExistsSync(path));
 
 const excludeArgs = ['--type'];
 
@@ -82,7 +87,9 @@ export default ({ args, NODE_ENV }) => (...commandArgs) => {
   if (type) {
     build({ outFileExtension, type });
   } else {
-    for (const [outFileExtension, type] of options(process.env)) {
+    for (const [outFileExtension, type] of options(
+      fs.readJsonSync(process.env.npm_package_json)
+    )) {
       build({ outFileExtension, type });
     }
   }

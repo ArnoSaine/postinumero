@@ -1,17 +1,18 @@
+import fs from 'fs-extra';
 import options from './options.js';
 
 test('this package', () => {
-  expect(options(process.env)).toStrictEqual([['.js', 'mjs']]);
-});
-
-test('CommonJS', () => {
-  expect(options({ npm_package_main: './lib/main.js' })).toStrictEqual([
-    ['.js', 'cjs'],
+  expect(options(fs.readJsonSync(process.env.npm_package_json))).toStrictEqual([
+    ['.js', 'mjs'],
   ]);
 });
 
+test('CommonJS', () => {
+  expect(options({ main: './lib/main.js' })).toStrictEqual([['.js', 'cjs']]);
+});
+
 test('CommonJS without extension', () => {
-  expect(options({ npm_package_main: 'lib' })).toStrictEqual([['.js', 'cjs']]);
+  expect(options({ main: 'lib' })).toStrictEqual([['.js', 'cjs']]);
 });
 
 test('CommonJS without main', () => {
@@ -19,13 +20,11 @@ test('CommonJS without main', () => {
 });
 
 test('CommonJS bin', () => {
-  expect(options({ npm_package_bin: './lib/main.js' })).toStrictEqual([
-    ['.js', 'cjs'],
-  ]);
+  expect(options({ bin: './lib/main.js' })).toStrictEqual([['.js', 'cjs']]);
 });
 
 test('CommonJS named bin', () => {
-  expect(options({ npm_package_bin_app: './lib/main.js' })).toStrictEqual([
+  expect(options({ bin: { app: './lib/main.js' } })).toStrictEqual([
     ['.js', 'cjs'],
   ]);
 });
@@ -33,8 +32,8 @@ test('CommonJS named bin', () => {
 test('CommonJS with ES module bin', () => {
   expect(
     options({
-      npm_package_main: './lib/main.js',
-      npm_package_bin_app: './lib/main.mjs',
+      main: './lib/main.js',
+      bin: { app: './lib/main.mjs' },
     })
   ).toStrictEqual([
     ['.js', 'cjs'],
@@ -43,28 +42,26 @@ test('CommonJS with ES module bin', () => {
 });
 
 test('ES module', () => {
-  expect(
-    options({ npm_package_type: 'module', npm_package_main: './lib/main.js' })
-  ).toStrictEqual([['.js', 'mjs']]);
-});
-
-test('ES module without main', () => {
-  expect(options({ npm_package_type: 'module' })).toStrictEqual([
+  expect(options({ type: 'module', main: './lib/main.js' })).toStrictEqual([
     ['.js', 'mjs'],
   ]);
 });
 
+test('ES module without main', () => {
+  expect(options({ type: 'module' })).toStrictEqual([['.js', 'mjs']]);
+});
+
 test('ES module bin', () => {
-  expect(
-    options({ npm_package_type: 'module', npm_package_bin: './lib/main.js' })
-  ).toStrictEqual([['.js', 'mjs']]);
+  expect(options({ type: 'module', bin: './lib/main.js' })).toStrictEqual([
+    ['.js', 'mjs'],
+  ]);
 });
 
 test('ES module named bin', () => {
   expect(
     options({
-      npm_package_type: 'module',
-      npm_package_bin_app: './lib/main.js',
+      type: 'module',
+      bin: { app: './lib/main.js' },
     })
   ).toStrictEqual([['.js', 'mjs']]);
 });
@@ -72,9 +69,9 @@ test('ES module named bin', () => {
 test('CommonJS/ES module', () => {
   expect(
     options({
-      npm_package_type: 'module',
-      npm_package_main: './lib/main.cjs',
-      npm_package_exports: './lib/main.js',
+      type: 'module',
+      main: './lib/main.cjs',
+      exports: './lib/main.js',
     })
   ).toStrictEqual([
     ['.cjs', 'cjs'],
@@ -85,10 +82,10 @@ test('CommonJS/ES module', () => {
 test('CommonJS/ES module with ES module bin', () => {
   expect(
     options({
-      npm_package_type: 'module',
-      npm_package_main: './lib/main.cjs',
-      npm_package_exports: './lib/main.js',
-      npm_package_bin_app: './lib/main.mjs',
+      type: 'module',
+      main: './lib/main.cjs',
+      exports: './lib/main.js',
+      bin: { app: './lib/main.mjs' },
     })
   ).toStrictEqual([
     ['.cjs', 'cjs'],

@@ -1,20 +1,16 @@
 import { extname } from 'path';
 import lodash from 'lodash';
 
-export default (env) => {
+export default (packageJson) => {
+  const entries = (entry) =>
+    ({
+      object: () => Object.values(entry).flatMap(entries),
+      string: () => entry,
+    }[typeof entry]?.());
+
   const extensions = lodash.uniq(
-    [
-      ...Object.entries(env)
-        .filter(([key]) =>
-          ['npm_package_bin_', 'npm_package_exports_'].some((keyStart) =>
-            key.startsWith(keyStart)
-          )
-        )
-        .map(([key, value]) => value),
-      env.npm_package_main,
-      env.npm_package_bin,
-      env.npm_package_exports,
-    ]
+    [packageJson.main, packageJson.bin, packageJson.exports]
+      .flatMap(entries)
       .filter(Boolean)
       .map(extname)
       .filter(Boolean)
@@ -23,7 +19,7 @@ export default (env) => {
   return (extensions.length ? extensions.sort() : ['.js']).map((extension) => [
     extension,
     extension === '.js'
-      ? env.npm_package_type === 'module'
+      ? packageJson.type === 'module'
         ? 'mjs'
         : 'cjs'
       : extension.slice(1),
