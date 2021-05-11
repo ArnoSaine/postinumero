@@ -1,15 +1,17 @@
 const { strict: assert } = require('assert');
 const merge = require('merge-deep');
 
-let presetEnv;
+// If multiple versions of @babel/preset-env are installed, we must use the
+// same as babel-preset-react-app uses.
+const presetEnvs = [];
 try {
-  // If multiple versions of @babel/preset-env are installed, we must use the
-  // same as babel-preset-react-app uses.
-  presetEnv = require('babel-preset-react-app/node_modules/@babel/preset-env')
-    .default;
-} catch {
-  presetEnv = require('@babel/preset-env').default;
-}
+  presetEnvs.push(
+    require('babel-preset-react-app/node_modules/@babel/preset-env').default
+  );
+} catch {}
+try {
+  presetEnvs.push(require('@babel/preset-env').default);
+} catch {}
 
 module.exports = function (api, { env, reactApp, ...opts }) {
   const presetReactApp = require('babel-preset-react-app')(api, {
@@ -24,8 +26,8 @@ module.exports = function (api, { env, reactApp, ...opts }) {
     ...reactApp,
   });
 
-  const presetReactAppPresetEnv = presetReactApp.presets.find(
-    ([preset]) => preset === presetEnv
+  const presetReactAppPresetEnv = presetReactApp.presets.find(([preset]) =>
+    presetEnvs.includes(preset)
   );
 
   assert(

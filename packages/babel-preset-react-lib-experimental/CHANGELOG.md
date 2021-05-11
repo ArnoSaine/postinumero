@@ -1,3 +1,4 @@
-# x.y.x
+# 0.1.2
 
-- Assert: Find @babel/preset-env options of babel-preset-react-app
+- Try to require `babel-preset-react-app/node_modules/@babel/preset-env` and `@babel/preset-env`
+- Assert: Find `@babel/preset-env` options of `babel-preset-react-app`
