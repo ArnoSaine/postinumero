@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/use-async",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Create a suspending hook from an async function, an async generator or a function that returns an async iterator.",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/use-async",
   "repository": {
@@ -31,7 +31,8 @@
   "files": [
     "cjs",
     "mjs",
-    "loading-state"
+    "loading-state",
+    "index.d.ts"
   ],
   "scripts": {
     "build": "npm-run-all build:*",
