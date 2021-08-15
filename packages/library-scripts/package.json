@@ -18,6 +18,7 @@
     "lib"
   ],
   "scripts": {
+    "prepare": "npm run build",
     "build": "node ./src/scripts/main.js build",
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
     "watch": "node ./src/scripts/main.js watch"
