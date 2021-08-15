@@ -13,12 +13,17 @@
     "email": "arno@mowhi.com"
   },
   "main": "./main.js",
+  "scripts": {
+    "build": "echo 'No build specified'",
+    "test": "echo 'No test specified'"
+  },
   "dependencies": {
     "@postinumero/babel-preset-experimental": "^0.1.2",
     "babel-preset-react-app": "^10.0.0",
     "merge-deep": "^3.0.2"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "latest"
   }
 }

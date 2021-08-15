@@ -7,8 +7,6 @@
       "build": "npm-run-all build:*",
       "build:app": "react-scripts build",
       "build:lib": "library-scripts build",
-      "prepare": "npm run build:lib",
-      "prepublishOnly": "cross-env CI=true npm test",
       "test": "react-scripts test",
       "watch": "library-scripts watch"
     },

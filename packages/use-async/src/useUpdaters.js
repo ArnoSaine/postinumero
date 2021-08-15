@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import useForceUpdate from 'use-force-update';
+import { useUpdate } from 'react-use';
 
 export default function useUpdaters(memoized, args) {
-  const forceUpdate = useForceUpdate();
+  const update = useUpdate();
   useEffect(() => {
     const { updaters } = memoized;
-    updaters.add(forceUpdate);
+    updaters.add(update);
     return () => {
-      updaters.delete(forceUpdate);
+      updaters.delete(update);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memoized]);

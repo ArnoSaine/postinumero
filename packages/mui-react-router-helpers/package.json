@@ -18,6 +18,10 @@
     "./": "./src/"
   },
   "main": "./src/index.js",
+  "scripts": {
+    "build": "echo 'No build specified'",
+    "test": "echo 'No test specified'"
+  },
   "dependencies": {
     "@arnosaine/cra-template-helpers": "^0.2.0",
     "babel-preset-react-app": "^9.1.2"
@@ -27,6 +31,7 @@
     "react-router-dom": "5 || 6"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "latest"
   }
 }

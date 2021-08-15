@@ -12,10 +12,15 @@
     "name": "Arno Saine",
     "email": "arno@mowhi.com"
   },
+  "scripts": {
+    "build": "echo 'No build specified'",
+    "test": "echo 'No test specified'"
+  },
   "dependencies": {
     "@postinumero/map-get-with-default": "^0.1.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "latest"
   }
 }

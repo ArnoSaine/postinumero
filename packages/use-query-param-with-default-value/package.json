@@ -21,8 +21,8 @@
   ],
   "scripts": {
     "build": "library-scripts build",
-    "prepare": "npm run build",
-    "watch": "library-scripts watch"
+    "watch": "library-scripts watch",
+    "test": "echo 'No test specified'"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
@@ -35,6 +35,7 @@
     "use-query-params": "1"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "latest"
   }
 }

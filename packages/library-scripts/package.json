@@ -19,8 +19,6 @@
   ],
   "scripts": {
     "build": "node ./src/scripts/main.js build",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test -- --watch false",
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
     "watch": "node ./src/scripts/main.js watch"
   },
@@ -40,6 +38,7 @@
     "jest": "^26.6.3"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "latest"
   }
 }

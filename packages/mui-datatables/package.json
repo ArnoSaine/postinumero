@@ -12,6 +12,10 @@
     "name": "Arno Saine",
     "email": "arno@mowhi.com"
   },
+  "scripts": {
+    "build": "echo 'No build specified'",
+    "test": "echo 'No test specified'"
+  },
   "dependencies": {
     "@postinumero/use-pager-query-param": "^0.1.1"
   },
@@ -21,7 +25,7 @@
     "use-query-params": "0.6"
   },
   "publishConfig": {
-    "access": "public"
-  },
-  "gitHead": "893ed0295b2a82b8ec5476e2380fc694a043974c"
+    "access": "public",
+    "tag": "latest"
+  }
 }

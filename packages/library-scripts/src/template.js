@@ -36,7 +36,6 @@ export default (name) =>
     files: [outDirDefault],
     scripts: {
       build: `${bin} build`,
-      prepare: 'npm run build',
       watch: `${bin} watch`,
     },
     dependencies: {

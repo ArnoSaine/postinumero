@@ -26,10 +26,10 @@
     "build": "npm-run-all build:*",
     "build:cjs": "library-scripts build --type cjs --out-dir cjs",
     "build:mjs": "library-scripts build --type mjs --out-dir mjs",
-    "prepare": "npm run build",
-    "watch": "concurrently \"npm:watch:*\"",
+    "watch": "concurrently 'npm:watch:*'",
     "watch:cjs": "library-scripts watch --type cjs --out-dir cjs",
-    "watch:mjs": "library-scripts watch --type mjs --out-dir mjs"
+    "watch:mjs": "library-scripts watch --type mjs --out-dir mjs",
+    "test": "echo 'No test specified'"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5"
@@ -40,6 +40,7 @@
     "npm-run-all": "^4.1.5"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "latest"
   }
 }

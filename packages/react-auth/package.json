@@ -32,16 +32,12 @@
     "lib"
   ],
   "scripts": {
-    "build": "npm-run-all build:*",
-    "build:app": "react-scripts build",
-    "build:lib": "library-scripts build",
-    "eject": "react-scripts eject",
-    "prepare": "npm run build:lib",
-    "prepublishOnly": "npm run build:lib && cross-env CI=true npm run testOnly",
-    "start": "concurrently \"npm run watch\" \"react-scripts start\"",
-    "startOnly": "react-scripts start",
-    "test": "concurrently \"npm run watch\" \"react-scripts test\"",
-    "testOnly": "react-scripts test",
+    "prebuild": "library-scripts build",
+    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "start:dev": "concurrently 'npm run watch' 'react-scripts start'",
+    "test": "react-scripts test",
+    "test:dev": "concurrently 'npm run watch' 'react-scripts test'",
     "watch": "library-scripts watch"
   },
   "browserslist": {
@@ -83,6 +79,7 @@
     "react-dom": "^17.0.1"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "latest"
   }
 }

@@ -2,11 +2,26 @@
   "name": "@postinumero/root",
   "private": true,
   "license": "ISC",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "postinstall": "npm run bootstrap"
+    "build": "npm run build --workspace=packages",
+    "test": "npm test --workspace=packages",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*": "prettier --ignore-unknown --write",
+    "**/package.json": "sort-package-json"
   },
   "devDependencies": {
-    "lerna": "^3.13.4"
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
   }
 }

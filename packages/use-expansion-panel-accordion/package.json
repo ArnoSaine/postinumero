@@ -12,10 +12,15 @@
     "name": "Arno Saine",
     "email": "arno@mowhi.com"
   },
+  "scripts": {
+    "build": "echo 'No build specified'",
+    "test": "echo 'No test specified'"
+  },
   "peerDependencies": {
     "react": "16.8"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "latest"
   }
 }

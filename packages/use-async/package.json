@@ -35,22 +35,19 @@
     "index.d.ts"
   ],
   "scripts": {
-    "build": "npm-run-all build:*",
-    "build:app": "react-scripts build",
-    "build:lib": "npm-run-all build:lib-*",
-    "postbuild:lib": "npm run update-submodules",
-    "build:lib-cjs": "library-scripts build --type cjs --out-dir cjs",
-    "build:lib-mjs": "library-scripts build --type mjs --out-dir mjs",
-    "prepare": "npm run build:lib",
-    "prepublishOnly": "npm run build:lib && cross-env CI=true npm run testOnly",
-    "start": "concurrently \"npm run watch:mjs\" \"react-scripts start\"",
-    "startOnly": "react-scripts start",
-    "test": "concurrently \"npm run watch:mjs\" \"react-scripts test\"",
-    "testOnly": "react-scripts test",
+    "prebuild": "npm-run-all build:*",
+    "build": "react-scripts build",
+    "postbuild": "npm run update-submodules",
+    "build:cjs": "library-scripts build --type cjs --out-dir cjs",
+    "build:mjs": "library-scripts build --type mjs --out-dir mjs",
+    "start": "react-scripts start",
+    "start:dev": "concurrently 'npm run watch:mjs' 'react-scripts start'",
+    "test": "react-scripts test",
+    "test:dev": "concurrently 'npm run watch:mjs' 'react-scripts test'",
     "update-submodules": "node scripts/update-submodules",
-    "watch": "concurrently \"npm:watch:*\"",
-    "watch:lib-cjs": "library-scripts watch --type cjs --out-dir cjs",
-    "watch:lib-mjs": "library-scripts watch --type mjs --out-dir mjs"
+    "watch": "concurrently 'npm:watch:*'",
+    "watch:cjs": "library-scripts watch --type cjs --out-dir cjs",
+    "watch:mjs": "library-scripts watch --type mjs --out-dir mjs"
   },
   "browserslist": {
     "production": [
@@ -75,7 +72,7 @@
     "@postinumero/map-get-with-default": "^0.1.2",
     "fast-json-stable-stringify": "^2.1.0",
     "memoizee": "^0.4.14",
-    "use-force-update": "^1.0.7"
+    "react-use": "^17.2.4"
   },
   "devDependencies": {
     "@arnosaine/react-scripts": "^4.0.0-4",
@@ -95,6 +92,7 @@
     "react-error-boundary": "^3.1.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "latest"
   }
 }

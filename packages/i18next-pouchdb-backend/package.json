@@ -15,6 +15,10 @@
   "type": "module",
   "exports": "./src/main.js",
   "main": "./src/main.js",
+  "scripts": {
+    "build": "echo 'No build specified'",
+    "test": "echo 'No test specified'"
+  },
   "dependencies": {
     "@arnosaine/cra-template-helpers": "^0.2.0",
     "@postinumero/callbackify-class": "^0.2.0",
@@ -23,6 +27,7 @@
     "pouchdb-find": "^7.2.1"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "latest"
   }
 }
