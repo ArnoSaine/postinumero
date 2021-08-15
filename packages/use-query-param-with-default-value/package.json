@@ -20,8 +20,8 @@
     "lib"
   ],
   "scripts": {
-    "build": "library-scripts build",
-    "watch": "library-scripts watch",
+    "build": "node ../../node_modules/.bin/library-scripts build",
+    "watch": "node ../../node_modules/.bin/library-scripts watch",
     "test": "echo 'No test specified'"
   },
   "dependencies": {

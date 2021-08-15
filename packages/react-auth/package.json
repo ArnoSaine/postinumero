@@ -32,13 +32,13 @@
     "lib"
   ],
   "scripts": {
-    "prebuild": "library-scripts build",
+    "prebuild": "node ../../node_modules/.bin/library-scripts build",
     "build": "react-scripts build",
     "start": "react-scripts start",
     "start:dev": "concurrently 'npm run watch' 'react-scripts start'",
     "test": "react-scripts test",
     "test:dev": "concurrently 'npm run watch' 'react-scripts test'",
-    "watch": "library-scripts watch"
+    "watch": "node ../../node_modules/.bin/library-scripts watch"
   },
   "browserslist": {
     "production": [

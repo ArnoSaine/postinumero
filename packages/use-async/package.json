@@ -38,16 +38,16 @@
     "prebuild": "npm-run-all build:*",
     "build": "react-scripts build",
     "postbuild": "npm run update-submodules",
-    "build:cjs": "library-scripts build --type cjs --out-dir cjs",
-    "build:mjs": "library-scripts build --type mjs --out-dir mjs",
+    "build:cjs": "node ../../node_modules/.bin/library-scripts build --type cjs --out-dir cjs",
+    "build:mjs": "node ../../node_modules/.bin/library-scripts build --type mjs --out-dir mjs",
     "start": "react-scripts start",
     "start:dev": "concurrently 'npm run watch:mjs' 'react-scripts start'",
     "test": "react-scripts test",
     "test:dev": "concurrently 'npm run watch:mjs' 'react-scripts test'",
     "update-submodules": "node scripts/update-submodules",
     "watch": "concurrently 'npm:watch:*'",
-    "watch:cjs": "library-scripts watch --type cjs --out-dir cjs",
-    "watch:mjs": "library-scripts watch --type mjs --out-dir mjs"
+    "watch:cjs": "node ../../node_modules/.bin/library-scripts watch --type cjs --out-dir cjs",
+    "watch:mjs": "node ../../node_modules/.bin/library-scripts watch --type mjs --out-dir mjs"
   },
   "browserslist": {
     "production": [
