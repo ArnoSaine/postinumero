@@ -101,7 +101,23 @@ jobs:
     strategy:
       matrix:
         package:
+          - babel-preset-experimental
+          - babel-preset-i18next
+          - babel-preset-react-lib-experimental
+          - callbackify-class
+          - cra-template-component
+          - i18next-helpers
+          - i18next-pouchdb-backend
+          - library-scripts
+          - map-get-with-default
+          - mui-datatables
+          - mui-react-router-helpers
+          - react-auth
+          - storage
           - use-async
+          - use-expansion-panel-accordion
+          - use-pager-query-param
+          - use-query-param-with-default-value
     steps:
       - uses: actions/download-artifact@v2
         with:
