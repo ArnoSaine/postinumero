@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/use-async",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Create a suspending hook from an async function, an async generator or a function that returns an async iterator.",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/use-async",
   "repository": {
@@ -16,15 +16,9 @@
   "type": "module",
   "exports": {
     ".": "./mjs/main.js",
-    "./create": "./mjs/create.js",
-    "./recall": "./mjs/recall.js",
-    "./useAsync": "./mjs/useAsync.js",
-    "./useAsyncSafe": "./mjs/useAsyncSafe.js",
+    "./*": "./mjs/*.js",
     "./loading-state": "./mjs/loading-state/main.js",
-    "./loading-state/create": "./mjs/loading-state/create.js",
-    "./loading-state/recall": "./mjs/loading-state/recall.js",
-    "./loading-state/useAsync": "./mjs/loading-state/useAsync.js",
-    "./loading-state/useAsyncSafe": "./mjs/loading-state/useAsyncSafe.js"
+    "./loading-state/*": "./mjs/loading-state/*.js"
   },
   "main": "./cjs/main.js",
   "module": "./mjs/main.js",

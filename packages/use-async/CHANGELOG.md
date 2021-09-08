@@ -1,3 +1,8 @@
+# 0.1.8
+
+- Add optional cache context
+- Fix ES module usage
+
 # 0.1.7
 
 - Add missing dependency `react-use`

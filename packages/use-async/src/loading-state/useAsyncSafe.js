@@ -1,4 +1,4 @@
-import { useUpdate } from 'react-use';
+import useUpdate from 'react-use/lib/useUpdate.js';
 import normalizeArgs from '../normalizeArgs.js';
 import useAsyncSafeSuspense from '../useAsyncSafe.js';
 
