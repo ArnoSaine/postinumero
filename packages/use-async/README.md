@@ -2,7 +2,7 @@
 
 Create a suspending hook from an async function, an async generator or a function that returns an async iterator.
 
-- Uses [memoizee](https://www.npmjs.com/package/memoizee) and [json-stable-stringify](https://www.npmjs.com/package/json-stable-stringify) as a normalizer to cache resolved/yielded values
+- Server-side rendering
 - `recall` function for re-executing the function and rerendering related components from anywhere
 
 ## Examples
@@ -70,7 +70,7 @@ For creating shortcut functions of the rest of the API, without needing to pass 
 #### Params
 
 - `fn: AsyncFunction`
-- `config`: Memoizee configuration overrides (optional)
+- `config`: [Config](#config) (optional)
 
 #### Returns
 
@@ -81,7 +81,7 @@ An array of functions `[useAsync, recall, useAsyncSafe]`. Each of the returned f
 #### Params
 
 - `fn: AsyncFunction`
-- `config`: Memoizee configuration overrides (optional)
+- `config`: [Config](#config) (optional)
 - `args: arguments[]` for `fn` (optional)
 
 #### Returns
@@ -97,7 +97,7 @@ A thrown exception from `fn` or a promise for React Suspense.
 #### Params
 
 - `fn: AsyncFunction`
-- `config`: Memoizee configuration overrides (optional)
+- `config`: [Config](#config) (optional)
 - `args: arguments[]` for `fn` (optional)
 
 #### Returns
@@ -115,12 +115,49 @@ If there are components currently mounted using any of the hooks and the same ar
 #### Params
 
 - `fn: AsyncFunction`
-- `config`: Memoizee configuration overrides (optional)
+- `config`: [Config](#config) (optional)
 - `args: arguments[]` for `fn` (optional)
 
 #### Returns
 
 Resolves with `undefined`, when `fn(...args)` resolves.
+
+## Config
+
+| Prop | Example   | Default value | Description                                                          |
+| ---- | --------- | ------------- | -------------------------------------------------------------------- |
+| `id` | `"axios"` | `undefined`   | Cache values using `id` as key instead of `fn`. **Required in SSR.** |
+
+## Server-side Rendering
+
+1. Get initial SSR data using `ssrData()`. `ssrData` accepts a `filter` function, which is called for each data entry with 2 arguments: `data`, `{ id, args }`.
+2. Place the data in a `<script>` before the application
+
+```js
+import { ssrData } from '@postinumero/use-async';
+import ssrPrepass from 'react-ssr-prepass';
+
+//...
+
+const element = <App />;
+await ssrPrepass(element);
+
+const app = ReactDOMServer.renderToString(element);
+
+res.send(
+  html.replace(
+    '<div id="root"></div>',
+    `<script>${ssrData(([error, response]) => [
+      error,
+      response && {
+        data: response.data,
+        headers: response.headers,
+        status: response.status,
+      },
+    ])}</script><div id="root">${app}</div>`
+  )
+);
+```
 
 ## Not ready for Suspense?
 

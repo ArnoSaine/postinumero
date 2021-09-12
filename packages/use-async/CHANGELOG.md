@@ -1,3 +1,9 @@
+# 0.2.0
+
+- Add Server-side rendering
+- Remove optional cache context
+- `config` is no longer for `memoizee` but includes a cache id for SSR
+
 # 0.1.8
 
 - Add optional cache context

@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/use-async",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "Create a suspending hook from an async function, an async generator or a function that returns an async iterator.",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/use-async",
   "repository": {
@@ -65,7 +65,7 @@
     "@babel/runtime": "^7.12.5",
     "@postinumero/map-get-with-default": "^0.1.2",
     "fast-json-stable-stringify": "^2.1.0",
-    "memoizee": "^0.4.14",
+    "flatted": "^3.2.2",
     "react-use": "^17.2.4"
   },
   "devDependencies": {
