@@ -1,3 +1,8 @@
+# 0.3.0
+
+- Rewrite in TypeScript
+- Remove CommonJS support
+
 # 0.2.0
 
 - Add Server-side rendering

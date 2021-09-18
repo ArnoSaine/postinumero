@@ -21,8 +21,7 @@
   ],
   "scripts": {
     "build": "node ../../node_modules/.bin/library-scripts build",
-    "watch": "node ../../node_modules/.bin/library-scripts watch",
-    "test": "echo 'No test specified'"
+    "watch": "node ../../node_modules/.bin/library-scripts watch"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",

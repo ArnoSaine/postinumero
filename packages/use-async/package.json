@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/use-async",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Create a suspending hook from an async function, an async generator or a function that returns an async iterator.",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/use-async",
   "repository": {
@@ -15,75 +15,25 @@
   },
   "type": "module",
   "exports": {
-    ".": "./mjs/main.js",
-    "./*": "./mjs/*.js",
-    "./loading-state": "./mjs/loading-state/main.js",
-    "./loading-state/*": "./mjs/loading-state/*.js"
+    ".": "./lib/main.js",
+    "./lib/*": "./lib/*.js",
+    "./*": "./lib/*.js",
+    "./loading-state": "./lib/loading-state/main.js",
+    "./loading-state/*": "./lib/loading-state/*.js"
   },
-  "main": "./cjs/main.js",
-  "module": "./mjs/main.js",
+  "main": "./lib/main.js",
   "files": [
-    "cjs",
-    "mjs",
-    "loading-state",
-    "index.d.ts"
+    "lib"
   ],
   "scripts": {
-    "prebuild": "npm-run-all build:*",
-    "build": "react-scripts build",
-    "postbuild": "npm run update-submodules",
-    "build:cjs": "node ../../node_modules/.bin/library-scripts build --type cjs --out-dir cjs",
-    "build:mjs": "node ../../node_modules/.bin/library-scripts build --type mjs --out-dir mjs",
-    "start": "react-scripts start",
-    "start:dev": "concurrently 'npm run watch:mjs' 'react-scripts start'",
-    "test": "react-scripts test",
-    "test:dev": "concurrently 'npm run watch:mjs' 'react-scripts test'",
-    "update-submodules": "node scripts/update-submodules",
-    "watch": "concurrently 'npm:watch:*'",
-    "watch:cjs": "node ../../node_modules/.bin/library-scripts watch --type cjs --out-dir cjs",
-    "watch:mjs": "node ../../node_modules/.bin/library-scripts watch --type mjs --out-dir mjs"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "start": "tsc --watch",
+    "build": "tsc"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
-    "@postinumero/map-get-with-default": "^0.1.2",
+    "@postinumero/map-get-with-default": "^0.2.0",
     "fast-json-stable-stringify": "^2.1.0",
     "flatted": "^3.2.2",
     "react-use": "^17.2.4"
-  },
-  "devDependencies": {
-    "@arnosaine/react-scripts": "^4.0.0-4",
-    "@postinumero/library-scripts": "^0.1.2",
-    "@repeaterjs/repeater": "^3.0.4",
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.5.0",
-    "axios": "^0.21.0",
-    "concurrently": "^5.3.0",
-    "cross-env": "^7.0.3",
-    "delay": "^4.4.0",
-    "fs-extra": "^9.0.1",
-    "npm-run-all": "^4.1.5",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-error-boundary": "^3.1.0"
   },
   "publishConfig": {
     "access": "public",

@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/map-get-with-default",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/map-get-with-default",
   "repository": {
     "type": "git",
@@ -13,31 +13,16 @@
     "email": "arno@mowhi.com"
   },
   "type": "module",
-  "exports": {
-    ".": "./mjs/main.js"
-  },
-  "main": "./cjs/main.js",
-  "module": "./mjs/main.js",
+  "main": "./lib/main.js",
   "files": [
-    "cjs",
-    "mjs"
+    "lib"
   ],
   "scripts": {
-    "build": "npm-run-all build:*",
-    "build:cjs": "node ../../node_modules/.bin/library-scripts build --type cjs --out-dir cjs",
-    "build:mjs": "node ../../node_modules/.bin/library-scripts build --type mjs --out-dir mjs",
-    "watch": "concurrently 'npm:watch:*'",
-    "watch:cjs": "node ../../node_modules/.bin/library-scripts watch --type cjs --out-dir cjs",
-    "watch:mjs": "node ../../node_modules/.bin/library-scripts watch --type mjs --out-dir mjs",
-    "test": "echo 'No test specified'"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.12.5"
+    "start": "tsc --watch",
+    "build": "tsc"
   },
   "devDependencies": {
-    "@postinumero/library-scripts": "^0.1.2",
-    "concurrently": "^5.3.0",
-    "npm-run-all": "^4.1.5"
+    "typescript": "^4.4.3"
   },
   "publishConfig": {
     "access": "public",

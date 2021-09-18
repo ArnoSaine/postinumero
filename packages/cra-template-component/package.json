@@ -17,10 +17,6 @@
     "template",
     "template.json"
   ],
-  "scripts": {
-    "build": "echo 'No build specified'",
-    "test": "echo 'No test specified'"
-  },
   "publishConfig": {
     "access": "public",
     "tag": "latest"

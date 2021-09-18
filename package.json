@@ -4,11 +4,13 @@
   "license": "ISC",
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/*/test"
   ],
   "scripts": {
-    "build": "npm run build --workspace=packages",
-    "test": "npm test --workspace=packages",
+    "start": "npm start --workspace=packages --if-present",
+    "build": "npm run build --workspace=packages --if-present",
+    "test": "npm test --workspaces --if-present",
     "prepare": "husky install"
   },
   "lint-staged": {

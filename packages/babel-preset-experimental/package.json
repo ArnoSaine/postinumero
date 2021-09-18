@@ -13,10 +13,6 @@
     "email": "arno@mowhi.com"
   },
   "main": "./main.js",
-  "scripts": {
-    "build": "echo 'No build specified'",
-    "test": "echo 'No test specified'"
-  },
   "dependencies": {
     "@babel/plugin-proposal-do-expressions": "^7.8.3",
     "@babel/plugin-proposal-export-default-from": "^7.8.3",

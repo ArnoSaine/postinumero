@@ -15,10 +15,6 @@
   "type": "module",
   "exports": "./src/main.js",
   "main": "./src/main.js",
-  "scripts": {
-    "build": "echo 'No build specified'",
-    "test": "echo 'No test specified'"
-  },
   "dependencies": {
     "@arnosaine/cra-template-helpers": "^0.2.0",
     "babel-preset-react-app": "^9.1.2"

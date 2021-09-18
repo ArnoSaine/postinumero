@@ -13,10 +13,6 @@
     "name": "Arno Saine",
     "email": "arno@mowhi.com"
   },
-  "scripts": {
-    "build": "echo 'No build specified'",
-    "test": "echo 'No test specified'"
-  },
   "dependencies": {
     "babel-plugin-i18next-extract": "^0.7.2",
     "find-root": "^1.1.0"
