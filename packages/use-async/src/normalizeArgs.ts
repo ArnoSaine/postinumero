@@ -20,11 +20,13 @@ export default function normalizeArgs<Method extends Fn>(method: Method) {
     func: Func,
     config = defaultConfig,
     funcArgs = [] as unknown as Parameters<Func>
-  ): ReturnType<Method> {
+  ) {
     if (Array.isArray(config)) {
       funcArgs = config as Parameters<Func>;
       config = defaultConfig;
     }
+    // TODO: Get the actual return type of method call.
+    // return method<Func>(func, config, funcArgs);
     return method(func, config, funcArgs);
   }
 

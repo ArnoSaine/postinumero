@@ -1,3 +1,7 @@
+# 0.3.1
+
+- Type fixes
+
 # 0.3.0
 
 - Rewrite in TypeScript

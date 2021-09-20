@@ -11,8 +11,8 @@ export function constructor<Method extends Fn>(methods: Method[]) {
           method(func, config, args)
     ) as [
       (...args: Parameters<Func>) => AsyncReturnType<Func>,
-      (...args: Parameters<Func>) => void,
-      (...args: Parameters<Func>) => AsyncReturnType<Func>
+      (...args: Parameters<Func>) => Promise<void>,
+      (...args: Parameters<Func>) => [null | any, AsyncReturnType<Func>]
     ];
   };
 }
