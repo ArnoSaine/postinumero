@@ -4,10 +4,11 @@ import {
   IsAllowed,
   IsAuthenticated,
   useCurrentUser,
+  useSetCurrentUser,
 } from '@postinumero/react-auth';
 
 function App() {
-  const [, setUser] = useCurrentUser();
+  const setUser = useSetCurrentUser();
   return (
     <>
       <div>
@@ -46,7 +47,7 @@ function App() {
 }
 
 function UserEmail() {
-  const [{ email }] = useCurrentUser();
+  const { email } = useCurrentUser();
   return <div>{email}</div>;
 }
 

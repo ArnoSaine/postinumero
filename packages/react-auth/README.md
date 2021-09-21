@@ -32,7 +32,7 @@ withAuth(App);
 
 ### `<IsAuthenticated>`
 
-Renders the content only for authenticated users. Optionally renders a fallback UI for non-authenticated users.
+Renders the content only for authenticated users. Optionally renders the fallback UI for non-authenticated users.
 
 **`fallback: element` (optional)**
 
@@ -46,9 +46,9 @@ import { IsAuthenticated } from '@postinumero/react-auth';
 
 ### `<HasRole>`
 
-Renders the content only for users with the given roles. Optionally renders a fallback UI for other users.
+Renders the content only for users with the given roles. Optionally renders the fallback UI for other users.
 
-**`role: string|string[]`**
+**`role: string | string[]`**
 
 **`fallback: element` (optional)**
 
@@ -62,9 +62,9 @@ import { HasRole } from '@postinumero/react-auth';
 
 ### `<IsAllowed>`
 
-Renders the content only for users with the given rights. Optionally renders a fallback UI for other users.
+Renders the content only for users with the given rights. Optionally renders the fallback UI for other users.
 
-**`right: string|string[]`**
+**`right: string | string[]`**
 
 **`fallback: element` (optional)**
 
@@ -78,13 +78,26 @@ import { IsAllowed } from '@postinumero/react-auth';
 
 ### `useCurrentUser()`
 
-Get and set the current user. User may have optional properties `roles: string[]` and `rights: string[]`.
+Get the current user.
 
 ```js
 import { useCurrentUser } from '@postinumero/react-auth';
 
+function UserInfo() {
+  const currentUser = useCurrentUser();
+  <div>{currentUser.name}</div>;
+}
+```
+
+### `useSetCurrentUser()`
+
+Set the current user. User may have optional properties `roles: string[]` and `rights: string[]`.
+
+```js
+import { useSetCurrentUser } from '@postinumero/react-auth';
+
 function Login() {
-  const [, setCurrentUser] = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
   return (
     <button
       onClick={async () => {
@@ -98,11 +111,6 @@ function Login() {
     </button>
   );
 }
-
-function UserInfo() {
-  const [currentUser] = useCurrentUser();
-  <div>{currentUser.name}</div>;
-}
 ```
 
 ### `useIsAuthenticated()`
@@ -115,22 +123,22 @@ import { useIsAuthenticated } from '@postinumero/react-auth';
 const isAuthenticated = useIsAuthenticated();
 ```
 
-### `useHasRole({ role: string|string[] })`
+### `useHasRole(role: string | string[])`
 
 Hook to detect if user has any of allowed roles.
 
 ```js
 import { useHasRole } from '@postinumero/react-auth';
 // …
-const isAdmin = useHasRole({ role: 'admin' });
+const isAdmin = useHasRole('admin');
 ```
 
-### `useIsAllowed({ right: string|string[] })`
+### `useIsAllowed(right: string | string[])`
 
 Hook to detect if user has any of allowed rights.
 
 ```js
 import { useIsAllowed } from '@postinumero/react-auth';
 // …
-const isAllowedEdit = useIsAllowed({ right: 'edit' });
+const isAllowedEdit = useIsAllowed('edit');
 ```
