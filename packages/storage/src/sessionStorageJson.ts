@@ -1,3 +1,3 @@
-import create from './createJsonStorage';
+import create from './createJsonStorage.js';
 
 export default create(sessionStorage);

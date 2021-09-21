@@ -1,5 +1,5 @@
-import type { Fn, Memoized, MethodParameters } from '.';
 import callAsyncIterator from './callAsyncIterator.js';
+import type { Fn, Memoized, MethodParameters } from './index.js';
 import callSafe from './utils/callSafe.js';
 import isAsyncIterator from './utils/isAsyncIterator.js';
 

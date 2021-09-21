@@ -1,5 +1,5 @@
-import createStateHook from './createStateHook';
-import storageArea from './sessionStorageJson';
-import useStorageArea from './useSessionStorageJsonValue';
+import createStateHook from './createStateHook.js';
+import storageArea from './sessionStorageJson.js';
+import useStorageArea from './useSessionStorageJsonValue.js';
 
 export default createStateHook({ storageArea, useStorageArea });

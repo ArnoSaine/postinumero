@@ -1,3 +1,3 @@
-import create from './createHook';
+import create from './createHook.js';
 
 export default create(localStorage);

@@ -1,6 +1,7 @@
 import get from '@postinumero/map-get-with-default';
 import { useEffect, useState } from 'react';
-import getListeners from './listeners';
+import type { Item, Key } from './index.js';
+import getListeners from './listeners.js';
 
 export default (storageArea: Storage) => {
   const storageAreaListeners = getListeners(storageArea);
