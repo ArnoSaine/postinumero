@@ -16,7 +16,8 @@
   "type": "module",
   "exports": {
     ".": "./lib/main.js",
-    "./lib/*": "./lib/*.js",
+    "./lib": "./lib/main.js",
+    "./lib/*": "./lib/*",
     "./*": "./lib/*.js",
     "./loading-state": "./lib/loading-state/main.js",
     "./loading-state/*": "./lib/loading-state/*.js"

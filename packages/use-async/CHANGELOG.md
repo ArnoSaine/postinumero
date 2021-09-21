@@ -1,3 +1,7 @@
+# x.y.z
+
+- Update package exports
+
 # 0.3.2
 
 - Update types
