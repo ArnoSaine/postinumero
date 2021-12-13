@@ -28,17 +28,23 @@ const cacheById = cache
     )
   : new Map();
 
+export const nothing = {};
+
 export const ssrData = (
-  filter: (value: any, { id, args }: { id: string; args: any[] }) => boolean
+  map: (value: any, { id, args }: { id: string; args: any[] }) => any
 ) =>
   `(function(){window.${GLOBAL}=${JSON.stringify(
     [...cacheById].map(([id, cache]) => [
       id,
 
-      [...cache].map(([args, { value }]) => [
-        args,
-        toJSON(filter ? filter(value, { id, args }) : value),
-      ]),
+      [...cache]
+        .map(
+          map
+            ? ([args, { value }]) => [args, map(value, { id, args })]
+            : ([args, { value }]) => [args, value]
+        )
+        .filter(([, value]) => value !== nothing)
+        .map(([args, value]) => [args, toJSON(value)]),
     ])
   )}})();`;
 

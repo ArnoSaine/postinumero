@@ -130,11 +130,11 @@ Resolves with `undefined`, when `fn(...args)` resolves.
 
 ## Server-side Rendering
 
-1. Get initial SSR data using `ssrData()`. `ssrData` accepts a `filter` function, which is called for each data entry with 2 arguments: `data`, `{ id, args }`.
+1. Get initial SSR data using `ssrData()`. `ssrData` accepts a `map` function, which is called for each data entry with 2 arguments: `data`, `{ id, args }`.
 2. Place the data in a `<script>` before the application
 
 ```js
-import { ssrData } from '@postinumero/use-async';
+import { /* nothing, */ ssrData } from '@postinumero/use-async';
 import ssrPrepass from 'react-ssr-prepass';
 
 //...
@@ -147,14 +147,17 @@ const app = ReactDOMServer.renderToString(element);
 res.send(
   html.replace(
     '<div id="root"></div>',
-    `<script>${ssrData(([error, response]) => [
-      error,
-      response && {
-        data: response.data,
-        headers: response.headers,
-        status: response.status,
-      },
-    ])}</script><div id="root">${app}</div>`
+    `<script>${ssrData(([error, response]) =>
+      // error ? nothing :
+      [
+        error,
+        response && {
+          data: response.data,
+          headers: response.headers,
+          status: response.status,
+        },
+      ]
+    )}</script><div id="root">${app}</div>`
   )
 );
 ```

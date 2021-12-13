@@ -1,5 +1,6 @@
 # x.y.z
 
+- Update SSR: return `nothing` from `map` to omit entry from SSR data
 - Update package exports
 
 # 0.3.2
