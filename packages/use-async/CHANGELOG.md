@@ -1,4 +1,4 @@
-# x.y.z
+# 0.3.3
 
 - Update SSR: return `nothing` from `map` to omit entry from SSR data
 - Update package exports
