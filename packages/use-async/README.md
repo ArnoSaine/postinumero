@@ -130,16 +130,25 @@ Resolves with `undefined`, when `fn(...args)` resolves.
 
 ## Server-side Rendering
 
-1. Get initial SSR data using `ssrData()`. `ssrData` accepts a `map` function, which is called for each data entry with 2 arguments: `data`, `{ id, args }`.
-2. Place the data in a `<script>` before the application
+1. Use `createSSRCache` to get `SSRCacheProvider` and `ssrData`
+2. Wrawp server-side `<App>` with `<SSRCacheProvider>`
+3. Use `react-ssr-prepass` to handle suspsense
+4. Get initial SSR data using `ssrData()`. `ssrData` accepts a `map` function, which is called for each data entry with 2 arguments: `data`, `{ id, args }`.
+5. Place the data in a `<script>` before the application
 
 ```js
-import { /* nothing, */ ssrData } from '@postinumero/use-async';
+import { /* nothing, */ createSSRCache } from '@postinumero/use-async';
 import ssrPrepass from 'react-ssr-prepass';
 
 //...
 
-const element = <App />;
+const { ssrData, SSRCacheProvider } = createSSRCache();
+
+const element = (
+  <SSRCacheProvider>
+    <App />
+  </SSRCacheProvider>
+);
 await ssrPrepass(element);
 
 const app = ReactDOMServer.renderToString(element);

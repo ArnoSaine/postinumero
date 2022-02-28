@@ -1,3 +1,7 @@
+# 0.3.4
+
+- Add `createSSRCache` API. Fixes SSR not to cache responses between requests.
+
 # 0.3.3
 
 - Update SSR: return `nothing` from `map` to omit entry from SSR data
