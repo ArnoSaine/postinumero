@@ -1,3 +1,8 @@
+# 0.3.5
+
+- Upgrade to `react-use@17.4.0`
+- Include `src` files for source maps
+
 # 0.3.4
 
 - Add `createSSRCache` API. Fixes SSR not to cache responses between requests.
