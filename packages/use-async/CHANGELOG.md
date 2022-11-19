@@ -1,5 +1,11 @@
 # 0.3.5
 
+## 0.3.6
+
+### Patch Changes
+
+- b7b1997: Include `src` files for source maps
+
 - Upgrade to `react-use@17.4.0`
 - Include `src` files for source maps
 
