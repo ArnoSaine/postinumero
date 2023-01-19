@@ -1,4 +1,6 @@
-# 0.2.0
+# @postinumero/react-auth
+
+## 0.2.0
 
 - **Breaking:** `useHasRole` takes `role: string | string[]`. Previously: `props: { role: string | string[] }`.
 - **Breaking:** `useIsAllowed` takes `right: string | string[]`. Previously: `props: { right: string | string[] }`.
