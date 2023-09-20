@@ -1,0 +1,17 @@
+{
+  "name": "@postinumero/esbuild-plugin-integration-react-intl-x-remix",
+  "version": "0.0.0",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./index.js",
+  "dependencies": {
+    "@postinumero/esbuild-plugin-utils": "^0.0.0",
+    "@postinumero/integration-react-intl-x-remix": "^0.0.0",
+    "react-intl": "^6.4.7"
+  },
+  "peerDependencies": {
+    "@remix-run/dev": "^2.0.0",
+    "@remix-run/node": "^2.0.0",
+    "@remix-run/react": "^2.0.0"
+  }
+}

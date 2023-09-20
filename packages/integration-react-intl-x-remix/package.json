@@ -1,0 +1,24 @@
+{
+  "name": "@postinumero/integration-react-intl-x-remix",
+  "version": "0.0.0",
+  "sideEffects": false,
+  "type": "module",
+  "bin": "./scripts/createPathMessageDescriptors.js",
+  "dependencies": {
+    "@formatjs/ts-transformer": "^3.13.5",
+    "@postinumero/esbuild-plugin-react-intl": "^0.0.0",
+    "babel-plugin-formatjs": "^10.5.6",
+    "fs-extra": "^11.1.1",
+    "lodash-es": "^4.17.21",
+    "react-intl": "^6.4.7"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.2"
+  },
+  "peerDependencies": {
+    "@remix-run/dev": "^2.0.1",
+    "@remix-run/node": "^2.0.1",
+    "@remix-run/react": "^2.0.1",
+    "react-router": "^6.16.0"
+  }
+}

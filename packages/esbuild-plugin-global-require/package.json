@@ -1,0 +1,10 @@
+{
+  "name": "@postinumero/esbuild-plugin-global-require",
+  "version": "0.0.0",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./index.js",
+  "dependencies": {
+    "@postinumero/esbuild-plugin-utils": "^0.0.0"
+  }
+}
