@@ -1,14 +1,14 @@
-import get from '@postinumero/map-get-with-default';
-import stringify from 'fast-json-stable-stringify';
-import { fromJSON, toJSON } from 'flatted';
-import React, { createContext, useContext, useEffect } from 'react';
-import type { Config, Fn, Memoized, MethodParameters, Updater } from '.';
+import get from "@postinumero/map-get-with-default";
+import stringify from "fast-json-stable-stringify";
+import { fromJSON, toJSON } from "flatted";
+import React, { createContext, useContext, useEffect } from "react";
+import type { Config, Fn, Memoized, MethodParameters, Updater } from ".";
 
-const GLOBAL = '__useAsyncCache__';
+const GLOBAL = "__useAsyncCache__";
 const cacheByFunc = new WeakMap();
 
 const cache =
-  typeof window !== 'undefined' &&
+  typeof window !== "undefined" &&
   (window as unknown as { [key: string]: [string, any][] })[GLOBAL];
 
 const cacheById = cache
@@ -96,7 +96,7 @@ function removeItem<Func extends Fn>(
 }
 
 const useMemoizedItem =
-  typeof window !== 'undefined'
+  typeof window !== "undefined"
     ? getItem
     : <Func extends Fn>(...args: MethodParameters<Func>) =>
         createGetItem(useContext(Context)!)(...args);

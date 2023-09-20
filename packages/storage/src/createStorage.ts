@@ -1,5 +1,5 @@
-import type { Item, Key, Listener } from './index.js';
-import getListeners from './listeners.js';
+import type { Item, Key, Listener } from "./index.js";
+import getListeners from "./listeners.js";
 
 export default (storageArea: Storage) => {
   const storageAreaListeners = getListeners(storageArea);

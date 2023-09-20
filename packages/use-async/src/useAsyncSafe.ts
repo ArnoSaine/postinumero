@@ -1,10 +1,10 @@
-import { useItem } from './cache.js';
-import callAndSuspend from './callAndSuspend.js';
-import type { Fn, MethodParameters, UseAsyncSafe } from './index.js';
-import normalizeArgs from './normalizeArgs.js';
-import useUpdaters from './useUpdaters.js';
+import { useItem } from "./cache.js";
+import callAndSuspend from "./callAndSuspend.js";
+import type { Fn, MethodParameters, UseAsyncSafe } from "./index.js";
+import normalizeArgs from "./normalizeArgs.js";
+import useUpdaters from "./useUpdaters.js";
 
-export default normalizeArgs<'useAsyncSafe'>(function useAsyncSafe<
+export default normalizeArgs<"useAsyncSafe">(function useAsyncSafe<
   Func extends Fn
 >(...args: MethodParameters<Func>): UseAsyncSafe<Func> {
   const memoized = useItem(...args);

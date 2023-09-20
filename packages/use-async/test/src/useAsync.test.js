@@ -1,17 +1,17 @@
-import useAsync from '@postinumero/use-async/lib/useAsync.js';
-import { render, screen, waitFor } from '@testing-library/react';
-import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import useAsync from "@postinumero/use-async/lib/useAsync.js";
+import { render, screen, waitFor } from "@testing-library/react";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
 async function success(h) {
-  return 'foo';
+  return "foo";
 }
 
 function Success() {
   return useAsync(success);
 }
 
-test('suspend, then render value', async () => {
+test("suspend, then render value", async () => {
   const { getByText } = render(
     <>
       <Suspense fallback="loading">
@@ -19,20 +19,20 @@ test('suspend, then render value', async () => {
       </Suspense>
     </>
   );
-  screen.getByText('loading');
+  screen.getByText("loading");
   await waitFor(() => {
-    expect(getByText('foo')).toBeInTheDocument();
+    expect(getByText("foo")).toBeInTheDocument();
   });
 });
 
-test('render available value immediately', async () => {
+test("render available value immediately", async () => {
   const { getByText, rerender } = render(
     <Suspense fallback="loading">
       <Success />
     </Suspense>
   );
   await waitFor(() => {
-    expect(getByText('foo')).toBeInTheDocument();
+    expect(getByText("foo")).toBeInTheDocument();
   });
 
   rerender(
@@ -41,19 +41,19 @@ test('render available value immediately', async () => {
       <Success />
     </Suspense>
   );
-  expect(getByText('foofoo')).toBeInTheDocument();
+  expect(getByText("foofoo")).toBeInTheDocument();
 });
 
 async function throwError() {
-  throw new Error('oops');
+  throw new Error("oops");
 }
 
 function ThrowError() {
   return useAsync(throwError);
 }
 
-test('suspend, then render error', async () => {
-  const spy = jest.spyOn(console, 'error');
+test("suspend, then render error", async () => {
+  const spy = jest.spyOn(console, "error");
   spy.mockImplementation(() => {});
 
   const { getByText } = render(
@@ -63,9 +63,9 @@ test('suspend, then render error', async () => {
       </ErrorBoundary>
     </Suspense>
   );
-  screen.getByText('loading');
+  screen.getByText("loading");
   await waitFor(() => {
-    expect(getByText('oops')).toBeInTheDocument();
+    expect(getByText("oops")).toBeInTheDocument();
   });
   spy.mockRestore();
 });

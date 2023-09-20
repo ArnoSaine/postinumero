@@ -1,4 +1,4 @@
-import get from '@postinumero/map-get-with-default';
+import get from "@postinumero/map-get-with-default";
 
 const listeners = new Map();
 

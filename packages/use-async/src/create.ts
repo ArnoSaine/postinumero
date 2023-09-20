@@ -1,7 +1,7 @@
-import type { Config, Fn, MethodReturnType } from './index.js';
-import recall from './recall.js';
-import useAsync from './useAsync.js';
-import useAsyncSafe from './useAsyncSafe.js';
+import type { Config, Fn, MethodReturnType } from "./index.js";
+import recall from "./recall.js";
+import useAsync from "./useAsync.js";
+import useAsyncSafe from "./useAsyncSafe.js";
 
 export function constructor<MethodTypes extends Array<string>>(methods: Fn[]) {
   return function create<Func extends Fn>(func: Func, config?: Config) {
@@ -17,7 +17,7 @@ export function constructor<MethodTypes extends Array<string>>(methods: Fn[]) {
   };
 }
 
-export default constructor<['useAsync', 'recall', 'useAsyncSafe']>([
+export default constructor<["useAsync", "recall", "useAsyncSafe"]>([
   useAsync,
   recall,
   useAsyncSafe,

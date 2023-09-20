@@ -10,9 +10,9 @@ Create a suspending hook from an async function, an async generator or a functio
 ### Get data using axios
 
 ```js
-import { Suspense } from 'react';
-import { create } from '@postinumero/use-async';
-import axios from 'axios';
+import { Suspense } from "react";
+import { create } from "@postinumero/use-async";
+import axios from "axios";
 
 const [useAxios] = create(axios);
 
@@ -34,9 +34,9 @@ function App() {
 ### Render timestamps with setInterval
 
 ```js
-import { Suspense } from 'react';
-import { create } from '@postinumero/use-async';
-import { Repeater } from '@repeaterjs/repeater';
+import { Suspense } from "react";
+import { create } from "@postinumero/use-async";
+import { Repeater } from "@repeaterjs/repeater";
 
 const [useTimestamp] = create(
   () =>
@@ -137,8 +137,8 @@ Resolves with `undefined`, when `fn(...args)` resolves.
 5. Place the data in a `<script>` before the application
 
 ```js
-import { /* nothing, */ createSSRCache } from '@postinumero/use-async';
-import ssrPrepass from 'react-ssr-prepass';
+import { /* nothing, */ createSSRCache } from "@postinumero/use-async";
+import ssrPrepass from "react-ssr-prepass";
 
 //...
 
@@ -176,8 +176,8 @@ res.send(
 Import from `@postinumero/use-async/loading-state` to use the `{ isLoading, data, error }` style API. Example:
 
 ```js
-import { create } from '@postinumero/use-async/loading-state';
-import axios from 'axios';
+import { create } from "@postinumero/use-async/loading-state";
+import axios from "axios";
 
 const [, , useAxiosSafe] = create(axios);
 
@@ -185,7 +185,7 @@ function User({ id }) {
   const { isLoading, data, error } = useAxiosSafe(`/api/users/${id}`);
 
   if (isLoading) {
-    return 'Loading...';
+    return "Loading...";
   }
 
   return <div>First name: {data.data.first_name}</div>;

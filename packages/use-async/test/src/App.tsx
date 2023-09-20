@@ -1,7 +1,7 @@
-import { create } from '@postinumero/use-async';
-import { Repeater } from '@repeaterjs/repeater';
-import axios from 'axios';
-import { Suspense } from 'react';
+import { create } from "@postinumero/use-async";
+import { Repeater } from "@repeaterjs/repeater";
+import axios from "axios";
+import { Suspense } from "react";
 
 const [useAxios] = create(axios);
 

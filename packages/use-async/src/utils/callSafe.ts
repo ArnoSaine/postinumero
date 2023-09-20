@@ -1,4 +1,4 @@
-import type { AsyncReturnType, Fn } from '../index.js';
+import type { AsyncReturnType, Fn } from "../index.js";
 
 export default async function callSafe<Func extends Fn>(
   this: any,

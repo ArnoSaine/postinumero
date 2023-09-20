@@ -1,8 +1,8 @@
 export type JSONParseParameters = Parameters<typeof JSON.parse>;
 export type JSONStringifyParameters = Parameters<typeof JSON.stringify>;
 
-export type SetItem = Storage['setItem'];
-export type GetItem = Storage['getItem'];
+export type SetItem = Storage["setItem"];
+export type GetItem = Storage["getItem"];
 export type Key = Parameters<SetItem>[0];
 export type Item = ReturnType<GetItem>;
 

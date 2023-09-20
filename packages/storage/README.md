@@ -3,10 +3,10 @@
 ## Example
 
 ```js
-import useLocalStorageJson from '@postinumero/storage/useLocalStorageJson';
+import useLocalStorageJson from "@postinumero/storage/useLocalStorageJson";
 
 export default function MyComponent() {
-  const [checked = false, setChecked] = useLocalStorageJson('checked');
+  const [checked = false, setChecked] = useLocalStorageJson("checked");
   return (
     <input
       type="checkbox"

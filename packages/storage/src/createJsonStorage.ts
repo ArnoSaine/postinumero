@@ -1,6 +1,6 @@
-import createStorage from './createStorage.js';
-import type { Key, Replacer, Reviver, Space } from './index.js';
-import parseJson from './parseJson.js';
+import createStorage from "./createStorage.js";
+import type { Key, Replacer, Reviver, Space } from "./index.js";
+import parseJson from "./parseJson.js";
 
 export default (storageArea: Storage) => {
   const storage = createStorage(storageArea);

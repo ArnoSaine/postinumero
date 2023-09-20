@@ -1,4 +1,4 @@
-import type { Fn, Memoized } from './index.js';
+import type { Fn, Memoized } from "./index.js";
 
 export default function updateEach<Func extends Fn>({
   updaters,

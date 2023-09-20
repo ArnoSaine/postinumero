@@ -1,7 +1,7 @@
-import callAsyncIterator from './callAsyncIterator.js';
-import type { Fn, Memoized, MethodParameters } from './index.js';
-import callSafe from './utils/callSafe.js';
-import isAsyncIterator from './utils/isAsyncIterator.js';
+import callAsyncIterator from "./callAsyncIterator.js";
+import type { Fn, Memoized, MethodParameters } from "./index.js";
+import callSafe from "./utils/callSafe.js";
+import isAsyncIterator from "./utils/isAsyncIterator.js";
 
 function call<Func extends Fn>(
   args: MethodParameters<Func>,

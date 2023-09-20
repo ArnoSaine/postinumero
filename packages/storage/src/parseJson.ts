@@ -1,4 +1,4 @@
-import type { JSONParseParameters } from './index.js';
+import type { JSONParseParameters } from "./index.js";
 
 export default function parseJson(...args: JSONParseParameters) {
   const [value] = args;

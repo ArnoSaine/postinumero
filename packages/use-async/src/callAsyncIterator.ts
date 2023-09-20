@@ -1,5 +1,5 @@
-import type { Fn, Memoized } from './index.js';
-import updateEach from './updateEach.js';
+import type { Fn, Memoized } from "./index.js";
+import updateEach from "./updateEach.js";
 
 export default function callAsyncIterator<Func extends Fn>(
   asyncIterator: AsyncGenerator<any, void, unknown>,

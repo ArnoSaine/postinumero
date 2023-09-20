@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
-import create from './createHook.js';
-import type { Key, Reviver } from './index.js';
-import parseJson from './parseJson.js';
+import { useMemo } from "react";
+import create from "./createHook.js";
+import type { Key, Reviver } from "./index.js";
+import parseJson from "./parseJson.js";
 
 export default (storageArea: Storage) => {
   const useStorage = create(storageArea);

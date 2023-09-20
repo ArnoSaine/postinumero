@@ -1,12 +1,12 @@
-import recall from '@postinumero/use-async/lib/recall.js';
-import useAsync from '@postinumero/use-async/lib/useAsync.js';
-import { Repeater } from '@repeaterjs/repeater';
-import { act, render, screen, waitFor } from '@testing-library/react';
-import delay from 'delay';
-import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import recall from "@postinumero/use-async/lib/recall.js";
+import useAsync from "@postinumero/use-async/lib/useAsync.js";
+import { Repeater } from "@repeaterjs/repeater";
+import { act, render, screen, waitFor } from "@testing-library/react";
+import delay from "delay";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
-test('get yielded values', async () => {
+test("get yielded values", async () => {
   async function* asyncGenerator() {
     let i = 0;
     while (i < 3) {
@@ -24,27 +24,27 @@ test('get yielded values', async () => {
       <C />
     </Suspense>
   );
-  screen.getByText('loading');
+  screen.getByText("loading");
   await waitFor(() => {
-    expect(queryByText('0')).toBeInTheDocument();
+    expect(queryByText("0")).toBeInTheDocument();
   });
   await waitFor(() => {
-    expect(queryByText('1')).toBeInTheDocument();
+    expect(queryByText("1")).toBeInTheDocument();
   });
   await waitFor(() => {
-    expect(queryByText('2')).toBeInTheDocument();
+    expect(queryByText("2")).toBeInTheDocument();
   });
 });
 
-test('get yielded value, then error', async () => {
-  const spy = jest.spyOn(console, 'error');
+test("get yielded value, then error", async () => {
+  const spy = jest.spyOn(console, "error");
   spy.mockImplementation(() => {});
 
   async function* asyncGenerator() {
     await delay(500);
-    yield 'foo';
+    yield "foo";
     await delay(500);
-    throw new Error('oops');
+    throw new Error("oops");
   }
 
   function C() {
@@ -58,12 +58,12 @@ test('get yielded value, then error', async () => {
       </ErrorBoundary>
     </Suspense>
   );
-  screen.getByText('loading');
+  screen.getByText("loading");
   await waitFor(() => {
-    expect(getByText('foo')).toBeInTheDocument();
+    expect(getByText("foo")).toBeInTheDocument();
   });
   await waitFor(() => {
-    expect(getByText('oops')).toBeInTheDocument();
+    expect(getByText("oops")).toBeInTheDocument();
   });
   spy.mockRestore();
 });
@@ -72,11 +72,11 @@ function ErrorFallback({ error }) {
   return error.message;
 }
 
-test('leave running if mounted', async () => {
+test("leave running if mounted", async () => {
   const stopped = jest.fn();
   const stoppable = () =>
     new Repeater(async (push, stop) => {
-      push('foo');
+      push("foo");
       await stop;
       stopped();
     });
@@ -90,19 +90,19 @@ test('leave running if mounted', async () => {
       <C />
     </Suspense>
   );
-  screen.getByText('loading');
+  screen.getByText("loading");
   await waitFor(() => {
-    expect(getByText('foo')).toBeInTheDocument();
+    expect(getByText("foo")).toBeInTheDocument();
   });
   await delay(1500);
   expect(stopped).not.toBeCalled();
 });
 
-test('stop on unmount', async () => {
+test("stop on unmount", async () => {
   const stopped = jest.fn();
   const stoppable = () =>
     new Repeater(async (push, stop) => {
-      push('foo');
+      push("foo");
       await stop;
       stopped();
     });
@@ -116,17 +116,17 @@ test('stop on unmount', async () => {
       <C />
     </Suspense>
   );
-  screen.getByText('loading');
+  screen.getByText("loading");
   await waitFor(() => {
-    expect(getByText('foo')).toBeInTheDocument();
+    expect(getByText("foo")).toBeInTheDocument();
   });
   rerender(<Suspense fallback="loading">done</Suspense>);
-  screen.getByText('done');
+  screen.getByText("done");
   await delay(500);
   expect(stopped).toBeCalledTimes(1);
 });
 
-test('rerun on params change and on recall', async () => {
+test("rerun on params change and on recall", async () => {
   const counter = jest.fn();
   async function* asyncGenerator(x) {
     counter();
@@ -142,18 +142,18 @@ test('rerun on params change and on recall', async () => {
       <C x={1} />
     </Suspense>
   );
-  screen.getByText('loading');
+  screen.getByText("loading");
   await waitFor(() => {
-    expect(getByText('2')).toBeInTheDocument();
+    expect(getByText("2")).toBeInTheDocument();
   });
   rerender(
     <Suspense fallback="loading">
       <C x={2} />
     </Suspense>
   );
-  screen.getByText('loading');
+  screen.getByText("loading");
   await waitFor(() => {
-    expect(getByText('4')).toBeInTheDocument();
+    expect(getByText("4")).toBeInTheDocument();
   });
   expect(counter).toBeCalledTimes(2);
   await act(async () => {

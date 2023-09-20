@@ -1,19 +1,19 @@
-import useAsync from '@postinumero/use-async/lib/useAsync.js';
-import { render, waitFor } from '@testing-library/react';
-import delay from 'delay';
-import { Suspense } from 'react';
+import useAsync from "@postinumero/use-async/lib/useAsync.js";
+import { render, waitFor } from "@testing-library/react";
+import delay from "delay";
+import { Suspense } from "react";
 
-test('call on new mount', async () => {
+test("call on new mount", async () => {
   const f = jest.fn();
 
   function Foo() {
     useAsync(f);
-    return 'foo';
+    return "foo";
   }
 
   function Bar() {
     useAsync(f);
-    return 'bar';
+    return "bar";
   }
 
   const { queryByText, rerender } = render(
@@ -23,10 +23,10 @@ test('call on new mount', async () => {
   );
   expect(f).toHaveBeenCalledTimes(1);
   await waitFor(() => {
-    expect(queryByText('loading')).toBeInTheDocument();
+    expect(queryByText("loading")).toBeInTheDocument();
   });
   await waitFor(() => {
-    expect(queryByText('foo')).toBeInTheDocument();
+    expect(queryByText("foo")).toBeInTheDocument();
   });
 
   rerender(
@@ -40,7 +40,7 @@ test('call on new mount', async () => {
 
   rerender(<Suspense fallback="loading" />);
   await waitFor(() => {
-    expect(queryByText('foo')).not.toBeInTheDocument();
+    expect(queryByText("foo")).not.toBeInTheDocument();
   });
   expect(f).toHaveBeenCalledTimes(1);
 
@@ -53,7 +53,7 @@ test('call on new mount', async () => {
   expect(f).toHaveBeenCalledTimes(2);
 });
 
-test('call on params change', async () => {
+test("call on params change", async () => {
   const counter = jest.fn();
 
   function f({ x: { y } }) {
@@ -68,48 +68,48 @@ test('call on params change', async () => {
   jest.useFakeTimers();
   const { queryByText, rerender } = render(
     <Suspense fallback="loading">
-      <C x={{ y: 'foo' }} />
-      <C x={{ y: 'foo' }} />
+      <C x={{ y: "foo" }} />
+      <C x={{ y: "foo" }} />
     </Suspense>
   );
   expect(counter).toHaveBeenCalledTimes(1);
   await waitFor(() => {
-    expect(queryByText('loading')).toBeInTheDocument();
+    expect(queryByText("loading")).toBeInTheDocument();
   });
   await waitFor(() => {
-    expect(queryByText('foofoo')).toBeInTheDocument();
+    expect(queryByText("foofoo")).toBeInTheDocument();
   });
 
   rerender(
     <>
-      <C x={{ y: 'foo' }} />
-      <C x={{ y: 'foo' }} />
+      <C x={{ y: "foo" }} />
+      <C x={{ y: "foo" }} />
     </>
   );
   await waitFor(() => {
-    expect(queryByText('foofoo')).toBeInTheDocument();
+    expect(queryByText("foofoo")).toBeInTheDocument();
   });
   expect(counter).toHaveBeenCalledTimes(1);
 
   rerender(
     <Suspense fallback="loading">
-      <C x={{ y: 'foo' }} />
-      <C x={{ y: 'bar' }} />
+      <C x={{ y: "foo" }} />
+      <C x={{ y: "bar" }} />
     </Suspense>
   );
   await waitFor(() => {
-    expect(queryByText('foobar')).toBeInTheDocument();
+    expect(queryByText("foobar")).toBeInTheDocument();
   });
   expect(counter).toHaveBeenCalledTimes(2);
 
   rerender(
     <>
-      <C x={{ y: 'bar' }} />
-      <C x={{ y: 'bar' }} />
+      <C x={{ y: "bar" }} />
+      <C x={{ y: "bar" }} />
     </>
   );
   await waitFor(() => {
-    expect(queryByText('barbar')).toBeInTheDocument();
+    expect(queryByText("barbar")).toBeInTheDocument();
   });
   expect(counter).toHaveBeenCalledTimes(2);
 });

@@ -1,9 +1,9 @@
-import useUpdate from 'react-use/lib/useUpdate.js';
-import type { Fn, MethodParameters } from '../index.js';
-import normalizeArgs from '../normalizeArgs.js';
-import useAsyncSafeSuspense from '../useAsyncSafe.js';
+import useUpdate from "react-use/lib/useUpdate.js";
+import type { Fn, MethodParameters } from "../index.js";
+import normalizeArgs from "../normalizeArgs.js";
+import useAsyncSafeSuspense from "../useAsyncSafe.js";
 
-export default normalizeArgs<'useAsyncSafeLoadingState'>(function useAsyncSafe<
+export default normalizeArgs<"useAsyncSafeLoadingState">(function useAsyncSafe<
   Func extends Fn
 >(...args: MethodParameters<Func>) {
   const update = useUpdate();

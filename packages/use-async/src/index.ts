@@ -50,15 +50,15 @@ export type UseAsyncSafeLoadingState<Func extends Fn> =
 export type MethodReturnType<
   Method,
   Func extends Fn
-> = Method extends 'useAsync'
+> = Method extends "useAsync"
   ? UseAsync<Func>
-  : Method extends 'recall'
+  : Method extends "recall"
   ? Recall
-  : Method extends 'useAsyncSafe'
+  : Method extends "useAsyncSafe"
   ? UseAsyncSafe<Func>
-  : Method extends 'useAsyncLoadingState'
+  : Method extends "useAsyncLoadingState"
   ? UseAsyncLoadingState<Func>
-  : Method extends 'useAsyncSafeLoadingState'
+  : Method extends "useAsyncSafeLoadingState"
   ? UseAsyncSafeLoadingState<Func>
   : never;
 

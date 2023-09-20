@@ -1,8 +1,8 @@
-import normalizeArgs from '@postinumero/use-async/lib/normalizeArgs.js';
+import normalizeArgs from "@postinumero/use-async/lib/normalizeArgs.js";
 
 const f = normalizeArgs((func, config, args) => [func, config, args]);
 
-test('normalize args', async () => {
+test("normalize args", async () => {
   expect(f(f)).toEqual([f, {}, []]);
   expect(f(f, [1, 2, 3])).toEqual([f, {}, [1, 2, 3]]);
   expect(f(f, { a: 1 })).toEqual([f, { a: 1 }, []]);

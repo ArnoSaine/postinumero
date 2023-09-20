@@ -1,8 +1,8 @@
-import { render, waitFor } from '@testing-library/react';
-import { Suspense } from 'react';
-import useAsync from '@postinumero/use-async/lib/useAsync.js';
+import { render, waitFor } from "@testing-library/react";
+import { Suspense } from "react";
+import useAsync from "@postinumero/use-async/lib/useAsync.js";
 
-test('switch component without suspend & get cached value on rerender', async () => {
+test("switch component without suspend & get cached value on rerender", async () => {
   const foo = jest.fn();
   const bar = jest.fn();
   const f = jest.fn();
@@ -10,13 +10,13 @@ test('switch component without suspend & get cached value on rerender', async ()
   function Foo() {
     foo();
     useAsync(f);
-    return 'foo';
+    return "foo";
   }
 
   function Bar() {
     bar();
     useAsync(f);
-    return 'bar';
+    return "bar";
   }
 
   const { queryByText, rerender } = render(
@@ -27,12 +27,12 @@ test('switch component without suspend & get cached value on rerender', async ()
   expect(f).toHaveBeenCalledTimes(1);
   expect(foo).toHaveBeenCalledTimes(1);
   await waitFor(() => {
-    expect(queryByText('loading')).toBeInTheDocument();
+    expect(queryByText("loading")).toBeInTheDocument();
   });
   expect(foo).toHaveBeenCalledTimes(1);
 
   await waitFor(() => {
-    expect(queryByText('foo')).toBeInTheDocument();
+    expect(queryByText("foo")).toBeInTheDocument();
   });
   expect(foo).toHaveBeenCalledTimes(2);
 

@@ -1,4 +1,4 @@
-import type { Config, Fn, MethodReturnType } from './index.js';
+import type { Config, Fn, MethodReturnType } from "./index.js";
 
 const defaultConfig = {};
 

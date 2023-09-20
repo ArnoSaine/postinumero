@@ -1,3 +1,3 @@
-import create from './createJsonHook.js';
+import create from "./createJsonHook.js";
 
 export default create(localStorage);

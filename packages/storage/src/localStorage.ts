@@ -1,3 +1,3 @@
-import create from './createStorage.js';
+import create from "./createStorage.js";
 
 export default create(localStorage);
