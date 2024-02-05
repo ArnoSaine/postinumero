@@ -9,15 +9,13 @@
     "moduleResolution": "node",
     "newLine": "lf",
     "noEmitOnError": true,
-    "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noUncheckedIndexedAccess": true,
-    "noPropertyAccessFromIndexSignature": true,
     "outDir": "lib",
     "skipLibCheck": true,
     "strict": true,
     "sourceMap": true,
-    "target": "es2019"
+    "target": "es2022"
   }
 }
