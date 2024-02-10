@@ -3,17 +3,10 @@ import { withEmotionCache } from "@emotion/react";
 import {
   CssBaseline,
   ThemeProvider,
-  createTheme as muiCreateTheme,
+  createTheme,
   unstable_useEnhancedEffect as useEnhancedEffect,
 } from "@mui/material";
-import type { LinkProps } from "@remix-run/react";
-import { Link } from "@remix-run/react";
-import React, {
-  ComponentType,
-  createContext,
-  forwardRef,
-  useContext,
-} from "react";
+import React, { ComponentType, createContext, useContext } from "react";
 
 export function createEmotionCache() {
   return createCache({ key: "css" });
@@ -22,6 +15,8 @@ export function createEmotionCache() {
 export const ResetCacheContext = createContext(() => {});
 
 export function withMUI<P extends object>(Component: ComponentType<P>) {
+  const theme = createTheme();
+
   return withEmotionCache((props: P, emotionCache) => {
     const resetCache = useContext(ResetCacheContext);
 
@@ -42,21 +37,6 @@ export function withMUI<P extends object>(Component: ComponentType<P>) {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const theme = muiCreateTheme({
-      components: {
-        MuiButtonBase: {
-          defaultProps: {
-            LinkComponent: LinkBehavior,
-          },
-        },
-        MuiLink: {
-          defaultProps: {
-            component: LinkBehavior,
-          },
-        },
-      },
-    });
-
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -65,25 +45,3 @@ export function withMUI<P extends object>(Component: ComponentType<P>) {
     );
   });
 }
-
-export const LinkBehavior = forwardRef<
-  HTMLAnchorElement,
-  Omit<LinkProps, "to"> & { href: LinkProps["to"] }
->(({ href, ...otherProps }, ref) => (
-  <Link ref={ref} to={href} {...otherProps} />
-));
-
-export const themeOptions = {
-  components: {
-    MuiButtonBase: {
-      defaultProps: {
-        LinkComponent: LinkBehavior,
-      },
-    },
-    MuiLink: {
-      defaultProps: {
-        component: LinkBehavior,
-      },
-    },
-  },
-};

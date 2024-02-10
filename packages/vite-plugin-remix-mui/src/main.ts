@@ -21,7 +21,7 @@ export default [
       pathname: serverEntry,
     },
     {
-      source:
+      source: [
         // "/app/root.tsx"
         new URL(
           path.join(
@@ -31,6 +31,12 @@ export default [
           ),
           import.meta.url
         ).pathname,
+        // "./root.tsx"
+        `.${
+          new URL(path.join(" ", config.routes.root.file), import.meta.url)
+            .pathname
+        }`,
+      ],
       pathname: "~/root.tsx",
     },
   ]),

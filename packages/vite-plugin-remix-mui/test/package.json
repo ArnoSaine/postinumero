@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
+    "build:spa": "npm run build -- --config vite.config.spa.ts",
     "dev": "remix vite:dev",
+    "dev:spa": "npm run dev -- --config vite.config.spa.ts",
     "postinstall": "rimraf node_modules/react node_modules/react-dom",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
+    "start:spa": "serve build/client/ --single --listen 3000",
     "typecheck": "tsc"
   },
   "dependencies": {
@@ -18,7 +21,8 @@
     "@remix-run/serve": "^2.6.0",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "serve": "^14.2.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.6.0",

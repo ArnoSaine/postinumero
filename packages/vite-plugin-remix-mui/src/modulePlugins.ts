@@ -5,7 +5,7 @@ export default function modulePlugins(
   plugins: (
     | string
     | {
-        source: string;
+        source: string | string[];
         pathname: string;
       }
   )[]
@@ -17,7 +17,7 @@ export default function modulePlugins(
         : modulePlugin
     )
     .map(({ source, pathname }) => ({
-      source,
+      source: Array.isArray(source) ? source : [source],
       pathname: new URL(`../modules/${pathname}`, import.meta.url).pathname,
     }));
 
@@ -26,7 +26,8 @@ export default function modulePlugins(
     enforce: "pre",
     resolveId(source, importer) {
       return pluginsNormalized.find(
-        (plugin) => source === plugin.source && importer !== plugin.pathname
+        (plugin) =>
+          plugin.source.includes(source) && importer !== plugin.pathname
       )?.pathname;
     },
   };
