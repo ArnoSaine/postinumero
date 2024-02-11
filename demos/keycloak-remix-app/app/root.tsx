@@ -6,6 +6,10 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+export const clientLoader = async () => {
+  return null;
+};
+
 export default function App() {
   return (
     <html lang="en">
