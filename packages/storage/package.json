@@ -22,14 +22,14 @@
     "src"
   ],
   "scripts": {
-    "start": "tsc --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "tsc --watch"
   },
   "dependencies": {
     "@postinumero/map-get-with-default": "^0.2.0"
   },
   "devDependencies": {
-    "@types/react": "^17.0.21",
+    "@types/react": "^18.2.55",
     "typescript": "^4.4.3"
   },
   "publishConfig": {

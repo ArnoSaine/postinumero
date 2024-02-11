@@ -4,8 +4,11 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
+    "prebuild": "npm run generate:api",
     "build": "remix vite:build",
+    "predev": "npm run generate:api",
     "dev": "remix vite:dev",
+    "generate:api": "rm -rf app/api && openapi-generator-cli generate",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc"
@@ -19,6 +22,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.9.0",
     "@remix-run/dev": "^2.6.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
