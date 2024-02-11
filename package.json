@@ -4,6 +4,7 @@
   "license": "ISC",
   "type": "module",
   "workspaces": [
+    "demos/*",
     "packages/*"
   ],
   "scripts": {
