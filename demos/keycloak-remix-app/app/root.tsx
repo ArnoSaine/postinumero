@@ -4,10 +4,17 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  ClientLoaderFunctionArgs,
+  ShouldRevalidateFunction,
 } from "@remix-run/react";
+import { loadUser, shouldRevalidateUser } from "./auth";
 
-export const clientLoader = async () => {
-  return null;
+export const clientLoader = async (args: ClientLoaderFunctionArgs) => {
+  return loadUser(args);
+};
+
+export const shouldRevalidate: ShouldRevalidateFunction = (args) => {
+  return shouldRevalidateUser(args);
 };
 
 export default function App() {

@@ -21,6 +21,7 @@ await kcAdminClient.realms.create({
     {
       clientId: "demo",
       publicClient: true,
+      directAccessGrantsEnabled: true,
       redirectUris: ["*"],
       webOrigins: ["*"],
     },
@@ -28,6 +29,8 @@ await kcAdminClient.realms.create({
   users: [
     {
       username: "demo",
+      firstName: "Firstname",
+      lastName: "Lastname",
       enabled: true,
       credentials: [{ temporary: false, type: "password", value: "demo" }],
       realmRoles: ["admin"],
