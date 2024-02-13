@@ -11,7 +11,7 @@ export default ({
     const [key] = args;
     const value = useStorageArea(...args);
     const setValue = useCallback(
-      (value) => {
+      (value?: string) => {
         value === undefined
           ? storageArea.removeItem(key)
           : storageArea.setItem(key, value);

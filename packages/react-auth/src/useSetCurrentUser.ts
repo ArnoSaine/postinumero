@@ -25,7 +25,7 @@ export default process.env['NODE_ENV'] === 'development'
   ? () => {
       const setCurrentUser = useContext(Context)[1];
       return useCallback(
-        (currentUser) => {
+        (currentUser: any) => {
           if (!validate(currentUser)) {
             console.error(
               'User should be null or an object with optional properties `roles: string[]` and `rights: string[]`.',

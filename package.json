@@ -12,7 +12,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "prepare": "husky install",
-    "publish-packages": "turbo run build lint test && changeset version && changeset publish",
+    "publish-packages": "turbo run build lint test --filter=@postinumero/* && changeset version && changeset publish",
     "start": "npm start --workspace=packages --if-present",
     "test": "turbo run test"
   },
