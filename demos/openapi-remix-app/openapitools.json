@@ -7,7 +7,7 @@
     "generators": {
       "main": {
         "glob": "api.json",
-        "output": "app/api",
+        "output": ".api",
         "generatorName": "typescript-fetch"
       }
     }

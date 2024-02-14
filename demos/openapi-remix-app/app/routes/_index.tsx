@@ -7,7 +7,7 @@ import {
   useNavigation,
 } from "@remix-run/react";
 import { useEffect, useRef } from "react";
-import { PetApi } from "~/api";
+import { petApi } from "~/api";
 
 export const meta: MetaFunction = () => {
   return [
@@ -15,8 +15,6 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
-
-const petApi = new PetApi();
 
 export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
   const formData = await request.formData();
