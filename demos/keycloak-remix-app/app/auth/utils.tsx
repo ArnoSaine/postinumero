@@ -3,11 +3,11 @@ import {
   isRouteErrorResponse,
   redirect,
   useLocation,
+  useNavigate,
   useRouteError,
   useSearchParams,
 } from "@remix-run/react";
-import { useEffect } from "react";
-import { Navigate } from "react-router";
+import { useLayoutEffect } from "react";
 import { userManager } from ".";
 // import { UserManager, WebStorageStateStore } from "oidc-client-ts";
 
@@ -15,7 +15,7 @@ export const logoutIntentSearchParam = { name: "intent", value: "logout" };
 
 export function useRemoveLogoutIntentSearchParam() {
   const [searchParams, setSearchParams] = useSearchParams();
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       searchParams.get(logoutIntentSearchParam.name) ===
       logoutIntentSearchParam.value
@@ -36,18 +36,23 @@ export const withRemoveLogoutIntentSearchParam = (
     const error = useRouteError();
     const [searchParams] = useSearchParams();
     const location = useLocation();
+    const navigate = useNavigate();
 
-    if (isRouteErrorResponse(error)) {
-      if (error.status === 401) {
-        if (
-          searchParams.get(logoutIntentSearchParam.name) ===
-          logoutIntentSearchParam.value
-        ) {
-          searchParams.delete(logoutIntentSearchParam.name);
-          return <Navigate replace to={`/?${searchParams}${location.hash}`} />;
+    useLayoutEffect(() => {
+      if (isRouteErrorResponse(error)) {
+        if (error.status === 401) {
+          if (
+            searchParams.get(logoutIntentSearchParam.name) ===
+            logoutIntentSearchParam.value
+          ) {
+            navigate(
+              { ...location, pathname: "/" },
+              { replace: true, preventScrollReset: true }
+            );
+          }
         }
       }
-    }
+    });
 
     return <Component />;
   };
