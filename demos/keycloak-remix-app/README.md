@@ -1,8 +1,14 @@
-# Welcome to Remix + Vite!
+# Welcome to Keycloak + Remix + Vite!
 
 📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/future/vite) for details on supported features.
 
 ## Development
+
+Run the Keycloak server and initialize the demo realm, client and user:
+
+```shellscript
+npm run keycloak
+```
 
 Run the Vite dev server:
 
