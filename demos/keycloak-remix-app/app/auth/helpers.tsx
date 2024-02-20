@@ -1,9 +1,7 @@
 import type AccessTokenRepresentation from "@keycloak/keycloak-admin-client/lib/defs/accessTokenRepresentation.d.ts";
 import { useSearchParams } from "@remix-run/react";
-import { redirect } from "@remix-run/server-runtime";
 import { jwtDecode } from "jwt-decode";
 import { userManager } from ".";
-import { logoutIntentSearchParam } from "./utils";
 
 export function RedirectURIInput() {
   const [searchParams] = useSearchParams();
@@ -40,13 +38,3 @@ export async function authenticated(
 export const realmAccess =
   (role: string) => (token: AccessTokenRepresentation) =>
     token.realm_access?.roles?.includes(role) ?? false;
-
-export const logoutRedirect = (redirect_uri: string) => {
-  const url = new URL(redirect_uri);
-  url.searchParams.set(
-    logoutIntentSearchParam.name,
-    logoutIntentSearchParam.value
-  );
-
-  return redirect(url.toString());
-};

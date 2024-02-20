@@ -1,5 +1,4 @@
 import {
-  ClientLoaderFunctionArgs,
   Link,
   Links,
   Meta,
@@ -10,17 +9,12 @@ import {
   useMatch,
   useRouteError,
 } from "@remix-run/react";
-import { loadUser, useUser } from "~/auth";
-import {
-  useRemoveLogoutIntentSearchParam,
-  withRemoveLogoutIntentSearchParam,
-} from "./auth/utils";
-import LoginForm from "./routes/login/LoginForm";
-import LogoutForm from "./routes/logout/LogoutForm";
+import { useUser } from "~/auth";
+import { withApp, withErrorBoundary, withLoader } from "./auth/root";
+import SigninForm from "./routes/signin/SigninForm";
+import SignoutForm from "./routes/signout/SignoutForm";
 
-export const clientLoader = async (args: ClientLoaderFunctionArgs) => {
-  return loadUser(args);
-};
+export const clientLoader = withLoader();
 
 function Layout({ children }: React.PropsWithChildren) {
   return (
@@ -46,62 +40,58 @@ function Layout({ children }: React.PropsWithChildren) {
 
 function UserInfo() {
   const user = useUser();
-  const login = useMatch("/login");
+  const isSigninRoute = useMatch("/signin");
 
   return user ? (
     <>
-      <div>Logged in: {user.profile.name}</div>
-      <LogoutForm />
+      <div>Signed in: {user.profile.name}</div>
+      <SignoutForm />
     </>
-  ) : login ? null : (
+  ) : isSigninRoute ? null : (
     <Link
-      to={`/login?${new URLSearchParams({
+      to={`/signin?${new URLSearchParams({
         redirect_uri: location.href,
       })}`}
     >
-      Login
+      Sign in
     </Link>
   );
 }
 
-export default function App() {
-  useRemoveLogoutIntentSearchParam();
-
+export default withApp(function App() {
   return (
     <Layout>
       <Outlet />
     </Layout>
   );
-}
+});
 
-export const ErrorBoundary = withRemoveLogoutIntentSearchParam(
-  function ErrorBoundary() {
-    const error = useRouteError();
+export const ErrorBoundary = withErrorBoundary(function ErrorBoundary() {
+  const error = useRouteError();
 
-    if (isRouteErrorResponse(error)) {
-      if (error.status === 401) {
-        return (
-          <Layout>
-            <LoginForm />
-            <Link to="/">Go to the main page</Link>
-          </Layout>
-        );
-      }
-
-      if (error.status === 403) {
-        return (
-          <Layout>
-            <h2>403</h2>
-            <Link to="/">Go to the main page</Link>
-          </Layout>
-        );
-      }
+  if (isRouteErrorResponse(error)) {
+    if (error.status === 401) {
+      return (
+        <Layout>
+          <SigninForm />
+          <Link to="/">Go to the main page</Link>
+        </Layout>
+      );
     }
 
-    return (
-      <Layout>
-        <h1>OH snap!</h1>
-      </Layout>
-    );
+    if (error.status === 403) {
+      return (
+        <Layout>
+          <h2>403</h2>
+          <Link to="/">Go to the main page</Link>
+        </Layout>
+      );
+    }
   }
-);
+
+  return (
+    <Layout>
+      <h1>OH snap!</h1>
+    </Layout>
+  );
+});

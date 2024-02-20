@@ -1,19 +1,19 @@
 import { Form } from "@remix-run/react";
 import { RedirectURIInput } from "~/auth/helpers";
 
-export default function LoginForm() {
+export default function SigninForm() {
   return (
     <>
-      <Form replace action="/login" method="POST">
+      <Form replace action="/signin" method="POST">
         <input required type="text" name="username" />
         <input required type="password" name="password" />
         <RedirectURIInput />
-        <button>Login</button>
+        <button>Sign in</button>
       </Form>
-      <Form replace action="/login" method="POST">
+      <Form replace action="/signin" method="POST">
         <RedirectURIInput />
         <button name="intent" value="sso">
-          Login SSO
+          Sign in SSO
         </button>
       </Form>
     </>

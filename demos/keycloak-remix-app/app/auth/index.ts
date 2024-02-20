@@ -1,29 +1,33 @@
-import {
-  ClientLoaderFunctionArgs,
-  json,
-  useRouteLoaderData,
-} from "@remix-run/react";
-import { UserManager } from "oidc-client-ts";
-import { removeAuthParamsRedirect } from "./utils";
-// import { UserManager, WebStorageStateStore } from "oidc-client-ts";
+import { useRouteLoaderData } from "@remix-run/react";
+import { UserManager, WebStorageStateStore } from "oidc-client-ts";
+import { loader } from "./root";
 
-export function useUser() {
-  const { user } = useRouteLoaderData<typeof loadUser>("root")!;
-
-  return user;
-}
+const isClient = typeof document !== "undefined";
 
 export const userManager = new UserManager({
   authority: "http://localhost:8080/realms/demo",
   client_id: "demo",
-  //userStore: new WebStorageStateStore({ store: localStorage }),
-  redirect_uri: "",
+  userStore: isClient
+    ? new WebStorageStateStore({ store: localStorage })
+    : undefined,
+  redirect_uri: isClient ? location.href : "",
 });
 
-export const loadUser = async (args: ClientLoaderFunctionArgs) => {
-  await removeAuthParamsRedirect(args);
+if (await userManager.getUser()) {
+  try {
+    await userManager.signinSilent();
+  } catch {
+    await userManager.revokeTokens();
+    await userManager.removeUser();
+  }
+}
 
-  return json({
-    user: await userManager.getUser(),
-  });
+export const loadUser = () => {
+  return userManager.getUser();
 };
+
+export function useUser() {
+  const { user } = useRouteLoaderData<typeof loader>("root") ?? {};
+
+  return user;
+}

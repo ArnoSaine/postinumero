@@ -26,6 +26,6 @@ export const clientLoader = async () => {
   throw redirect("/");
 };
 
-export default function Login() {
+export default function Signin() {
   return null;
 }

@@ -1,11 +1,11 @@
 import { Form } from "@remix-run/react";
 import { RedirectURIInput } from "~/auth/helpers";
 
-export default function LogoutForm() {
+export default function SignoutForm() {
   return (
-    <Form replace action="/logout" method="POST">
+    <Form replace action="/signout" method="POST">
       <RedirectURIInput />
-      <button>Logout</button>
+      <button>Sign out</button>
     </Form>
   );
 }
