@@ -5,7 +5,8 @@
   "type": "module",
   "workspaces": [
     "demos/*",
-    "packages/*"
+    "packages/*",
+    "packages/*/example"
   ],
   "scripts": {
     "build": "turbo run build",

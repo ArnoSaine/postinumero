@@ -3,7 +3,7 @@ import path from "node:path";
 import invariant from "tiny-invariant";
 import modulePlugins from "./modulePlugins.js";
 import mui from "./mui.js";
-import virtualRoot from "./virtualRoot.js";
+import virtualOriginalRoot from "./virtualOriginalRoot.js";
 
 const config = await readConfig();
 
@@ -40,5 +40,5 @@ export default [
       pathname: "~/root.tsx",
     },
   ]),
-  virtualRoot,
+  virtualOriginalRoot,
 ];

@@ -14,10 +14,10 @@ export function createEmotionCache() {
 
 export const ResetCacheContext = createContext(() => {});
 
-export function withMUI<P extends object>(Component: ComponentType<P>) {
+export function withMUI<Props extends object>(Component: ComponentType<Props>) {
   const theme = createTheme();
 
-  return withEmotionCache((props: P, emotionCache) => {
+  return withEmotionCache((props: Props, emotionCache) => {
     const resetCache = useContext(ResetCacheContext);
 
     // Only executed on client
