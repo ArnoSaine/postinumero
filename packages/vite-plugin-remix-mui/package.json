@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/vite-plugin-remix-mui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "MUI & Remix integration",
   "license": "ISC",
   "author": {
@@ -18,7 +18,7 @@
     "start": "tsc --watch"
   },
   "dependencies": {
-    "@postinumero/vite-plugin-replace-module": "^0.0.0",
+    "@postinumero/vite-plugin-replace-module": "^0.1.0",
     "@remix-run/dev": "^2.7.0",
     "lodash-es": "^4.17.21"
   },
