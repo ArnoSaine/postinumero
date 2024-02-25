@@ -1,44 +1,61 @@
-import { readConfig } from "@remix-run/dev/dist/config.js";
-import path from "node:path";
-import invariant from "tiny-invariant";
-import modulePlugins from "./modulePlugins.js";
-import mui from "./mui.js";
-import virtualOriginalRoot from "./virtualOriginalRoot.js";
+import replaceModule from "@postinumero/vite-plugin-replace-module";
+import remixRoot from "@postinumero/vite-plugin-replace-module/lib/presets/remix-root.js";
+import type { Plugin } from "vite";
 
-const config = await readConfig();
-
-invariant(config.routes.root?.file, "root file");
-
-const serverEntry = "@remix-run/dev/dist/config/defaults/entry.server.node.tsx";
+const serverEntry = "@remix-run/dev/dist/config/defaults/entry.server.node";
 
 export default [
-  mui,
-  modulePlugins([
-    "@mui/material",
-    "@remix-run/react",
+  {
+    name: "@postinumero/remix-mui",
+    config: (config) => {
+      const onwarn =
+        config.build?.rollupOptions?.onwarn ??
+        ((warning, warn) => warn(warning));
+
+      config.build ??= {};
+      config.build.rollupOptions ??= {};
+      config.build.rollupOptions.onwarn = (warning, warn) => {
+        if (
+          warning.code === "MODULE_LEVEL_DIRECTIVE" &&
+          warning.id?.includes("/node_modules/@mui/") &&
+          warning.message.includes('"use client"')
+        ) {
+          return;
+        }
+
+        onwarn(warning, warn);
+      };
+
+      return {
+        resolve: {
+          alias: [
+            {
+              find: "@mui/system",
+              replacement: "@mui/system/esm",
+            },
+          ],
+        },
+        ssr: {
+          noExternal: ["@mui/*", "@remix-run/*"],
+        },
+      };
+    },
+  } as Plugin,
+  replaceModule([
+    {
+      source: "@mui/material",
+      pathname: new URL("./modules/@mui/material.js", import.meta.url).pathname,
+    },
+    {
+      source: "@remix-run/react",
+      pathname: new URL("./modules/@remix-run/react.js", import.meta.url)
+        .pathname,
+    },
     {
       source: `/node_modules/${serverEntry}`,
-      pathname: serverEntry,
-    },
-    {
-      source: [
-        // "/app/root.tsx"
-        new URL(
-          path.join(
-            " ",
-            path.relative(config.rootDirectory, config.appDirectory),
-            config.routes.root.file
-          ),
-          import.meta.url
-        ).pathname,
-        // "./root.tsx"
-        `.${
-          new URL(path.join(" ", config.routes.root.file), import.meta.url)
-            .pathname
-        }`,
-      ],
-      pathname: "~/root.tsx",
+      pathname: new URL(`./modules/${serverEntry}.js`, import.meta.url)
+        .pathname,
     },
   ]),
-  virtualOriginalRoot,
+  remixRoot({ url: import.meta.url }),
 ];

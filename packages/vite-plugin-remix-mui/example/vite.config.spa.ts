@@ -1,4 +1,4 @@
-import { config } from "./vite.config";
+import { config } from "./vite.config.js";
 
 export default config({
   remix: {

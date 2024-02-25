@@ -1,5 +1,7 @@
 # @postinumero/vite-plugin-remix-mui
 
+MUI & Remix integration
+
 ## Setup
 
 ```js
@@ -18,4 +20,19 @@ export default defineConfig({
     mui,
   ],
 });
+```
+
+## Router integration is built-in
+
+```tsx
+import Link from "@mui/material/Link";
+import Button from "@mui/material/Button";
+
+<Link href="/about" color="secondary">
+  Go to the about page
+</Link>;
+
+<Button variant="contained" href="/">
+  Go to the main page
+</Button>;
 ```

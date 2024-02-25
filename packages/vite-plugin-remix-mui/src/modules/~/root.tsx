@@ -1,10 +1,8 @@
 import { identity } from "lodash-es";
-//import * as root from "virtual:remix-config-path:${path.join(config.appDirectory, config.routes.root.file)}";
-import * as root from "virtual:~/root";
-import { withMUI } from "../../lib/utils.js";
+import * as root from "virtual:remix-resolve-config-path:preset:root";
+import { withMUI } from "../../utils.js";
 
-//export * from "virtual:remix-config-path:${path.join(config.appDirectory, config.routes.root.file)}";
-export * from "virtual:~/root";
+export * from "virtual:remix-resolve-config-path:preset:root";
 
 export const Layout = root.Layout && withMUI(root.Layout);
 
