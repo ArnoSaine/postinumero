@@ -1,0 +1,40 @@
+{
+  "name": "@postinumero/remix-oidc",
+  "version": "0.0.0",
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "type": "module",
+  "main": "./lib/main.js",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc --watch"
+  },
+  "dependencies": {
+    "@postinumero/vite-plugin-replace-module": "^0.1.0",
+    "@remix-run/dev": "^2.7.0",
+    "jwt-decode": "^4.0.0",
+    "oidc-client-ts": "^3.0.1"
+  },
+  "devDependencies": {
+    "@keycloak/keycloak-admin-client": "^23.0.7",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "vite": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@remix-run/react": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  }
+}
