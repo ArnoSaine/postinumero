@@ -2,6 +2,10 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import {
+  authenticated,
+  realmAccess,
+} from "@postinumero/remix-oidc/lib/helpers";
+import {
   ClientActionFunctionArgs,
   Form,
   json,
@@ -10,7 +14,6 @@ import {
 } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 import { petApi } from "~/api";
-import { authenticated, realmAccess } from "~/auth/helpers";
 
 export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
   await authenticated(realmAccess("admin"));

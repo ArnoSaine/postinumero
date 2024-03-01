@@ -1,26 +1,8 @@
-# Welcome to Keycloak + MUI + OpenAPI + Remix + Vite!
+# Welcome to Remix + Vite!
 
 📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/future/vite) for details on supported features.
 
 ## Development
-
-Run the Keycloak server:
-
-```shellscript
-npm run start:keycloak
-```
-
-Initialize demo realm, client and user (username: `demo`, password: `demo`):
-
-```shellscript
-npm run init:keycloak
-```
-
-Run the OpenAPI Generator:
-
-```shellscript
-npm run generate:api
-```
 
 Run the Vite dev server:
 
