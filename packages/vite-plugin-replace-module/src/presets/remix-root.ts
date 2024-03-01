@@ -2,25 +2,27 @@ import remixResolveConfigPath from "@postinumero/vite-plugin-remix-resolve-confi
 import { readConfig } from "@remix-run/dev/dist/config.js";
 import path from "node:path";
 import invariant from "tiny-invariant";
-import replaceModule from "../main.js";
+import moduleProxy from "../main.js";
 
 const remixRoot = async ({
-  source = "./modules/~/root.js",
+  proxy: proxyOption = "./modules/~/root.js",
   url,
 }: {
-  source?: string;
+  proxy?: string;
   url: string;
 }) => {
   const config = await readConfig();
 
   invariant(config.routes.root?.file, "root file");
-  const pathname = new URL(source, url).pathname;
+
+  const proxy = new URL(proxyOption, url).pathname;
 
   return [
-    replaceModule([
-      {
+    remixResolveConfigPath,
+    moduleProxy({
+      id:
         // "/app/root.tsx"
-        source: new URL(
+        new URL(
           path.join(
             " ",
             path.relative(config.rootDirectory, config.appDirectory),
@@ -28,17 +30,14 @@ const remixRoot = async ({
           ),
           url
         ).pathname,
-        pathname,
-      },
-      {
+      proxy: proxy,
+    }),
+    moduleProxy({
+      id:
         // "./root.tsx"
-        source: `.${
-          new URL(path.join(" ", config.routes.root.file), url).pathname
-        }`,
-        pathname,
-      },
-    ]),
-    remixResolveConfigPath,
+        `.${new URL(path.join(" ", config.routes.root.file), url).pathname}`,
+      proxy: proxy,
+    }),
   ];
 };
 

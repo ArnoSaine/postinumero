@@ -46,7 +46,7 @@ const client = await kcAdminClient.clients.create({
   publicClient: true,
   // In app username and password login
   directAccessGrantsEnabled: true,
-  redirectUris: ["*"],
+  redirectUris: ["http://localhost:*"],
   webOrigins: ["*"],
 });
 
