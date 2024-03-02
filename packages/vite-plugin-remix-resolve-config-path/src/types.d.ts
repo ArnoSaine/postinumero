@@ -1,6 +1,6 @@
-declare module "virtual:remix-resolve-config-path:*";
+declare module "virtual:@postinumero/vite-plugin-remix-resolve-config-path/*";
 
-declare module "virtual:remix-resolve-config-path:preset:root" {
+declare module "virtual:@postinumero/vite-plugin-remix-resolve-config-path/preset/root" {
   export const meta: import("@remix-run/react").MetaFunction;
   export const action: import("@remix-run/node").ActionFunction;
   export const loader: import("@remix-run/node").LoaderFunction;

@@ -1,8 +1,8 @@
 import { identity } from "lodash-es";
-import * as root from "virtual:remix-resolve-config-path:preset:root";
+import * as root from "virtual:@postinumero/vite-plugin-remix-resolve-config-path/preset/root";
 import { withMUI } from "../../utils.js";
 
-export * from "virtual:remix-resolve-config-path:preset:root";
+export * from "virtual:@postinumero/vite-plugin-remix-resolve-config-path/preset/root";
 
 export const Layout = root.Layout && withMUI(root.Layout);
 

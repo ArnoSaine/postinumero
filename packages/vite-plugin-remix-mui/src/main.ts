@@ -7,6 +7,7 @@ const serverEntry = "@remix-run/dev/dist/config/defaults/entry.server.node";
 export default [
   {
     name: "@postinumero/remix-mui",
+    enforce: "pre",
     config: (config) => {
       const onwarn =
         config.build?.rollupOptions?.onwarn ??
