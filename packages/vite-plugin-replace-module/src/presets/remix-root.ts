@@ -5,7 +5,7 @@ import invariant from "tiny-invariant";
 import moduleProxy from "../main.js";
 
 const remixRoot = async ({
-  proxy: proxyOption = "./modules/~/root.js",
+  proxy: proxyOption = "./modules/~/root",
   url,
 }: {
   proxy?: string;
@@ -21,6 +21,13 @@ const remixRoot = async ({
     remixResolveConfigPath,
     moduleProxy({
       id:
+        // "/absolute/path/to/app/root.tsx"
+        new URL(path.join(config.appDirectory, config.routes.root.file), url)
+          .pathname,
+      proxy,
+    }),
+    moduleProxy({
+      id:
         // "/app/root.tsx"
         new URL(
           path.join(
@@ -30,13 +37,13 @@ const remixRoot = async ({
           ),
           url
         ).pathname,
-      proxy: proxy,
+      proxy,
     }),
     moduleProxy({
       id:
         // "./root.tsx"
         `.${new URL(path.join(" ", config.routes.root.file), url).pathname}`,
-      proxy: proxy,
+      proxy,
     }),
   ];
 };
