@@ -1,6 +1,4 @@
-import { ThemeProvider } from "@mui/material";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
+import { Box, Container, ThemeProvider } from "@mui/material";
 import {
   Links,
   Meta,
@@ -13,6 +11,11 @@ import {
 import Copyright from "~/components/Copyright";
 import ProTip from "~/components/ProTip";
 import theme from "~/theme";
+import moo from "./moo";
+
+moo();
+
+export const id = "original root";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

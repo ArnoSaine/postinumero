@@ -2,7 +2,11 @@ import { ThemeProvider } from "@mui/material";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { useUser } from "@postinumero/remix-oidc/lib";
 import SigninForm from "@postinumero/remix-oidc/lib/app/routes/signin/Form";
+import SignoutForm from "@postinumero/remix-oidc/lib/app/routes/signout/Form";
+import config from "@postinumero/remix-oidc/lib/config.js";
 import {
   Links,
   Meta,
@@ -10,11 +14,36 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
+  useLocation,
+  useMatch,
   useRouteError,
 } from "@remix-run/react";
 import theme from "~/theme";
 
 export const clientLoader = () => null;
+
+function UserInfo() {
+  const user = useUser();
+  const isSigninRoute = useMatch(config.routes.signin);
+  const location = useLocation();
+
+  return user ? (
+    <>
+      <div>Signed in: {user.profile.name}</div>
+      <SignoutForm>
+        <button>Sign out</button>
+      </SignoutForm>
+    </>
+  ) : isSigninRoute ? null : (
+    <Link
+      href={`${config.routes.signin}?${new URLSearchParams({
+        redirect_uri: `${location.pathname}${location.search}${location.hash}`,
+      })}`}
+    >
+      Sign in
+    </Link>
+  );
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -28,6 +57,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Links />
         </head>
         <body>
+          <Typography variant="h1">Welcome to Remix</Typography>
+          <UserInfo />
           {children}
           <ScrollRestoration />
           <Scripts />

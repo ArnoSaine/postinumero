@@ -1,5 +1,5 @@
 import type { UserManagerSettings } from "oidc-client-ts";
-import userConfig from "virtual:remix-oidc/config";
+import userConfig from "@postinumero/remix-oidc/user-config";
 import finalConfig from "./finalConfig.js";
 
 const defaults = {
