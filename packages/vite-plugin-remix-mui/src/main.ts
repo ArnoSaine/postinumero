@@ -7,40 +7,16 @@ const serverEntry = "@remix-run/dev/dist/config/defaults/entry.server.node";
 export default [
   {
     name: "@postinumero/remix-mui",
-    enforce: "pre",
-    config: (config) => {
-      const onwarn =
-        config.build?.rollupOptions?.onwarn ??
-        ((warning, warn) => warn(warning));
-
-      config.build ??= {};
-      config.build.rollupOptions ??= {};
-      config.build.rollupOptions.onwarn = (warning, warn) => {
-        if (
-          warning.code === "MODULE_LEVEL_DIRECTIVE" &&
-          warning.id?.includes("/node_modules/@mui/") &&
-          warning.message.includes('"use client"')
-        ) {
-          return;
-        }
-
-        onwarn(warning, warn);
-      };
-
-      return {
-        resolve: {
-          alias: [
-            {
-              find: "@mui/system",
-              replacement: "@mui/system/esm",
-            },
-          ],
+    config: () => ({
+      resolve: {
+        alias: {
+          "@mui/system": "@mui/system/esm",
         },
-        ssr: {
-          noExternal: ["@mui/*", "@remix-run/*"],
-        },
-      };
-    },
+      },
+      ssr: {
+        noExternal: ["@mui/*", "@remix-run/*"],
+      },
+    }),
   } as Plugin,
   moduleProxy({
     id: "@mui/material",

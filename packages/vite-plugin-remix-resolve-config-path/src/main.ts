@@ -7,7 +7,7 @@ const config = await readConfig();
 
 const name = "@postinumero/remix-resolve-config-path";
 
-const prefix = "virtual:@postinumero/vite-plugin-remix-resolve-config-path/";
+const prefix = "@postinumero/vite-plugin-remix-resolve-config-path/";
 const presetPrefix = "preset/";
 const presets = {
   root: "${path.join(config.appDirectory, config.routes.root.file)}",
