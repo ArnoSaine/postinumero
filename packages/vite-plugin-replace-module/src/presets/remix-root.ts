@@ -5,7 +5,7 @@ import invariant from "tiny-invariant";
 import moduleProxy from "../main.js";
 
 const remixRoot = async ({
-  proxy: proxyOption = "./modules/~/root",
+  proxy: proxyOption = "../modules/~/root",
   url,
 }: {
   proxy?: string;

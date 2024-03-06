@@ -3,8 +3,5 @@
   "compilerOptions": {
     "outDir": "lib"
   },
-  "include": ["src"],
-  "exclude": [
-    "./src/modules/@remix-run/dev/dist/config/defaults/entry.server.node.tsx"
-  ]
+  "include": ["src"]
 }

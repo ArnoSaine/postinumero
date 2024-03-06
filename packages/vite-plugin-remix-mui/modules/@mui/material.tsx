@@ -1,5 +1,5 @@
 import * as mui from "@mui/material";
-import { options } from "../../theme.js";
+import { options } from "../../lib/theme.js";
 
 export * from "@mui/material";
 

@@ -2,7 +2,7 @@ import { CacheProvider } from "@emotion/react";
 import createEmotionServer from "@emotion/server/create-instance";
 import React from "react";
 import * as ReactDOMServer from "react-dom/server";
-import { createEmotionCache } from "../../utils.js";
+import { createEmotionCache } from "../../lib/utils.js";
 
 export * from "react-dom/server";
 
