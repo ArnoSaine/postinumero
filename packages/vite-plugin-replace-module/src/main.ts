@@ -6,14 +6,14 @@ interface Options {
   proxy: string;
 }
 
-const name = "@postinumero/module-proxy";
+const namePrefix = "@postinumero/module-proxy/";
 
 export default function moduleProxy({ id, proxy }: Options): Plugin {
   let proxyPlugins: Plugin[];
   let proxies: (string | undefined)[];
 
   return {
-    name,
+    name: `${namePrefix}${id}`,
     enforce: "pre",
     api: {
       id,
@@ -21,7 +21,7 @@ export default function moduleProxy({ id, proxy }: Options): Plugin {
     },
     configResolved({ plugins }) {
       proxyPlugins = plugins.filter(
-        (plugin) => plugin.name === name && plugin.api.id === id
+        (plugin) => plugin.name.startsWith(namePrefix) && plugin.api.id === id
       );
     },
     async buildStart() {

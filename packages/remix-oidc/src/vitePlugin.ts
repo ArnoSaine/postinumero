@@ -17,6 +17,6 @@ export default async function vitePlugin(configFile: string) {
         },
       }),
     } as Plugin,
-    remixRoot({ url: import.meta.url }),
+    ...(await remixRoot({ url: import.meta.url })),
   ];
 }

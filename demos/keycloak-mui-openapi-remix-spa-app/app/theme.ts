@@ -18,4 +18,9 @@ export default createTheme({
       main: red.A400,
     },
   },
+  components: {
+    MuiButton: {
+      defaultProps: { variant: "contained" },
+    },
+  },
 });

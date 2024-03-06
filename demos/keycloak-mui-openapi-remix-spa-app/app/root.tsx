@@ -31,7 +31,7 @@ function UserInfo() {
     <>
       <div>Signed in: {user.profile.name}</div>
       <SignoutForm>
-        <button>Sign out</button>
+        <Button type="submit">Sign out</Button>
       </SignoutForm>
     </>
   ) : isSigninRoute ? null : (
