@@ -39,7 +39,7 @@ const remixResolveConfigPath: Plugin = {
       invariant(resolved, "resolved config");
 
       const url = new URL(resolved.id, import.meta.url);
-      url.searchParams.set(name, "resolved");
+      url.searchParams.append(name, "resolved");
 
       return `${url.pathname}${url.search}${url.hash}`;
     }
