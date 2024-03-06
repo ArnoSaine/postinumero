@@ -20,11 +20,11 @@ export default [
   } as Plugin,
   moduleProxy({
     id: "@mui/material",
-    proxy: new URL("./modules/@mui/material.js", import.meta.url).pathname,
+    proxy: new URL("../modules/@mui/material", import.meta.url).pathname,
   }),
   moduleProxy({
     id: "@remix-run/react",
-    proxy: new URL("./modules/@remix-run/react.js", import.meta.url).pathname,
+    proxy: new URL("../modules/@remix-run/react", import.meta.url).pathname,
   }),
   // moduleProxy({
   //   id: `/node_modules/${serverEntry}.node`,
@@ -44,7 +44,7 @@ export default [
       if (id === configRef.current.__remixPluginContext?.entryServerFilePath) {
         return code.replace(
           "react-dom/server",
-          new URL("./modules/react-dom/server.js", import.meta.url).pathname
+          new URL("../modules/react-dom/server", import.meta.url).pathname
         );
       }
     },
