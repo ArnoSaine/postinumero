@@ -24,7 +24,7 @@
     "oidc-client-ts": "^3.0.1"
   },
   "devDependencies": {
-    "@keycloak/keycloak-admin-client": "^23.0.7",
+    "@keycloak/keycloak-admin-client": "^24.0.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "vite": "^5.0.0"

@@ -28,7 +28,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-          <h1>Welcome to Remix</h1>
+          <h1>Welcome to Keycloak + Remix</h1>
           <UserInfo />
           {children}
         </div>
