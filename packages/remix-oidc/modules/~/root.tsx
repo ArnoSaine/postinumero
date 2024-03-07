@@ -1,5 +1,5 @@
 import * as root from "@postinumero/vite-plugin-remix-resolve-config-path/preset/root";
-import { withApp, withErrorBoundary, withLoader } from "../../src/app/root.js";
+import { withApp, withErrorBoundary, withLoader } from "../../lib/app/root.js";
 
 export * from "@postinumero/vite-plugin-remix-resolve-config-path/preset/root";
 
