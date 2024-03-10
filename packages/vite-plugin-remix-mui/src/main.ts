@@ -44,7 +44,7 @@ export default [
       if (id === configRef.current.__remixPluginContext?.entryServerFilePath) {
         return code.replace(
           "react-dom/server",
-          new URL("../modules/react-dom/server", import.meta.url).pathname
+          new URL("../modules/react-dom/server", import.meta.url).pathname,
         );
       }
     },
@@ -53,7 +53,7 @@ export default [
 ];
 
 function withResolvedConfig(
-  createPlugin: (configRef: { current: any }) => Plugin
+  createPlugin: (configRef: { current: any }) => Plugin,
 ) {
   const configRef = { current: null as any };
 
