@@ -33,9 +33,9 @@ const remixRoot = async ({
           path.join(
             " ",
             path.relative(config.rootDirectory, config.appDirectory),
-            config.routes.root.file
+            config.routes.root.file,
           ),
-          url
+          url,
         ).pathname,
       proxy,
     }),

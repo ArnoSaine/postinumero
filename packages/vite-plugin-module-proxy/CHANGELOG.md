@@ -1,10 +1,10 @@
-# @postinumero/vite-plugin-replace-module
+# @postinumero/vite-plugin-module-proxy
 
 ## 0.1.0
 
 ### Minor Changes
 
-- bd9fb21: Add @postinumero/vite-plugin-replace-module
+- bd9fb21: Add @postinumero/vite-plugin-module-proxy
 
 ### Patch Changes
 

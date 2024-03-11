@@ -7,6 +7,7 @@ interface Options {
 }
 
 const namePrefix = "@postinumero/module-proxy/";
+const original = "@postinumero/vite-plugin-module-proxy/original";
 
 export default function moduleProxy({ id, proxy }: Options): Plugin {
   let proxyPlugins: Plugin[];
@@ -21,12 +22,13 @@ export default function moduleProxy({ id, proxy }: Options): Plugin {
     },
     configResolved({ plugins }) {
       proxyPlugins = plugins.filter(
-        (plugin) => plugin.name.startsWith(namePrefix) && plugin.api.id === id
+        (plugin) => plugin.name.startsWith(namePrefix) && plugin.api.id === id,
       );
     },
     async buildStart() {
+      // List of proxies
       proxies = [
-        // From the first proxy resolve to the original id (undefined)
+        // From the first proxy, resolve to the original id (undefined)
         undefined,
         ...(
           await Promise.all(
@@ -35,18 +37,28 @@ export default function moduleProxy({ id, proxy }: Options): Plugin {
               const proxyResolved = await this.resolve(proxy);
               invariant(proxyResolved, `Resolved proxy ${proxy}`);
               return proxyResolved;
-            })
+            }),
           )
         ).map(({ id }) => id),
-        undefined, // From anywhere else (-2) resolve to the last proxy
+        undefined, // From anywhere else (-2), resolve to the last proxy
       ];
     },
     async resolveId(source, importer) {
+      if (source === original) {
+        return this.resolve(id, importer, {
+          skipSelf: false,
+        });
+      }
       if (source === id) {
         const importerPath =
           importer && new URL(importer, import.meta.url).pathname;
 
         return proxies.at(proxies.indexOf(importerPath) - 1);
+      }
+    },
+    async transform(code, id) {
+      if (proxies.includes(id)) {
+        return `export * from "${original}";${code}`;
       }
     },
   };
