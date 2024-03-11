@@ -2,8 +2,6 @@ import * as root from "@postinumero/vite-plugin-remix-resolve-config-path/preset
 import { identity } from "lodash-es";
 import { withMUI } from "../../lib/utils.js";
 
-export * from "@postinumero/vite-plugin-remix-resolve-config-path/preset/root";
-
 export const Layout = root.Layout && withMUI(root.Layout);
 
 const withMUILayout = root.Layout ? identity<React.ComponentType> : withMUI;
