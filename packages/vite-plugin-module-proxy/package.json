@@ -1,13 +1,19 @@
 {
-  "name": "@postinumero/vite-plugin-replace-module",
+  "name": "@postinumero/vite-plugin-module-proxy",
   "version": "0.1.0",
-  "description": "Replace modules",
+  "description": "Override module exports",
   "license": "ISC",
   "author": {
     "name": "Arno Saine",
     "email": "arno@mowhi.com"
   },
   "type": "module",
+  "exports": {
+    ".": "./lib/main.js",
+    "./original": {
+      "types": "./src/types.d.ts"
+    }
+  },
   "main": "./lib/main.js",
   "files": [
     "lib",
