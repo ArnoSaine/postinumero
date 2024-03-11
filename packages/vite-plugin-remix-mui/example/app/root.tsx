@@ -11,12 +11,7 @@ import {
 import Copyright from "~/components/Copyright";
 import ProTip from "~/components/ProTip";
 import theme from "~/theme";
-import moo from "./moo";
 import Typography from "@mui/material/Typography";
-
-moo();
-
-export const id = "original root";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

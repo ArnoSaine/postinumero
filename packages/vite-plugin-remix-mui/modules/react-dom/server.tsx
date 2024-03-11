@@ -4,14 +4,12 @@ import React from "react";
 import * as ReactDOMServer from "react-dom/server";
 import { createEmotionCache } from "../../lib/utils.js";
 
-export * from "react-dom/server";
-
 export function renderToString(remixServerElement: React.ReactElement) {
   const cache = createEmotionCache();
   const { extractCriticalToChunks } = createEmotionServer(cache);
 
   const html = ReactDOMServer.renderToString(
-    <CacheProvider value={cache}>{remixServerElement}</CacheProvider>
+    <CacheProvider value={cache}>{remixServerElement}</CacheProvider>,
   );
 
   const { styles } = extractCriticalToChunks(html);
@@ -21,8 +19,8 @@ export function renderToString(remixServerElement: React.ReactElement) {
     `<meta name="emotion-insertion-point" content="emotion-insertion-point"/>${styles
       .map(
         ({ key, ids, css }) =>
-          `<style data-emotion="${key} ${ids.join(" ")}">${css}</style>`
+          `<style data-emotion="${key} ${ids.join(" ")}">${css}</style>`,
       )
-      .join("")}`
+      .join("")}`,
   );
 }

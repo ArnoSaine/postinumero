@@ -5,12 +5,13 @@
 ### Patch Changes
 
 - bd9fb21:
+
   - Add @postinumero/vite-plugin-remix-resolve-config-path
-  - Add @postinumero/vite-plugin-replace-module
+  - Add @postinumero/vite-plugin-module-proxy
   - Update @postinumero/vite-plugin-remix-mui
 
 - Updated dependencies [bd9fb21]
-  - @postinumero/vite-plugin-replace-module@0.1.0
+  - @postinumero/vite-plugin-module-proxy@0.1.0
 
 ## 0.1.1
 

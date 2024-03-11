@@ -1,5 +1,5 @@
-import moduleProxy from "@postinumero/vite-plugin-replace-module";
-import remixRoot from "@postinumero/vite-plugin-replace-module/lib/presets/remix-root.js";
+import moduleProxy from "@postinumero/vite-plugin-module-proxy";
+import remixRoot from "@postinumero/vite-plugin-module-proxy/lib/presets/remix-root.js";
 import type { Plugin } from "vite";
 
 //const serverEntry = "@remix-run/dev/dist/config/defaults/entry.server";

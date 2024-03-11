@@ -45,9 +45,14 @@ export default function moduleProxy({ id, proxy }: Options): Plugin {
     },
     async resolveId(source, importer) {
       if (source === original) {
-        return this.resolve(id, importer, {
-          skipSelf: false,
-        });
+        const importerPath =
+          importer && new URL(importer, import.meta.url).pathname;
+
+        if (proxies.includes(importerPath)) {
+          return this.resolve(id, importer, {
+            skipSelf: false,
+          });
+        }
       }
       if (source === id) {
         const importerPath =
