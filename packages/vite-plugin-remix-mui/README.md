@@ -17,7 +17,7 @@ export default defineConfig({
       // ssr: false,
     }),
     tsconfigPaths(),
-    mui,
+    mui(),
   ],
 });
 ```

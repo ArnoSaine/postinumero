@@ -10,7 +10,7 @@ declare module "@postinumero/vite-plugin-remix-resolve-config-path/preset/root" 
 
   export const Layout: React.ComponentType | undefined;
   export const HydrateFallback: React.ComponentType | undefined;
-  const defaults: React.ComponentType;
-  export default defaults;
+  const component: React.ComponentType;
+  export default component;
   export const ErrorBoundary: React.ComponentType | undefined;
 }

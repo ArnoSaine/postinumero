@@ -10,8 +10,9 @@
   "type": "module",
   "exports": {
     ".": "./lib/main.js",
-    "./original": {
-      "types": "./src/types.d.ts"
+    "./*": {
+      "types": "./lib/*.d.ts",
+      "import": "./lib/*.js"
     }
   },
   "main": "./lib/main.js",

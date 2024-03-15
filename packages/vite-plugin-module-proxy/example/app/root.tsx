@@ -5,19 +5,21 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import test, { Component, name, other } from "./some-library";
+import * as someLibrary from "./some-library";
+import * as proxy1 from "./proxy-1";
 
-const value = test();
+console.log(proxy1 === someLibrary, "p1");
 
-console.log(value === "original123", value);
+const value = someLibrary.default();
+console.log(value === "original321", value);
 
 console.log(
-  (name as string) ===
+  (someLibrary.name as string) ===
     "Wrapped (SOME-LIBRARY)Wrapped (SOME-LIBRARY)Wrapped (SOME-LIBRARY)Wrapped (SOME-LIBRARY)",
-  name,
+  someLibrary.name,
 );
 
-console.log(other === "other value", other);
+console.log(someLibrary.other === "other value", someLibrary.other);
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -30,7 +32,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
-        <Component />
+        <someLibrary.Component />
         <ScrollRestoration />
         <Scripts />
       </body>
