@@ -1,4 +1,5 @@
 import { Box, Container, ThemeProvider } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import {
   Links,
   Meta,
@@ -11,7 +12,6 @@ import {
 import Copyright from "~/components/Copyright";
 import ProTip from "~/components/ProTip";
 import theme from "~/theme";
-import Typography from "@mui/material/Typography";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

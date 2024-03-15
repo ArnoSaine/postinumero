@@ -1,4 +1,4 @@
-import remixRoot from "@postinumero/vite-plugin-replace-module/lib/presets/remix-root.js";
+import remixRoot from "@postinumero/vite-plugin-module-proxy/presets/remix-root";
 import type { Plugin } from "vite";
 import { resolveConfigFile } from "./configFromFile.js";
 import { name } from "./main.js";

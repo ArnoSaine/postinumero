@@ -13,6 +13,7 @@ export default defineConfig({
     moduleProxy({
       id: "some-module",
       proxy: "./modules/some-module.tsx",
+      reExportAllFrom: "some-module", // Optional. Default: `options.id`. Set `false` to disable re-exporting.
     }),
   ],
 });
@@ -21,16 +22,16 @@ export default defineConfig({
 `./modules/some-module.jsx`:
 
 ```tsx
-// Reference to the original module. If there are other plugins for the same module, this is a reference to the previous proxy.
-import * as original from "@postinumero/vite-plugin-module-proxy/original";
-// Same as `original`
+// Reference to the original module. If there are subsequent proxies for the same module, this is a reference to the subsequent proxy.
 import * as someModule from "some-module";
 
-// Not needed. Everything is exported from the original module.
-// export * from "@postinumero/vite-plugin-module-proxy/original";
+// Not needed. Named exports are re-exported from the original module or a subsequent proxy.
 // export * from "some-module";
 
-// Override some exports
+// Default exports are not re-exported. If the module has default export, it must be re-exported of overwritten.
+export { default } from "some-module";
+
+// Override the default export
 export default function Component(props) {
   if (props.specialCase) {
     return <>Something else</>;
@@ -39,5 +40,6 @@ export default function Component(props) {
   return <original.default {...props} />;
 }
 
+// Override other exports
 export const x = original.x.toUpperCase();
 ```

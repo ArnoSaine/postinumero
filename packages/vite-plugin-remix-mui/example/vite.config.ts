@@ -10,7 +10,7 @@ export const config = async (
   } = {},
 ) =>
   defineConfig({
-    plugins: [remix(options.remix), tsconfigPaths(), mui],
+    plugins: [remix(options.remix), tsconfigPaths(), await mui()],
   });
 
 export default config();

@@ -16,13 +16,13 @@ const presets = {
 const remixResolveConfigPath: Plugin = {
   name,
   enforce: "pre",
-  async resolveId(source, importer) {
+  async resolveId(source, importer, options) {
     if (source.startsWith(prefix)) {
       source = source.slice(prefix.length);
 
       if (source.startsWith(presetPrefix)) {
         const preset = source.slice(
-          presetPrefix.length
+          presetPrefix.length,
         ) as keyof typeof presets;
 
         invariant(presets[preset], "preset");
@@ -32,10 +32,10 @@ const remixResolveConfigPath: Plugin = {
 
       source = new Function("config", "path", `return \`${source}\``)(
         config,
-        path
+        path,
       );
 
-      const resolved = await this.resolve(source, importer);
+      const resolved = await this.resolve(source, importer, options);
       invariant(resolved, "resolved config");
 
       const url = new URL(resolved.id, import.meta.url);

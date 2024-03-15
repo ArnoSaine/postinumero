@@ -1,70 +1,92 @@
 import invariant from "tiny-invariant";
-import type { Plugin } from "vite";
+import type { Plugin, ResolvedConfig } from "vite";
 
 interface Options {
   id: string;
+  reExportAllFrom?: string | false;
   proxy: string;
 }
 
 const namePrefix = "@postinumero/module-proxy/";
-const original = "@postinumero/vite-plugin-module-proxy/original";
 
-export default function moduleProxy({ id, proxy }: Options): Plugin {
-  let proxyPlugins: Plugin[];
-  let proxies: (string | undefined)[];
+export default function moduleProxy({
+  id,
+  reExportAllFrom = id,
+  proxy,
+}: Options): Plugin {
+  let resolvedConfig: ResolvedConfig;
 
-  return {
+  const plugin: Plugin = {
     name: `${namePrefix}${id}`,
     enforce: "pre",
-    api: {
-      id,
-      proxy,
+    configResolved(config) {
+      resolvedConfig = config;
     },
-    configResolved({ plugins }) {
-      proxyPlugins = plugins.filter(
-        (plugin) => plugin.name.startsWith(namePrefix) && plugin.api.id === id,
-      );
-    },
-    async buildStart() {
-      // List of proxies
-      proxies = [
-        // From the first proxy, resolve to the original id (undefined)
-        undefined,
-        ...(
-          await Promise.all(
-            proxyPlugins.map(async (plugin) => {
-              const { proxy } = plugin.api;
-              const proxyResolved = await this.resolve(proxy);
-              invariant(proxyResolved, `Resolved proxy ${proxy}`);
-              return proxyResolved;
-            }),
-          )
-        ).map(({ id }) => id),
-        undefined, // From anywhere else (-2), resolve to the last proxy
-      ];
-    },
-    async resolveId(source, importer) {
-      if (source === original) {
-        const importerPath =
-          importer && new URL(importer, import.meta.url).pathname;
-
-        if (proxies.includes(importerPath)) {
-          return this.resolve(id, importer, {
-            skipSelf: false,
-          });
-        }
-      }
+    async resolveId(source, importer, options) {
       if (source === id) {
-        const importerPath =
-          importer && new URL(importer, import.meta.url).pathname;
-
-        return proxies.at(proxies.indexOf(importerPath) - 1);
+        const proxyResolved = await this.resolve(proxy, undefined, options);
+        invariant(proxyResolved, `Resolved proxy ${proxy}`);
+        if (importer === proxyResolved.id) {
+          // Inside the proxy – do nothing and use a subsequent resolver or the
+          // default.
+          return null;
+        }
+        let { plugins } = resolvedConfig;
+        // Subsequent plugins
+        plugins = plugins.slice(plugins.indexOf(plugin) + 1);
+        for (const plugin of plugins) {
+          if (plugin.resolveId) {
+            // Call each `plugin.resolveId` with `null` as importer until one
+            // resolves the id
+            const resolved = await (plugin.resolveId as any).call(
+              this,
+              id,
+              null, // Importer
+              options,
+            );
+            if (resolved?.id === importer) {
+              // We found a subsequent proxy that resolves to the same id that
+              // imported us. Import propably happend there. To prevent infinite
+              // loop, proceed to subsequent plugins.
+              return;
+            }
+          }
+        }
+        // Importer is proably outside the proxies or an earlier proxy.
+        // Resolve to the proxy.
+        return proxyResolved;
       }
     },
-    async transform(code, id) {
-      if (proxies.includes(id)) {
-        return `export * from "${original}";${code}`;
+    async transform(code, _id) {
+      const proxyResolved = await this.resolve(proxy);
+      invariant(proxyResolved, `Resolved proxy ${proxy}`);
+
+      if (_id === proxyResolved.id && reExportAllFrom !== false) {
+        // const shouldReExportDefault = async () => {
+        //   const moduleInfo = this.getModuleInfo((await this.resolve(id))!.id);
+        //   invariant(moduleInfo, `Module info ${id}`);
+
+        //   // [vite] The "hasDefaultExport" property of ModuleInfo is not supported.
+        //   if (moduleInfo.hasDefaultExport) {
+        //     const { body } = await swc.parse(code, {
+        //       syntax: "typescript", // "ecmascript" | "typescript"
+        //       comments: false,
+        //       script: true,
+        //       tsx: true,
+        //       // Defaults to es3
+        //       target: "esnext",
+        //     });
+        //     return !body.some(
+        //       (value) => value.type === "ExportDefaultDeclaration",
+        //     );
+        //   }
+        // };
+        // `export { default } from "${id}";`
+
+        return `export * from "${reExportAllFrom}";${code}`;
       }
     },
   };
+
+  return plugin;
 }

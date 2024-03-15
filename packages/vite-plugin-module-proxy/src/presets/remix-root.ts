@@ -24,6 +24,8 @@ const remixRoot = async ({
         // "/absolute/path/to/app/root.tsx"
         new URL(path.join(config.appDirectory, config.routes.root.file), url)
           .pathname,
+      reExportAllFrom:
+        "@postinumero/vite-plugin-remix-resolve-config-path/preset/root",
       proxy,
     }),
     moduleProxy({
@@ -37,12 +39,14 @@ const remixRoot = async ({
           ),
           url,
         ).pathname,
+      reExportAllFrom: false,
       proxy,
     }),
     moduleProxy({
       id:
         // "./root.tsx"
         `.${new URL(path.join(" ", config.routes.root.file), url).pathname}`,
+      reExportAllFrom: false,
       proxy,
     }),
   ];
