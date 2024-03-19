@@ -24,16 +24,19 @@ export default function moduleProxy({
     },
     async resolveId(source, importer, options) {
       if (source === id) {
+        importer = importer?.split("?")[0];
         const proxyResolved = await this.resolve(proxy, undefined, options);
         invariant(proxyResolved, `Resolved proxy ${proxy}`);
         if (importer === proxyResolved.id) {
           // Inside the proxy – do nothing and use a subsequent resolver or the
           // default.
-          return null;
+          return;
         }
+
         let { plugins } = resolvedConfig;
         // Subsequent plugins
         plugins = plugins.slice(plugins.indexOf(plugin) + 1);
+
         for (const plugin of plugins) {
           if (plugin.resolveId) {
             // Call each `plugin.resolveId` with `null` as importer until one
@@ -44,7 +47,7 @@ export default function moduleProxy({
               null, // Importer
               options,
             );
-            if (resolved?.id === importer) {
+            if (resolved?.id && resolved?.id === importer) {
               // We found a subsequent proxy that resolves to the same id that
               // imported us. Import propably happend there. To prevent infinite
               // loop, proceed to subsequent plugins.
@@ -52,8 +55,9 @@ export default function moduleProxy({
             }
           }
         }
-        // Importer is proably outside the proxies or an earlier proxy.
+        // Importer is probably outside the proxies or is an earlier proxy.
         // Resolve to the proxy.
+
         return proxyResolved;
       }
     },

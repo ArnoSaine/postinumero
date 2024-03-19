@@ -14,6 +14,6 @@ export default defineConfig({
     }),
     tsconfigPaths(),
     oidc.vitePlugin,
-    mui,
+    mui(),
   ],
 });

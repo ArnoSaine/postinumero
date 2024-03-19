@@ -4,7 +4,7 @@ import {
   compile as formatjsCompile,
   extract as formatjsExtract,
 } from "@formatjs/cli-lib";
-import { PseudoLocale } from "@formatjs/cli-lib/src/compile";
+import { PseudoLocale } from "@formatjs/cli-lib/src/compile.js";
 import fg from "fast-glob";
 import fs from "node:fs/promises";
 import path from "node:path";
