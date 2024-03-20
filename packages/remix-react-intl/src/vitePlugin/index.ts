@@ -1,4 +1,4 @@
-import moduleProxy from "@postinumero/vite-plugin-replace-module";
+import moduleProxy from "@postinumero/vite-plugin-module-proxy";
 import babelPlugin from "./babelPlugin.js";
 // import compilePlugin from "./compilePlugin.js";
 // import extractPlugin from "./extractPlugin.js";

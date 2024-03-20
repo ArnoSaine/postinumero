@@ -1,6 +1,6 @@
 import { CompileOpts, ExtractOpts } from "@formatjs/cli-lib";
 import { DEFAULT_ID_INTERPOLATION_PATTERN } from "babel-plugin-formatjs";
-import { Options as BabelPluginOpts } from "babel-plugin-formatjs/types";
+import { Options as BabelPluginOpts } from "babel-plugin-formatjs/types.js";
 import { cloneDeep, pick } from "lodash-es";
 import fs from "node:fs/promises";
 import path from "node:path";
