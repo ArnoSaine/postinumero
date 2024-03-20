@@ -1,0 +1,39 @@
+{
+  "name": "@postinumero/vite-plugin-module-proxy",
+  "version": "0.1.0",
+  "description": "Override module exports",
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./lib/main.js",
+    "./*": {
+      "types": "./lib/*.d.ts",
+      "import": "./lib/*.js"
+    }
+  },
+  "main": "./lib/main.js",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc --watch"
+  },
+  "dependencies": {
+    "@postinumero/vite-plugin-remix-resolve-config-path": "^0.1.0",
+    "@remix-run/dev": "^2.7.0",
+    "tiny-invariant": "^1.3.1"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  }
+}

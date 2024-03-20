@@ -1,6 +1,6 @@
-declare module "virtual:remix-resolve-config-path:*";
+declare module "@postinumero/vite-plugin-remix-resolve-config-path/*";
 
-declare module "virtual:remix-resolve-config-path:preset:root" {
+declare module "@postinumero/vite-plugin-remix-resolve-config-path/preset/root" {
   export const meta: import("@remix-run/react").MetaFunction;
   export const action: import("@remix-run/node").ActionFunction;
   export const loader: import("@remix-run/node").LoaderFunction;
@@ -10,7 +10,7 @@ declare module "virtual:remix-resolve-config-path:preset:root" {
 
   export const Layout: React.ComponentType | undefined;
   export const HydrateFallback: React.ComponentType | undefined;
-  const defaults: React.ComponentType;
-  export default defaults;
+  const component: React.ComponentType;
+  export default component;
   export const ErrorBoundary: React.ComponentType | undefined;
 }

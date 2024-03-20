@@ -1,0 +1,47 @@
+{
+  "name": "@postinumero/remix-react-intl",
+  "version": "0.0.0",
+  "description": "FormatJS (react-intl) & Remix integration",
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "type": "module",
+  "main": "./lib/main.js",
+  "files": [
+    "lib",
+    "modules",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc --watch"
+  },
+  "dependencies": {
+    "@babel/plugin-syntax-typescript": "^7.23.3",
+    "@formatjs/cli-lib": "^6.3.6",
+    "@formatjs/intl": "^2.10.0",
+    "@postinumero/vite-plugin-module-proxy": "^0.1.0",
+    "@remix-run/dev": "^2.8.0",
+    "babel-plugin-formatjs": "^10.5.13",
+    "lodash-es": "^4.17.21",
+    "react-intl": "^6.6.2"
+  },
+  "devDependencies": {
+    "@remix-run/node": "^2.8.0",
+    "@types/lodash-es": "^4.17.12",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "vite": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@remix-run/react": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  }
+}

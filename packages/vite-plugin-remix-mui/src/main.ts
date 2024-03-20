@@ -1,61 +1,63 @@
-import replaceModule from "@postinumero/vite-plugin-replace-module";
-import remixRoot from "@postinumero/vite-plugin-replace-module/lib/presets/remix-root.js";
-import type { Plugin } from "vite";
+import moduleProxy from "@postinumero/vite-plugin-module-proxy";
+import remixRoot from "@postinumero/vite-plugin-module-proxy/presets/remix-root";
+import type { Plugin, ResolvedConfig } from "vite";
 
-const serverEntry = "@remix-run/dev/dist/config/defaults/entry.server.node";
+//const serverEntry = "@remix-run/dev/dist/config/defaults/entry.server";
 
-export default [
-  {
-    name: "@postinumero/remix-mui",
-    config: (config) => {
-      const onwarn =
-        config.build?.rollupOptions?.onwarn ??
-        ((warning, warn) => warn(warning));
+export default async () => {
+  let resolvedConfig: ResolvedConfig;
 
-      config.build ??= {};
-      config.build.rollupOptions ??= {};
-      config.build.rollupOptions.onwarn = (warning, warn) => {
-        if (
-          warning.code === "MODULE_LEVEL_DIRECTIVE" &&
-          warning.id?.includes("/node_modules/@mui/") &&
-          warning.message.includes('"use client"')
-        ) {
-          return;
-        }
-
-        onwarn(warning, warn);
-      };
-
-      return {
+  return [
+    {
+      name: "@postinumero/remix-mui",
+      config: () => ({
         resolve: {
-          alias: [
-            {
-              find: "@mui/system",
-              replacement: "@mui/system/esm",
-            },
-          ],
+          alias: {
+            "@mui/system": "@mui/system/esm",
+          },
         },
         ssr: {
           noExternal: ["@mui/*", "@remix-run/*"],
         },
-      };
-    },
-  } as Plugin,
-  replaceModule([
+      }),
+    } as Plugin,
+    moduleProxy({
+      id: "@mui/material",
+      proxy: new URL("../modules/@mui/material", import.meta.url).pathname,
+    }),
+    moduleProxy({
+      id: "@remix-run/react",
+      proxy: new URL("../modules/@remix-run/react", import.meta.url).pathname,
+    }),
+    // moduleProxy({
+    //   id: `/node_modules/${serverEntry}.node`,
+    //   proxy: new URL(`./modules/${serverEntry}.node.js`, import.meta.url)
+    //     .pathname,
+    // }),
+
+    // "react-dom/server" proxy in @remix-run/dev/dist/config/defaults/entry.server.spa.tsx does not work.
+    // moduleProxy({
+    //   id: "react-dom/server",
+    //   proxy: new URL("../modules/react-dom/server.tsx", import.meta.url).pathname,
+    // }),
+    // Replace "react-dom/server" import path with the proxy
     {
-      source: "@mui/material",
-      pathname: new URL("./modules/@mui/material.js", import.meta.url).pathname,
-    },
-    {
-      source: "@remix-run/react",
-      pathname: new URL("./modules/@remix-run/react.js", import.meta.url)
-        .pathname,
-    },
-    {
-      source: `/node_modules/${serverEntry}`,
-      pathname: new URL(`./modules/${serverEntry}.js`, import.meta.url)
-        .pathname,
-    },
-  ]),
-  remixRoot({ url: import.meta.url }),
-];
+      name: "@postinumero/remix-mui/replace-react-dom-server",
+      configResolved(config) {
+        resolvedConfig = config;
+      },
+      transform(code, id) {
+        if (
+          id ===
+          (resolvedConfig as any).__remixPluginContext?.entryServerFilePath
+        ) {
+          return code.replace(
+            "react-dom/server",
+            new URL("../modules/react-dom/server", import.meta.url).pathname,
+          );
+        }
+      },
+    } as Plugin,
+    ...(await remixRoot({ url: import.meta.url })),
+  ];
+};
