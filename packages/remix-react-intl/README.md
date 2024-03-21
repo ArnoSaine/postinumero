@@ -1,4 +1,4 @@
-# @postinumero/vite-plugin-remix-react-intl
+# @postinumero/remix-react-intl
 
 FormatJS (react-intl) & Remix integration
 
