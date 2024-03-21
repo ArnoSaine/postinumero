@@ -11,6 +11,8 @@ const prefix = "@postinumero/vite-plugin-remix-resolve-config-path/";
 const presetPrefix = "preset/";
 const presets = {
   root: "${path.join(config.appDirectory, config.routes.root.file)}",
+  route:
+    "${path.join(config.appDirectory, config.routes[new URLSearchParams(importer.split('?')[1]).get('routeId')].file)}",
 } as const;
 
 const remixResolveConfigPath: Plugin = {
@@ -30,10 +32,12 @@ const remixResolveConfigPath: Plugin = {
         source = presets[preset];
       }
 
-      source = new Function("config", "path", `return \`${source}\``)(
-        config,
-        path,
-      );
+      source = new Function(
+        "config",
+        "path",
+        "importer",
+        `return \`${source}\``,
+      )(config, path, importer);
 
       const resolved = await this.resolve(source, importer, options);
       invariant(resolved, "resolved config");

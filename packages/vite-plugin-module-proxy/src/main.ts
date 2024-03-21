@@ -13,7 +13,7 @@ export default function moduleProxy({
   id,
   reExportAllFrom = id,
   proxy,
-}: Options): Plugin {
+}: Options) {
   let resolvedConfig: ResolvedConfig;
 
   const plugin: Plugin = {
@@ -27,7 +27,11 @@ export default function moduleProxy({
         importer = importer?.split("?")[0];
         const proxyResolved = await this.resolve(proxy, undefined, options);
         invariant(proxyResolved, `Resolved proxy ${proxy}`);
-        if (importer === proxyResolved.id) {
+
+        const proxyResolvedPathname = new URL(proxyResolved.id, import.meta.url)
+          .pathname;
+
+        if (importer === proxyResolvedPathname) {
           // Inside the proxy – do nothing and use a subsequent resolver or the
           // default.
           return;

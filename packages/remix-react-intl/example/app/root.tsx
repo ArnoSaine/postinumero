@@ -10,9 +10,7 @@ import {
 } from "@remix-run/react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-// export const loader = (args: LoaderFunctionArgs) => {
-//   return remixReactIntl.loader("root", args);
-// };
+export const loader = () => null;
 
 export const Layout = function Layout({
   children,

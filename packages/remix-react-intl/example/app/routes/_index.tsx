@@ -1,5 +1,7 @@
 import { FormattedMessage } from "react-intl";
 
+export const loader = () => null;
+
 export default function Index() {
   return (
     <>
