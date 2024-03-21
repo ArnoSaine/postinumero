@@ -13,7 +13,9 @@ export default defineConfig({
     moduleProxy({
       id: "some-module",
       proxy: "./modules/some-module.tsx",
-      reExportAllFrom: "some-module", // Optional. Default: `options.id`. Set `false` to disable re-exporting.
+      // Optional. Default: `options.id`.
+      // Set `false` to disable re-exporting.
+      reExportAllFrom: "some-module",
     }),
   ],
 });
@@ -22,13 +24,16 @@ export default defineConfig({
 `./modules/some-module.jsx`:
 
 ```tsx
-// Reference to the original module. If there are subsequent proxies for the same module, this is a reference to the subsequent proxy.
+// Reference to the original module. If there are subsequent proxies for
+// the same module, this is a reference to the subsequent proxy.
 import * as someModule from "some-module";
 
-// Not needed. Named exports are re-exported from the original module or a subsequent proxy.
+// Not needed. Named exports are re-exported from the original module or
+// a subsequent proxy.
 // export * from "some-module";
 
-// Default exports are not re-exported. If the module has default export, it must be re-exported of overwritten.
+// Default exports are not re-exported. If the module has default
+// export, it must be re-exported of overwritten.
 export { default } from "some-module";
 
 // Override the default export

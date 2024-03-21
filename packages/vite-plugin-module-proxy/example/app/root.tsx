@@ -5,10 +5,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import * as someLibrary from "./some-library";
 import * as proxy1 from "./proxy-1";
+import * as someLibrary from "./some-library";
 
 console.log(proxy1 === someLibrary, "p1");
+console.log(someLibrary.p2 === "p2", "p2 a");
+console.log(proxy1.p2 === "p2", "p2 b");
 
 const value = someLibrary.default();
 console.log(value === "original321", value);

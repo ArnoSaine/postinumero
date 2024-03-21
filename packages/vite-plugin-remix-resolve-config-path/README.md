@@ -2,17 +2,6 @@
 
 Import from Remix config paths
 
-`node:path` as `path` and Remix Config as `config` are available.
-
-## Example
-
-```js
-// Import the root
-import * as root from "virtual:remix-resolve-config-path:${path.join(config.appDirectory, config.routes.root.file)}";
-// Or import using one of the presest
-import * as root from "virtual:remix-resolve-config-path:preset:root";
-```
-
 ## Setup
 
 ```js
@@ -23,3 +12,20 @@ export default defineConfig({
   plugins: [remixResolveConfigPath],
 });
 ```
+
+## Example
+
+```js
+// Import the root
+import * as root from "@postinumero/vite-plugin-remix-resolve-config-path/${path.join(config.appDirectory, config.routes.root.file)}";
+// Or import using one of the presets
+import * as root from "@postinumero/vite-plugin-remix-resolve-config-path/preset/root";
+```
+
+## Available variables
+
+| Name       | Value                                     |
+| ---------- | ----------------------------------------- |
+| `config`   | Remix Config                              |
+| `importer` | `importer` from Rollup's `resolveId` hook |
+| `path`     | `node:path`                               |
