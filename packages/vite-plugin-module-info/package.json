@@ -1,0 +1,27 @@
+{
+  "name": "@postinumero/vite-plugin-module-info",
+  "version": "0.0.0",
+  "description": "Get current module info",
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "type": "module",
+  "main": "./lib/main.js",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc --watch"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  }
+}

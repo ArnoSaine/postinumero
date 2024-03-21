@@ -8,6 +8,12 @@
     "email": "arno@mowhi.com"
   },
   "type": "module",
+  "exports": {
+    ".": "./lib/main.js",
+    "./preset/*": {
+      "types": "./src/types.d.ts"
+    }
+  },
   "main": "./lib/main.js",
   "files": [
     "lib",

@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "types": ["@postinumero/vite-plugin-module-info/src/types.d.ts"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
+  }
+}
