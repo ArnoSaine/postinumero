@@ -1,4 +1,6 @@
-import remixResolveConfigPath from "@postinumero/vite-plugin-remix-resolve-config-path";
+import remixResolveConfigPath, {
+  routeIdSearchParam,
+} from "@postinumero/vite-plugin-remix-resolve-config-path";
 import { RemixConfig, readConfig } from "@remix-run/dev/dist/config.js";
 import path from "node:path";
 import invariant from "tiny-invariant";
@@ -47,7 +49,7 @@ export const routePlugins = ({
   routeId: string;
 }) => {
   const proxyURL = new URL(
-    `${proxy}${proxy.includes("?") ? "&" : "?"}${`routeId=${encodeURIComponent(routeId).replaceAll(".", "%2E")}`}`,
+    `${proxy}${proxy.includes("?") ? "&" : "?"}${`${routeIdSearchParam}=${encodeURIComponent(routeId).replaceAll(".", "%2E")}`}`,
     url,
   );
 

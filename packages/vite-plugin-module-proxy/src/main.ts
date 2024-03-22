@@ -26,6 +26,7 @@ export default function moduleProxy({
       if (source === id) {
         importer = importer?.split("?")[0];
         const proxyResolved = await this.resolve(proxy, undefined, options);
+
         invariant(proxyResolved, `Resolved proxy ${proxy}`);
 
         const proxyResolvedPathname = new URL(proxyResolved.id, import.meta.url)
@@ -51,7 +52,7 @@ export default function moduleProxy({
               null, // Importer
               options,
             );
-            if (resolved?.id && resolved?.id === importer) {
+            if (resolved?.id && resolved?.id.split("?")[0]! === importer) {
               // We found a subsequent proxy that resolves to the same id that
               // imported us. Import propably happend there. To prevent infinite
               // loop, proceed to subsequent plugins.
@@ -66,10 +67,13 @@ export default function moduleProxy({
       }
     },
     async transform(code, _id) {
-      const proxyResolved = await this.resolve(proxy);
+      const proxyResolved = await this.resolve(proxy?.split("?")[0]!);
       invariant(proxyResolved, `Resolved proxy ${proxy}`);
 
-      if (_id === proxyResolved.id && reExportAllFrom !== false) {
+      if (
+        _id.split("?")[0]! === proxyResolved.id &&
+        reExportAllFrom !== false
+      ) {
         // const shouldReExportDefault = async () => {
         //   const moduleInfo = this.getModuleInfo((await this.resolve(id))!.id);
         //   invariant(moduleInfo, `Module info ${id}`);
