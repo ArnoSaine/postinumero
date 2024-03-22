@@ -7,12 +7,13 @@ const config = await readConfig();
 
 const name = "@postinumero/remix-resolve-config-path";
 
+export const routeIdSearchParam = "routeId";
+
 const prefix = "@postinumero/vite-plugin-remix-resolve-config-path/";
 const presetPrefix = "preset/";
 const presets = {
   root: "${path.join(config.appDirectory, config.routes.root.file)}",
-  route:
-    "${path.join(config.appDirectory, config.routes[new URLSearchParams(importer.split('?')[1]).get('routeId')].file)}",
+  route: `\$\{path.join(config.appDirectory, config.routes[new URLSearchParams(importer.split('?')[1]).get('${routeIdSearchParam}')].file)\}`,
 } as const;
 
 const remixResolveConfigPath: Plugin = {

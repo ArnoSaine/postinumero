@@ -9,8 +9,8 @@ import * as proxy1 from "./proxy-1";
 import * as someLibrary from "./some-library";
 
 console.log(proxy1 === someLibrary, "p1");
-console.log(someLibrary.p2 === "p2", "p2 a");
-console.log(proxy1.p2 === "p2", "p2 b");
+console.log((someLibrary as unknown as { p2: string }).p2 === "p2", "p2 a");
+console.log((proxy1 as unknown as { p2: string }).p2 === "p2", "p2 b");
 
 const value = someLibrary.default();
 console.log(value === "original321", value);
@@ -33,8 +33,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
-        <someLibrary.Component />
+        <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
+          <h1>Layout</h1>
+          {children}
+          <someLibrary.Component />
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -43,5 +46,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <h2>Root</h2>
+      <Outlet />
+    </>
+  );
 }

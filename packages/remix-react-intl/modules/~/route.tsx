@@ -1,3 +1,4 @@
+import { routeIdSearchParam } from "@postinumero/vite-plugin-remix-resolve-config-path";
 import * as original from "@postinumero/vite-plugin-remix-resolve-config-path/preset/route";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/react";
@@ -5,7 +6,7 @@ import { url } from "virtual:@postinumero/vite-plugin-module-info";
 import { serverOnly$ } from "vite-env-only";
 import * as route from "../../lib/route.js";
 
-const routeId = url.searchParams.get("routeId");
+const routeId = url.searchParams.get(routeIdSearchParam);
 
 export const loader = serverOnly$(
   original.loader
