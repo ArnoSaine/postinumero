@@ -2,6 +2,12 @@
   "name": "@postinumero/vite-plugin-module-info",
   "version": "0.0.0",
   "description": "Get current module info",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/vite-plugin-module-info",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/vite-plugin-module-info"
+  },
   "license": "ISC",
   "author": {
     "name": "Arno Saine",

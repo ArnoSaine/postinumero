@@ -2,6 +2,12 @@
   "name": "@postinumero/vite-plugin-remix-mui",
   "version": "0.1.2",
   "description": "MUI & Remix integration",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/vite-plugin-remix-mui",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/vite-plugin-remix-mui"
+  },
   "license": "ISC",
   "author": {
     "name": "Arno Saine",
