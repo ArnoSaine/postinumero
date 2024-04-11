@@ -29,6 +29,7 @@
     "@keycloak/keycloak-admin-client": "^24.0.1",
     "@openapitools/openapi-generator-cli": "^2.9.0",
     "@postinumero/remix-oidc": "*",
+    "@postinumero/remix-react-intl": "*",
     "@postinumero/vite-plugin-remix-mui": "*",
     "@remix-run/dev": "^2.8.0",
     "@types/react": "^18.2.20",
