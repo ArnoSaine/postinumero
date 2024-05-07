@@ -13,6 +13,7 @@ export default async () => {
       config: () => ({
         resolve: {
           alias: {
+            "@mui/icons-material": "@mui/icons-material/esm",
             "@mui/system": "@mui/system/esm",
           },
         },

@@ -41,6 +41,7 @@
     "@emotion/react": "*",
     "@emotion/server": "*",
     "@emotion/styled": "*",
+    "@mui/icons-material": "*",
     "@mui/material": "*",
     "@remix-run/react": "*",
     "react": "*",

@@ -28,6 +28,8 @@ export default defineConfig({
 import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
 
+// ...
+
 <Link href="/about" color="secondary">
   Go to the about page
 </Link>;
