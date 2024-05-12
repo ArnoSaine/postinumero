@@ -6,7 +6,8 @@
   "workspaces": [
     "demos/*",
     "packages/*",
-    "packages/*/example"
+    "packages/*/example",
+    "packages/*/examples/*"
   ],
   "scripts": {
     "build": "turbo run build",

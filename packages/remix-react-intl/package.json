@@ -2,6 +2,12 @@
   "name": "@postinumero/remix-react-intl",
   "version": "0.0.0",
   "description": "FormatJS (react-intl) & Remix integration",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/remix-react-intl",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/remix-react-intl"
+  },
   "license": "ISC",
   "author": {
     "name": "Arno Saine",
@@ -16,6 +22,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "create-spa-example": "./scripts/create-spa-example.sh",
     "start": "tsc --watch"
   },
   "dependencies": {

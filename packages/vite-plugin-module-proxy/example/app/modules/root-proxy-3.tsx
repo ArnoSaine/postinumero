@@ -1,7 +1,7 @@
-import * as original from "@postinumero/vite-plugin-remix-resolve-config-path/preset/root";
+import * as original from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/root";
 import { PropsWithChildren } from "react";
 
-export { default } from "@postinumero/vite-plugin-remix-resolve-config-path/preset/root";
+export { default } from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/root";
 
 export function Layout({ children }: PropsWithChildren) {
   return (

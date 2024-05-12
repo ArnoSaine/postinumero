@@ -2,25 +2,16 @@ import { readConfig } from "@remix-run/dev/dist/config.js";
 import path from "node:path";
 import invariant from "tiny-invariant";
 import type { Plugin } from "vite";
-
-const config = await readConfig();
+import { prefix, presetPrefix, presets } from "./options.js";
 
 const name = "@postinumero/remix-resolve-config-path";
-
-export const routeIdSearchParam = "routeId";
-
-const prefix = "@postinumero/vite-plugin-remix-resolve-config-path/";
-const presetPrefix = "preset/";
-const presets = {
-  root: "${path.join(config.appDirectory, config.routes.root.file)}",
-  route: `\$\{path.join(config.appDirectory, config.routes[new URLSearchParams(importer.split('?')[1]).get('${routeIdSearchParam}')].file)\}`,
-} as const;
 
 const remixResolveConfigPath: Plugin = {
   name,
   enforce: "pre",
   async resolveId(source, importer, options) {
     if (source.startsWith(prefix)) {
+      const config = await readConfig();
       source = source.slice(prefix.length);
 
       if (source.startsWith(presetPrefix)) {

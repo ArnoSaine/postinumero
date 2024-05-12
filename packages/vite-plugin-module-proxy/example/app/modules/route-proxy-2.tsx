@@ -1,4 +1,4 @@
-import * as original from "@postinumero/vite-plugin-remix-resolve-config-path/preset/route";
+import * as original from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/route";
 
 export default function Route() {
   return (

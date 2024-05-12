@@ -1,6 +1,5 @@
-import remixResolveConfigPath, {
-  routeIdSearchParam,
-} from "@postinumero/vite-plugin-remix-resolve-config-path";
+import remixResolveConfigPath from "@postinumero/vite-plugin-remix-resolve-config-path";
+import { routeIdSearchParam } from "@postinumero/vite-plugin-remix-resolve-config-path/options";
 import { RemixConfig, readConfig } from "@remix-run/dev/dist/config.js";
 import path from "node:path";
 import invariant from "tiny-invariant";
@@ -60,7 +59,7 @@ export const routePlugins = ({
       id:
         // "/absolute/path/to/app/<route file>.tsx"
         new URL(path.join(config.appDirectory, file), url).pathname,
-      reExportAllFrom: `@postinumero/vite-plugin-remix-resolve-config-path/\$\{path.join(config.appDirectory, config.routes['${routeId}'].file)\}`,
+      reExportAllFrom: `@postinumero/vite-plugin-remix-resolve-config-path/resolve/\$\{path.join(config.appDirectory, config.routes['${routeId}'].file)\}`,
       proxy,
     }),
     moduleProxy({

@@ -9,14 +9,11 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { FormattedMessage, useIntl } from "react-intl";
+import ResetButton from "./components/ResetButton";
 
 export const loader = () => null;
 
-export const Layout = function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function Layout({ children }: { children: React.ReactNode }) {
   const intl = useIntl();
 
   return (
@@ -33,9 +30,7 @@ export const Layout = function Layout({
             <FormattedMessage defaultMessage="Welcome to FormatJS (react-intl) + Remix" />
           </h1>
           <LocaleForm>
-            <button>
-              <FormattedMessage defaultMessage="Reset" />
-            </button>
+            <ResetButton />
             {options.locales.map((locale) => (
               <button key={locale} name="locale" value={locale}>
                 {locale}
@@ -43,8 +38,15 @@ export const Layout = function Layout({
             ))}
           </LocaleForm>
           <nav>
-            <Link to="/">Home</Link> <Link to="/other">Other</Link>{" "}
-            <Link to="/other/nested">Other nested route</Link>
+            <Link to="/">
+              <FormattedMessage defaultMessage="Home" />
+            </Link>{" "}
+            <Link to="/other">
+              <FormattedMessage defaultMessage="Other" />
+            </Link>{" "}
+            <Link to="/other/nested">
+              <FormattedMessage defaultMessage="Other nested route" />
+            </Link>
           </nav>
           {children}
         </div>
@@ -53,7 +55,7 @@ export const Layout = function Layout({
       </body>
     </html>
   );
-};
+}
 
 export default function App() {
   return <Outlet />;

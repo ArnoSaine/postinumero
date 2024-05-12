@@ -17,9 +17,9 @@ export default defineConfig({
 
 ```js
 // Import the root
-import * as root from "@postinumero/vite-plugin-remix-resolve-config-path/${path.join(config.appDirectory, config.routes.root.file)}";
+import * as root from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/${path.join(config.appDirectory, config.routes.root.file)}";
 // Or import using one of the presets
-import * as root from "@postinumero/vite-plugin-remix-resolve-config-path/preset/root";
+import * as root from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/root";
 ```
 
 ## Available variables

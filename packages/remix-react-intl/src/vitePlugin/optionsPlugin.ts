@@ -5,15 +5,17 @@ import { cloneDeep, pick } from "lodash-es";
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { Plugin } from "vite";
-import { ConfigEnv } from "vite";
+import { ConfigEnv, UserConfig } from "vite";
 import { name } from "./index.js";
 
 export interface UserOptions {
   target?: string;
+  compiledTargetPublicPath?: string;
   compiledTarget?: string;
   defaultLocale?: string;
   fallbackLocale?: string;
   locales?: string[];
+  localStorageKey?: string;
   preserveWhitespace?: boolean;
   babel?: BabelPluginOpts;
   compile?: CompileOpts;
@@ -21,11 +23,23 @@ export interface UserOptions {
   routes?: {
     locale?: string;
   };
+  singleOutput?: boolean;
+  ssr?: boolean;
 }
 
 export type Options = Required<UserOptions>;
-export type Opts = UserOptions | ((env: ConfigEnv) => UserOptions) | undefined;
-const publicOptions = ["fallbackLocale", "locales", "routes"] as const;
+export type Opts =
+  | UserOptions
+  | ((config: UserConfig, env: ConfigEnv) => UserOptions)
+  | undefined;
+const publicOptions = [
+  "compiledTargetPublicPath",
+  "fallbackLocale",
+  "locales",
+  "localStorageKey",
+  "routes",
+  "ssr",
+] as const;
 export type PublicOptions = Pick<Options, (typeof publicOptions)[number]>;
 
 const optionsPlugin = (_options: Opts) => {
@@ -38,9 +52,9 @@ const optionsPlugin = (_options: Opts) => {
     name: `${name}/options`,
     enforce: "pre",
     api,
-    config: async (_config, env) => {
+    config: async (config, env) => {
       if (typeof _options === "function") {
-        _options = _options(env);
+        _options = _options(config, env);
       }
 
       Object.assign(options, cloneDeep(_options));
@@ -48,7 +62,10 @@ const optionsPlugin = (_options: Opts) => {
       const isProduction = env?.mode === "production";
 
       options.target ??= "lang";
-      options.compiledTarget ??= ".compiled-lang";
+      options.compiledTargetPublicPath ??= ".compiled-lang";
+      options.compiledTarget ??= options.ssr
+        ? options.compiledTargetPublicPath
+        : `public/${options.compiledTargetPublicPath}`;
       options.defaultLocale ??= "en-default";
       options.fallbackLocale ??= "en";
       options.locales ??= (await fs.readdir(options.target))
@@ -57,6 +74,7 @@ const optionsPlugin = (_options: Opts) => {
       if (!options.locales.includes(options.fallbackLocale)) {
         options.locales.unshift(options.fallbackLocale);
       }
+      options.localStorageKey ??= "__locale";
       options.preserveWhitespace ??= true;
       options.babel ??= {};
       options.babel.preserveWhitespace ??= options.preserveWhitespace;
@@ -70,6 +88,7 @@ const optionsPlugin = (_options: Opts) => {
       options.extract.preserveWhitespace ??= options.preserveWhitespace;
       options.routes ??= {};
       options.routes.locale ??= "/__locale";
+      options.singleOutput ??= true;
     },
     resolveId(id) {
       if (id === virtualModuleId) {

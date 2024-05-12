@@ -6,11 +6,11 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 installGlobals();
 
-const intl = await remixReactIntl();
+const intl = await remixReactIntl({ ssr: false });
 
 export default defineConfig({
   plugins: [
-    remix({ presets: [intl.remixPreset] }),
+    remix({ presets: [intl.remixPreset], ssr: false }),
     tsconfigPaths(),
     intl.vitePlugin,
   ],

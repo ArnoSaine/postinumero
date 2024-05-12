@@ -21,42 +21,62 @@ export default function compilePlugin(options: Options): Plugin {
       return !("build" in config) && !("configFile" in config);
     },
     async config(config) {
-      const { remixConfig } = (config as RemixUserConfig).__remixPluginContext;
-
-      const routeIds = Object.values(remixConfig.routes).map(
-        (route) => route.id,
-      );
-
-      const [compiledMessages, commonMessages, ...routeMessages] =
-        await Promise.all([
-          compile(options.compile, options.target),
-          extractCommonMessages(
-            remixConfig.appDirectory,
-            options.extract,
-            routeIds,
-          ),
-          ...routeIds.map(
-            extractRoute(remixConfig.appDirectory, options.extract),
-          ),
-        ]);
-
-      const commonMessageIds = new Set(Object.keys(commonMessages));
-      const routeMessageIds: RouteMessageIds = new Map(
-        routeMessages.map(({ routeId, messages }) => [
-          routeId,
-          new Set(Object.keys(messages)),
-        ]),
-      );
-
-      removeCommonMessagesFromRoutes(commonMessageIds, routeMessageIds);
-
       const localeRouteCompiledMessages: LocaleRouteCompiledMessages =
         new Map();
+
+      const compiledMessagesPromise = compile(
+        options.compile,
+        options.target,
+        options.defaultLocale,
+      );
+
+      const routeMessageIds: RouteMessageIds = options.singleOutput
+        ? new Map([
+            [
+              "root",
+              new Set(
+                (await compiledMessagesPromise)
+                  .get(options.defaultLocale)!
+                  .keys(),
+              ),
+            ],
+          ])
+        : await (async () => {
+            const { remixConfig } = (config as RemixUserConfig)
+              .__remixPluginContext;
+
+            const routeIds = Object.values(remixConfig.routes).map(
+              (route) => route.id,
+            );
+
+            const [commonMessages, ...routeMessages] = await Promise.all([
+              extractCommonMessages(
+                remixConfig.appDirectory,
+                options.extract,
+                routeIds,
+              ),
+              ...routeIds.map(
+                extractRoute(remixConfig.appDirectory, options.extract),
+              ),
+            ]);
+
+            const commonMessageIds = new Set(Object.keys(commonMessages));
+            const routeMessageIds: RouteMessageIds = new Map(
+              routeMessages.map(({ routeId, messages }) => [
+                routeId,
+                new Set(Object.keys(messages)),
+              ]),
+            );
+
+            removeCommonMessagesFromRoutes(commonMessageIds, routeMessageIds);
+
+            return routeMessageIds;
+          })();
 
       setCompiledMessagesForRoutes(
         routeMessageIds,
         localeRouteCompiledMessages,
-        compiledMessages,
+        await compiledMessagesPromise,
       );
 
       inheritFromParentLocale(
@@ -85,6 +105,7 @@ const pseudoLocales = ["en-XA", "en-XB", "xx-AC", "xx-HA", "xx-LS"] as const;
 const compile = async (
   compileOpts: CompileOpts,
   target: string,
+  defaultLocale: string,
 ): Promise<CompiledAll> =>
   new Map(
     await Promise.all(
@@ -93,26 +114,38 @@ const compile = async (
           locale: path.parse(file).name,
           file: path.join(target, file),
         }))
-        .map(
-          async ({ file, locale }) =>
-            [
-              locale,
-              new Map(
-                Object.entries(
-                  JSON.parse(
-                    await formatjsCompile([file], {
-                      pseudoLocale: pseudoLocales.includes(
-                        locale as PseudoLocale,
-                      )
-                        ? (locale as PseudoLocale)
-                        : undefined,
-                      ...compileOpts,
-                    }),
-                  ) as Compiled,
-                ),
+        .map(async ({ file, locale }, _, files) => {
+          const pseudoLocale = pseudoLocales.includes(locale as PseudoLocale)
+            ? (locale as PseudoLocale)
+            : undefined;
+
+          const compileAndParse = async (file: string): Promise<Compiled> =>
+            JSON.parse(
+              await formatjsCompile([file], {
+                pseudoLocale,
+                ...compileOpts,
+              }),
+            );
+
+          const messages = await compileAndParse(file);
+          const defaultLocaleFile = files.find(
+            (file) => file.locale === defaultLocale,
+          )!.file;
+
+          return [
+            locale,
+            new Map(
+              Object.entries(
+                pseudoLocale
+                  ? {
+                      ...(await compileAndParse(defaultLocaleFile)),
+                      ...messages,
+                    }
+                  : messages,
               ),
-            ] as const,
-        ),
+            ),
+          ] as const;
+        }),
     ),
   );
 
@@ -200,6 +233,10 @@ function inheritFromParentLocale(
   locales: string[],
   localeRouteCompiledMessages: LocaleRouteCompiledMessages,
 ) {
+  const availableLocales = locales.includes(defaultLocale)
+    ? locales
+    : [...locales, defaultLocale];
+
   const inheritLocales = locales
     .map(baseLocales)
     .map((locales) =>
@@ -207,7 +244,7 @@ function inheritFromParentLocale(
     )
     .map(([locale, ...inheritFrom]) => ({
       locale: locale!,
-      parent: inheritFrom.find((inherit) => locales.includes(inherit)),
+      parent: inheritFrom.find((inherit) => availableLocales.includes(inherit)),
     }));
 
   function inherit(base: string) {

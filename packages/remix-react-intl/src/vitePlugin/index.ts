@@ -1,4 +1,5 @@
 import moduleInfo from "@postinumero/vite-plugin-module-info";
+import remixRoot from "@postinumero/vite-plugin-module-proxy/presets/remix-root";
 import remixRoutes from "@postinumero/vite-plugin-module-proxy/presets/remix-routes";
 import envOnly from "vite-env-only";
 import babelPlugin from "./babelPlugin.js";
@@ -16,12 +17,19 @@ const remixReactIntl = async (_options: Opts = {}) => {
     extractPlugin(options.api!.options),
     compilePlugin(options.api!.options),
     babelPlugin(options.api!.options),
-    ...(await remixRoutes({
-      url: new URL("..", import.meta.url).toString(),
-    })),
+    ...(true //options.api!.options.singleOutput
+      ? [
+          await remixRoot({
+            url: new URL("..", import.meta.url).toString(),
+            proxy: "../modules/~/route",
+          }),
+        ]
+      : await remixRoutes({
+          url: new URL("..", import.meta.url).toString(),
+        })),
     envOnly(),
     moduleInfo,
-  ];
+  ] as const;
 };
 
 export default remixReactIntl;

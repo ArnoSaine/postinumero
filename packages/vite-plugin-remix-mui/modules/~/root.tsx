@@ -1,4 +1,4 @@
-import * as root from "@postinumero/vite-plugin-remix-resolve-config-path/preset/root";
+import * as root from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/root";
 import { identity } from "lodash-es";
 import { withMUI } from "../../lib/utils.js";
 

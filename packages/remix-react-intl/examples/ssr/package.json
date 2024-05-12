@@ -1,5 +1,5 @@
 {
-  "name": "remix-react-intl-example",
+  "name": "remix-react-intl-example-ssr",
   "private": true,
   "sideEffects": false,
   "type": "module",

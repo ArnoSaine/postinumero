@@ -1,4 +1,4 @@
-declare module "@postinumero/vite-plugin-remix-resolve-config-path/*";
+declare module "@postinumero/vite-plugin-remix-resolve-config-path/resolve/*";
 
 const meta: import("@remix-run/react").MetaFunction;
 const action: import("@remix-run/node").ActionFunction;
@@ -12,7 +12,7 @@ const HydrateFallback: React.ComponentType | undefined;
 const component: React.ComponentType;
 const ErrorBoundary: React.ComponentType | undefined;
 
-declare module "@postinumero/vite-plugin-remix-resolve-config-path/preset/root" {
+declare module "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/root" {
   export {
     ErrorBoundary,
     HydrateFallback,
@@ -27,7 +27,7 @@ declare module "@postinumero/vite-plugin-remix-resolve-config-path/preset/root" 
   };
 }
 
-declare module "@postinumero/vite-plugin-remix-resolve-config-path/preset/route" {
+declare module "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/route" {
   export {
     ErrorBoundary,
     HydrateFallback,
