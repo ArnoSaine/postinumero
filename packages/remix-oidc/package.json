@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/remix-oidc",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "ISC",
   "author": {
     "name": "Arno Saine",
@@ -18,7 +18,7 @@
     "start": "tsc --watch"
   },
   "dependencies": {
-    "@postinumero/vite-plugin-module-proxy": "^0.1.0",
+    "@postinumero/vite-plugin-module-proxy": "^0.1.1",
     "@remix-run/dev": "^2.7.0",
     "jwt-decode": "^4.0.0",
     "oidc-client-ts": "^3.0.1"

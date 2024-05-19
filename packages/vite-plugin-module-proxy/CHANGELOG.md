@@ -1,5 +1,13 @@
 # @postinumero/vite-plugin-module-proxy
 
+## 0.1.1
+
+### Patch Changes
+
+- Rename @postinumero/vite-plugin-replace-module to @postinumero/vite-plugin-module-proxy
+- Updated dependencies
+  - @postinumero/vite-plugin-remix-resolve-config-path@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

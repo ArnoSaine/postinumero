@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/vite-plugin-module-proxy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Override module exports",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/vite-plugin-module-proxy",
   "repository": {
@@ -31,7 +31,7 @@
     "start": "tsc --watch"
   },
   "dependencies": {
-    "@postinumero/vite-plugin-remix-resolve-config-path": "^0.1.0",
+    "@postinumero/vite-plugin-remix-resolve-config-path": "^0.1.1",
     "@remix-run/dev": "^2.7.0",
     "tiny-invariant": "^1.3.1"
   },

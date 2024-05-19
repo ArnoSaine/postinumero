@@ -1,5 +1,18 @@
 # @postinumero/vite-plugin-remix-mui
 
+## 0.2.0
+
+### Minor Changes
+
+- - Fix MUI icon imports
+  - Change plugin interface from object to function
+  - Internal changes
+
+### Patch Changes
+
+- Updated dependencies
+  - @postinumero/vite-plugin-module-proxy@0.1.1
+
 ## 0.1.2
 
 ### Patch Changes
