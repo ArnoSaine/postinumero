@@ -17,7 +17,7 @@ export default defineConfig({
       // ssr: false,
     }),
     tsconfigPaths(),
-    mui,
+    mui(),
   ],
 });
 ```
@@ -27,6 +27,8 @@ export default defineConfig({
 ```tsx
 import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
+
+// ...
 
 <Link href="/about" color="secondary">
   Go to the about page

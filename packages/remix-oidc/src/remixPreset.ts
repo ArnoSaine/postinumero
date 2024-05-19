@@ -2,10 +2,11 @@ import type { Preset } from "@remix-run/dev";
 import { readConfig } from "@remix-run/dev/dist/config.js";
 import path from "node:path";
 import configFromFile from "./configFromFile.js";
+import { name } from "./main.js";
 
 export default function remixPreset(configFile: string): Preset {
   return {
-    name: "@postinumero/remix-oidc/remix-preset",
+    name,
     async remixConfig() {
       const { appDirectory } = await readConfig();
       const config = await configFromFile(configFile);
@@ -18,16 +19,16 @@ export default function remixPreset(configFile: string): Preset {
               path.relative(
                 appDirectory,
                 new URL("./app/routes/signin/route.js", import.meta.url)
-                  .pathname
-              )
+                  .pathname,
+              ),
             );
             route(
               config.routes.signout,
               path.relative(
                 appDirectory,
                 new URL("./app/routes/signout/route.js", import.meta.url)
-                  .pathname
-              )
+                  .pathname,
+              ),
             );
           });
         },

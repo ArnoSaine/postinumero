@@ -2,6 +2,12 @@
   "name": "@postinumero/vite-plugin-remix-mui",
   "version": "0.1.2",
   "description": "MUI & Remix integration",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/vite-plugin-remix-mui",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/vite-plugin-remix-mui"
+  },
   "license": "ISC",
   "author": {
     "name": "Arno Saine",
@@ -11,6 +17,7 @@
   "main": "./lib/main.js",
   "files": [
     "lib",
+    "modules",
     "src"
   ],
   "scripts": {
@@ -18,7 +25,7 @@
     "start": "tsc --watch"
   },
   "dependencies": {
-    "@postinumero/vite-plugin-replace-module": "^0.1.0",
+    "@postinumero/vite-plugin-module-proxy": "^0.1.0",
     "@remix-run/dev": "^2.7.0",
     "lodash-es": "^4.17.21"
   },
@@ -34,6 +41,7 @@
     "@emotion/react": "*",
     "@emotion/server": "*",
     "@emotion/styled": "*",
+    "@mui/icons-material": "*",
     "@mui/material": "*",
     "@remix-run/react": "*",
     "react": "*",

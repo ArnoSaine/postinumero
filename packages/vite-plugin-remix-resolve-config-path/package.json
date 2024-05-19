@@ -2,12 +2,28 @@
   "name": "@postinumero/vite-plugin-remix-resolve-config-path",
   "version": "0.1.0",
   "description": "Import from Remix config paths",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/vite-plugin-remix-resolve-config-path",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/vite-plugin-remix-resolve-config-path"
+  },
   "license": "ISC",
   "author": {
     "name": "Arno Saine",
     "email": "arno@mowhi.com"
   },
   "type": "module",
+  "exports": {
+    ".": "./lib/main.js",
+    "./preset/*": {
+      "types": "./src/types.d.ts"
+    },
+    "./*": {
+      "types": "./lib/*.d.ts",
+      "import": "./lib/*.js"
+    }
+  },
   "main": "./lib/main.js",
   "files": [
     "lib",

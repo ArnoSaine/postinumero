@@ -1,6 +1,5 @@
-import { ThemeProvider } from "@mui/material";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
+import { Box, Container, ThemeProvider } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import {
   Links,
   Meta,
@@ -57,15 +56,17 @@ export function ErrorBoundary() {
     switch (error.status) {
       case 401:
         message = (
-          <p>
+          <Typography>
             Oops! Looks like you tried to visit a page that you do not have
             access to.
-          </p>
+          </Typography>
         );
         break;
       case 404:
         message = (
-          <p>Oops! Looks like you tried to visit a page that does not exist.</p>
+          <Typography>
+            Oops! Looks like you tried to visit a page that does not exist.
+          </Typography>
         );
         break;
 
@@ -75,9 +76,9 @@ export function ErrorBoundary() {
 
     return (
       <>
-        <h1>
+        <Typography variant="h1">
           {error.status}: {error.statusText}
-        </h1>
+        </Typography>
         {message}
       </>
     );
@@ -87,16 +88,15 @@ export function ErrorBoundary() {
     console.error(error);
     return (
       <>
-        <h1>There was an error</h1>
-        <p>{error.message}</p>
-        <hr />
-        <p>
+        <Typography variant="h1">There was an error</Typography>
+        <Typography gutterBottom>{error.message}</Typography>
+        <Typography>
           Hey, developer, you should replace this with what you want your users
           to see.
-        </p>
+        </Typography>
       </>
     );
   }
 
-  return <h1>Unknown Error</h1>;
+  return <Typography variant="h1">Unknown Error</Typography>;
 }

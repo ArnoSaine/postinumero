@@ -1,0 +1,10 @@
+node_modules
+
+/.cache
+/build
+.env
+
+# generated
+/.api
+/.compiled-lang
+/lang/en-default.json

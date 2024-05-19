@@ -2,25 +2,21 @@ import { readConfig } from "@remix-run/dev/dist/config.js";
 import path from "node:path";
 import invariant from "tiny-invariant";
 import type { Plugin } from "vite";
+import { prefix, presetPrefix, presets } from "./options.js";
 
-const config = await readConfig();
-
-const prefix = "virtual:remix-resolve-config-path:";
-const presetPrefix = "preset:";
-const presets = {
-  root: "${path.join(config.appDirectory, config.routes.root.file)}",
-} as const;
+const name = "@postinumero/remix-resolve-config-path";
 
 const remixResolveConfigPath: Plugin = {
-  name: "@postinumero/remix-resolve-config-path",
+  name,
   enforce: "pre",
-  resolveId(source) {
+  async resolveId(source, importer, options) {
     if (source.startsWith(prefix)) {
+      const config = await readConfig();
       source = source.slice(prefix.length);
 
       if (source.startsWith(presetPrefix)) {
         const preset = source.slice(
-          presetPrefix.length
+          presetPrefix.length,
         ) as keyof typeof presets;
 
         invariant(presets[preset], "preset");
@@ -28,14 +24,18 @@ const remixResolveConfigPath: Plugin = {
         source = presets[preset];
       }
 
-      const resolvedSource = new Function(
+      source = new Function(
         "config",
         "path",
-        `return \`${source}\``
-      )(config, path);
+        "importer",
+        `return \`${source}\``,
+      )(config, path, importer);
 
-      const url = new URL(resolvedSource, import.meta.url);
-      url.searchParams.set("remix-resolve-config-path", "1");
+      const resolved = await this.resolve(source, importer, options);
+      invariant(resolved, "resolved config");
+
+      const url = new URL(resolved.id, import.meta.url);
+      url.searchParams.append(name, "resolved");
 
       return `${url.pathname}${url.search}${url.hash}`;
     }

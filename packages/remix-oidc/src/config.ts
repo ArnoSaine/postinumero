@@ -1,5 +1,5 @@
+import userConfig from "@postinumero/remix-oidc/user-config";
 import type { UserManagerSettings } from "oidc-client-ts";
-import userConfig from "virtual:remix-oidc/config";
 import finalConfig from "./finalConfig.js";
 
 const defaults = {
@@ -11,9 +11,7 @@ const defaults = {
 };
 
 type DeepPartial<T> = T extends object
-  ? {
-      [P in keyof T]?: DeepPartial<T[P]>;
-    }
+  ? { [P in keyof T]?: DeepPartial<T[P]> }
   : T;
 
 type Defaults = typeof defaults;

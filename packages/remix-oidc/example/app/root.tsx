@@ -1,6 +1,7 @@
 import { useUser } from "@postinumero/remix-oidc/lib";
 import SigninForm from "@postinumero/remix-oidc/lib/app/routes/signin/Form";
 import SignoutForm from "@postinumero/remix-oidc/lib/app/routes/signout/Form";
+import config from "@postinumero/remix-oidc/lib/config.js";
 import {
   Link,
   Links,
@@ -13,7 +14,6 @@ import {
   useMatch,
   useRouteError,
 } from "@remix-run/react";
-import config from "@postinumero/remix-oidc/lib/config.js";
 
 export const clientLoader = () => null;
 
@@ -28,7 +28,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-          <h1>Welcome to Remix</h1>
+          <h1>Welcome to Keycloak + Remix</h1>
           <UserInfo />
           {children}
         </div>
