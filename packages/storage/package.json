@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "start": "tsc --watch"
+    "dev": "tsc --watch"
   },
   "dependencies": {
     "@postinumero/map-get-with-default": "^0.2.0"

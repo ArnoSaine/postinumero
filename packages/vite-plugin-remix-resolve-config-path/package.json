@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "start": "tsc --watch"
+    "dev": "tsc --watch"
   },
   "dependencies": {
     "@remix-run/dev": "^2.7.0",

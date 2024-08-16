@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "start": "tsc --watch"
+    "dev": "tsc --watch"
   },
   "devDependencies": {
     "vite": "^5.0.0"

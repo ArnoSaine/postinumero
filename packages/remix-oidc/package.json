@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "start": "tsc --watch"
+    "dev": "tsc --watch"
   },
   "dependencies": {
     "@postinumero/vite-plugin-module-proxy": "^0.1.1",

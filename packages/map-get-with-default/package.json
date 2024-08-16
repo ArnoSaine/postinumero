@@ -18,8 +18,8 @@
     "lib"
   ],
   "scripts": {
-    "start": "tsc --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "devDependencies": {
     "typescript": "^4.4.3"
