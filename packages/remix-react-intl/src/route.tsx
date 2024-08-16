@@ -1,16 +1,17 @@
 import { OnErrorFn } from "@formatjs/intl";
-import options from "@postinumero/remix-react-intl/options";
-import serverOptions from "@postinumero/remix-react-intl/options.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { ClientLoaderFunctionArgs, useLoaderData } from "@remix-run/react";
-import { merge } from "lodash-es";
+import { memoize, merge } from "lodash-es";
 import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import * as React from "react";
+import { useMemo } from "react";
 import { IntlProvider, MessageFormatElement, useIntl } from "react-intl";
+import options from "virtual:@postinumero/remix-react-intl/options";
+import serverOptions from "virtual:@postinumero/remix-react-intl/options.server";
 import { serverOnly$ } from "vite-env-only";
-import { getSession } from "./sessions.js";
+import { availableLocale } from "./helpers.js";
+import loadLocalePreference from "./loadLocalePreference.js";
 
 type Messages = Record<string, MessageFormatElement[]>;
 
@@ -34,18 +35,23 @@ const generateIndexHtml =
     new URL(path.resolve("build/server/index.js"), import.meta.url).toString(),
   )?.();
 
-const availableLocale = (locale: string) =>
-  options.locales.includes(locale) ? locale : options.fallbackLocale;
+const fetchMemoizedMessages = memoize(
+  async (url: string): Promise<Messages> => {
+    const response = await fetch(new URL(url));
+
+    return response.json();
+  },
+);
 
 const _loader = (
   generateIndexHtml
     ? serverOnly$(
         async (
-          locale: string,
+          requestedLocales: string[],
           routeId: string,
           _args: ClientLoaderFunctionArgs | LoaderFunctionArgs,
         ) => {
-          locale = availableLocale(locale);
+          const locale = availableLocale(requestedLocales);
 
           return {
             locale,
@@ -63,20 +69,18 @@ const _loader = (
         },
       )
     : async (
-        locale: string,
+        requestedLocales: string[],
         routeId: string,
         args: ClientLoaderFunctionArgs | LoaderFunctionArgs,
       ) => {
-        locale = availableLocale(locale);
+        const locale = availableLocale(requestedLocales);
 
-        const response = await fetch(
+        const messages = await fetchMemoizedMessages(
           new URL(
             `/${options.compiledTargetPublicPath}/${locale}/${routeId}.json`,
             args.request.url,
-          ),
+          ).toString(),
         );
-
-        const messages: Messages = await response.json();
 
         return { locale, messages };
       }
@@ -84,17 +88,29 @@ const _loader = (
 
 export const loader = serverOnly$(
   async (routeId: string, args: LoaderFunctionArgs) => {
-    const session = await getSession(args.request.headers.get("Cookie"));
+    const requestedLocales = [];
 
-    return _loader(session.get("locale")!, routeId, args);
+    const localePreference = await loadLocalePreference(args);
+    if (localePreference) {
+      requestedLocales.push(localePreference);
+    }
+
+    return _loader(requestedLocales, routeId, args);
   },
 );
 
-export const clientLoader = (
+export const clientLoader = async (
   routeId: string,
   args: ClientLoaderFunctionArgs,
 ) => {
-  return _loader(localStorage.getItem(options.localStorageKey)!, routeId, args);
+  const requestedLocales = [...navigator.languages];
+
+  const localePreference = await loadLocalePreference(undefined as any);
+  if (localePreference) {
+    requestedLocales.unshift(localePreference);
+  }
+
+  return _loader(requestedLocales, routeId, args);
 };
 
 export function withIntlProvider<Props extends object>(
@@ -115,11 +131,13 @@ export function withIntlProvider<Props extends object>(
       merge(intl, (useLoaderData() as any).intl);
     } catch {}
 
+    const intlMemoized = useMemo(() => intl, [intl.locale]);
+
     return (
       <IntlProvider
-        locale={intl.locale}
+        locale={intlMemoized.locale}
         // TODO: include fallback messages for root error boundary
-        messages={intl.messages}
+        messages={intlMemoized.messages}
         onError={handleError}
       >
         <Component {...props} />

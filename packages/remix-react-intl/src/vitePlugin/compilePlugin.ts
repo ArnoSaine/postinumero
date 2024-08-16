@@ -5,11 +5,13 @@ import {
   extract as formatjsExtract,
 } from "@formatjs/cli-lib";
 import { PseudoLocale } from "@formatjs/cli-lib/src/compile.js";
+import get from "@postinumero/map-get-with-default";
 import fg from "fast-glob";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { MessageDescriptor } from "react-intl";
 import type { Plugin } from "vite";
+import { baseLocales } from "../utils.js";
 import { RemixUserConfig, dts } from "./extractPlugin.js";
 import { name } from "./index.js";
 import { Options } from "./optionsPlugin.js";
@@ -220,14 +222,6 @@ function setCompiledMessagesForRoutes(
   }
 }
 
-const baseLocales = (locale: string) =>
-  locale
-    .split("-")
-    .map((_part, index, localeParts) =>
-      localeParts.slice(0, index + 1).join("-"),
-    )
-    .reverse();
-
 function inheritFromParentLocale(
   defaultLocale: string,
   locales: string[],
@@ -251,10 +245,15 @@ function inheritFromParentLocale(
     for (const { parent, locale } of inheritLocales) {
       if (parent === base) {
         const parentMessages = localeRouteCompiledMessages.get(parent)!;
-        const routeMessages = localeRouteCompiledMessages.get(locale)!;
+        const routeMessages = get(
+          localeRouteCompiledMessages,
+          locale,
+          () => new Map(),
+        );
+
         for (const [routeId, parentRouteMessages] of parentMessages) {
           for (const [id, message] of parentRouteMessages) {
-            const messages = routeMessages.get(routeId)!;
+            const messages = get(routeMessages, routeId, () => new Map());
             if (!messages.has(id)) {
               messages.set(id, message);
             }

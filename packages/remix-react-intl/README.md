@@ -40,3 +40,16 @@ export default defineConfig({
 
 /lang/en-default.json
 ```
+
+`.eslintrc`:
+
+```json
+{
+  "rules": {
+    "import/no-unresolved": [
+      "error",
+      { "ignore": ["virtual:@postinumero/remix-react-intl/options"] }
+    ]
+  }
+}
+```

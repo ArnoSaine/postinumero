@@ -1,5 +1,5 @@
-import LocaleForm from "@postinumero/remix-react-intl/lib/app/routes/locale/Form";
-import options from "@postinumero/remix-react-intl/options";
+import loadLocalePreference from "@postinumero/remix-react-intl/lib/loadLocalePreference";
+import { LoaderFunctionArgs } from "@remix-run/node";
 import {
   Link,
   Links,
@@ -9,9 +9,13 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { FormattedMessage, useIntl } from "react-intl";
-import ResetButton from "./components/ResetButton";
+import LocaleSelector from "./components/LocaleSelector";
 
-export const clientLoader = () => null;
+export const clientLoader = async (args: LoaderFunctionArgs) => {
+  const localePreference = await loadLocalePreference(args);
+
+  return { localePreference };
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const intl = useIntl();
@@ -26,28 +30,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-          <h1>
-            <FormattedMessage defaultMessage="Welcome to FormatJS (react-intl) + Remix" />
-          </h1>
-          <LocaleForm>
-            <ResetButton />
-            {options.locales.map((locale) => (
-              <button key={locale} name="locale" value={locale}>
-                {locale}
-              </button>
-            ))}
-          </LocaleForm>
-          <nav>
-            <Link to="/">
-              <FormattedMessage defaultMessage="Home" />
-            </Link>{" "}
-            <Link to="/other">
-              <FormattedMessage defaultMessage="Other" />
-            </Link>{" "}
-            <Link to="/other/nested">
-              <FormattedMessage defaultMessage="Other nested route" />
-            </Link>
-          </nav>
           {children}
         </div>
         <ScrollRestoration />
@@ -58,5 +40,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <h1>
+        <FormattedMessage defaultMessage="Welcome to FormatJS (react-intl) + Remix" />
+      </h1>
+      <LocaleSelector />
+      <nav>
+        <Link to="/">
+          <FormattedMessage defaultMessage="Home" />
+        </Link>{" "}
+        <Link to="/other">
+          <FormattedMessage defaultMessage="Other" />
+        </Link>{" "}
+        <Link to="/other/nested">
+          <FormattedMessage defaultMessage="Other nested route" />
+        </Link>
+      </nav>
+      <Outlet />
+    </>
+  );
 }

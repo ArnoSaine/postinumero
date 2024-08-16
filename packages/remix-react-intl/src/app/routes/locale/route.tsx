@@ -7,7 +7,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const locale = formData.get("locale") as string;
 
-  session.set("locale", locale);
+  if (locale) {
+    session.set("locale", locale);
+  } else {
+    session.unset("locale");
+  }
 
   return new Response(null, {
     headers: {

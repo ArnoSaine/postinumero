@@ -3,7 +3,8 @@
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "outDir": "lib"
+    "outDir": "lib",
+    "jsx": "react-jsx"
   },
   "include": ["src"]
 }

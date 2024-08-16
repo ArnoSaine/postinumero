@@ -1,7 +1,7 @@
-import options from "@postinumero/remix-react-intl/options";
-import { ActionFunctionArgs } from "@remix-run/node";
+import { ClientActionFunctionArgs } from "@remix-run/react";
+import options from "virtual:@postinumero/remix-react-intl/options";
 
-export const clientAction = async ({ request }: ActionFunctionArgs) => {
+export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
   const formData = await request.formData();
   const locale = formData.get("locale") as string;
 

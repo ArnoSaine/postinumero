@@ -3,6 +3,7 @@ import * as original from "@postinumero/vite-plugin-remix-resolve-config-path/re
 import { LoaderFunction } from "@remix-run/node";
 import { ClientLoaderFunction, json } from "@remix-run/react";
 import { merge } from "lodash-es";
+import options from "virtual:@postinumero/remix-react-intl/options";
 import { url } from "virtual:@postinumero/vite-plugin-module-info";
 import { serverOnly$ } from "vite-env-only";
 import * as route from "../../lib/route.js";
@@ -35,9 +36,9 @@ function createLoader(name: "loader" | "clientLoader") {
 
 export const loader = serverOnly$(createLoader("loader"));
 
-export const clientLoader = createLoader("clientLoader");
-
-clientLoader.hydrate = true;
+export const clientLoader = options.ssr
+  ? undefined
+  : Object.assign(createLoader("clientLoader"), { hydrate: true });
 
 export const Layout = original.Layout
   ? route.withIntlProvider(original.Layout)

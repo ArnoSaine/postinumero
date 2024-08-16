@@ -1,13 +1,19 @@
-import options from "@postinumero/remix-react-intl/options";
 import { FormProps, useFetcher } from "@remix-run/react";
 import React from "react";
+import options from "virtual:@postinumero/remix-react-intl/options";
 
 export default function LocaleForm(props: React.PropsWithChildren<FormProps>) {
-  const { Form } = useFetcher();
+  const { Form, submit } = useFetcher();
 
   return (
-    <Form action={options.routes.locale} method="POST" {...props}>
-      {props.children}
-    </Form>
+    <Form
+      action={options.routes.locale}
+      method="POST"
+      {...props}
+      onChange={(event) => {
+        props.onChange?.(event);
+        submit(event.currentTarget);
+      }}
+    />
   );
 }

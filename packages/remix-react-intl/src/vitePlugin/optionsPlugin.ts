@@ -30,7 +30,7 @@ export interface UserOptions {
 export type Options = Required<UserOptions>;
 export type Opts =
   | UserOptions
-  | ((config: UserConfig, env: ConfigEnv) => UserOptions)
+  | ((config?: UserConfig, env?: ConfigEnv) => UserOptions)
   | undefined;
 const publicOptions = [
   "compiledTargetPublicPath",
@@ -43,7 +43,7 @@ const publicOptions = [
 export type PublicOptions = Pick<Options, (typeof publicOptions)[number]>;
 
 const optionsPlugin = (_options: Opts) => {
-  const virtualModuleId = "@postinumero/remix-react-intl/options";
+  const virtualModuleId = "virtual:@postinumero/remix-react-intl/options";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
   const options = {} as Options;
   const api = { options };
@@ -53,42 +53,7 @@ const optionsPlugin = (_options: Opts) => {
     enforce: "pre",
     api,
     config: async (config, env) => {
-      if (typeof _options === "function") {
-        _options = _options(config, env);
-      }
-
-      Object.assign(options, cloneDeep(_options));
-
-      const isProduction = env?.mode === "production";
-
-      options.target ??= "lang";
-      options.compiledTargetPublicPath ??= ".compiled-lang";
-      options.compiledTarget ??= options.ssr
-        ? options.compiledTargetPublicPath
-        : `public/${options.compiledTargetPublicPath}`;
-      options.defaultLocale ??= "en-default";
-      options.fallbackLocale ??= "en";
-      options.locales ??= (await fs.readdir(options.target))
-        .map((file) => path.parse(file).name)
-        .filter((locale) => locale !== "en-default");
-      if (!options.locales.includes(options.fallbackLocale)) {
-        options.locales.unshift(options.fallbackLocale);
-      }
-      options.localStorageKey ??= "__locale";
-      options.preserveWhitespace ??= true;
-      options.babel ??= {};
-      options.babel.preserveWhitespace ??= options.preserveWhitespace;
-      options.babel.removeDefaultMessage ??= isProduction;
-      options.babel.ast ??= isProduction;
-      options.compile ??= {};
-      options.compile.ast ??= true;
-      options.extract ??= {};
-      options.extract.idInterpolationPattern ??=
-        DEFAULT_ID_INTERPOLATION_PATTERN;
-      options.extract.preserveWhitespace ??= options.preserveWhitespace;
-      options.routes ??= {};
-      options.routes.locale ??= "/__locale";
-      options.singleOutput ??= true;
+      Object.assign(options, await getOptions(_options, config, env));
     },
     resolveId(id) {
       if (id === virtualModuleId) {
@@ -112,3 +77,49 @@ export default options;`;
 };
 
 export default optionsPlugin;
+
+export const getOptions = async (
+  _options: Opts,
+  config?: UserConfig,
+  env?: ConfigEnv,
+) => {
+  const options = {} as Options;
+
+  if (typeof _options === "function") {
+    _options = _options(config, env);
+  }
+
+  Object.assign(options, cloneDeep(_options));
+
+  const isProduction = env?.mode === "production";
+
+  options.target ??= "lang";
+  options.compiledTargetPublicPath ??= ".compiled-lang";
+  options.compiledTarget ??= options.ssr
+    ? options.compiledTargetPublicPath
+    : `public/${options.compiledTargetPublicPath}`;
+  options.defaultLocale ??= "en-default";
+  options.fallbackLocale ??= options.defaultLocale.split("-")[0]!;
+  options.locales ??= (await fs.readdir(options.target))
+    .map((file) => path.parse(file).name)
+    .filter((locale) => locale !== options.defaultLocale);
+  if (!options.locales.includes(options.fallbackLocale)) {
+    options.locales.unshift(options.fallbackLocale);
+  }
+  options.localStorageKey ??= "__locale";
+  options.preserveWhitespace ??= true;
+  options.babel ??= {};
+  options.babel.preserveWhitespace ??= options.preserveWhitespace;
+  options.babel.removeDefaultMessage ??= isProduction;
+  options.babel.ast ??= isProduction;
+  options.compile ??= {};
+  options.compile.ast ??= true;
+  options.extract ??= {};
+  options.extract.idInterpolationPattern ??= DEFAULT_ID_INTERPOLATION_PATTERN;
+  options.extract.preserveWhitespace ??= options.preserveWhitespace;
+  options.routes ??= {};
+  options.routes.locale ??= "/__locale";
+  options.singleOutput ??= true;
+
+  return options;
+};

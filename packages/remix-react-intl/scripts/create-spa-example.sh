@@ -9,6 +9,13 @@ cd examples/spa
 sed -i '' 's@const loader@const clientLoader@g' app/*.tsx
 sed -i '' 's@const loader@const clientLoader@g' app/**/*.tsx
 sed -i '' 's@const loader@const clientLoader@g' app/**/**/*.tsx
+sed -i '' 's@const loader@const clientLoader@g' app/**/**/*.tsx
+sed -i '' 's@{ loader }@{ clientLoader }@g' app/*.tsx
+sed -i '' 's@{ loader }@{ clientLoader }@g' app/**/*.tsx
+sed -i '' 's@{ loader }@{ clientLoader }@g' app/**/**/*.tsx
+sed -i '' 's@<typeof loader>@<typeof clientLoader>@g' app/*.tsx
+sed -i '' 's@<typeof loader>@<typeof clientLoader>@g' app/**/*.tsx
+sed -i '' 's@<typeof loader>@<typeof clientLoader>@g' app/**/**/*.tsx
 sed -i '' 's@/.compiled-lang@/public/.compiled-lang@g' .gitignore
 sed -i '' 's@remix-react-intl-example-ssr@remix-react-intl-example-spa@g' package.json
 sed -i '' 's@remix-serve ./build/server/index.js@serve build/client/ --single --listen 3000@g' package.json
