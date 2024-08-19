@@ -1,23 +1,23 @@
 import { routeIdSearchParam } from "@postinumero/vite-plugin-remix-resolve-config-path/options";
 import * as original from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/route";
-import { LoaderFunction } from "@remix-run/node";
-import { ClientLoaderFunction, json } from "@remix-run/react";
+import { LoaderFunctionArgs } from "@remix-run/node";
+import { ClientLoaderFunctionArgs, json } from "@remix-run/react";
 import { merge } from "lodash-es";
 import options from "virtual:@postinumero/remix-react-intl/options";
 import { url } from "virtual:@postinumero/vite-plugin-module-info";
-import { serverOnly$ } from "vite-env-only";
-import * as route from "../../lib/route.js";
+import loadIntlConfig from "../../lib/loadIntlConfig.js";
+import withIntlProvider from "../../lib/withIntlProvider.js";
 
 const routeId = url.searchParams.get(routeIdSearchParam);
 
-function createLoader(name: "loader"): LoaderFunction;
-function createLoader(name: "clientLoader"): ClientLoaderFunction;
-function createLoader(name: "loader" | "clientLoader") {
-  return original[name]
+function createLoader<Args = ClientLoaderFunctionArgs | LoaderFunctionArgs>(
+  originalLoader: (args: Args) => any,
+) {
+  return originalLoader
     ? async (args) => {
-        const intl = await route[name](routeId, args);
+        const intl = await loadIntlConfig(routeId, args);
 
-        const response = await original[name](args);
+        const response = await originalLoader(args);
         if (response) {
           if (response instanceof Response) {
             return json(merge({ intl }, await response.json()), response);
@@ -28,22 +28,24 @@ function createLoader(name: "loader" | "clientLoader") {
         return json({ intl });
       }
     : async (args) => {
-        const intl = await route[name](routeId, args);
+        const intl = await loadIntlConfig(routeId, args);
 
         return json({ intl });
       };
 }
 
-export const loader = serverOnly$(createLoader("loader"));
+export const loader = options.ssr ? createLoader(original.loader) : undefined;
 
 export const clientLoader = options.ssr
-  ? undefined
-  : Object.assign(createLoader("clientLoader"), { hydrate: true });
+  ? original.clientLoader
+  : Object.assign(createLoader(original.clientLoader), {
+      hydrate: true,
+    });
 
 export const Layout = original.Layout
-  ? route.withIntlProvider(original.Layout)
+  ? withIntlProvider(original.Layout)
   : undefined;
 
 export default original.Layout
   ? original.default
-  : route.withIntlProvider(original.default);
+  : withIntlProvider(original.default);

@@ -1,5 +1,6 @@
 import { ClientActionFunctionArgs } from "@remix-run/react";
 import options from "virtual:@postinumero/remix-react-intl/options";
+import { LocalePreferenceClientLoaderFunction } from "../method.js";
 
 export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
   const formData = await request.formData();
@@ -13,3 +14,6 @@ export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
 
   return null;
 };
+
+export const clientLoader: LocalePreferenceClientLoaderFunction = () =>
+  localStorage.getItem(options.localStorageKey) ?? "";

@@ -19,8 +19,8 @@ export default function remixPreset(options: Options): Preset {
                 appDirectory,
                 new URL(
                   options.ssr
-                    ? "./app/routes/locale/route.js"
-                    : "./app/routes/locale/route.spa.js",
+                    ? "./localePreference/route.js"
+                    : "./localePreference/route.spa.js",
                   import.meta.url,
                 ).pathname,
               ),

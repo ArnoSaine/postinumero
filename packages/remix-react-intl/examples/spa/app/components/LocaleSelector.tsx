@@ -1,4 +1,4 @@
-import LocaleForm from "@postinumero/remix-react-intl/lib/app/routes/locale/Form";
+import LocalePreferenceForm from "@postinumero/remix-react-intl/lib/localePreference/Form";
 import { useRouteLoaderData } from "@remix-run/react";
 import { PropsWithChildren } from "react";
 import { FormattedDisplayName, FormattedMessage } from "react-intl";
@@ -8,8 +8,7 @@ import { clientLoader } from "~/root";
 function Button(props: PropsWithChildren<{ value: string }>) {
   // Normally we would use `intl.locale`, but in this case we also need to know
   // if the user has not manually set a locale preference.
-  const { localePreference = "" } =
-    useRouteLoaderData<typeof clientLoader>("root") ?? {};
+  const { localePreference } = useRouteLoaderData<typeof clientLoader>("root")!;
 
   const isSelected = localePreference === props.value;
 
@@ -23,12 +22,23 @@ function Button(props: PropsWithChildren<{ value: string }>) {
 }
 
 export default function LocaleSelector() {
+  const { defaultLocale } = useRouteLoaderData<typeof clientLoader>("root")!;
+
   return (
-    <LocaleForm>
+    <LocalePreferenceForm>
       {[
         {
           value: "",
-          label: <FormattedMessage defaultMessage="Default" />,
+          label: (
+            <FormattedMessage
+              defaultMessage="Browser Default ({defaultLocale})"
+              values={{
+                defaultLocale: (
+                  <FormattedDisplayName type="language" value={defaultLocale} />
+                ),
+              }}
+            />
+          ),
         },
         ...options.locales.map((value) => ({
           value,
@@ -39,6 +49,6 @@ export default function LocaleSelector() {
           {label}
         </Button>
       ))}
-    </LocaleForm>
+    </LocalePreferenceForm>
   );
 }

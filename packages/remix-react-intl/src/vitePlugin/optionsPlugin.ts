@@ -25,6 +25,7 @@ export interface UserOptions {
   };
   singleOutput?: boolean;
   ssr?: boolean;
+  localePreferenceMethod?: "localStorage.client" | "session.server";
 }
 
 export type Options = Required<UserOptions>;
@@ -39,6 +40,7 @@ const publicOptions = [
   "localStorageKey",
   "routes",
   "ssr",
+  "localePreferenceMethod",
 ] as const;
 export type PublicOptions = Pick<Options, (typeof publicOptions)[number]>;
 
@@ -120,6 +122,9 @@ export const getOptions = async (
   options.routes ??= {};
   options.routes.locale ??= "/__locale";
   options.singleOutput ??= true;
+  options.localePreferenceMethod ??= options.ssr
+    ? "session.server"
+    : "localStorage.client";
 
   return options;
 };

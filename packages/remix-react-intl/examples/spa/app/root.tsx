@@ -1,6 +1,8 @@
-import loadLocalePreference from "@postinumero/remix-react-intl/lib/loadLocalePreference";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import loadDefaultLocale from "@postinumero/remix-react-intl/lib/loadDefaultLocale.js";
+import * as localePreferenceRoute from "@postinumero/remix-react-intl/lib/localePreference/route.spa.js";
+
 import {
+  ClientLoaderFunctionArgs,
   Link,
   Links,
   Meta,
@@ -11,10 +13,11 @@ import {
 import { FormattedMessage, useIntl } from "react-intl";
 import LocaleSelector from "./components/LocaleSelector";
 
-export const clientLoader = async (args: LoaderFunctionArgs) => {
-  const localePreference = await loadLocalePreference(args);
+export const clientLoader = async (args: ClientLoaderFunctionArgs) => {
+  const defaultLocale = await loadDefaultLocale(args);
+  const localePreference = await localePreferenceRoute.clientLoader(args);
 
-  return { localePreference };
+  return { localePreference, defaultLocale };
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
