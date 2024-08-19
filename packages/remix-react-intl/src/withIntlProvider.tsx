@@ -1,4 +1,3 @@
-import { OnErrorFn } from "@formatjs/intl";
 import { useLoaderData } from "@remix-run/react";
 import { merge } from "lodash-es";
 import { readFileSync } from "node:fs";
@@ -9,6 +8,7 @@ import options from "virtual:@postinumero/remix-react-intl/options";
 import serverOptions from "virtual:@postinumero/remix-react-intl/options.server";
 import { serverOnly$ } from "vite-env-only";
 import { Messages } from "./createIntlConfigLoader.js";
+import { handleError } from "./loadIntlConfig.js";
 
 const fallbackMessages = serverOnly$(
   JSON.parse(
@@ -54,16 +54,3 @@ export default function withIntlProvider<Props extends object>(
     );
   };
 }
-
-const handleError = (err: Parameters<OnErrorFn>[0]) => {
-  // For pseudo locales
-  if (err.code === "MISSING_DATA") {
-    return;
-  }
-
-  if (err.code === "MISSING_TRANSLATION") {
-    return;
-  }
-
-  throw err;
-};

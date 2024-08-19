@@ -39,6 +39,7 @@ const publicOptions = [
   "locales",
   "localStorageKey",
   "routes",
+  "singleOutput",
   "ssr",
   "localePreferenceMethod",
 ] as const;

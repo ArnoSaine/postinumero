@@ -1,3 +1,4 @@
+import { OnErrorFn } from "@formatjs/intl";
 import { clientOnly$, serverOnly$ } from "vite-env-only";
 
 const server = serverOnly$(
@@ -19,3 +20,16 @@ const client = clientOnly$(
 const loadIntlConfig = (server ?? client)!;
 
 export default loadIntlConfig;
+
+export const handleError = (err: Parameters<OnErrorFn>[0]) => {
+  // For pseudo locales
+  if (err.code === "MISSING_DATA") {
+    return;
+  }
+
+  if (err.code === "MISSING_TRANSLATION") {
+    return;
+  }
+
+  throw err;
+};
