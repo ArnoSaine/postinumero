@@ -17,7 +17,7 @@ export default async function loadIntl(
   const intlConfig = await (loadIntlConfig as any)(
     options.singleOutput
       ? "root"
-      : // TODO: get matching routeId from args.request.url
+      : // TODO: Get matching routeId and parent routes from args.request.url. Merge messages with parent route messages and root route messages.
         "root",
     args,
   );
