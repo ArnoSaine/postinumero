@@ -1,0 +1,53 @@
+{
+  "name": "@postinumero/config",
+  "version": "0.0.0",
+  "description": "Configuration management utility for handling environment variables and runtime configurations in your Vite projects.",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/config",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/config"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./lib/main.js",
+    "./*": {
+      "types": "./lib/*.d.ts",
+      "import": "./lib/*.js"
+    }
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "prebuild": "npm run generate-apis",
+    "build": "tsc",
+    "predev": "npm run generate-apis",
+    "dev": "tsc --watch",
+    "generate-apis": "tsx scripts/generate-apis.ts",
+    "test": "node --test",
+    "test --watch": "node --test --watch"
+  },
+  "dependencies": {
+    "flat": "^6.0.1",
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/recursive-readdir": "^2.2.4",
+    "recursive-readdir": "^2.2.3",
+    "replace-in-file": "^8.1.0",
+    "tsx": "^4.18.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  }
+}

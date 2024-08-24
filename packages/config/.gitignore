@@ -1,0 +1,4 @@
+# Generated
+src/**/awaited.ts
+src/**/proxy.ts
+src/**/ref.ts
