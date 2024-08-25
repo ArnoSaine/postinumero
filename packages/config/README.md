@@ -134,17 +134,17 @@ To ensure type safety:
 2. Add the following `.d.ts` declarations to your project:
 
    ```ts
-   declare module "@postinumero/config/**/awaited" {
+   declare module "@postinumero/config/*/awaited" {
      const config: typeof import("./config.example.json");
      export default config;
    }
 
-   declare module "@postinumero/config/**/promise" {
+   declare module "@postinumero/config/*/promise" {
      const config: Promise<typeof import("./config.example.json")>;
      export default config;
    }
 
-   declare module "@postinumero/config/**/ref" {
+   declare module "@postinumero/config/*/ref" {
      const config: {
        ready: () => Promise<void>;
        current: null | typeof import("./config.example.json");
@@ -152,7 +152,7 @@ To ensure type safety:
      export default config;
    }
 
-   declare module "@postinumero/config/**/proxy" {
+   declare module "@postinumero/config/*/proxy" {
      export const ready: () => Promise<void>;
      const config: typeof import("./config.example.json");
      export default config;
