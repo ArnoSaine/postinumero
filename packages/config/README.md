@@ -20,9 +20,9 @@ The configuration is derived from multiple sources. These sources are merged rec
 
 #### `env`
 
-This source accesses configuration values from environment variables. The variable names are unflattened, and JSON values are automatically parsed.
+The `env` source allows you to access configuration values directly from environment variables. The `VITE_` prefix is automatically stripped, variable names are unflattened into nested objects, and JSON values are parsed when possible.
 
-Example environment variables:
+**Example environment variables:**
 
 ```sh
 VITE_foo=true
@@ -30,10 +30,24 @@ VITE_some.list=[1,2,3]
 VITE_some.list.1.prop=123
 ```
 
-Example usage:
+**Initialization in the app entry point:**
+
+To initialize the configuration with environment variables, call the `init` function:
 
 ```ts
-import config from "@postinumero/config/env";
+import { init } from "@postinumero/config/env/promise";
+
+init(import.meta.env);
+
+// ...
+```
+
+**Accessing the configuration:**
+
+Once initialized, you can import and use the configuration in other parts of your application:
+
+```ts
+import config from "@postinumero/config/env/awaited";
 
 console.log(config.foo); // true
 console.log(config.some.list); // [1, { prop: 123 }, 3]
