@@ -1,4 +1,4 @@
-import LocalePreferenceForm from "@postinumero/remix-react-intl/lib/localePreference/Form";
+import LocalePreferenceForm from "@postinumero/remix-react-intl/localePreference/Form";
 import { useRouteLoaderData } from "@remix-run/react";
 import { PropsWithChildren } from "react";
 import { FormattedDisplayName, FormattedMessage } from "react-intl";

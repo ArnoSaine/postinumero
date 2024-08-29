@@ -11,7 +11,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { MessageDescriptor } from "react-intl";
 import type { Plugin } from "vite";
-import { baseLocales } from "../utils.js";
+import { baseLocales } from "../../utils.js";
 import { RemixUserConfig, dts } from "./extractPlugin.js";
 import { name } from "./index.js";
 import { Options } from "./optionsPlugin.js";

@@ -1,4 +1,4 @@
-import remixReactIntl from "@postinumero/remix-react-intl/remixReactIntl/index";
+import remixReactIntl from "@postinumero/remix-react-intl/remixReactIntl";
 import { vitePlugin as remix } from "@remix-run/dev";
 import { installGlobals } from "@remix-run/node";
 import { defineConfig } from "vite";

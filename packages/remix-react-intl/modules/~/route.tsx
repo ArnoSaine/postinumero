@@ -1,3 +1,5 @@
+import { loadIntlConfig } from "@postinumero/remix-react-intl/intlConfig";
+import withIntlProvider from "@postinumero/remix-react-intl/withIntlProvider";
 import { routeIdSearchParam } from "@postinumero/vite-plugin-remix-resolve-config-path/options";
 import * as original from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/route";
 import { LoaderFunctionArgs } from "@remix-run/node";
@@ -5,8 +7,6 @@ import { ClientLoaderFunctionArgs, json } from "@remix-run/react";
 import { merge } from "lodash-es";
 import options from "virtual:@postinumero/remix-react-intl/options";
 import { url } from "virtual:@postinumero/vite-plugin-module-info";
-import loadIntlConfig from "../../lib/loadIntlConfig.js";
-import withIntlProvider from "../../lib/withIntlProvider.js";
 
 const routeId = url.searchParams.get(routeIdSearchParam);
 

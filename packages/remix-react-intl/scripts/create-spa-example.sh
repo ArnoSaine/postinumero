@@ -22,7 +22,7 @@ sed -i '' 's|LoaderFunctionArgs|ClientLoaderFunctionArgs|g' app/**/**/*.tsx
 sed -i '' 's|import { ClientLoaderFunctionArgs } from "@remix-run/node";||g' app/root.tsx
 sed -i '' 's|  Link,|  ClientLoaderFunctionArgs,\n  Link,|g' app/root.tsx
 sed -i '' 's|.loader|.clientLoader|g' app/root.tsx
-sed -i '' 's|route.js|route.spa.js|g' app/root.tsx
+sed -i '' 's|/route"|/route.spa"|g' app/root.tsx
 sed -i '' 's|/.compiled-lang|/public/.compiled-lang|g' .gitignore
 sed -i '' 's|remix-react-intl-example-ssr|remix-react-intl-example-spa|g' package.json
 sed -i '' 's|remix-serve ./build/server/index.js|serve build/client/ --single --listen 3000|g' package.json

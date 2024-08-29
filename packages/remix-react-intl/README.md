@@ -7,7 +7,7 @@ integrate [FormatJS (react-intl)](https://formatjs.io/) with [Remix](https://rem
 To get started, configure your `vite.config.ts`:
 
 ```ts
-import remixReactIntl from "@postinumero/remix-react-intl";
+import remixReactIntl from "@postinumero/remix-react-intl/remixReactIntl";
 import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";

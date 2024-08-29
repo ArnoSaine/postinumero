@@ -4,6 +4,7 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "outDir": "lib",
+    "rootDir": "src",
     "jsx": "react-jsx"
   },
   "include": ["src"]

@@ -5,10 +5,10 @@ import { Options } from "./optionsPlugin.js";
 export default function routesPlugin(options: Options) {
   return options.singleOutput
     ? remixRoot({
-        url: new URL("..", import.meta.url).toString(),
+        url: new URL("../..", import.meta.url).toString(),
         proxy: "../modules/~/route",
       })
     : remixRoutes({
-        url: new URL("..", import.meta.url).toString(),
+        url: new URL("../..", import.meta.url).toString(),
       });
 }

@@ -1,5 +1,5 @@
-import loadDefaultLocale from "@postinumero/remix-react-intl/lib/loadDefaultLocale.js";
-import * as localePreferenceRoute from "@postinumero/remix-react-intl/lib/localePreference/route.spa.js";
+import { loadDefaultLocale } from "@postinumero/remix-react-intl/defaultLocale";
+import * as localePreferenceRoute from "@postinumero/remix-react-intl/localePreference/route.spa";
 
 import {
   ClientLoaderFunctionArgs,
