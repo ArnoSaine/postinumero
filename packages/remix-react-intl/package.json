@@ -27,7 +27,7 @@
     "build": "tsc",
     "copy-types": "mkdir -p lib && cp src/types.d.ts lib",
     "create-spa-example": "./scripts/create-spa-example.sh",
-    "predev": "npm run copy-types",
+    "predev": "npm run prebuild",
     "dev": "tsc --watch"
   },
   "dependencies": {
