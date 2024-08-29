@@ -22,7 +22,7 @@ const methods = {
 } as const;
 
 export const methodPromise = methods[
-  options.localePreferenceMethod
+  options._localePreferenceMethodAwaited
 ] as any as () => {
   action: ActionFunction;
   loader: LocalePreferenceLoaderFunction;

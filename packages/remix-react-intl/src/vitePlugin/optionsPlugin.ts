@@ -1,4 +1,5 @@
 import { CompileOpts, ExtractOpts } from "@formatjs/cli-lib";
+import { VitePluginConfig } from "@remix-run/dev";
 import { DEFAULT_ID_INTERPOLATION_PATTERN } from "babel-plugin-formatjs";
 import { Options as BabelPluginOpts } from "babel-plugin-formatjs/types.js";
 import { cloneDeep, pick } from "lodash-es";
@@ -11,7 +12,6 @@ import { name } from "./index.js";
 export interface UserOptions {
   target?: string;
   compiledTargetPublicPath?: string;
-  compiledTarget?: string;
   defaultLocale?: string;
   fallbackLocale?: string;
   locales?: string[];
@@ -24,14 +24,23 @@ export interface UserOptions {
     locale?: string;
   };
   singleOutput?: boolean;
-  ssr?: boolean;
-  localePreferenceMethod?: "localStorage.client" | "session.server";
+  _compiledTargetAwaited?: string;
+  _compiledTargetPromise?: Promise<Options["_compiledTargetAwaited"]>;
+  _localePreferenceMethodAwaited?: "localStorage.client" | "session.server";
+  _localePreferenceMethodPromise?: Promise<
+    Options["_localePreferenceMethodAwaited"]
+  >;
+  _ssr?: boolean;
 }
 
 export type Options = Required<UserOptions>;
 export type Opts =
   | UserOptions
-  | ((config?: UserConfig, env?: ConfigEnv) => UserOptions)
+  | ((
+      config?: UserConfig,
+      env?: ConfigEnv,
+      remixUserConfigPromise?: Promise<VitePluginConfig>,
+    ) => UserOptions)
   | undefined;
 const publicOptions = [
   "compiledTargetPublicPath",
@@ -40,23 +49,37 @@ const publicOptions = [
   "localStorageKey",
   "routes",
   "singleOutput",
-  "ssr",
-  "localePreferenceMethod",
+  "_localePreferenceMethodAwaited",
+  "_ssr",
 ] as const;
 export type PublicOptions = Pick<Options, (typeof publicOptions)[number]>;
 
-const optionsPlugin = (_options: Opts) => {
+const optionsPlugin = (
+  _options: Opts,
+  remixVitePluginConfigPromise: Promise<VitePluginConfig>,
+) => {
   const virtualModuleId = "virtual:@postinumero/remix-react-intl/options";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
   const options = {} as Options;
   const api = { options };
+
+  const optionsPromise = async () => ({
+    ...options,
+    _compiledTargetAwaited: await options._compiledTargetPromise,
+    _localePreferenceMethodAwaited:
+      await options._localePreferenceMethodPromise,
+    _ssr: (await remixVitePluginConfigPromise).ssr,
+  });
 
   return {
     name: `${name}/options`,
     enforce: "pre",
     api,
     config: async (config, env) => {
-      Object.assign(options, await getOptions(_options, config, env));
+      Object.assign(
+        options,
+        await getOptions(_options, config, env, remixVitePluginConfigPromise),
+      );
     },
     resolveId(id) {
       if (id === virtualModuleId) {
@@ -66,14 +89,12 @@ const optionsPlugin = (_options: Opts) => {
         return `${resolvedVirtualModuleId}.server`;
       }
     },
-    load(id) {
+    async load(id) {
       if (id === resolvedVirtualModuleId) {
-        return `const options = ${JSON.stringify(pick(options, publicOptions))};
-export default options;`;
+        return `export default ${JSON.stringify(pick(await optionsPromise(), publicOptions))};`;
       }
       if (id === `${resolvedVirtualModuleId}.server`) {
-        return `const options = ${JSON.stringify(options)};
-export default options;`;
+        return `export default ${JSON.stringify(await optionsPromise())};`;
       }
     },
   } as Plugin<typeof api>;
@@ -85,11 +106,12 @@ export const getOptions = async (
   _options: Opts,
   config?: UserConfig,
   env?: ConfigEnv,
+  remixVitePluginConfigPromise?: Promise<VitePluginConfig>,
 ) => {
   const options = {} as Options;
 
   if (typeof _options === "function") {
-    _options = _options(config, env);
+    _options = _options(config, env, remixVitePluginConfigPromise);
   }
 
   Object.assign(options, cloneDeep(_options));
@@ -98,9 +120,6 @@ export const getOptions = async (
 
   options.target ??= "lang";
   options.compiledTargetPublicPath ??= ".compiled-lang";
-  options.compiledTarget ??= options.ssr
-    ? options.compiledTargetPublicPath
-    : `public/${options.compiledTargetPublicPath}`;
   options.defaultLocale ??= "en-default";
   options.fallbackLocale ??= options.defaultLocale.split("-")[0]!;
   options.locales ??= (await fs.readdir(options.target))
@@ -123,9 +142,20 @@ export const getOptions = async (
   options.routes ??= {};
   options.routes.locale ??= "/__locale";
   options.singleOutput ??= true;
-  options.localePreferenceMethod ??= options.ssr
-    ? "session.server"
-    : "localStorage.client";
+  options._compiledTargetPromise ??= new Promise(async (resolve) => {
+    const remixVitePluginConfig = await remixVitePluginConfigPromise;
+    resolve(
+      remixVitePluginConfig?.ssr
+        ? options.compiledTargetPublicPath
+        : `public/${options.compiledTargetPublicPath}`,
+    );
+  });
+  options._localePreferenceMethodPromise ??= new Promise(async (resolve) => {
+    const remixVitePluginConfig = await remixVitePluginConfigPromise;
+    resolve(
+      remixVitePluginConfig?.ssr ? "session.server" : "localStorage.client",
+    );
+  });
 
   return options;
 };

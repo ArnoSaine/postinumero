@@ -34,9 +34,9 @@ function createLoader<Args = ClientLoaderFunctionArgs | LoaderFunctionArgs>(
       };
 }
 
-export const loader = options.ssr ? createLoader(original.loader) : undefined;
+export const loader = options._ssr ? createLoader(original.loader) : undefined;
 
-export const clientLoader = options.ssr
+export const clientLoader = options._ssr
   ? original.clientLoader
   : Object.assign(createLoader(original.clientLoader), {
       hydrate: true,

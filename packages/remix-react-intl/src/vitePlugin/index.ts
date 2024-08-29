@@ -1,4 +1,5 @@
 import moduleInfo from "@postinumero/vite-plugin-module-info";
+import { VitePluginConfig } from "@remix-run/dev";
 import envOnly from "vite-env-only";
 import babelPlugin from "./babelPlugin.js";
 import compilePlugin from "./compilePlugin.js";
@@ -9,16 +10,19 @@ import routesPlugin from "./routesPlugin.js";
 
 export const name = "@postinumero/remix-react-intl";
 
-const remixReactIntl = async (_options: Opts = {}) => {
-  const options = optionsPlugin(_options);
+const remixReactIntl = async (
+  options: Opts = {},
+  remixVitePluginConfigPromise: Promise<VitePluginConfig>,
+) => {
+  const _optionsPlugin = optionsPlugin(options, remixVitePluginConfigPromise);
 
   return [
-    options,
+    _optionsPlugin,
     configPlugin(),
-    extractPlugin(options.api!.options),
-    compilePlugin(options.api!.options),
-    babelPlugin(options.api!.options),
-    routesPlugin(await getOptions(_options)),
+    extractPlugin(_optionsPlugin.api!.options),
+    compilePlugin(_optionsPlugin.api!.options),
+    babelPlugin(_optionsPlugin.api!.options),
+    routesPlugin(await getOptions(options)),
     envOnly(),
     moduleInfo,
   ] as const;

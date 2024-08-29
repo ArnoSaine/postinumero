@@ -87,7 +87,10 @@ export default function compilePlugin(options: Options): Plugin {
         localeRouteCompiledMessages,
       );
 
-      await write(localeRouteCompiledMessages, options.compiledTarget);
+      await write(
+        localeRouteCompiledMessages,
+        await options._compiledTargetPromise,
+      );
     },
   };
 }

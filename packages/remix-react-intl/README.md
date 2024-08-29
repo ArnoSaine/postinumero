@@ -12,10 +12,7 @@ import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-const intl = await remixReactIntl({
-  // Enable SPA mode by setting ssr to false
-  // ssr: false,
-});
+const intl = await remixReactIntl();
 
 export default defineConfig({
   plugins: [
