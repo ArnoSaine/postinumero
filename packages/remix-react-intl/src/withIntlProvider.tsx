@@ -1,27 +1,9 @@
 import { useLoaderData } from "@remix-run/react";
 import { merge } from "lodash-es";
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import { useMemo } from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import options from "virtual:@postinumero/remix-react-intl/options";
-import serverOptions from "virtual:@postinumero/remix-react-intl/options.server";
-import { serverOnly$ } from "vite-env-only";
-import { Messages } from "./createIntlConfigLoader.js";
 import { handleError } from "./loadIntlConfig.js";
-
-const fallbackMessages = serverOnly$(
-  JSON.parse(
-    readFileSync(
-      path.join(
-        serverOptions.compiledTarget,
-        options.fallbackLocale,
-        "root.json",
-      ),
-      "utf-8",
-    ),
-  ) as Messages,
-);
 
 export default function withIntlProvider<Props extends object>(
   Component: React.ComponentType<Props>,
@@ -29,7 +11,7 @@ export default function withIntlProvider<Props extends object>(
   return function WithIntlProvider(props: Props) {
     const intl = {
       locale: options.fallbackLocale,
-      messages: fallbackMessages ?? {},
+      messages: {},
     };
 
     try {
