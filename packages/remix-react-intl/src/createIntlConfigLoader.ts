@@ -1,10 +1,8 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { ClientLoaderFunctionArgs } from "@remix-run/react";
-import { IntlConfig } from "react-intl";
 import availableLocale from "./availableLocale.js";
-import loadRequestedLocales from "./loadRequestedLocales.js";
-
-export type Messages = IntlConfig["messages"];
+import { Messages } from "./messages.js";
+import { loadRequestedLocales } from "./requestedLocales.js";
 
 export default function createIntlConfigLoader<
   Args = LoaderFunctionArgs | ClientLoaderFunctionArgs,
@@ -19,9 +17,7 @@ export default function createIntlConfigLoader<
   ) => Promise<Messages>,
 ) {
   return async function (routeId: string, args: Args) {
-    const _requestedLocales = [
-      ...(await loadRequestedLocales(args as LoaderFunctionArgs)),
-    ];
+    const _requestedLocales = [...(await (loadRequestedLocales as any)(args))];
     const localePreference = await loadLocalePreference(args);
 
     if (localePreference) {

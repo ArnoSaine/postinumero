@@ -1,8 +1,10 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { ClientLoaderFunctionArgs } from "@remix-run/react";
 import { memoize } from "lodash-es";
+import { IntlConfig } from "react-intl";
 import options from "virtual:@postinumero/remix-react-intl/options";
-import { Messages } from "./createIntlConfigLoader.js";
+
+export type Messages = IntlConfig["messages"];
 
 const fetchMemoizedMessages = memoize(
   async (url: string): Promise<Messages> => {

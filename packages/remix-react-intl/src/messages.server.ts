@@ -3,7 +3,7 @@ import { memoize } from "lodash-es";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import serverOptions from "virtual:@postinumero/remix-react-intl/options.server";
-import { Messages } from "./createIntlConfigLoader.js";
+import { Messages } from "./messages.js";
 
 const readMemoizedMessages = memoize(
   async (path: string) => JSON.parse(await readFile(path, "utf-8")) as Messages,

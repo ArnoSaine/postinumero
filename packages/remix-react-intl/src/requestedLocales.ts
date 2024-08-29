@@ -44,6 +44,4 @@ const server = serverOnly$(
 
 const client = clientOnly$(() => navigator.languages);
 
-const loadRequestedLocales = (server ?? client)!;
-
-export default loadRequestedLocales;
+export const loadRequestedLocales = (server ?? client)!;

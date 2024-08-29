@@ -3,7 +3,7 @@ import { merge } from "lodash-es";
 import { useMemo } from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import options from "virtual:@postinumero/remix-react-intl/options";
-import { handleError } from "./loadIntlConfig.js";
+import handleError from "./handleError.js";
 
 export default function withIntlProvider<Props extends object>(
   Component: React.ComponentType<Props>,

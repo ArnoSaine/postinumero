@@ -1,10 +1,8 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { ClientLoaderFunctionArgs } from "@remix-run/react";
 import availableLocale from "./availableLocale.js";
-import loadRequestedLocales from "./loadRequestedLocales.js";
+import { loadRequestedLocales } from "./requestedLocales.js";
 
-const loadDefaultLocale = (
+export const loadDefaultLocale = async (
   args: ClientLoaderFunctionArgs | LoaderFunctionArgs,
-) => availableLocale(loadRequestedLocales(args as LoaderFunctionArgs));
-
-export default loadDefaultLocale;
+) => availableLocale(await loadRequestedLocales(args as LoaderFunctionArgs));

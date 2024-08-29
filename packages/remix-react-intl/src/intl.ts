@@ -5,14 +5,15 @@ import {
 } from "@remix-run/react";
 import { createIntl } from "react-intl";
 import options from "virtual:@postinumero/remix-react-intl/options";
-import loadIntlConfig, { handleError } from "./loadIntlConfig.js";
+import handleError from "./handleError.js";
+import { loadIntlConfig } from "./intlConfig.js";
 
-export default async function loadIntl(
+export async function loadIntl(
   args:
     | ActionFunctionArgs
+    | LoaderFunctionArgs
     | ClientActionFunctionArgs
-    | ClientLoaderFunctionArgs
-    | LoaderFunctionArgs,
+    | ClientLoaderFunctionArgs,
 ) {
   const intlConfig = await (loadIntlConfig as any)(
     options.singleOutput
