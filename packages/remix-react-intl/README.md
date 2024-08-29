@@ -82,7 +82,7 @@ intl.formatMessage({ defaultMessage: "Hello" });
 In Remix actions, loaders, clientActions, and clientLoaders, you can access the `intl` object (`IntlShape`) via `loadIntl`:
 
 ```ts
-import loadIntl from "@postinumero/remix-react-intl/lib/loadIntl";
+import { loadIntl } from "@postinumero/remix-react-intl/intl";
 import { ClientActionFunctionArgs } from "@remix-run/react";
 
 const clientAction = async (args: ClientActionFunctionArgs) => {
