@@ -2,6 +2,7 @@ import moduleInfo from "@postinumero/vite-plugin-module-info";
 import envOnly from "vite-env-only";
 import babelPlugin from "./babelPlugin.js";
 import compilePlugin from "./compilePlugin.js";
+import configPlugin from "./configPlugin.js";
 import extractPlugin from "./extractPlugin.js";
 import optionsPlugin, { getOptions, Opts } from "./optionsPlugin.js";
 import routesPlugin from "./routesPlugin.js";
@@ -13,6 +14,7 @@ const remixReactIntl = async (_options: Opts = {}) => {
 
   return [
     options,
+    configPlugin(),
     extractPlugin(options.api!.options),
     compilePlugin(options.api!.options),
     babelPlugin(options.api!.options),
