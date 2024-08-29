@@ -19,8 +19,11 @@ sed -i '' 's|LoaderFunctionArgs|ClientLoaderFunctionArgs|g' app/*.tsx
 sed -i '' 's|LoaderFunctionArgs|ClientLoaderFunctionArgs|g' app/**/*.tsx
 sed -i '' 's|LoaderFunctionArgs|ClientLoaderFunctionArgs|g' app/**/**/*.tsx
 
-sed -i '' 's|import { ClientLoaderFunctionArgs } from "@remix-run/node";||g' app/root.tsx
+sed -i '' 's|import { ClientLoaderFunctionArgs } from "@remix-run/node";||g' app/*.tsx
+sed -i '' 's|import { ClientLoaderFunctionArgs } from "@remix-run/node";||g' app/**/*.tsx
+sed -i '' 's|import { ClientLoaderFunctionArgs } from "@remix-run/node";||g' app/**/**/*.tsx
 sed -i '' 's|  Link,|  ClientLoaderFunctionArgs,\n  Link,|g' app/root.tsx
+sed -i '' 's|{ Outlet }|{ ClientLoaderFunctionArgs, Outlet }|g' app/routes/other/route.tsx
 sed -i '' 's|.loader|.clientLoader|g' app/root.tsx
 sed -i '' 's|/route"|/route.spa"|g' app/root.tsx
 sed -i '' 's|/.compiled-lang|/public/.compiled-lang|g' .gitignore

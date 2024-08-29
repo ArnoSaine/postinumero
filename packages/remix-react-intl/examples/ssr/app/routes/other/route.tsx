@@ -1,7 +1,19 @@
+import { loadIntl } from "@postinumero/remix-react-intl/intl";
+import { LoaderFunctionArgs } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import { FormattedMessage } from "react-intl";
 
-export const loader = () => null;
+export const loader = async (args: LoaderFunctionArgs) => {
+  const intl = await loadIntl(args);
+
+  const message = intl.formatMessage({
+    defaultMessage: "Loader message",
+  });
+
+  console.log(message);
+
+  return null;
+};
 
 export default function Other() {
   return (
