@@ -36,6 +36,7 @@
     "@formatjs/intl": "^2.10.0",
     "@formatjs/intl-durationformat": "^0.2.4",
     "@formatjs/intl-localematcher": "^0.5.4",
+    "@mjackson/headers": "0.7.2",
     "@postinumero/map-get-with-default": "^0.2.0",
     "@postinumero/vite-plugin-module-info": "^0.1.0",
     "@postinumero/vite-plugin-module-proxy": "^0.1.1",
