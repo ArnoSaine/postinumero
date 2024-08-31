@@ -1,16 +1,32 @@
 import { loadDefaultLocale } from "@postinumero/remix-react-intl/defaultLocale";
+import { metaIntl } from "@postinumero/remix-react-intl/intl";
 import * as localePreferenceRoute from "@postinumero/remix-react-intl/localePreference/route";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import {
   Link,
   Links,
   Meta,
+  MetaFunction,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
 import { FormattedMessage, useIntl } from "react-intl";
 import LocaleSelector from "./components/LocaleSelector";
+
+export const meta: MetaFunction = (args) => {
+  const intl = metaIntl(args);
+
+  if (intl) {
+    return [
+      {
+        title: intl.formatMessage({
+          defaultMessage: "FormatJS (react-intl) example app | Remix",
+        }),
+      },
+    ];
+  }
+};
 
 export const loader = async (args: LoaderFunctionArgs) => {
   const defaultLocale = await loadDefaultLocale(args);

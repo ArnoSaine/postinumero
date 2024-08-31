@@ -79,7 +79,7 @@ intl.formatMessage({ defaultMessage: "Hello" });
 
 ### Accessing `intl` in Actions & Loaders
 
-In Remix actions, loaders, clientActions, and clientLoaders, you can access the `intl` object (`IntlShape`) via `loadIntl`:
+In Remix `action`, `loader`, `clientAction`, and `clientLoader`, you can access the `intl` object (`IntlShape`) via `loadIntl`:
 
 ```ts
 import { loadIntl } from "@postinumero/remix-react-intl/intl";
@@ -93,6 +93,30 @@ const clientAction = async (args: ClientActionFunctionArgs) => {
   });
 
   // ...
+};
+```
+
+### Accessing `intl` in `meta` Functions
+
+In Remix `meta` functions, you can access the `intl` object (`IntlShape`) via `metaIntl`:
+
+```ts
+import { metaIntl } from "@postinumero/remix-react-intl/intl";
+import { MetaFunction } from "@remix-run/react";
+
+export const meta: MetaFunction = (args) => {
+  const intl = metaIntl(args);
+
+  // In SPA mode `intl` is `undefined` on first render
+  if (intl) {
+    return [
+      {
+        title: intl.formatMessage({
+          defaultMessage: "FormatJS (react-intl) example app | Remix",
+        }),
+      },
+    ];
+  }
 };
 ```
 

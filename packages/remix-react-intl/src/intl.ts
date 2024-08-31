@@ -2,11 +2,29 @@ import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import {
   ClientActionFunctionArgs,
   ClientLoaderFunctionArgs,
+  MetaArgs,
 } from "@remix-run/react";
-import { createIntl } from "react-intl";
+import { createIntl, IntlConfig } from "react-intl";
 import options from "virtual:@postinumero/remix-react-intl/options";
 import handleError from "./handleError.js";
 import { loadIntlConfig } from "./intlConfig.js";
+
+export function metaIntl(args: MetaArgs) {
+  const routeId = options.singleOutput
+    ? "root"
+    : // TODO: Get matching routeId and parent routes from args.location. Merge messages with parent route messages and root route messages.
+      "root";
+  const match = args.matches.find((match) => match.id === routeId);
+  const intlConfig = (match?.data as { intl: IntlConfig | undefined })?.intl;
+
+  return (
+    intlConfig &&
+    createIntl({
+      ...intlConfig,
+      onError: handleError,
+    })
+  );
+}
 
 export async function loadIntl(
   args:
