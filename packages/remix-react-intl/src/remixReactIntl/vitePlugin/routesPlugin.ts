@@ -6,7 +6,11 @@ export default function routesPlugin(options: Options) {
   return options.singleOutput
     ? remixRoot({
         url: new URL("../..", import.meta.url).toString(),
-        proxy: "../lib/route",
+        proxy: new Promise(async (resolve) => {
+          resolve(
+            (await options._ssrPromise) ? "../lib/route" : "../lib/route.spa",
+          );
+        }),
       })
     : remixRoutes({
         url: new URL("../..", import.meta.url).toString(),

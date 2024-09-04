@@ -27,7 +27,8 @@ export interface UserOptions {
   _localePreferenceMethodPromise?: Promise<
     Options["_localePreferenceMethodAwaited"]
   >;
-  _ssr?: boolean;
+  _ssrAwaited?: boolean;
+  _ssrPromise?: Promise<Options["_ssrAwaited"]>;
 }
 
 export type Options = Required<UserOptions>;
@@ -46,7 +47,7 @@ const publicOptions = [
   "localStorageKey",
   "singleOutput",
   "_localePreferenceMethodAwaited",
-  "_ssr",
+  "_ssrAwaited",
 ] as const;
 
 export type PublicOptions = Pick<Options, (typeof publicOptions)[number]>;
@@ -65,7 +66,7 @@ const optionsPlugin = (
     _compiledTargetAwaited: await options._compiledTargetPromise,
     _localePreferenceMethodAwaited:
       await options._localePreferenceMethodPromise,
-    _ssr: (await remixVitePluginConfigPromise).ssr,
+    _ssrAwaited: (await remixVitePluginConfigPromise).ssr,
   });
 
   return {
@@ -75,7 +76,7 @@ const optionsPlugin = (
     config: async (config, env) => {
       Object.assign(
         options,
-        await getOptions(_options, config, env, remixVitePluginConfigPromise),
+        await getOptions(_options, remixVitePluginConfigPromise, config, env),
       );
     },
     resolveId(id) {
@@ -101,9 +102,9 @@ export default optionsPlugin;
 
 export const getOptions = async (
   _options: Opts,
+  remixVitePluginConfigPromise?: Promise<VitePluginConfig>,
   config?: UserConfig,
   env?: ConfigEnv,
-  remixVitePluginConfigPromise?: Promise<VitePluginConfig>,
 ) => {
   const options = {} as Options;
 
@@ -114,6 +115,11 @@ export const getOptions = async (
   Object.assign(options, cloneDeep(_options));
 
   const isProduction = env?.mode === "production";
+
+  const ssrPromise = new Promise<boolean>(async (resolve) => {
+    const remixVitePluginConfig = await remixVitePluginConfigPromise;
+    resolve(remixVitePluginConfig?.ssr ?? true);
+  });
 
   options.target ??= "lang";
   options.compiledTargetPublicPath ??= ".compiled-lang";
@@ -138,17 +144,16 @@ export const getOptions = async (
   options.extract.preserveWhitespace ??= options.preserveWhitespace;
   options.singleOutput ??= true;
   options._compiledTargetPromise ??= new Promise(async (resolve) => {
-    const remixVitePluginConfig = await remixVitePluginConfigPromise;
     resolve(
-      remixVitePluginConfig?.ssr
+      (await ssrPromise)
         ? options.compiledTargetPublicPath
         : `public/${options.compiledTargetPublicPath}`,
     );
   });
   options._localePreferenceMethodPromise ??= new Promise(async (resolve) => {
-    const remixVitePluginConfig = await remixVitePluginConfigPromise;
-    resolve(remixVitePluginConfig?.ssr ? "session" : "localStorage");
+    resolve((await ssrPromise) ?? true ? "session" : "localStorage");
   });
+  options._ssrPromise ??= ssrPromise;
 
   return options;
 };

@@ -22,7 +22,7 @@ const remixReactIntl = async (
     extractPlugin(_optionsPlugin.api!.options),
     compilePlugin(_optionsPlugin.api!.options),
     babelPlugin(_optionsPlugin.api!.options),
-    routesPlugin(await getOptions(options)),
+    routesPlugin(await getOptions(options, remixVitePluginConfigPromise)),
     envOnly(),
     moduleInfo,
   ] as const;
