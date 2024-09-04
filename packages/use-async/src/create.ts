@@ -8,11 +8,11 @@ export function constructor<MethodTypes extends Array<string>>(methods: Fn[]) {
     return methods.map(
       (method) =>
         (...args: Parameters<Func>) =>
-          method(func, config, args)
+          method(func, config, args),
     ) as [
       (...args: Parameters<Func>) => MethodReturnType<MethodTypes[0], Func>,
       (...args: Parameters<Func>) => MethodReturnType<MethodTypes[1], Func>,
-      (...args: Parameters<Func>) => MethodReturnType<MethodTypes[2], Func>
+      (...args: Parameters<Func>) => MethodReturnType<MethodTypes[2], Func>,
     ];
   };
 }

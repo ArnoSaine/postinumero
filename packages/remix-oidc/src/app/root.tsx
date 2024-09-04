@@ -39,7 +39,7 @@ export const withLoader = (loader?: ClientLoaderFunction) =>
         },
     {
       hydrate: true,
-    } as const
+    } as const,
   );
 
 export const withApp = (Component: React.ComponentType) =>
@@ -51,7 +51,7 @@ export const withApp = (Component: React.ComponentType) =>
   };
 
 export const withErrorBoundary = (
-  Component: React.ComponentType = () => null
+  Component: React.ComponentType = () => null,
 ) =>
   function WithErrorBoundary() {
     useListenChanges();

@@ -5,7 +5,7 @@ import normalizeArgs from "./normalizeArgs.js";
 import useUpdaters from "./useUpdaters.js";
 
 export default normalizeArgs<"useAsyncSafe">(function useAsyncSafe<
-  Func extends Fn
+  Func extends Fn,
 >(...args: MethodParameters<Func>): UseAsyncSafe<Func> {
   const memoized = useItem(...args);
   useUpdaters(memoized);

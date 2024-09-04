@@ -5,12 +5,12 @@ import useAsync from "./useAsync.js";
 import useAsyncSafe from "./useAsyncSafe.js";
 
 export {
-  useAsync as default,
   create,
   createSSRCache,
-  useAsync,
-  useAsyncSafe,
+  useAsync as default,
+  nothing,
   recall,
   ssrData,
-  nothing,
+  useAsync,
+  useAsyncSafe,
 };

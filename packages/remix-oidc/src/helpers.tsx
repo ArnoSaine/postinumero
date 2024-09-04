@@ -1,7 +1,6 @@
 import type AccessTokenRepresentation from "@keycloak/keycloak-admin-client/lib/defs/accessTokenRepresentation.d.ts";
 import { useSearchParams } from "@remix-run/react";
 import { jwtDecode } from "jwt-decode";
-import React from "react";
 import { userManager } from "./index.js";
 
 export function RedirectURIInput() {
@@ -17,7 +16,7 @@ export function RedirectURIInput() {
 }
 
 export async function authenticated(
-  access?: (token: AccessTokenRepresentation) => boolean
+  access?: (token: AccessTokenRepresentation) => boolean,
 ) {
   const user = await (await userManager)?.getUser();
 

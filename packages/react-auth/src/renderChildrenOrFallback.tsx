@@ -1,6 +1,6 @@
 export default function renderChildrenOrFallback(
   useTest: (props: any) => boolean,
-  mapProps = (props: any) => props
+  mapProps = (props: any) => props,
 ) {
   return function ChildrenOrFallback({
     children = null,

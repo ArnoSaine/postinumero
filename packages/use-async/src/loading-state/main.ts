@@ -3,4 +3,4 @@ import recall from "./recall.js";
 import useAsync from "./useAsync.js";
 import useAsyncSafe from "./useAsyncSafe.js";
 
-export { useAsync as default, create, useAsync, useAsyncSafe, recall };
+export { create, useAsync as default, recall, useAsync, useAsyncSafe };

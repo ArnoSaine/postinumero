@@ -151,7 +151,7 @@ export const getOptions = async (
     );
   });
   options._localePreferenceMethodPromise ??= new Promise(async (resolve) => {
-    resolve((await ssrPromise) ?? true ? "session" : "localStorage");
+    resolve(((await ssrPromise) ?? true) ? "session" : "localStorage");
   });
   options._ssrPromise ??= ssrPromise;
 

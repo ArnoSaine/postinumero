@@ -6,5 +6,5 @@ node_modules
 
 # generated
 /.api
-/.compiled-lang
 /lang/en-default.json
+/public/.compiled-lang

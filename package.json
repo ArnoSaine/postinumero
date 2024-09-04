@@ -14,6 +14,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "prepare": "husky install",
+    "prettier": "prettier \"packages/*/{example{,s/*}/{app,src},src}/**/*.ts{,x}\" --write",
     "publish-packages": "turbo run build lint test --filter=@postinumero/* && changeset version && changeset publish",
     "start": "npm start --workspace=packages --if-present",
     "test": "turbo run test"

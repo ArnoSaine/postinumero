@@ -6,7 +6,7 @@ type UseEffectParams = Parameters<typeof useEffect>;
 
 function useAsyncEffect(
   effect: () => Promise<(() => void) | void>,
-  dependencies: UseEffectParams[1]
+  dependencies: UseEffectParams[1],
 ) {
   return useEffect(() => {
     let cancelled = false;
@@ -30,11 +30,11 @@ export function useListenChanges() {
 
   useAsyncEffect(
     async () => (await userManager)?.events.addUserLoaded(revalidate),
-    [revalidate]
+    [revalidate],
   );
   useAsyncEffect(
     async () => (await userManager)?.events.addUserUnloaded(revalidate),
-    [revalidate]
+    [revalidate],
   );
   useAsyncEffect(
     async () =>
@@ -43,7 +43,7 @@ export function useListenChanges() {
         await (await userManager)?.removeUser();
         revalidate();
       }),
-    [revalidate]
+    [revalidate],
   );
 
   useEffect(() => {

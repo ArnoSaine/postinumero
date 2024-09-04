@@ -10,13 +10,13 @@ function getWithDefaultBase<K, V>(map: Map<K, V>, key: K, getDefault: () => V) {
 export default function getWithDefault<M, K, V>(
   this: M,
   value: K,
-  getDefault: () => V
+  getDefault: () => V,
 ): V;
 export default function getWithDefault<M, K, V>(
   this: void,
   map: M,
   value: K,
-  getDefault: () => V
+  getDefault: () => V,
 ): V;
 
 export default function getWithDefault<K, V>(

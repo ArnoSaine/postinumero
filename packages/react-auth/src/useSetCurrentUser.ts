@@ -1,4 +1,4 @@
-import Ajv from 'ajv';
+import { Ajv } from 'ajv';
 import { useCallback, useContext } from 'react';
 import Context from './Context.js';
 
@@ -29,12 +29,12 @@ export default process.env['NODE_ENV'] === 'development'
           if (!validate(currentUser)) {
             console.error(
               'User should be null or an object with optional properties `roles: string[]` and `rights: string[]`.',
-              validate.errors
+              validate.errors,
             );
           }
           setCurrentUser(currentUser);
         },
-        [setCurrentUser]
+        [setCurrentUser],
       );
     }
   : () => useContext(Context)[1];

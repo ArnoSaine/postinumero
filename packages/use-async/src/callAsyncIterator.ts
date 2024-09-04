@@ -3,7 +3,7 @@ import updateEach from "./updateEach.js";
 
 export default function callAsyncIterator<Func extends Fn>(
   asyncIterator: AsyncGenerator<any, void, unknown>,
-  memoized: Memoized<Func>
+  memoized: Memoized<Func>,
 ) {
   return new Promise(async (resolve, reject) => {
     memoized.cancel = () => asyncIterator.return();

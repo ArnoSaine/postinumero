@@ -5,7 +5,7 @@ let hasRole = (user: User, role: RolesRights) =>
   user?.roles?.some(
     Array.isArray(role)
       ? (userRole) => role.includes(userRole)
-      : (userRole) => role === userRole
+      : (userRole) => role === userRole,
   ) ?? false;
 
 export const setHasRoleFn = (fn: typeof hasRole) => {

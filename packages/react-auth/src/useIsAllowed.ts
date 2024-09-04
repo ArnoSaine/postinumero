@@ -5,7 +5,7 @@ let isAllowed = (user: User, right: RolesRights) =>
   user?.rights?.some(
     Array.isArray(right)
       ? (userRight) => right.includes(userRight)
-      : (userRight) => right === userRight
+      : (userRight) => right === userRight,
   ) ?? false;
 
 export const setIsAllowedFn = (fn: typeof isAllowed) => {

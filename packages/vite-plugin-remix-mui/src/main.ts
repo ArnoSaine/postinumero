@@ -1,12 +1,10 @@
 import moduleProxy from "@postinumero/vite-plugin-module-proxy";
 import remixRoot from "@postinumero/vite-plugin-module-proxy/presets/remix-root";
-import type { Plugin, ResolvedConfig } from "vite";
+import type { Plugin } from "vite";
 
 //const serverEntry = "@remix-run/dev/dist/config/defaults/entry.server";
 
 export default async () => {
-  let resolvedConfig: ResolvedConfig;
-
   return [
     {
       name: "@postinumero/remix-mui",
@@ -14,7 +12,6 @@ export default async () => {
         resolve: {
           alias: {
             "@mui/icons-material": "@mui/icons-material/esm",
-            "@mui/system": "@mui/system/esm",
           },
         },
         ssr: {
@@ -42,23 +39,24 @@ export default async () => {
     //   proxy: new URL("../modules/react-dom/server.tsx", import.meta.url).pathname,
     // }),
     // Replace "react-dom/server" import path with the proxy
-    {
-      name: "@postinumero/remix-mui/replace-react-dom-server",
-      configResolved(config) {
-        resolvedConfig = config;
-      },
-      transform(code, id) {
-        if (
-          id ===
-          (resolvedConfig as any).__remixPluginContext?.entryServerFilePath
-        ) {
-          return code.replace(
-            "react-dom/server",
-            new URL("../modules/react-dom/server", import.meta.url).pathname,
-          );
-        }
-      },
-    } as Plugin,
+    // {
+    //   name: "@postinumero/remix-mui/replace-react-dom-server",
+    //   configResolved(config) {
+    //     resolvedConfig = config;
+    //   },
+    //   transform(code, id) {
+    //     return;
+    //     if (
+    //       id ===
+    //       (resolvedConfig as any).__remixPluginContext?.entryServerFilePath
+    //     ) {
+    //       return code.replace(
+    //         "react-dom/server",
+    //         new URL("../modules/react-dom/server", import.meta.url).pathname,
+    //       );
+    //     }
+    //   },
+    // } as Plugin,
     ...(await remixRoot({ url: import.meta.url })),
   ];
 };

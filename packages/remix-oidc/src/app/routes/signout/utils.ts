@@ -41,7 +41,7 @@ export function useHandleSignout() {
         if (isSigningOut(searchParams)) {
           navigate(
             { ...location, pathname: userConfig.routes.home },
-            { replace: true, preventScrollReset: true }
+            { replace: true, preventScrollReset: true },
           );
         }
       }
@@ -53,7 +53,7 @@ export const signoutRedirect = (redirect_uri: string) => {
   const url = new URL(redirect_uri);
   url.searchParams.set(
     signoutIntentSearchParam.name,
-    signoutIntentSearchParam.value
+    signoutIntentSearchParam.value,
   );
 
   return redirect(url.toString());

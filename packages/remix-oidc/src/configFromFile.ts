@@ -4,7 +4,7 @@ import finalConfig from "./finalConfig.js";
 
 export default async function configFromFile(configFile: string) {
   return finalConfig(
-    (await import(await resolveConfigFile(configFile))).default
+    (await import(await resolveConfigFile(configFile))).default,
   );
 }
 

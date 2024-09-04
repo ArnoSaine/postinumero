@@ -16,10 +16,10 @@ export default ({
           ? storageArea.removeItem(key)
           : storageArea.setItem(key, value);
       },
-      [key]
+      [key],
     );
     return useMemo<[typeof value, typeof setValue]>(
       () => [value, setValue],
-      [value, setValue]
+      [value, setValue],
     );
   };

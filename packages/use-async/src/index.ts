@@ -5,7 +5,7 @@ export type Fn = (...args: any[]) => any;
 export type MethodParameters<Func extends Fn> = [
   Func,
   Config,
-  Parameters<Func>
+  Parameters<Func>,
 ];
 
 export type Updater = () => void;
@@ -23,7 +23,7 @@ export type UseAsync<Func extends Fn> = AsyncReturnType<Func>;
 export type Recall = Promise<void>;
 export type UseAsyncSafe<Func extends Fn> = [
   null | any,
-  AsyncReturnType<Func>?
+  AsyncReturnType<Func>?,
 ];
 
 export type UseAsyncLoadingState<Func extends Fn> =
@@ -49,18 +49,18 @@ export type UseAsyncSafeLoadingState<Func extends Fn> =
 
 export type MethodReturnType<
   Method,
-  Func extends Fn
+  Func extends Fn,
 > = Method extends "useAsync"
   ? UseAsync<Func>
   : Method extends "recall"
-  ? Recall
-  : Method extends "useAsyncSafe"
-  ? UseAsyncSafe<Func>
-  : Method extends "useAsyncLoadingState"
-  ? UseAsyncLoadingState<Func>
-  : Method extends "useAsyncSafeLoadingState"
-  ? UseAsyncSafeLoadingState<Func>
-  : never;
+    ? Recall
+    : Method extends "useAsyncSafe"
+      ? UseAsyncSafe<Func>
+      : Method extends "useAsyncLoadingState"
+        ? UseAsyncLoadingState<Func>
+        : Method extends "useAsyncSafeLoadingState"
+          ? UseAsyncSafeLoadingState<Func>
+          : never;
 
 // https://www.jpwilliams.dev/how-to-unpack-the-return-type-of-a-promise-in-typescript
 export type AsyncReturnType<T extends (...args: any) => any> = T extends (
@@ -68,5 +68,5 @@ export type AsyncReturnType<T extends (...args: any) => any> = T extends (
 ) => Promise<infer U>
   ? U
   : T extends (...args: any) => infer U
-  ? U
-  : any;
+    ? U
+    : any;

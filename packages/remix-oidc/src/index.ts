@@ -7,7 +7,7 @@ export let userManager = Promise.resolve(
   (async () => {
     if (typeof document !== "undefined") {
       const userManager = new UserManager(
-        configRuntime.getUserManagerSettings()
+        configRuntime.getUserManagerSettings(),
       );
 
       if (await userManager.getUser()) {
@@ -21,7 +21,7 @@ export let userManager = Promise.resolve(
 
       return userManager;
     }
-  })()
+  })(),
 );
 
 export function useUser() {

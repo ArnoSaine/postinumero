@@ -2,7 +2,13 @@ import get from "@postinumero/map-get-with-default";
 import stringify from "fast-json-stable-stringify";
 import { fromJSON, toJSON } from "flatted";
 import React, { createContext, useContext, useEffect } from "react";
-import type { Config, Fn, Memoized, MethodParameters, Updater } from ".";
+import type {
+  Config,
+  Fn,
+  Memoized,
+  MethodParameters,
+  Updater,
+} from "./index.js";
 
 const GLOBAL = "__useAsyncCache__";
 const cacheByFunc = new WeakMap();
@@ -22,9 +28,9 @@ const cacheById = cache
               updaters: new Set(),
               value: fromJSON(value),
             },
-          ])
+          ]),
         ),
-      ])
+      ]),
     )
   : new Map();
 
@@ -54,11 +60,11 @@ const createSSRData =
           .map(
             map
               ? ([args, { value }]) => [args, map(value, { id, args })]
-              : ([args, { value }]) => [args, value]
+              : ([args, { value }]) => [args, value],
           )
           .filter(([, value]) => value !== nothing)
           .map(([args, value]) => [args, toJSON(value)]),
-      ])
+      ]),
     )}})();`;
 
 export const ssrData = createSSRData(cacheById);
@@ -67,7 +73,7 @@ const createGetItem = (cacheById: Map<any, any>) =>
   function getItem<Func extends Fn>(
     func: Func,
     config: Config,
-    args: Parameters<Func>
+    args: Parameters<Func>,
   ) {
     const cache = config.id
       ? get(cacheById, config.id, () => new Map())
@@ -79,7 +85,7 @@ const createGetItem = (cacheById: Map<any, any>) =>
       () =>
         ({
           updaters: new Set<Updater>(),
-        } as Memoized<Func>)
+        }) as Memoized<Func>,
     );
   };
 
@@ -88,10 +94,10 @@ export const getItem = createGetItem(cacheById);
 function removeItem<Func extends Fn>(
   func: Func,
   config: Config,
-  args: Parameters<Func>
+  args: Parameters<Func>,
 ) {
   (config.id ? cacheById.get(config.id) : cacheByFunc.get(func)).delete(
-    stringify(args)
+    stringify(args),
   );
 }
 

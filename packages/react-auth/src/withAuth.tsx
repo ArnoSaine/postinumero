@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { Provider } from './Context.js';
 
 export default function withAuth(Component: any) {
@@ -8,6 +8,6 @@ export default function withAuth(Component: any) {
         <Provider value={useState()}>
           <Component {...props} ref={ref} />
         </Provider>
-      ) as JSX.Element
+      ) as JSX.Element,
   );
 }

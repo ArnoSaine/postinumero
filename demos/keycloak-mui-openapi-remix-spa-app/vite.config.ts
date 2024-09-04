@@ -1,5 +1,5 @@
 import remixOidc from "@postinumero/remix-oidc";
-import remixReactIntl from "@postinumero/remix-react-intl";
+import remixReactIntl from "@postinumero/remix-react-intl/remixReactIntl";
 import mui from "@postinumero/vite-plugin-remix-mui";
 import { vitePlugin as remix } from "@remix-run/dev";
 import { installGlobals } from "@remix-run/node";
