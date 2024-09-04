@@ -1,5 +1,45 @@
 # @postinumero/remix-react-intl
 
+## 0.2.0
+
+### Minor Changes
+
+- 3095078: Move Vite plugin and Remix preset to `@postinumero/remix-react-intl/remixReactIntl`
+
+  - Add `package.json` `exports`
+  - Remove `lib/` and `.js` from import paths
+
+- a55b0c8: @postinumero/remix-react-intl:
+
+  - Include `defaultLocale`, `localePreference` & `requestedLocales` in loader data for easier access
+  - Add hooks `useDefaultLocale`, `useLocalePreference` & `useRequestedLocales`
+  - Remove `options.route`. Intercept an existing action function to change the locale preference.
+
+- 51d3076: Use `ssr` option value from Remix preset config
+
+  - Prefix some options with "\_" to mark them "private"
+
+- fd8a4d9: Remove `@formatjs/intl-durationformat` from dependencies
+
+### Patch Changes
+
+- d421509: Modify Vite config:
+
+  - Add `@postinumero/remix-react-intl` to `optimizeDeps.exclude` and `ssr.noExternal`
+
+- d7210d5: Fix reading messages from file in SSR mode
+- 59bdd1e: Add `metaInlt` for accessing `intl` in `meta` Functions
+- 40bda9c: Move SPA mode route to `route.spa.ts`
+- c3e5ab6: Use @mjackson/headers to get requested locales from the `Accept-Language` header
+- 7e2b7ea: Remove fallback messages from `withIntlProvider`
+
+  Root `ErrorBoundary` should not use `intl` as the messages won't be localized anyway.
+
+- e7ee105: Update typings
+- 7038af4: Memoize reading message files
+- Updated dependencies [811d60e]
+  - @postinumero/vite-plugin-module-proxy@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
