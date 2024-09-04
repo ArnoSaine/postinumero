@@ -1,8 +1,6 @@
 {
   "extends": "../../tsconfig.base",
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
     "outDir": "lib"
   },
   "include": ["src"]

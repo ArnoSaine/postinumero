@@ -1,11 +1,8 @@
 {
   "extends": "../../tsconfig.base",
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
     "outDir": "lib",
-    "rootDir": "src",
-    "jsx": "react-jsx"
+    "rootDir": "src"
   },
   "include": ["src"]
 }

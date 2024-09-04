@@ -52,13 +52,14 @@ const publicOptions = [
   "_localePreferenceMethodAwaited",
   "_ssr",
 ] as const;
+
 export type PublicOptions = Pick<Options, (typeof publicOptions)[number]>;
 
 const optionsPlugin = (
   _options: Opts,
   remixVitePluginConfigPromise: Promise<VitePluginConfig>,
 ) => {
-  const virtualModuleId = "virtual:@postinumero/remix-react-intl/options";
+  const virtualModuleId = `${name}/options`;
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
   const options = {} as Options;
   const api = { options };
@@ -72,7 +73,7 @@ const optionsPlugin = (
   });
 
   return {
-    name: `${name}/options`,
+    name: virtualModuleId,
     enforce: "pre",
     api,
     config: async (config, env) => {

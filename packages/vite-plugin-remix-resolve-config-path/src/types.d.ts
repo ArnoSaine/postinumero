@@ -1,43 +1,30 @@
 declare module "@postinumero/vite-plugin-remix-resolve-config-path/resolve/*";
 
-const meta: import("@remix-run/react").MetaFunction;
-const action: import("@remix-run/node").ActionFunction;
-const loader: import("@remix-run/node").LoaderFunction;
-const clientAction: import("@remix-run/react").ClientActionFunction;
-const clientLoader: import("@remix-run/react").ClientLoaderFunction;
-const shouldRevalidate: import("@remix-run/react").ShouldRevalidateFunction;
+declare module "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/route" {
+  export const meta: import("@remix-run/react").MetaFunction | undefined;
+  export const action: import("@remix-run/node").ActionFunction | undefined;
+  export const loader: import("@remix-run/node").LoaderFunction | undefined;
+  export const clientAction:
+    | import("@remix-run/react").ClientActionFunction
+    | undefined;
+  export const clientLoader:
+    | import("@remix-run/react").ClientLoaderFunction
+    | undefined;
+  export const shouldRevalidate:
+    | import("@remix-run/react").ShouldRevalidateFunction
+    | undefined;
 
-const Layout: React.ComponentType | undefined;
-const HydrateFallback: React.ComponentType | undefined;
-const component: React.ComponentType;
-const ErrorBoundary: React.ComponentType | undefined;
+  export const Layout: React.ComponentType | undefined;
+  export const HydrateFallback: React.ComponentType | undefined;
+  const component: React.ComponentType | undefined;
+  export const ErrorBoundary: React.ComponentType | undefined;
 
-declare module "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/root" {
-  export {
-    ErrorBoundary,
-    HydrateFallback,
-    Layout,
-    action,
-    clientAction,
-    clientLoader,
-    component as default,
-    loader,
-    meta,
-    shouldRevalidate,
-  };
+  export default component;
 }
 
-declare module "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/route" {
-  export {
-    ErrorBoundary,
-    HydrateFallback,
-    Layout,
-    action,
-    clientAction,
-    clientLoader,
-    component as default,
-    loader,
-    meta,
-    shouldRevalidate,
-  };
+declare module "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/root" {
+  export * from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/route";
+
+  const component: React.ComponentType | undefined;
+  export default component;
 }

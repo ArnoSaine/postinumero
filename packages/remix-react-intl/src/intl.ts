@@ -1,3 +1,4 @@
+import options from "@postinumero/remix-react-intl/options";
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import {
   ClientActionFunctionArgs,
@@ -5,7 +6,6 @@ import {
   MetaArgs,
 } from "@remix-run/react";
 import { createIntl, IntlConfig } from "react-intl";
-import options from "virtual:@postinumero/remix-react-intl/options";
 import handleError from "./handleError.js";
 import { loadIntlConfig } from "./intlConfig.js";
 

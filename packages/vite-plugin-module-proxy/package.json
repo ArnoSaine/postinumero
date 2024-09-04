@@ -16,12 +16,8 @@
   "type": "module",
   "exports": {
     ".": "./lib/main.js",
-    "./*": {
-      "types": "./lib/*.d.ts",
-      "import": "./lib/*.js"
-    }
+    "./*": "./lib/*.js"
   },
-  "main": "./lib/main.js",
   "files": [
     "lib",
     "src"

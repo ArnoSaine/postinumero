@@ -1,8 +1,8 @@
 import LocalePreferenceForm from "@postinumero/remix-react-intl/localePreference/Form";
+import options from "@postinumero/remix-react-intl/options";
 import { useRouteLoaderData } from "@remix-run/react";
 import { PropsWithChildren } from "react";
 import { FormattedDisplayName, FormattedMessage } from "react-intl";
-import options from "virtual:@postinumero/remix-react-intl/options";
 import { loader } from "~/root";
 
 function Button(props: PropsWithChildren<{ value: string }>) {

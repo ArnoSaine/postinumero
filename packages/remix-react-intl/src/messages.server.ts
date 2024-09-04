@@ -1,8 +1,8 @@
+import serverOptions from "@postinumero/remix-react-intl/options.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { memoize } from "lodash-es";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import serverOptions from "virtual:@postinumero/remix-react-intl/options.server";
 import { Messages } from "./messages.js";
 
 const readMemoizedMessages = memoize(

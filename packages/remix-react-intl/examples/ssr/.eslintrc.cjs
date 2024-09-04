@@ -84,7 +84,7 @@ module.exports = {
   rules: {
     "import/no-unresolved": [
       "error",
-      { ignore: ["virtual:@postinumero/remix-react-intl/options"] },
+      { ignore: ["@postinumero/remix-react-intl/options"] },
     ],
   },
 };

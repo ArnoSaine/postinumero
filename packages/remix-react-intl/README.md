@@ -38,6 +38,8 @@ public/.compiled-lang
 /lang/en-default.json
 ```
 
+Optional:
+
 `.eslintrc`:
 
 ```json
@@ -45,8 +47,18 @@ public/.compiled-lang
   "rules": {
     "import/no-unresolved": [
       "error",
-      { "ignore": ["virtual:@postinumero/remix-react-intl/options"] }
+      { "ignore": ["@postinumero/remix-react-intl/options"] }
     ]
+  }
+}
+```
+
+`tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["@postinumero/remix-react-intl"]
   }
 }
 ```

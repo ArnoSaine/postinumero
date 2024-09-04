@@ -1,7 +1,10 @@
 import { CacheProvider } from "@emotion/react";
+import {
+  ResetCacheContext,
+  createEmotionCache,
+} from "@postinumero/vite-plugin-remix-mui/utils";
 import * as RemixReact from "@remix-run/react";
-import React, { useCallback, useState } from "react";
-import { ResetCacheContext, createEmotionCache } from "../../lib/utils.js";
+import { useCallback, useState } from "react";
 
 export function Meta() {
   return (

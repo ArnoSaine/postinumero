@@ -16,15 +16,11 @@
   "type": "module",
   "exports": {
     ".": "./lib/main.js",
-    "./preset/*": {
+    "./resolve/*": {
       "types": "./src/types.d.ts"
     },
-    "./*": {
-      "types": "./lib/*.d.ts",
-      "import": "./lib/*.js"
-    }
+    "./*": "./lib/*.js"
   },
-  "main": "./lib/main.js",
   "files": [
     "lib",
     "src"

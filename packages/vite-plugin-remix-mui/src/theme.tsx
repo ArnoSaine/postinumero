@@ -1,6 +1,6 @@
 import type { LinkProps } from "@remix-run/react";
 import { Link } from "@remix-run/react";
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 
 export const LinkBehavior = forwardRef<
   HTMLAnchorElement,

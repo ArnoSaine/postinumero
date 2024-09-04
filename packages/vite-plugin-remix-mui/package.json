@@ -14,7 +14,10 @@
     "email": "arno@mowhi.com"
   },
   "type": "module",
-  "main": "./lib/main.js",
+  "exports": {
+    ".": "./lib/main.js",
+    "./*": "./lib/*.js"
+  },
   "files": [
     "lib",
     "modules",

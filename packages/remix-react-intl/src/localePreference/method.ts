@@ -1,9 +1,9 @@
+import options from "@postinumero/remix-react-intl/options";
 import { ActionFunction, LoaderFunctionArgs } from "@remix-run/node";
 import {
   ClientActionFunction,
   ClientLoaderFunctionArgs,
 } from "@remix-run/react";
-import options from "virtual:@postinumero/remix-react-intl/options";
 import { clientOnly$, serverOnly$ } from "vite-env-only";
 
 // Returns an empty string if the locale preference is unset, making it safe for

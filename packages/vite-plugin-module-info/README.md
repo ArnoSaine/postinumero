@@ -1,6 +1,6 @@
 # @postinumero/vite-plugin-module-info
 
-Get current module info
+Get build time module info
 
 ## Setup
 
@@ -16,8 +16,8 @@ export default defineConfig({
 ## Example
 
 ```js
-import { id, url } from "virtual:@postinumero/vite-plugin-module-info";
+import { importer, url } from "@postinumero/vite-plugin-module-info";
 
-console.log(id); // => string | undefined
+console.log(importer); // => string | undefined
 console.log(url); // => URL | undefined
 ```

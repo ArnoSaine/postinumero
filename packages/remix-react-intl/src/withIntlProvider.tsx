@@ -1,8 +1,8 @@
+import options from "@postinumero/remix-react-intl/options";
 import { useLoaderData } from "@remix-run/react";
 import { merge } from "lodash-es";
 import { useMemo } from "react";
 import { IntlProvider, useIntl } from "react-intl";
-import options from "virtual:@postinumero/remix-react-intl/options";
 import handleError from "./handleError.js";
 
 export default function withIntlProvider<Props extends object>(

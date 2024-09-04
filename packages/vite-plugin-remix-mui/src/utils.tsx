@@ -6,7 +6,7 @@ import {
   createTheme,
   unstable_useEnhancedEffect as useEnhancedEffect,
 } from "@mui/material";
-import React, { ComponentType, createContext, useContext } from "react";
+import { ComponentType, createContext, useContext } from "react";
 
 export function createEmotionCache() {
   return createCache({ key: "css" });

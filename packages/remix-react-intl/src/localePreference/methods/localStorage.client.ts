@@ -1,5 +1,5 @@
+import options from "@postinumero/remix-react-intl/options";
 import { ClientActionFunctionArgs } from "@remix-run/react";
-import options from "virtual:@postinumero/remix-react-intl/options";
 import { LocalePreferenceClientLoaderFunction } from "../method.js";
 
 export const clientAction = async ({ request }: ClientActionFunctionArgs) => {

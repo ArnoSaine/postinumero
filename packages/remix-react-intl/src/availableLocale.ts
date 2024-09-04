@@ -1,6 +1,6 @@
 import "@formatjs/intl-durationformat/polyfill.js";
 import { match } from "@formatjs/intl-localematcher";
-import options from "virtual:@postinumero/remix-react-intl/options";
+import options from "@postinumero/remix-react-intl/options";
 import { baseLocales } from "./utils.js";
 
 export default function availableLocale(requestedLocales: readonly string[]) {

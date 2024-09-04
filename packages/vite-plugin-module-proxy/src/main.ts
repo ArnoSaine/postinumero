@@ -7,7 +7,7 @@ interface Options {
   proxy: string;
 }
 
-const namePrefix = "@postinumero/module-proxy/";
+const namePrefix = "@postinumero/vite-plugin-module-proxy/";
 
 export default function moduleProxy({
   id,

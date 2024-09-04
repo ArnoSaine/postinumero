@@ -1,6 +1,6 @@
+export const name = "@postinumero/vite-plugin-remix-resolve-config-path";
 export const routeIdSearchParam = "routeId";
-export const prefix =
-  "@postinumero/vite-plugin-remix-resolve-config-path/resolve/";
+export const prefix = `${name}/resolve/`;
 export const presetPrefix = "preset/";
 export const presets = {
   root: "${path.join(config.appDirectory, config.routes.root.file)}",

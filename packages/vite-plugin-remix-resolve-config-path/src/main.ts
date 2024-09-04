@@ -2,9 +2,7 @@ import { readConfig } from "@remix-run/dev/dist/config.js";
 import path from "node:path";
 import invariant from "tiny-invariant";
 import type { Plugin } from "vite";
-import { prefix, presetPrefix, presets } from "./options.js";
-
-const name = "@postinumero/remix-resolve-config-path";
+import { name, prefix, presetPrefix, presets } from "./options.js";
 
 const remixResolveConfigPath: Plugin = {
   name,

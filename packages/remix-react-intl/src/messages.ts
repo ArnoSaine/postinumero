@@ -1,8 +1,8 @@
+import options from "@postinumero/remix-react-intl/options";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { ClientLoaderFunctionArgs } from "@remix-run/react";
 import { memoize } from "lodash-es";
 import { IntlConfig } from "react-intl";
-import options from "virtual:@postinumero/remix-react-intl/options";
 
 export type Messages = IntlConfig["messages"];
 

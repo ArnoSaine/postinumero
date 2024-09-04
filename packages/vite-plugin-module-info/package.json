@@ -1,7 +1,7 @@
 {
   "name": "@postinumero/vite-plugin-module-info",
   "version": "0.1.0",
-  "description": "Get current module info",
+  "description": "Get build time module info",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/vite-plugin-module-info",
   "repository": {
     "type": "git",
@@ -14,7 +14,12 @@
     "email": "arno@mowhi.com"
   },
   "type": "module",
-  "main": "./lib/main.js",
+  "exports": {
+    ".": {
+      "types": "./src/types.d.ts",
+      "import": "./lib/main.js"
+    }
+  },
   "files": [
     "lib",
     "src"
