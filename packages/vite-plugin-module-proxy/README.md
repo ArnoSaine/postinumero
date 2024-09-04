@@ -26,7 +26,7 @@ export default defineConfig({
 ```tsx
 // Reference to the original module. If there are subsequent proxies for
 // the same module, this is a reference to the subsequent proxy.
-import * as someModule from "some-module";
+import * as original from "some-module";
 
 // Not needed. Named exports are re-exported from the original module or
 // a subsequent proxy.
