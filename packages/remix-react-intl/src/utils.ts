@@ -1,4 +1,3 @@
-import "@formatjs/intl-durationformat/polyfill.js";
 import { useMemo } from "react";
 import { useIntl } from "react-intl";
 
