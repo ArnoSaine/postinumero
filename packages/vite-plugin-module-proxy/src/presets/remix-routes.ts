@@ -3,15 +3,15 @@ import { readConfig } from "@remix-run/dev/dist/config.js";
 import { routePlugins } from "./remix-route.js";
 
 const remixRoutes = async ({
-  proxy: proxyOption = "../modules/~/route",
+  proxy: proxyPromise = "../modules/~/route",
   url,
 }: {
-  proxy?: string;
+  proxy?: string | Promise<string>;
   url: string;
 }) => {
   const config = await readConfig();
 
-  const proxy = new URL(proxyOption, url).pathname;
+  const proxy = new URL(await proxyPromise, url).pathname;
 
   return [
     remixResolveConfigPath,

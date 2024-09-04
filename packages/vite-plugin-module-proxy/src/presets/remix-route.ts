@@ -10,7 +10,7 @@ const remixRoute = async ({
   url,
   routeId,
 }: {
-  proxy?: string;
+  proxy?: string | Promise<string>;
   url: string;
   routeId: string;
 }) => {
@@ -36,23 +36,25 @@ export default remixRoute;
 
 export const routePlugins = ({
   config,
-  proxy,
+  proxy: proxyPromise,
   url,
   file,
   routeId,
 }: {
   config: RemixConfig;
-  proxy: string;
+  proxy: string | Promise<string>;
   url: string;
   file: string;
   routeId: string;
 }) => {
-  const proxyURL = new URL(
-    `${proxy}${proxy.includes("?") ? "&" : "?"}${`${routeIdSearchParam}=${encodeURIComponent(routeId).replaceAll(".", "%2E")}`}`,
-    url,
-  );
-
-  proxy = proxyURL.pathname + proxyURL.search;
+  proxyPromise = new Promise(async (resolve) => {
+    const proxy = await proxyPromise;
+    const proxyURL = new URL(
+      `${proxy}${proxy.includes("?") ? "&" : "?"}${`${routeIdSearchParam}=${encodeURIComponent(routeId).replaceAll(".", "%2E")}`}`,
+      url,
+    );
+    resolve(proxyURL.pathname + proxyURL.search);
+  });
 
   return [
     moduleProxy({
@@ -60,7 +62,7 @@ export const routePlugins = ({
         // "/absolute/path/to/app/<route file>.tsx"
         new URL(path.join(config.appDirectory, file), url).pathname,
       reExportAllFrom: `@postinumero/vite-plugin-remix-resolve-config-path/resolve/\$\{path.join(config.appDirectory, config.routes['${routeId}'].file)\}`,
-      proxy,
+      proxy: proxyPromise,
     }),
     moduleProxy({
       id:
@@ -75,14 +77,14 @@ export const routePlugins = ({
           url,
         ).pathname,
       reExportAllFrom: false,
-      proxy,
+      proxy: proxyPromise,
     }),
     moduleProxy({
       id:
         // "./<route file>.tsx"
         `.${new URL(path.join(" ", file), url).pathname}`,
       reExportAllFrom: false,
-      proxy,
+      proxy: proxyPromise,
     }),
   ];
 };

@@ -4,7 +4,7 @@ import type { Plugin, ResolvedConfig } from "vite";
 interface Options {
   id: string;
   reExportAllFrom?: string | false;
-  proxy: string;
+  proxy: string | Promise<string>;
 }
 
 const namePrefix = "@postinumero/vite-plugin-module-proxy/";
@@ -12,7 +12,7 @@ const namePrefix = "@postinumero/vite-plugin-module-proxy/";
 export default function moduleProxy({
   id,
   reExportAllFrom = id,
-  proxy,
+  proxy: proxyPromise,
 }: Options) {
   let resolvedConfig: ResolvedConfig;
 
@@ -25,6 +25,7 @@ export default function moduleProxy({
     async resolveId(source, importer, options) {
       if (source === id) {
         importer = importer?.split("?")[0];
+        const proxy = await proxyPromise;
         const proxyResolved = await this.resolve(proxy, undefined, options);
 
         invariant(proxyResolved, `Resolved proxy ${proxy}`);
@@ -67,6 +68,7 @@ export default function moduleProxy({
       }
     },
     async transform(code, _id) {
+      const proxy = await proxyPromise;
       const proxyResolved = await this.resolve(proxy?.split("?")[0]!);
       invariant(proxyResolved, `Resolved proxy ${proxy}`);
 
