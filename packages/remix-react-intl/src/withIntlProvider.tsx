@@ -1,9 +1,10 @@
-import options from "@postinumero/remix-react-intl/options";
+import { options } from "@postinumero/remix-react-intl";
 import { useLoaderData } from "@remix-run/react";
 import { merge } from "lodash-es";
 import { useMemo } from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import handleError from "./handleError.js";
+import { Loader } from "./route.js";
 
 export default function withIntlProvider<Props extends object>(
   Component: React.ComponentType<Props>,
@@ -19,7 +20,7 @@ export default function withIntlProvider<Props extends object>(
     } catch {}
 
     try {
-      merge(intl, (useLoaderData() as any).intl);
+      merge(intl, useLoaderData<Loader>().intl.config);
     } catch {}
 
     const intlMemoized = useMemo(() => intl, [intl.locale]);
@@ -27,7 +28,6 @@ export default function withIntlProvider<Props extends object>(
     return (
       <IntlProvider
         locale={intlMemoized.locale}
-        // TODO: include fallback messages for root error boundary
         messages={intlMemoized.messages}
         onError={handleError}
       >

@@ -1,14 +1,16 @@
-import LocalePreferenceForm from "@postinumero/remix-react-intl/localePreference/Form";
-import options from "@postinumero/remix-react-intl/options";
-import { useRouteLoaderData } from "@remix-run/react";
+import {
+  LocalePreferenceForm,
+  options,
+  useDefaultLocale,
+  useLocalePreference,
+} from "@postinumero/remix-react-intl";
 import { PropsWithChildren } from "react";
 import { FormattedDisplayName, FormattedMessage } from "react-intl";
-import { clientLoader } from "~/root";
 
 function Button(props: PropsWithChildren<{ value: string }>) {
   // Normally we would use `intl.locale`, but in this case we also need to know
   // if the user has not manually set a locale preference.
-  const { localePreference } = useRouteLoaderData<typeof clientLoader>("root")!;
+  const localePreference = useLocalePreference();
 
   const isSelected = localePreference === props.value;
 
@@ -22,7 +24,7 @@ function Button(props: PropsWithChildren<{ value: string }>) {
 }
 
 export default function LocaleSelector() {
-  const { defaultLocale } = useRouteLoaderData<typeof clientLoader>("root")!;
+  const defaultLocale = useDefaultLocale();
 
   return (
     <LocalePreferenceForm>

@@ -1,7 +1,4 @@
-import { loadDefaultLocale } from "@postinumero/remix-react-intl/defaultLocale";
-import { metaIntl } from "@postinumero/remix-react-intl/intl";
-import * as localePreferenceRoute from "@postinumero/remix-react-intl/localePreference/route";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { metaIntl } from "@postinumero/remix-react-intl";
 import {
   Link,
   Links,
@@ -28,12 +25,9 @@ export const meta: MetaFunction = (args) => {
   }
 };
 
-export const loader = async (args: LoaderFunctionArgs) => {
-  const defaultLocale = await loadDefaultLocale(args);
-  const localePreference = await localePreferenceRoute.loader(args);
+export const action = () => null;
 
-  return { localePreference, defaultLocale };
-};
+export const loader = () => null;
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const intl = useIntl();

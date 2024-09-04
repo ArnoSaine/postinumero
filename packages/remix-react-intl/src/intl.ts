@@ -1,30 +1,48 @@
-import options from "@postinumero/remix-react-intl/options";
+import { options } from "@postinumero/remix-react-intl";
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import {
   ClientActionFunctionArgs,
   ClientLoaderFunctionArgs,
   MetaArgs,
 } from "@remix-run/react";
-import { createIntl, IntlConfig } from "react-intl";
+import { createIntl } from "react-intl";
+import { clientOnly$, serverOnly$ } from "vite-env-only";
 import handleError from "./handleError.js";
-import { loadIntlConfig } from "./intlConfig.js";
+import { Loader } from "./route.js";
 
 export function metaIntl(args: MetaArgs) {
-  const routeId = options.singleOutput
-    ? "root"
-    : // TODO: Get matching routeId and parent routes from args.location. Merge messages with parent route messages and root route messages.
-      "root";
-  const match = args.matches.find((match) => match.id === routeId);
-  const intlConfig = (match?.data as { intl: IntlConfig | undefined })?.intl;
+  const _args = args as MetaArgs<Loader, Record<string, Loader>>;
+  const intlConfigs = _args.matches
+    .map(({ data }) => data?.intl.config)
+    .filter(Boolean);
 
-  return (
-    intlConfig &&
-    createIntl({
-      ...intlConfig,
-      onError: handleError,
-    })
-  );
+  return intlConfigs.length
+    ? createIntl(
+        Object.assign(
+          { onError: handleError },
+          ..._args.matches.map(({ data }) => data?.intl.config).filter(Boolean),
+        ),
+      )
+    : undefined;
 }
+
+const server = serverOnly$(
+  async (
+    ...args: Parameters<
+      (typeof import("./intlConfig.server.js"))["loadIntlConfig"]
+    >
+  ) => (await import("./intlConfig.server.js")).loadIntlConfig(...args),
+);
+
+const client = clientOnly$(
+  async (
+    ...args: Parameters<
+      (typeof import("./intlConfig.client.js"))["loadIntlConfig"]
+    >
+  ) => (await import("./intlConfig.client.js")).loadIntlConfig(...args),
+);
+
+export const loadIntlConfig = (server ?? client)!;
 
 export async function loadIntl(
   args:

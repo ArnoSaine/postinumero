@@ -15,7 +15,7 @@
   },
   "type": "module",
   "exports": {
-    ".": "./lib/main.js",
+    ".": "./lib/index.js",
     "./options*": {
       "types": "./src/types.d.ts"
     },
@@ -23,12 +23,11 @@
   },
   "files": [
     "lib",
-    "modules",
     "src"
   ],
   "scripts": {
     "build": "tsc",
-    "create-spa-example": "./scripts/create-spa-example.sh",
+    "create-spa-api-and-example": "./scripts/create-spa-api-and-example.sh",
     "dev": "tsc --watch"
   },
   "dependencies": {
@@ -45,6 +44,7 @@
     "babel-plugin-formatjs": "^10.5.13",
     "lodash-es": "^4.17.21",
     "react-intl": "^6.6.2",
+    "tiny-invariant": "1.3.3",
     "vite-env-only": "^2.2.0"
   },
   "devDependencies": {

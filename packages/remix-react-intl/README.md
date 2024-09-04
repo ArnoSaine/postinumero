@@ -94,7 +94,7 @@ intl.formatMessage({ defaultMessage: "Hello" });
 In Remix `action`, `loader`, `clientAction`, and `clientLoader`, you can access the `intl` object (`IntlShape`) via `loadIntl`:
 
 ```ts
-import { loadIntl } from "@postinumero/remix-react-intl/intl";
+import { loadIntl } from "@postinumero/remix-react-intl";
 import { ClientActionFunctionArgs } from "@remix-run/react";
 
 const clientAction = async (args: ClientActionFunctionArgs) => {
@@ -113,7 +113,7 @@ const clientAction = async (args: ClientActionFunctionArgs) => {
 In Remix `meta` functions, you can access the `intl` object (`IntlShape`) via `metaIntl`:
 
 ```ts
-import { metaIntl } from "@postinumero/remix-react-intl/intl";
+import { metaIntl } from "@postinumero/remix-react-intl";
 import { MetaFunction } from "@remix-run/react";
 
 export const meta: MetaFunction = (args) => {

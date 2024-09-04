@@ -6,9 +6,10 @@ export default function routesPlugin(options: Options) {
   return options.singleOutput
     ? remixRoot({
         url: new URL("../..", import.meta.url).toString(),
-        proxy: "../modules/~/route",
+        proxy: "../lib/route",
       })
     : remixRoutes({
         url: new URL("../..", import.meta.url).toString(),
+        proxy: "../lib/route",
       });
 }

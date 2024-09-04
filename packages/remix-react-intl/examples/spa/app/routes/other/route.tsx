@@ -1,4 +1,4 @@
-import { loadIntl } from "@postinumero/remix-react-intl/intl";
+import { loadIntl } from "@postinumero/remix-react-intl";
 
 import { ClientLoaderFunctionArgs, Outlet } from "@remix-run/react";
 import { FormattedMessage } from "react-intl";
@@ -7,7 +7,7 @@ export const clientLoader = async (args: ClientLoaderFunctionArgs) => {
   const intl = await loadIntl(args);
 
   const message = intl.formatMessage({
-    defaultMessage: "Loader message",
+    defaultMessage: "Hello from clientLoader!",
   });
 
   console.log(message);

@@ -1,4 +1,4 @@
-import options from "@postinumero/remix-react-intl/options";
+import { options } from "@postinumero/remix-react-intl";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { ClientLoaderFunctionArgs } from "@remix-run/react";
 import { memoize } from "lodash-es";

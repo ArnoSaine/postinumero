@@ -3,7 +3,7 @@ import {
   createCookieSessionStorage,
   redirect,
 } from "@remix-run/node";
-import { LocalePreferenceLoaderFunction } from "../method.js";
+import { LocalePreferenceLoaderFunction } from "../../../.server/route/localePreference.js";
 
 type SessionData = {
   locale: string;
@@ -33,7 +33,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     session.set("locale", locale);
   }
 
-  return redirect(request.headers.get("referer") ?? "/", {
+  throw redirect(request.headers.get("referer") ?? "/", {
     headers: {
       "Set-Cookie": locale
         ? await commitSession(session)

@@ -20,13 +20,10 @@ export interface UserOptions {
   babel?: BabelPluginOpts;
   compile?: CompileOpts;
   extract?: ExtractOpts;
-  routes?: {
-    locale?: string;
-  };
   singleOutput?: boolean;
   _compiledTargetAwaited?: string;
   _compiledTargetPromise?: Promise<Options["_compiledTargetAwaited"]>;
-  _localePreferenceMethodAwaited?: "localStorage.client" | "session.server";
+  _localePreferenceMethodAwaited?: "localStorage" | "session";
   _localePreferenceMethodPromise?: Promise<
     Options["_localePreferenceMethodAwaited"]
   >;
@@ -47,7 +44,6 @@ const publicOptions = [
   "fallbackLocale",
   "locales",
   "localStorageKey",
-  "routes",
   "singleOutput",
   "_localePreferenceMethodAwaited",
   "_ssr",
@@ -140,8 +136,6 @@ export const getOptions = async (
   options.extract ??= {};
   options.extract.idInterpolationPattern ??= DEFAULT_ID_INTERPOLATION_PATTERN;
   options.extract.preserveWhitespace ??= options.preserveWhitespace;
-  options.routes ??= {};
-  options.routes.locale ??= "/__locale";
   options.singleOutput ??= true;
   options._compiledTargetPromise ??= new Promise(async (resolve) => {
     const remixVitePluginConfig = await remixVitePluginConfigPromise;
@@ -153,9 +147,7 @@ export const getOptions = async (
   });
   options._localePreferenceMethodPromise ??= new Promise(async (resolve) => {
     const remixVitePluginConfig = await remixVitePluginConfigPromise;
-    resolve(
-      remixVitePluginConfig?.ssr ? "session.server" : "localStorage.client",
-    );
+    resolve(remixVitePluginConfig?.ssr ? "session" : "localStorage");
   });
 
   return options;
