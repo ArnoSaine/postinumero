@@ -1,5 +1,11 @@
 # @postinumero/vite-plugin-module-proxy
 
+## 0.1.2
+
+### Patch Changes
+
+- 811d60e: Update `proxy` option to accept `string` or `Promise<string>`
+
 ## 0.1.1
 
 ### Patch Changes

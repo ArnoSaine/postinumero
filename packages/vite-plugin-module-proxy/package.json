@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/vite-plugin-module-proxy",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Override module exports",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/vite-plugin-module-proxy",
   "repository": {
