@@ -1,8 +1,7 @@
 import { options } from "@postinumero/remix-react-intl";
 import { useLoaderData } from "@remix-run/react";
-import { merge } from "lodash-es";
-import { useMemo } from "react";
 import { IntlProvider, useIntl } from "react-intl";
+import { useDeepCompareMemo } from "use-deep-compare";
 import handleError from "./handleError.js";
 import { Loader } from "./route.js";
 
@@ -10,25 +9,31 @@ export default function withIntlProvider<Props extends object>(
   Component: React.ComponentType<Props>,
 ) {
   return function WithIntlProvider(props: Props) {
-    const intl = {
-      locale: options.fallbackLocale,
-      messages: {},
-    };
+    let locale = options.fallbackLocale;
+    const messages = {};
 
     try {
-      merge(intl, useIntl());
+      const intl = useIntl();
+      if (intl.locale) {
+        locale = intl.locale;
+      }
+      Object.assign(messages, intl.messages);
     } catch {}
 
     try {
-      merge(intl, useLoaderData<Loader>().intl.config);
+      const intlConfig = useLoaderData<Loader>().intl.config;
+      if (intlConfig.locale) {
+        locale = intlConfig.locale;
+      }
+      Object.assign(messages, intlConfig.messages);
     } catch {}
 
-    const intlMemoized = useMemo(() => intl, [intl.locale]);
+    const messagesMemoized = useDeepCompareMemo(() => messages, [messages]);
 
     return (
       <IntlProvider
-        locale={intlMemoized.locale}
-        messages={intlMemoized.messages}
+        locale={locale}
+        messages={messagesMemoized}
         onError={handleError}
       >
         <Component {...props} />
