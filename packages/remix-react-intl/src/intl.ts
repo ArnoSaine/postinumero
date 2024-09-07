@@ -13,14 +13,16 @@ import { Loader } from "./route.js";
 export function metaIntl(args: MetaArgs) {
   const _args = args as MetaArgs<Loader, Record<string, Loader>>;
   const intlConfigs = _args.matches
-    .map(({ data }) => data?.intl.config)
+    .map(({ data }) => data?.[options._loaderDataName]!.config)
     .filter(Boolean);
 
   return intlConfigs.length
     ? createIntl(
         Object.assign(
           { onError: handleError },
-          ..._args.matches.map(({ data }) => data?.intl.config).filter(Boolean),
+          ..._args.matches
+            .map(({ data }) => data?.[options._loaderDataName]!.config)
+            .filter(Boolean),
         ),
       )
     : undefined;

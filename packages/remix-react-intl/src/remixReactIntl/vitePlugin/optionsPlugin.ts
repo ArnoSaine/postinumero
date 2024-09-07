@@ -23,6 +23,7 @@ export interface UserOptions {
   singleOutput?: boolean;
   _compiledTargetAwaited?: string;
   _compiledTargetPromise?: Promise<Options["_compiledTargetAwaited"]>;
+  _loaderDataName?: string;
   _localePreferenceMethodAwaited?: "localStorage" | "session";
   _localePreferenceMethodPromise?: Promise<
     Options["_localePreferenceMethodAwaited"]
@@ -46,6 +47,7 @@ const publicOptions = [
   "locales",
   "localStorageKey",
   "singleOutput",
+  "_loaderDataName",
   "_localePreferenceMethodAwaited",
   "_ssrAwaited",
 ] as const;
@@ -150,6 +152,7 @@ export const getOptions = async (
         : `public/${options.compiledTargetPublicPath}`,
     );
   });
+  options._loaderDataName ??= "__intl";
   options._localePreferenceMethodPromise ??= new Promise(async (resolve) => {
     resolve(((await ssrPromise) ?? true) ? "session" : "localStorage");
   });

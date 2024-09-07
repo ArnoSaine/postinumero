@@ -21,7 +21,8 @@ export default function withIntlProvider<Props extends object>(
     } catch {}
 
     try {
-      const intlConfig = useLoaderData<Loader>().intl.config;
+      const intlConfig =
+        useLoaderData<Loader>()[options._loaderDataName]!.config;
       if (intlConfig.locale) {
         locale = intlConfig.locale;
       }

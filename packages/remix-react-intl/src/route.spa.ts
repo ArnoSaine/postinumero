@@ -1,4 +1,4 @@
-import { withIntlProvider } from "@postinumero/remix-react-intl";
+import { options, withIntlProvider } from "@postinumero/remix-react-intl";
 import { url } from "@postinumero/vite-plugin-module-info";
 import { routeIdSearchParam } from "@postinumero/vite-plugin-remix-resolve-config-path/options";
 import * as original from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/route";
@@ -29,7 +29,7 @@ export const clientAction = async (args: ClientActionFunctionArgs) => {
 export const clientLoader = async (
   args: ClientLoaderFunctionArgs,
 ): Promise<{
-  intl: {
+  [_loaderDataName: string]: {
     defaultLocale: string;
     config: IntlConfig;
     localePreference: string;
@@ -62,7 +62,7 @@ export const clientLoader = async (
     return merge({ intl }, response);
   }
 
-  return { intl };
+  return { [options._loaderDataName]: intl };
 };
 
 export type ClientLoader = typeof clientLoader;
