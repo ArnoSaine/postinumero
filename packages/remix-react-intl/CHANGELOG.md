@@ -1,5 +1,14 @@
 # @postinumero/remix-react-intl
 
+## 0.2.1
+
+### Patch Changes
+
+- 024f615: Add option: `_loaderDataName`
+- aa585ba: Fix memoization of messages
+- Updated dependencies [0fe770a]
+  - @postinumero/vite-plugin-module-info@0.2.0
+
 ## 0.2.0
 
 ### Minor Changes

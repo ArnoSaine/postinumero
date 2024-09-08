@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/vite-plugin-module-info",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Get build time module info",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/vite-plugin-module-info",
   "repository": {
