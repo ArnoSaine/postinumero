@@ -1,5 +1,12 @@
 # @postinumero/vite-plugin-remix-mui
 
+## 0.2.1
+
+### Patch Changes
+
+- 09ff9d1: - Support MUI v5 & v6
+  - Fix hydration error: Use fixed version `@emotion/react@11.12.0`
+
 ## 0.2.0
 
 ### Minor Changes
