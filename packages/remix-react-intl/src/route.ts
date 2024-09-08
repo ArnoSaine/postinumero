@@ -27,6 +27,8 @@ export const action = serverOnly$(async (args: ActionFunctionArgs) => {
     await (
       await import("./.server/route/localePreference.js")
     ).actLocalePreference(args);
+
+    return null;
   }
 
   return original.action?.(args);

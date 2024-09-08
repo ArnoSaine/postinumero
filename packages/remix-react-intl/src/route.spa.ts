@@ -21,6 +21,8 @@ export const clientAction = async (args: ClientActionFunctionArgs) => {
     await (
       await import("./.client/route/localePreference.js")
     ).actLocalePreference(args);
+
+    return null;
   }
 
   return original.clientAction?.(args);

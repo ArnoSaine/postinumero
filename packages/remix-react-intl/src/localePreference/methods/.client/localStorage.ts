@@ -11,8 +11,6 @@ export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
   } else {
     localStorage.removeItem(options.localStorageKey);
   }
-
-  return null;
 };
 
 export const clientLoader: LocalePreferenceClientLoaderFunction = () =>
