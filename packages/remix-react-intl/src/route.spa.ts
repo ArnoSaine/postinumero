@@ -40,31 +40,33 @@ export const clientLoader = async (
 }> => {
   invariant(routeId);
 
-  const intl = {
-    defaultLocale: await (
-      await import("./.client/route/defaultLocale.js")
-    ).loadDefaultLocale(args),
-    config: await (
-      await import("./intlConfig.client.js")
-    ).loadIntlConfig(routeId, args),
-    localePreference: await (
-      await import("./.client/route/localePreference.js")
-    ).loadLocalePreference(args),
-    requestedLocales: await (
-      await import("./requestedLocales.client.js")
-    ).loadRequestedLocales(args),
+  const data = {
+    [options._loaderDataName]: {
+      defaultLocale: await (
+        await import("./.client/route/defaultLocale.js")
+      ).loadDefaultLocale(args),
+      config: await (
+        await import("./intlConfig.client.js")
+      ).loadIntlConfig(routeId, args),
+      localePreference: await (
+        await import("./.client/route/localePreference.js")
+      ).loadLocalePreference(args),
+      requestedLocales: await (
+        await import("./requestedLocales.client.js")
+      ).loadRequestedLocales(args),
+    },
   };
 
   const response = original.clientLoader && (await original.clientLoader(args));
 
   if (response) {
     if (response instanceof Response) {
-      return json(merge({ intl }, await response.json()), response) as any;
+      return json(merge(data, await response.json()), response) as any;
     }
-    return merge({ intl }, response);
+    return merge(data, response);
   }
 
-  return { [options._loaderDataName]: intl };
+  return data;
 };
 
 export type ClientLoader = typeof clientLoader;

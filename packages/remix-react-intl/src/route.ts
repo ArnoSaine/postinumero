@@ -47,31 +47,33 @@ export const loader = serverOnly$(
   }> => {
     invariant(routeId);
 
-    const intl = {
-      defaultLocale: await (
-        await import("./.server/route/defaultLocale.js")
-      ).loadDefaultLocale(args),
-      config: await (
-        await import("./intlConfig.server.js")
-      ).loadIntlConfig(routeId, args),
-      localePreference: await (
-        await import("./.server/route/localePreference.js")
-      ).loadLocalePreference(args),
-      requestedLocales: await (
-        await import("./requestedLocales.server.js")
-      ).loadRequestedLocales(args),
+    const data = {
+      [options._loaderDataName]: {
+        defaultLocale: await (
+          await import("./.server/route/defaultLocale.js")
+        ).loadDefaultLocale(args),
+        config: await (
+          await import("./intlConfig.server.js")
+        ).loadIntlConfig(routeId, args),
+        localePreference: await (
+          await import("./.server/route/localePreference.js")
+        ).loadLocalePreference(args),
+        requestedLocales: await (
+          await import("./requestedLocales.server.js")
+        ).loadRequestedLocales(args),
+      },
     };
 
     const response = original.loader && (await original.loader(args));
 
     if (response) {
       if (response instanceof Response) {
-        return json(merge({ intl }, await response.json()), response) as any;
+        return json(merge(data, await response.json()), response) as any;
       }
-      return merge({ intl }, response);
+      return merge(data, response);
     }
 
-    return { [options._loaderDataName]: intl };
+    return data;
   },
 )!;
 
