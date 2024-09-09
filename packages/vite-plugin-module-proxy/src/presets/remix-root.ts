@@ -1,6 +1,6 @@
 import remixRoute from "./remix-route.js";
 
-const remixRoot = async ({
+const remixRoot = ({
   proxy = "../modules/~/root",
   url,
 }: {

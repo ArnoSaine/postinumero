@@ -66,7 +66,7 @@ export const routePlugins = ({
     }),
     moduleProxy({
       id:
-        // TODO: Figure out if this actually relative to cwd?
+        // TODO: Figure out if this is relative to cwd?
         // "/app/<route file>.tsx"
         new URL(
           path.join(
