@@ -80,3 +80,7 @@ const Component = original.default;
 export default original.Layout
   ? original.default
   : Component && withIntlProvider(Component);
+
+export const HydrateFallback = original.Layout
+  ? original.HydrateFallback
+  : original.HydrateFallback && withIntlProvider(original.HydrateFallback);
