@@ -1,0 +1,9 @@
+node_modules
+
+/.cache
+/build
+/public/build
+.env
+
+public/.compiled-lang
+/lang/en-default.json
