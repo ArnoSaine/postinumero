@@ -3,17 +3,12 @@ import remixRoutes from "@postinumero/vite-plugin-module-proxy/presets/remix-rou
 import { Options } from "./optionsPlugin.js";
 
 export default function routesPlugin(options: Options) {
+  const url = new URL("../..", import.meta.url).toString();
+  const proxy = new Promise<string>(async (resolve) => {
+    resolve((await options._ssrPromise) ? "../lib/route" : "../lib/route.spa");
+  });
+
   return options.singleOutput
-    ? remixRoot({
-        url: new URL("../..", import.meta.url).toString(),
-        proxy: new Promise(async (resolve) => {
-          resolve(
-            (await options._ssrPromise) ? "../lib/route" : "../lib/route.spa",
-          );
-        }),
-      })
-    : remixRoutes({
-        url: new URL("../..", import.meta.url).toString(),
-        proxy: "../lib/route",
-      });
+    ? remixRoot({ url, proxy })
+    : remixRoutes({ url, proxy });
 }
