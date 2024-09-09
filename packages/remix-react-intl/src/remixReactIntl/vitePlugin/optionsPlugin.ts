@@ -127,9 +127,13 @@ export const getOptions = async (
   options.compiledTargetPublicPath ??= ".compiled-lang";
   options.defaultLocale ??= "en-default";
   options.fallbackLocale ??= options.defaultLocale.split("-")[0]!;
-  options.locales ??= (await fs.readdir(options.target))
-    .map((file) => path.parse(file).name)
-    .filter((locale) => locale !== options.defaultLocale);
+  try {
+    options.locales ??= (await fs.readdir(options.target))
+      .map((file) => path.parse(file).name)
+      .filter((locale) => locale !== options.defaultLocale);
+  } catch (err) {
+    options.locales ??= [];
+  }
   if (!options.locales.includes(options.fallbackLocale)) {
     options.locales.unshift(options.fallbackLocale);
   }

@@ -31,6 +31,8 @@ export default function extractPlugin(options: Options): Plugin {
         extractRoutes(options.extract, routeIds),
       ]);
 
+      await fs.mkdir(options.target, { recursive: true });
+
       await fs.writeFile(
         `${options.target}/${options.defaultLocale}.json`,
         mergeJSON(allMessages, routeNameMessages),
