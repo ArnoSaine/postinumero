@@ -1,5 +1,11 @@
 # @postinumero/remix-react-intl
 
+## 0.2.5
+
+### Patch Changes
+
+- 590b370: Fix extracting and compiling messages when any Vite build config is defined
+
 ## 0.2.4
 
 ### Patch Changes
