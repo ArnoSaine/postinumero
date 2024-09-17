@@ -14,10 +14,10 @@ declare module "@postinumero/vite-plugin-remix-resolve-config-path/resolve/prese
     | import("@remix-run/react").ShouldRevalidateFunction
     | undefined;
 
-  export const Layout: React.ComponentType | undefined;
-  export const HydrateFallback: React.ComponentType | undefined;
-  const component: React.ComponentType | undefined;
-  export const ErrorBoundary: React.ComponentType | undefined;
+  export const Layout: React.ComponentType<any> | undefined;
+  export const HydrateFallback: React.ComponentType<any> | undefined;
+  const component: React.ComponentType<any> | undefined;
+  export const ErrorBoundary: React.ComponentType<any> | undefined;
 
   export default component;
 }
@@ -25,6 +25,6 @@ declare module "@postinumero/vite-plugin-remix-resolve-config-path/resolve/prese
 declare module "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/root" {
   export * from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/route";
 
-  const component: React.ComponentType | undefined;
+  const component: React.ComponentType<any> | undefined;
   export default component;
 }

@@ -29,13 +29,12 @@ const remixResolveConfigPath: Plugin = {
         `return \`${source}\``,
       )(config, path, importer);
 
+      // Make this virtual module "transparent"
+      // Resolve the found source using original importer and options
       const resolved = await this.resolve(source, importer, options);
-      invariant(resolved, "resolved config");
+      invariant(resolved, "Resolved config path");
 
-      const url = new URL(resolved.id, import.meta.url);
-      url.searchParams.append(name, "resolved");
-
-      return `${url.pathname}${url.search}${url.hash}`;
+      return resolved;
     }
   },
 };
