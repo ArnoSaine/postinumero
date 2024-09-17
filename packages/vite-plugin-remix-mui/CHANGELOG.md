@@ -1,5 +1,11 @@
 # @postinumero/vite-plugin-remix-mui
 
+## 0.3.1
+
+### Patch Changes
+
+- db62ccd: Fix `@mui/icons-material` imports. Use `@mui/icons-material/esm` alias only in versions below `6.1.0`.
+
 ## 0.3.0
 
 ### Minor Changes
