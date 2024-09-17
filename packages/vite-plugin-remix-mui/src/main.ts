@@ -22,8 +22,10 @@ export default async () => {
       config: async () => ({
         resolve: {
           alias: {
-            "@mui/icons-material": "@mui/icons-material/esm",
-            ...(parseInt((await readPackageJson("@mui/system")).version) < 6
+            ...((await readPackageJson("@mui/system")).version < "6.1.0"
+              ? { "@mui/icons-material": "@mui/icons-material/esm" }
+              : {}),
+            ...((await readPackageJson("@mui/system")).version < "6"
               ? { "@mui/system": "@mui/system/esm" }
               : {}),
           },
