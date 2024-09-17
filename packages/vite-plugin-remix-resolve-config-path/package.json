@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/vite-plugin-remix-resolve-config-path",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Import from Remix config paths",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/vite-plugin-remix-resolve-config-path",
   "repository": {

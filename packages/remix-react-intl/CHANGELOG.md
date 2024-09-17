@@ -1,5 +1,17 @@
 # @postinumero/remix-react-intl
 
+## 0.2.2
+
+### Patch Changes
+
+- 7d4ed66: Fix enabling SPA mode when using per route messages
+- 250af99: Fix hydration error: If exists, export `HydrateFallback` wrapped in `withIntlProvider`
+- 5c18608: Ensure `lang` directory exists
+- Updated dependencies [8c1afcd]
+- Updated dependencies [176b7c3]
+  - @postinumero/vite-plugin-module-proxy@0.2.0
+  - @postinumero/vite-plugin-remix-resolve-config-path@0.1.2
+
 ## 0.2.1
 
 ### Patch Changes

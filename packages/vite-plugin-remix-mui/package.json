@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/vite-plugin-remix-mui",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "MUI & Remix integration",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/vite-plugin-remix-mui",
   "repository": {
@@ -29,7 +29,7 @@
     "test-local": "node test"
   },
   "dependencies": {
-    "@postinumero/vite-plugin-module-proxy": "^0.1.1",
+    "@postinumero/vite-plugin-module-proxy": "^0.2.0",
     "@remix-run/dev": "^2.7.0",
     "lodash-es": "^4.17.21"
   },

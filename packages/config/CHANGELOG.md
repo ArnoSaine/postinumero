@@ -1,5 +1,11 @@
 # @postinumero/config
 
+## 0.2.1
+
+### Patch Changes
+
+- 097b5c5: Provide an export to modify the prefixes to be removed from environment variable names. Default `["VITE_"]`.
+
 ## 0.2.0
 
 ### Minor Changes

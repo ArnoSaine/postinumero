@@ -1,5 +1,22 @@
 # @postinumero/vite-plugin-module-proxy
 
+## 0.2.0
+
+### Minor Changes
+
+- 8c1afcd: - Rename options:
+  - ~~`id`~~ --> `target`
+  - ~~`proxy`~~ --> `handler`
+  - ~~`url`~~ --> `base`
+  - Fix issue with chained plugins
+  - Performance improvements
+  - Re-exports: If a default export is found in the target module, it is re-exported
+
+### Patch Changes
+
+- Updated dependencies [176b7c3]
+  - @postinumero/vite-plugin-remix-resolve-config-path@0.1.2
+
 ## 0.1.2
 
 ### Patch Changes
