@@ -1,11 +1,11 @@
 import remixRoute from "./remix-route.js";
 
 const remixRoot = ({
-  proxy = "../modules/~/root",
-  url,
+  handler = "../modules/~/root",
+  base,
 }: {
-  proxy?: string | Promise<string>;
-  url: string;
-}) => remixRoute({ proxy, url, routeId: "root" });
+  handler?: string | Promise<string>;
+  base?: string;
+}) => remixRoute({ handler, base, routeId: "root" });
 
 export default remixRoot;

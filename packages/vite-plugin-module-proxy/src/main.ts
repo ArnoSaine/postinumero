@@ -1,106 +1,154 @@
+import path from "node:path";
+import { PartialResolvedId } from "rollup";
 import invariant from "tiny-invariant";
-import type { Plugin, ResolvedConfig } from "vite";
+import { Plugin, ResolvedConfig } from "vite";
+
+type Target = string | Promise<string>;
 
 interface Options {
-  id: string;
-  reExportAllFrom?: string | false;
-  proxy: string | Promise<string>;
+  target: Target | readonly Target[];
+  reExportAllFrom?: boolean | string | Promise<boolean | string>;
+  handler: string | Promise<string>;
+  base?: string;
 }
 
-const namePrefix = "@postinumero/vite-plugin-module-proxy/";
+const isRelative = (path: string) => path.at(0) === ".";
+
+const defaultExportRegExp =
+  /^\bexport\s+(default\b|{(|\s+\w+ as )\s*default\s*}\s*)/m;
 
 export default function moduleProxy({
-  id,
-  reExportAllFrom = id,
-  proxy: proxyPromise,
-}: Options) {
+  target,
+  handler: handlerPromise,
+  reExportAllFrom: reExportAllFromPromise,
+  base,
+}: Options): Plugin {
   let resolvedConfig: ResolvedConfig;
 
-  const plugin: Plugin = {
-    name: `${namePrefix}${id}`,
+  const asyncHandler = Promise.withResolvers<string>();
+  const asyncNextHandler = Promise.withResolvers<string | null>();
+  const asyncSkipImporters = Promise.withResolvers<string[]>();
+
+  const id = Symbol();
+  const targetsPromise = new Promise<string[]>(async (resolve) => {
+    const targets = await target;
+    resolve(Array.isArray(targets) ? await Promise.all(targets) : [targets]);
+  });
+
+  return {
+    name: "@postinumero/vite-plugin-module-proxy",
+    api: { id },
+
+    // Catch raw imports before any other resolve plugins
     enforce: "pre",
+
     configResolved(config) {
       resolvedConfig = config;
     },
-    async resolveId(source, importer, options) {
-      if (source === id) {
-        importer = importer?.split("?")[0];
-        const proxy = await proxyPromise;
-        const proxyResolved = await this.resolve(proxy, undefined, options);
 
-        invariant(proxyResolved, `Resolved proxy ${proxy}`);
+    async buildStart() {
+      const { root } = resolvedConfig;
 
-        const proxyResolvedPathname = new URL(proxyResolved.id, import.meta.url)
-          .pathname;
+      const handler = await handlerPromise;
+      const targets = await targetsPromise;
 
-        if (importer === proxyResolvedPathname) {
-          // Inside the proxy – do nothing and use a subsequent resolver or the
-          // default.
-          return;
+      const handlerResolved = await this.resolve(
+        path.isAbsolute(handler)
+          ? handler
+          : isRelative(handler)
+            ? path.join(base ?? root, handler)
+            : handler,
+      );
+
+      invariant(handlerResolved, "Handler resolved");
+
+      asyncHandler.resolve(handlerResolved.id);
+
+      const subsequentPlugins = resolvedConfig.plugins.slice(
+        resolvedConfig.plugins.findIndex(({ api }) => api?.id === id) + 1,
+      );
+
+      const targetsResolvedBySubsequentPlugins = (
+        await Promise.all(
+          targets.flatMap((target) =>
+            subsequentPlugins.map(
+              (plugin) =>
+                typeof plugin.resolveId === "function" &&
+                plugin.resolveId.call(this, target, undefined, {
+                  attributes: {},
+                  isEntry: false,
+                }),
+            ),
+          ),
+        )
+      )
+        .filter(Boolean)
+        .map((resolved) =>
+          typeof resolved === "string"
+            ? resolved
+            : (resolved as PartialResolvedId)?.id,
+        )
+        .filter(Boolean);
+
+      asyncSkipImporters.resolve([
+        handlerResolved.id,
+        ...targetsResolvedBySubsequentPlugins,
+      ]);
+
+      let nextHandler: string | null =
+        targetsResolvedBySubsequentPlugins[0] ?? targets[0]!;
+      if (targets.includes(nextHandler)) {
+        if (path.isAbsolute(nextHandler)) {
+          nextHandler += "?__original";
+        } else {
+          nextHandler = null;
         }
-
-        let { plugins } = resolvedConfig;
-        // Subsequent plugins
-        plugins = plugins.slice(plugins.indexOf(plugin) + 1);
-
-        for (const plugin of plugins) {
-          if (plugin.resolveId) {
-            // Call each `plugin.resolveId` with `null` as importer until one
-            // resolves the id
-            const resolved = await (plugin.resolveId as any).call(
-              this,
-              id,
-              null, // Importer
-              options,
-            );
-            if (resolved?.id && resolved?.id.split("?")[0]! === importer) {
-              // We found a subsequent proxy that resolves to the same id that
-              // imported us. Import propably happend there. To prevent infinite
-              // loop, proceed to subsequent plugins.
-              return;
-            }
-          }
-        }
-        // Importer is probably outside the proxies or is an earlier proxy.
-        // Resolve to the proxy.
-
-        return proxyResolved;
       }
+      asyncNextHandler.resolve(nextHandler);
     },
-    async transform(code, _id) {
-      const proxy = await proxyPromise;
-      const proxyResolved = await this.resolve(proxy?.split("?")[0]!);
-      invariant(proxyResolved, `Resolved proxy ${proxy}`);
 
-      if (
-        _id.split("?")[0]! === proxyResolved.id &&
-        reExportAllFrom !== false
-      ) {
-        // const shouldReExportDefault = async () => {
-        //   const moduleInfo = this.getModuleInfo((await this.resolve(id))!.id);
-        //   invariant(moduleInfo, `Module info ${id}`);
+    async resolveId(source, importer) {
+      const targets = await targetsPromise;
 
-        //   // [vite] The "hasDefaultExport" property of ModuleInfo is not supported.
-        //   if (moduleInfo.hasDefaultExport) {
-        //     const { body } = await swc.parse(code, {
-        //       syntax: "typescript", // "ecmascript" | "typescript"
-        //       comments: false,
-        //       script: true,
-        //       tsx: true,
-        //       // Defaults to es3
-        //       target: "esnext",
-        //     });
-        //     return !body.some(
-        //       (value) => value.type === "ExportDefaultDeclaration",
-        //     );
-        //   }
-        // };
-        // `export { default } from "${id}";`
+      if (!targets.includes(source)) {
+        return null;
+      }
 
-        return `export * from "${reExportAllFrom}";${code}`;
+      const handler = await asyncHandler.promise;
+
+      if (importer === handler) {
+        return asyncNextHandler.promise;
+      }
+
+      // Skip if the importer is from a subsequent plugin
+      if (importer && (await asyncSkipImporters.promise).includes(importer)) {
+        return null;
+      }
+
+      return handler;
+    },
+
+    async transform(code, id) {
+      const targets = await targetsPromise;
+      let reExportAllFrom = await reExportAllFromPromise;
+      const handler = await asyncHandler.promise;
+
+      const noDefaultExport =
+        reExportAllFrom === true || defaultExportRegExp.test(code);
+
+      if ([undefined, true].includes(reExportAllFrom as any)) {
+        reExportAllFrom = targets[0];
+      }
+
+      if (id === handler && reExportAllFrom) {
+        return `${
+          noDefaultExport
+            ? ""
+            : `export { default } from "${reExportAllFrom}";
+`
+        }export * from "${reExportAllFrom}";
+${code}`;
       }
     },
   };
-
-  return plugin;
 }

@@ -1,4 +1,4 @@
-import moduleProxy from "@postinumero/vite-plugin-module-proxy";
+import moduleProxy from "@postinumero/vite-plugin-module-proxy/main";
 import remixRoot from "@postinumero/vite-plugin-module-proxy/presets/remix-root";
 import remixRoutes from "@postinumero/vite-plugin-module-proxy/presets/remix-routes";
 import { vitePlugin as remix } from "@remix-run/dev";
@@ -12,32 +12,55 @@ export default defineConfig({
   plugins: [
     remix(),
     tsconfigPaths(),
-    moduleProxy({ id: "./some-library", proxy: "./app/proxy-1" }),
-    moduleProxy({ id: "./some-library", proxy: "./app/proxy-2.tsx" }),
-    moduleProxy({ id: "./some-library", proxy: "./app/proxy-3.ts" }),
-    ...(await remixRoot({
-      proxy: "./app/modules/root-proxy-1.tsx",
-      url: import.meta.url,
-    })),
-    ...(await remixRoot({
-      proxy: "./app/modules/root-proxy-2.tsx",
-      url: import.meta.url,
-    })),
-    ...(await remixRoot({
-      proxy: "./app/modules/root-proxy-3.tsx",
-      url: import.meta.url,
-    })),
-    ...(await remixRoutes({
-      proxy: "./app/modules/route-proxy-1.tsx",
-      url: import.meta.url,
-    })),
-    ...(await remixRoutes({
-      proxy: "./app/modules/route-proxy-2.tsx",
-      url: import.meta.url,
-    })),
-    ...(await remixRoutes({
-      proxy: "./app/modules/route-proxy-3.tsx",
-      url: import.meta.url,
-    })),
+
+    moduleProxy({
+      target: "lodash-es",
+      handler: "./app/modules/lodash-es-proxy-1.ts",
+    }),
+    moduleProxy({
+      target: "lodash-es",
+      handler: process.cwd() + "/app/modules/lodash-es-proxy-2.ts",
+    }),
+    moduleProxy({
+      target: "lodash-es",
+      handler: "app/modules/lodash-es-proxy-3.ts",
+    }),
+
+    remixRoot({
+      handler: "./app/modules/root-proxy-1.tsx",
+    }),
+    remixRoot({
+      handler: "./app/modules/root-proxy-2.tsx",
+    }),
+    remixRoot({
+      handler: "./app/modules/root-proxy-3.tsx",
+    }),
+
+    remixRoutes({
+      handler: "./app/modules/route-proxy-1.tsx",
+    }),
+    remixRoutes({
+      handler: "./app/modules/route-proxy-2.tsx",
+    }),
+    remixRoutes({
+      handler: "./app/modules/route-proxy-3.tsx",
+    }),
+
+    // moduleProxy({
+    //   target: "app/some-library.tsx",
+    //   handler: "./app/modules/some-library-proxy-1.ts",
+    // }),
+    // moduleProxy({
+    //   target: "app/some-library.tsx",
+    //   handler: "./app/modules/some-library-proxy-2.tsx",
+    // }),
+    // moduleProxy({
+    //   target: "app/some-library.tsx",
+    //   handler: "./app/modules/some-library-proxy-3.ts",
+    // }),
+    // moduleProxy({
+    //   target: "app/some-library.tsx",
+    //   handler: "./app/modules/some-library-proxy-4.ts",
+    // }),
   ],
 });

@@ -1,4 +1,4 @@
-import Link from "@mui/material/Link";
+import { Link } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import type { MetaFunction } from "@remix-run/node";
 

@@ -33,28 +33,31 @@ export default async () => {
             // For MUI Components (Error: Element type is invalid)
             "@mui/*",
             // For Vite plugins in dev mode
-            "@remix-run/*",
+            "@remix-run/dev",
+            "@remix-run/react",
           ],
         },
       }),
     } as Plugin,
     // Router Link integration
     moduleProxy({
-      id: "@mui/material",
-      proxy: new URL("../modules/@mui/material", import.meta.url).pathname,
+      target: "@mui/material",
+      handler: new URL("../modules/@mui/material", import.meta.url).pathname,
+      reExportAllFrom: true,
     }),
 
     // Modified Meta and RemixBrowser exports for Emotion
     moduleProxy({
-      id: "@remix-run/react",
-      proxy: new URL("../modules/@remix-run/react", import.meta.url).pathname,
+      target: "@remix-run/react",
+      handler: new URL("../modules/@remix-run/react", import.meta.url).pathname,
+      reExportAllFrom: true,
     }),
 
     // For SSR & SPA
     // With Emotion cache & extract
     moduleProxy({
-      id: "react-dom/server",
-      proxy: new URL("../modules/react-dom/server.tsx", import.meta.url)
+      target: "react-dom/server",
+      handler: new URL("../modules/react-dom/server.tsx", import.meta.url)
         .pathname,
     }),
 
@@ -79,15 +82,18 @@ export default async () => {
     // Resolve final SSR entry to the proxy (The proxy then resolves to SPA server entry)
     // Emotion cache & extract requires using renderToString instead of renderToPipeableStream
     moduleProxy({
-      id: `/@fs${resolvedServerEntryNode}`,
-      proxy: new URL(`../modules/${serverEntryNode}`, import.meta.url).pathname,
+      target: `/@fs${resolvedServerEntryNode}`,
+      handler: new URL(`../modules/${serverEntryNode}`, import.meta.url)
+        .pathname,
+      reExportAllFrom: true,
     }),
     // For dev
     moduleProxy({
-      id: resolvedServerEntryNode,
-      proxy: new URL(`../modules/${serverEntryNode}`, import.meta.url).pathname,
+      target: resolvedServerEntryNode,
+      handler: new URL(`../modules/${serverEntryNode}`, import.meta.url)
+        .pathname,
     }),
 
-    ...(await remixRoot({ url: import.meta.url })),
+    ...(await remixRoot({ base: new URL(".", import.meta.url).pathname })),
   ];
 };

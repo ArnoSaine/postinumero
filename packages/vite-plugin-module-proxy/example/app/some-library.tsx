@@ -1,12 +1,10 @@
-export default () => {
-  console.log(name);
-  return "original";
-};
-
-export const name = "some-library";
+export default () => "original";
 
 export const other = "other value";
 
 export function Component() {
   return <>Original</>;
 }
+
+export const id = "some-library";
+export const name = "some-library";

@@ -25,8 +25,7 @@ export default defineConfig({
 ## Router integration is built-in
 
 ```tsx
-import Link from "@mui/material/Link";
-import Button from "@mui/material/Button";
+import { Button, Link } from "@mui/material";
 
 // ...
 

@@ -11,11 +11,12 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [
     moduleProxy({
-      id: "some-module",
-      proxy: "./modules/some-module.tsx",
-      // Optional. Default: `options.id`.
+      target: "some-module", // string | string[] | Promise
+      handler: "./modules/some-module.tsx", // string | Promise
+      // Optional. Default: `options.target`.
       // Set `false` to disable re-exporting.
-      reExportAllFrom: "some-module",
+      // Set `true` to disable re-exporting `default` and re-export only `*`.
+      reExportAllFrom: "some-module", // boolean | string | Promise
     }),
   ],
 });
@@ -31,10 +32,6 @@ import * as original from "some-module";
 // Not needed. Named exports are re-exported from the original module or
 // a subsequent proxy.
 // export * from "some-module";
-
-// Default exports are not re-exported. If the module has default
-// export, it must be re-exported of overwritten.
-export { default } from "some-module";
 
 // Override the default export
 export default function Component(props) {

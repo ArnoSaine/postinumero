@@ -1,12 +1,12 @@
 import * as original from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/root";
 import { PropsWithChildren } from "react";
 
-export { default } from "@postinumero/vite-plugin-remix-resolve-config-path/resolve/preset/root";
+const Original = original.Layout!;
 
 export function Layout({ children }: PropsWithChildren) {
   return (
-    <original.Layout>
+    <Original>
       <div style={{ border: "4px solid OrangeRed", margin: 4 }}>{children}</div>
-    </original.Layout>
+    </Original>
   );
 }
