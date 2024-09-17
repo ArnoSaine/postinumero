@@ -1,5 +1,11 @@
 # @postinumero/remix-react-intl
 
+## 0.2.4
+
+### Patch Changes
+
+- 408e3ef: Fix usage under a public base path
+
 ## 0.2.3
 
 ### Patch Changes
