@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/vite-plugin-remix-mui",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "MUI & Remix integration",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/vite-plugin-remix-mui",
   "repository": {

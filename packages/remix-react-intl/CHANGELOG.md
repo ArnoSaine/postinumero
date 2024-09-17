@@ -1,5 +1,11 @@
 # @postinumero/remix-react-intl
 
+## 0.2.3
+
+### Patch Changes
+
+- 12536f6: Fix dynamic imports of locale preference methods
+
 ## 0.2.2
 
 ### Patch Changes
