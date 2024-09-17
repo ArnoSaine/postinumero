@@ -17,7 +17,10 @@ export default function extractPlugin(options: Options): Plugin {
   return {
     name: `${name}/extract`,
     apply(config) {
-      return !("build" in config) && !("configFile" in config);
+      return (
+        typeof config?.build?.ssr === "undefined" &&
+        typeof (config as any)?.configFile === "undefined"
+      );
     },
     async config(config) {
       const { remixConfig } = (config as RemixUserConfig).__remixPluginContext;
@@ -32,6 +35,7 @@ export default function extractPlugin(options: Options): Plugin {
       ]);
 
       await fs.mkdir(options.target, { recursive: true });
+      console.log(123, options.target);
 
       await fs.writeFile(
         `${options.target}/${options.defaultLocale}.json`,

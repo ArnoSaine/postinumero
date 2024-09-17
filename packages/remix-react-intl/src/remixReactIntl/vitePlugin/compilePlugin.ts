@@ -20,7 +20,10 @@ export default function compilePlugin(options: Options): Plugin {
   return {
     name: `${name}/compile`,
     apply(config) {
-      return !("build" in config) && !("configFile" in config);
+      return (
+        typeof config?.build?.ssr === "undefined" &&
+        typeof (config as any)?.configFile === "undefined"
+      );
     },
     async config(config) {
       const localeRouteCompiledMessages: LocaleRouteCompiledMessages =
