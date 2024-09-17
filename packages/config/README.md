@@ -1,6 +1,6 @@
 # @postinumero/config
 
-Configuration management utility for handling environment variables and runtime configurations in your Vite projects.
+Configuration management utility for handling environment variables and runtime configurations.
 
 ## Usage
 
@@ -20,7 +20,7 @@ The configuration is derived from multiple sources. These sources are merged rec
 
 #### `env`
 
-The `env` source allows you to access configuration values directly from environment variables. The `VITE_` prefix is automatically stripped, variable names are unflattened into nested objects, and JSON values are parsed when possible.
+The `env` source allows you to access configuration values directly from environment variables. The `VITE_` prefix is automatically stripped, variable names are unflattened into nested objects, and JSON values are parsed when possible. To remove another prefix or prefixes, import and modify `removePrefix` array from `@postinumero/config/env`.
 
 **Example environment variables:**
 
@@ -37,7 +37,7 @@ To initialize the configuration with environment variables, call the `init` func
 ```ts
 import { init } from "@postinumero/config/env/promise";
 
-init(import.meta.env);
+init(import.meta.env); // Or init(process.env);
 
 // ...
 ```

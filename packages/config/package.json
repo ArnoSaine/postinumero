@@ -1,7 +1,7 @@
 {
   "name": "@postinumero/config",
   "version": "0.2.0",
-  "description": "Configuration management utility for handling environment variables and runtime configurations in your Vite projects.",
+  "description": "Configuration management utility for handling environment variables and runtime configurations.",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/config",
   "repository": {
     "type": "git",
