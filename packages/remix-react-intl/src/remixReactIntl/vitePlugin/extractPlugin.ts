@@ -35,7 +35,6 @@ export default function extractPlugin(options: Options): Plugin {
       ]);
 
       await fs.mkdir(options.target, { recursive: true });
-      console.log(123, options.target);
 
       await fs.writeFile(
         `${options.target}/${options.defaultLocale}.json`,
