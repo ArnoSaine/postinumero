@@ -1,5 +1,14 @@
 # @postinumero/remix-react-intl
 
+## 0.2.7
+
+### Patch Changes
+
+- 2fd9643: Bypass cache if messages change
+
+  - Append hash values to the file names
+  - Cache extract & compile results
+
 ## 0.2.6
 
 ### Patch Changes
