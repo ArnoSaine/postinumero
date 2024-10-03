@@ -4,6 +4,7 @@ import fg from "fast-glob";
 import { exec } from "node:child_process";
 import fs from "node:fs/promises";
 import type { Plugin, UserConfig } from "vite";
+import cacheOperation from "../../utils/cacheOperation.js";
 import { name } from "./index.js";
 import { Options } from "./optionsPlugin.js";
 
@@ -16,29 +17,34 @@ export interface RemixUserConfig extends UserConfig {
 export default function extractPlugin(options: Options): Plugin {
   return {
     name: `${name}/extract`,
-    apply(config) {
-      return (
-        typeof config?.build?.ssr === "undefined" &&
-        typeof (config as any)?.configFile === "undefined"
-      );
-    },
     async config(config) {
+      if (!(config as RemixUserConfig).__remixPluginContext) {
+        return;
+      }
       const { remixConfig } = (config as RemixUserConfig).__remixPluginContext;
+      const file = `${options.target}/${options.defaultLocale}.json`;
 
       const routeIds = Object.values(remixConfig.routes).map(
         (route) => route.id,
       );
 
-      const [allMessages, routeNameMessages] = await Promise.all([
-        extractAllMessages(remixConfig.appDirectory, options.extract),
-        extractRoutes(options.extract, routeIds),
-      ]);
+      await cacheOperation(
+        async () => {
+          const [allMessages, routeNameMessages] = await Promise.all([
+            extractAllMessages(remixConfig.appDirectory, options.extract),
+            extractRoutes(options.extract, routeIds),
+          ]);
 
-      await fs.mkdir(options.target, { recursive: true });
+          await fs.mkdir(options.target, { recursive: true });
 
-      await fs.writeFile(
-        `${options.target}/${options.defaultLocale}.json`,
-        mergeJSON(allMessages, routeNameMessages),
+          await fs.writeFile(file, mergeJSON(allMessages, routeNameMessages));
+        },
+        {
+          name: "extracting messages",
+          outputs: [file],
+          inputs: [remixConfig.appDirectory],
+          dependencies: [options.extract, routeIds],
+        },
       );
     },
   };

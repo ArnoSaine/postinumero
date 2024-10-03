@@ -15,5 +15,9 @@ export const loadMessagesFromFile = (
   _args: LoaderFunctionArgs,
 ) =>
   readMemoizedMessages(
-    path.join(serverOptions._compiledTargetAwaited, locale, `${routeId}.json`),
+    path.join(
+      serverOptions._compiledTargetAwaited,
+      locale,
+      `${routeId}-${serverOptions._manifestAwaited![locale]![routeId]}.json`,
+    ),
   );

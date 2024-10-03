@@ -21,7 +21,7 @@ export const loadMessagesFromFetch = (
 ) =>
   fetchMemoizedMessages(
     new URL(
-      `${import.meta.env.BASE_URL}${options.compiledTargetPublicPath}/${locale}/${routeId}.json`,
+      `${import.meta.env.BASE_URL}${options.compiledTargetPublicPath}/${locale}/${routeId}-${options._manifestAwaited![locale]![routeId]}.json`,
       args.request.url,
     ).toString(),
   );

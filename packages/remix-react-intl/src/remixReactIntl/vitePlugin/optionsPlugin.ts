@@ -7,6 +7,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { Plugin } from "vite";
 import { ConfigEnv, UserConfig } from "vite";
+import { Manifest } from "./compilePlugin.js";
 import { name } from "./index.js";
 
 export interface UserOptions {
@@ -28,6 +29,12 @@ export interface UserOptions {
   _localePreferenceMethodPromise?: Promise<
     Options["_localePreferenceMethodAwaited"]
   >;
+  _manifestAwaited?: Manifest;
+  _manifestPromise?: Promise<Options["_manifestAwaited"]>;
+  _asyncManifest?: {
+    resolve(value: Manifest): void;
+    promise: Promise<Manifest>;
+  };
   _ssrAwaited?: boolean;
   _ssrPromise?: Promise<Options["_ssrAwaited"]>;
 }
@@ -49,6 +56,7 @@ const publicOptions = [
   "singleOutput",
   "_loaderDataName",
   "_localePreferenceMethodAwaited",
+  "_manifestAwaited",
   "_ssrAwaited",
 ] as const;
 
@@ -68,6 +76,7 @@ const optionsPlugin = (
     _compiledTargetAwaited: await options._compiledTargetPromise,
     _localePreferenceMethodAwaited:
       await options._localePreferenceMethodPromise,
+    _manifestAwaited: await options._asyncManifest.promise,
     _ssrAwaited: (await remixVitePluginConfigPromise).ssr,
   });
 
@@ -160,6 +169,8 @@ export const getOptions = async (
   options._localePreferenceMethodPromise ??= new Promise(async (resolve) => {
     resolve(((await ssrPromise) ?? true) ? "session" : "localStorage");
   });
+  options._asyncManifest ??= Promise.withResolvers();
+
   options._ssrPromise ??= ssrPromise;
 
   return options;

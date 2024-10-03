@@ -7,11 +7,15 @@ import {
 import { PseudoLocale } from "@formatjs/cli-lib/src/compile.js";
 import get from "@postinumero/map-get-with-default";
 import fg from "fast-glob";
+import stringify from "json-stable-stringify";
+import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { MessageDescriptor } from "react-intl";
+import { rimraf } from "rimraf";
 import type { Plugin } from "vite";
 import { baseLocales } from "../../utils.js";
+import memoize from "../../utils/cacheOperation.js";
 import { RemixUserConfig, dts } from "./extractPlugin.js";
 import { name } from "./index.js";
 import { Options } from "./optionsPlugin.js";
@@ -19,12 +23,6 @@ import { Options } from "./optionsPlugin.js";
 export default function compilePlugin(options: Options): Plugin {
   return {
     name: `${name}/compile`,
-    apply(config) {
-      return (
-        typeof config?.build?.ssr === "undefined" &&
-        typeof (config as any)?.configFile === "undefined"
-      );
-    },
     async config(config) {
       const localeRouteCompiledMessages: LocaleRouteCompiledMessages =
         new Map();
@@ -93,6 +91,15 @@ export default function compilePlugin(options: Options): Plugin {
       await write(
         localeRouteCompiledMessages,
         await options._compiledTargetPromise,
+      );
+
+      options._asyncManifest.resolve(
+        JSON.parse(
+          await fs.readFile(
+            path.join(await options._compiledTargetPromise, manifestFile),
+            "utf-8",
+          ),
+        ),
       );
     },
   };
@@ -273,23 +280,63 @@ function inheritFromParentLocale(
   inherit(defaultLocale);
 }
 
-function write(
+export type Manifest = { [locale: string]: { [route: string]: string } };
+
+async function write(
   localeRouteCompiledMessages: LocaleRouteCompiledMessages,
   compiledTarget: string,
 ) {
-  return Promise.all(
-    [...localeRouteCompiledMessages].flatMap(async ([locale, messages]) => {
-      const to = path.join(compiledTarget!, locale);
+  await memoize(
+    async () => {
+      const manifest: Manifest = {};
 
-      return [...messages].map(async ([routeId, messages]) => {
-        await fs.mkdir(path.join(to, path.dirname(routeId)), {
-          recursive: true,
-        });
-        await fs.writeFile(
-          `${path.join(to, routeId)}.json`,
-          JSON.stringify(Object.fromEntries(messages), null, 2),
-        );
-      });
-    }),
+      await rimraf(compiledTarget);
+
+      await Promise.all(
+        [...localeRouteCompiledMessages].map(async ([locale, messages]) => {
+          const to = path.join(compiledTarget, locale);
+
+          return Promise.all(
+            [...messages].map(async ([routeId, messages]) => {
+              await fs.mkdir(path.join(to, path.dirname(routeId)), {
+                recursive: true,
+              });
+              const data = JSON.stringify(
+                Object.fromEntries(messages),
+                null,
+                2,
+              );
+
+              const hash = createHash("sha512");
+              hash.update(data);
+              const digest = hash.digest("base64url").slice(0, 6);
+
+              manifest[locale] ??= {};
+              manifest[locale][routeId] = digest;
+
+              await fs.writeFile(
+                `${path.join(to, routeId)}-${digest}.json`,
+                data,
+              );
+            }),
+          );
+        }),
+      );
+
+      await fs.writeFile(
+        path.join(compiledTarget, manifestFile),
+        // File content hash is used to cache compile results.
+        // Ensure keys are in same order.
+        stringify(manifest, { space: 2 }),
+      );
+    },
+    {
+      name: "compiling messages",
+      outputs: [compiledTarget],
+      inputs: [],
+      dependencies: [localeRouteCompiledMessages],
+    },
   );
 }
+
+export const manifestFile = "manifest.json";
