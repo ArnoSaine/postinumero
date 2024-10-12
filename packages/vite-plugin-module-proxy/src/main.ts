@@ -3,6 +3,11 @@ import { PartialResolvedId } from "rollup";
 import invariant from "tiny-invariant";
 import { Plugin, ResolvedConfig } from "vite";
 
+invariant(
+  Promise.withResolvers,
+  "Promise.withResolvers is not available. Please ensure you're using Node.js v22 or higher. If you're on an older version, you can add the necessary polyfill by importing 'core-js/proposals/promise-with-resolvers' at the top of your Vite config.",
+);
+
 type Target = string | Promise<string>;
 
 interface Options {
