@@ -5,6 +5,9 @@ Override module exports
 ## Usage
 
 ```js
+// For Node.js versions below 22, install and import the polyfill:
+//import "core-js/proposals/promise-with-resolvers";
+
 import moduleProxy from "@postinumero/vite-plugin-module-proxy";
 import { defineConfig } from "vite";
 

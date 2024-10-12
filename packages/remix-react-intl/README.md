@@ -7,6 +7,9 @@ integrate [FormatJS (react-intl)](https://formatjs.io/) with [Remix](https://rem
 To get started, configure your `vite.config.ts`:
 
 ```ts
+// For Node.js versions below 22, install and import the polyfill:
+//import "core-js/proposals/promise-with-resolvers";
+
 import remixReactIntl from "@postinumero/remix-react-intl/remixReactIntl";
 import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";

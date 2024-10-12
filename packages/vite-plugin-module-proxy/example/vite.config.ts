@@ -1,3 +1,6 @@
+// For Node.js versions below 22, install and import the polyfill:
+//import "core-js/proposals/promise-with-resolvers";
+
 import moduleProxy from "@postinumero/vite-plugin-module-proxy/main";
 import remixRoot from "@postinumero/vite-plugin-module-proxy/presets/remix-root";
 import remixRoutes from "@postinumero/vite-plugin-module-proxy/presets/remix-routes";
