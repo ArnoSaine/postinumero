@@ -1,5 +1,15 @@
 # @postinumero/remix-react-intl
 
+## 0.2.8
+
+### Patch Changes
+
+- 607b11a: Add check for `Promise.withResolvers` with error suggesting polyfill or Node.js v22
+- 8c52f16: Update README.md: Include instructions for polyfilling `Promise.withResolvers` in Node.js versions below 22 (#19)
+- Updated dependencies [5e1f3ad]
+- Updated dependencies [8c52f16]
+  - @postinumero/vite-plugin-module-proxy@0.2.1
+
 ## 0.2.7
 
 ### Patch Changes

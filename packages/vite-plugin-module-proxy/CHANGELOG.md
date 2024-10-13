@@ -1,5 +1,12 @@
 # @postinumero/vite-plugin-module-proxy
 
+## 0.2.1
+
+### Patch Changes
+
+- 5e1f3ad: Add check for `Promise.withResolvers` with error suggesting polyfill or Node.js v22 (#19)
+- 8c52f16: Update README.md: Include instructions for polyfilling `Promise.withResolvers` in Node.js versions below 22 (#19)
+
 ## 0.2.0
 
 ### Minor Changes

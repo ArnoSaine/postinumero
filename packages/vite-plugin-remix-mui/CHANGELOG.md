@@ -1,5 +1,14 @@
 # @postinumero/vite-plugin-remix-mui
 
+## 0.3.2
+
+### Patch Changes
+
+- 8c52f16: Update README.md: Include instructions for polyfilling `Promise.withResolvers` in Node.js versions below 22 (#19)
+- Updated dependencies [5e1f3ad]
+- Updated dependencies [8c52f16]
+  - @postinumero/vite-plugin-module-proxy@0.2.1
+
 ## 0.3.1
 
 ### Patch Changes
