@@ -12,6 +12,8 @@ sed -i '' 's|Loader|ClientLoader|g' **/*
 sed -i '' 's|action|clientAction|g' **/*
 sed -i '' 's|loader|clientLoader|g' **/*
 sed -i '' 's|server|client|g' **/*
+sed -i '' 's|session|localStorage|g' **/*
+sed -i '' 's|localStorage: () => |localStorage: () =>\n    |g' **/*
 sed -i '' 's|{ ClientActionFunctionArgs, ClientLoaderFunctionArgs }|{\n  ClientActionFunctionArgs,\n  ClientLoaderFunctionArgs,\n}|g' **/*
 
 cd ../..
