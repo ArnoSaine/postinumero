@@ -1,0 +1,12 @@
+{
+  "string": "hello",
+  "boolean": false,
+  "number": 123,
+  "some": {
+    "nested": {
+      "value": "default value"
+    },
+    "other": "other default value"
+  },
+  "more": [123, "foo"]
+}
