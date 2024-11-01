@@ -1,12 +1,14 @@
 export default function createRef<T>(promise: T) {
   const ref = {
-    current: null as null | Awaited<T>,
-    async ready() {
-      ref.current = await promise;
-    },
+    current: null,
+  } as {
+    current: null | Awaited<T>;
+    ready: Promise<void>;
   };
 
-  ref.ready();
+  ref.ready = (async () => {
+    ref.current = await promise;
+  })();
 
   return ref;
 }

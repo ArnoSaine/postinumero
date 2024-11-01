@@ -55,7 +55,7 @@ console.log(config.some.list); // [1, { prop: 123 }, 3]
 
 #### `runtime`
 
-This source fetches configuration at runtime from `public/config.json`.
+This source fetches configuration at runtime from `BASE_URL + "config.json"`. Set `VITE_RUNTIME_CONFIG_URL` to use another URL.
 
 ```ts
 import config from "@postinumero/config/runtime/awaited";
@@ -114,7 +114,7 @@ function something() {
 }
 
 async function somethingElse() {
-  await configRef.ready();
+  await configRef.ready;
 
   const config = configRef.current!; // Config is ready
 
@@ -132,9 +132,9 @@ import config, { ready } from "@postinumero/config/**/proxy";
 console.log(config.some.value); // May throw an error if accessed too early
 
 async function something() {
-  await ready();
+  await ready;
 
-  console.log(config.some.value); // Safe to access after ready() resolves
+  console.log(config.some.value); // Safe to access after `ready` resolves
 }
 ```
 
@@ -160,14 +160,14 @@ To ensure type safety:
 
    declare module "@postinumero/config/*/ref" {
      const config: {
-       ready: () => Promise<void>;
+       ready: Promise<void>;
        current: null | typeof import("./config.example.json");
      };
      export default config;
    }
 
    declare module "@postinumero/config/*/proxy" {
-     export const ready: () => Promise<void>;
+     export const ready: Promise<void>;
      const config: typeof import("./config.example.json");
      export default config;
    }

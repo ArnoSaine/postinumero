@@ -1,26 +1,16 @@
-import envPromise from "../env/promise.js";
+const url: string =
+  import.meta.env?.VITE_RUNTIME_CONFIG_URL ??
+  (import.meta.env?.BASE_URL ?? "") + "config.json";
 
-const isAbsoluteURL = (url: string) =>
-  url.startsWith("//") || url.indexOf("://") > 0;
-
-async function tryFetchConfig(path?: string) {
-  const env = await envPromise;
-  path ??= env.RUNTIME_CONFIG_PATH ?? "config.json";
-  if (!path) {
-    return;
-  }
-
+async function tryFetchConfig() {
   try {
-    const response = await fetch(
-      isAbsoluteURL(path) ? path : env.BASE_URL + path,
-    );
-
-    if (!response.ok) {
-      return;
-    }
-
-    return response.json();
-  } catch {}
+    const response = await fetch(url, { cache: "no-store" });
+    return await response.json();
+  } catch (error) {
+    console.warn(`Failed to fetch config from "${url}".`, error);
+  }
 }
 
-export default new Promise((resolve) => resolve(tryFetchConfig()));
+export default url && typeof document !== "undefined"
+  ? new Promise((resolve) => resolve(tryFetchConfig()))
+  : undefined;
