@@ -175,13 +175,13 @@ You can import configuration using different formats based on your project’s n
 
 #### Available Import Formats
 
-| Format              | Import Path       | Description                                                                                     |
-| ------------------- | ----------------- | ----------------------------------------------------------------------------------------------- |
-| [Awaited](#awaited) | `~config`         | Direct access to config as an object. Requires support for top-level await.                     |
-| [Promise](#promise) | `~config/promise` | Config wrapped in a promise.                                                                    |
-| [Ref](#ref)         | `~config/ref`     | Reference-style access with `.ready` promise and `.current` as `null \| Config`.                |
-| [Proxy](#proxy)     | `~config/proxy`   | Experimental proxy-based config with `ready` promise to ensure data availability before access. |
-| [Raw](#ref)         | `~config/raw`     | Access raw, unprocessed config sources as an array.                                             |
+| Format                       | Import Path       | Description                                                                                     |
+| ---------------------------- | ----------------- | ----------------------------------------------------------------------------------------------- |
+| [Awaited](#awaited)          | `~config`         | Direct access to config as an object. Requires support for top-level await.                     |
+| [Promise](#promise)          | `~config/promise` | Config wrapped in a promise.                                                                    |
+| [Ref](#ref)                  | `~config/ref`     | Reference-style access with `.ready` promise and `.current` as `null \| Config`.                |
+| [Proxy](#proxy-experimental) | `~config/proxy`   | Experimental proxy-based config with `ready` promise to ensure data availability before access. |
+| [Raw](#ref)                  | `~config/raw`     | Access raw, unprocessed config sources as an array.                                             |
 
 #### Example Usage
 
@@ -253,36 +253,36 @@ declare module "~config/raw" {
 
 Configure sources and modifiers with defaults for a seamless setup.
 
-| Option           | Type               | Default                                        | Description                                                                                                                           |
-| ---------------- | ------------------ | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `importPath`     | `string`           | `"~config"`                                    | Import path alias for the config.                                                                                                     |
-| `file`           | `string \| false`  | `"config.json"`                                | File source for config.                                                                                                               |
-| `global`         | `string \| false`  | `"process.env"` (or `import.meta.env` in Vite) | Environment variable source.                                                                                                          |
-| `fetch`          | `string \| false`  | `"config.json"`                                | URL or path to fetch config from. In the case of a relative path, it will be prefixed with `import.meta.env.BASE_URL` (if available). |
-| `stripPrefix`    | `string \| false`  | `"VITE_"` (in Vite) `"FARM_"` (in Farm)        | Prefix to remove from config variable names.                                                                                          |
-| `parseJsonValue` | `boolean \| false` | `undefined` (enabled by default)               | Whether to parse JSON values from config variable values.                                                                             |
-| `unflat`         | `boolean \| false` | `undefined` (enabled by default)               | Whether to unflat config variable names.                                                                                              |
-| `modifiers`      | `ModifierOption[]` | Defined below                                  | Config transformations that are run in given order before configs are merged.                                                         |
-| `sources`        | `SourceOption[]`   | Defined below                                  | Config sources that are merged from left to right.                                                                                    |
-
-#### Default Modifiers
-
-```json
-[
-  ["strip-prefix", "<options.stripPrefix>"],
-  ["parse-json-values", "<options.parseJsonValue>"],
-  ["unflat", "<options.unflat>"]
-]
-```
+| Option           | Type               | Default                                       | Description                                                                                                                           |
+| ---------------- | ------------------ | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `importPath`     | `string`           | `"~config"`                                   | Import path alias for the config.                                                                                                     |
+| `file`           | `string \| false`  | `"config.json"`                               | File source for config.                                                                                                               |
+| `global`         | `string \| false`  | `"process.env"` (`"import.meta.env"` in Vite) | Environment variable source.                                                                                                          |
+| `fetch`          | `string \| false`  | `"config.json"`                               | URL or path to fetch config from. In the case of a relative path, it will be prefixed with `import.meta.env.BASE_URL` (if available). |
+| `stripPrefix`    | `string \| false`  | `"VITE_"` (in Vite) `"FARM_"` (in Farm)       | Prefix to remove from config variable names.                                                                                          |
+| `parseJsonValue` | `boolean \| false` | `undefined` (enabled by default)              | Whether to parse JSON values from config variable values.                                                                             |
+| `unflat`         | `boolean \| false` | `undefined` (enabled by default)              | Whether to unflat config variable names.                                                                                              |
+| `sources`        | `SourceOption[]`   | Defined below                                 | Config sources that are merged from left to right.                                                                                    |
+| `modifiers`      | `ModifierOption[]` | Defined below                                 | Config transformations that are run in given order before configs are merged.                                                         |
 
 #### Default Sources
 
-```json
+```ts
 [
-  ["file", "<options.file>"],
-  ["global", "<options.global>"],
-  ["fetch", "<options.fetch>"]
-]
+  ["file", options.file],
+  ["global", options.global],
+  ["fetch", options.fetch],
+];
+```
+
+#### Default Modifiers
+
+```ts
+[
+  ["strip-prefix", options.stripPrefix],
+  ["parse-json-values", options.parseJsonValue],
+  ["unflat", options.unflat],
+];
 ```
 
 ### Options as Search Parameters
@@ -292,7 +292,7 @@ You can also set options directly in the import path by adding them as search pa
 Example:
 
 ```ts
-import config from "~config?file=config-a.json&file=config-b.json&global=import.meta.env?strip-prefix=VITE_";
+import config from "~config?file=config-a.json&file=config-b.json&global=import.meta.env&strip-prefix=VITE_";
 
 console.log(config);
 ```
@@ -318,7 +318,7 @@ This format returns a promise that resolves to the configuration object.
 ```ts
 import configPromise from "~config/promise";
 
-async function something() {
+async function func() {
   const config = await configPromise;
 
   console.log(config.some.nested.value);
@@ -332,13 +332,13 @@ This format provides a reference object that can be accessed synchronously. Init
 ```ts
 import configRef from "~config/ref";
 
-function something() {
+function func() {
   const config = configRef.current; // null | Config
 
   console.log(config?.some.nested.value);
 }
 
-async function somethingElse() {
+async function otherFunc() {
   await configRef.ready;
 
   const config = configRef.current!; // Config is ready
@@ -356,7 +356,7 @@ import config, { ready } from "~config/proxy";
 
 console.log(config.some.nested.value); // May throw an error if accessed too early
 
-async function something() {
+async function func() {
   await ready;
 
   console.log(config.some.nested.value); // Safe to access after `ready` resolves
@@ -370,7 +370,7 @@ Access raw configuration data as an array without processing.
 ```ts
 import raw from "~config/raw";
 
-async function something() {
+async function func() {
   const configs = await Promise.all(raw);
 
   console.log(configs); // [defaults, env, runtime]

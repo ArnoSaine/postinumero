@@ -95,7 +95,7 @@ This format returns a promise that resolves to the configuration object:
 ```ts
 import configPromise from "@postinumero/config/**/promise";
 
-async function something() {
+async function func() {
   const config = await configPromise;
 
   console.log(config.some.value);
@@ -109,13 +109,13 @@ This format provides a reference object that can be accessed synchronously. Init
 ```ts
 import configRef from "@postinumero/config/**/ref";
 
-function something() {
+function func() {
   const config = configRef.current; // null | Config
 
   console.log(config?.some.value);
 }
 
-async function somethingElse() {
+async function otherFunc() {
   await configRef.ready;
 
   const config = configRef.current!; // Config is ready
@@ -133,7 +133,7 @@ import config, { ready } from "@postinumero/config/**/proxy";
 
 console.log(config.some.value); // May throw an error if accessed too early
 
-async function something() {
+async function func() {
   await ready;
 
   console.log(config.some.value); // Safe to access after `ready` resolves
