@@ -1,5 +1,13 @@
 # @postinumero/config
 
+## 0.3.0
+
+### Minor Changes
+
+- 5836679: - Tell browser not to cache the config response. Set `cache: "no-store"` in the `fetch` options.
+  - Change `ready()` promise to `ready` promise in ref and proxy formats
+  - Use `import.meta.env` to locate runtime config. Remove biding to the `env` source.
+
 ## 0.2.1
 
 ### Patch Changes
