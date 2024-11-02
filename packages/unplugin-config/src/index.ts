@@ -22,19 +22,19 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = (
   const resolvedVirtualModuleIdPrefix = `\0${virtualModuleId}/`;
 
   function setDefaultOptions() {
-    options.global ??= "process.env";
     options.file ??= "config.json";
+    options.global ??= "process.env";
     options.fetch ??= "config.json";
-    options.modifiers ??= setDefaults([
-      ["strip-prefix", options.stripPrefix],
-      ["parse-json-values", options.parseJsonValue],
-      ["unflat", options.unflat],
-    ]) as ModifierOption[];
     options.sources ??= setDefaults([
       ["file", options.file],
       ["global", options.global],
       ["fetch", options.fetch],
     ]) as SourceOption[];
+    options.modifiers ??= setDefaults([
+      ["strip-prefix", options.stripPrefix],
+      ["parse-json-values", options.parseJsonValue],
+      ["unflat", options.unflat],
+    ]) as ModifierOption[];
   }
 
   return {
