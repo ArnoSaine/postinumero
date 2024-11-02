@@ -1,5 +1,11 @@
 # @postinumero/config
 
+## 0.3.1
+
+### Patch Changes
+
+- 81c57e2: Update README.md
+
 ## 0.3.0
 
 ### Minor Changes
