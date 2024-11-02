@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/config",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Configuration management utility for handling environment variables and runtime configurations.",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/config",
   "repository": {
