@@ -2,7 +2,7 @@
 
 Configuration management utility for handling environment variables and runtime configurations.
 
-See also [@postinumero/unplugin-config](unplugin-config).
+See also [@postinumero/unplugin-config](../unplugin-config).
 
 ## Usage
 
