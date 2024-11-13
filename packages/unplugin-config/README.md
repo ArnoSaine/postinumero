@@ -253,17 +253,17 @@ declare module "~config/raw" {
 
 Configure sources and modifiers with defaults for a seamless setup.
 
-| Option           | Type               | Default                                       | Description                                                                                                                           |
-| ---------------- | ------------------ | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `importPath`     | `string`           | `"~config"`                                   | Import path alias for the config.                                                                                                     |
-| `file`           | `string \| false`  | `"config.json"`                               | File source for config.                                                                                                               |
-| `global`         | `string \| false`  | `"process.env"` (`"import.meta.env"` in Vite) | Environment variable source.                                                                                                          |
-| `fetch`          | `string \| false`  | `"config.json"`                               | URL or path to fetch config from. In the case of a relative path, it will be prefixed with `import.meta.env.BASE_URL` (if available). |
-| `stripPrefix`    | `string \| false`  | `"VITE_"` (in Vite) `"FARM_"` (in Farm)       | Prefix to remove from config variable names.                                                                                          |
-| `parseJsonValue` | `boolean \| false` | `undefined` (enabled by default)              | Whether to parse JSON values from config variable values.                                                                             |
-| `unflat`         | `boolean \| false` | `undefined` (enabled by default)              | Whether to unflat config variable names.                                                                                              |
-| `sources`        | `SourceOption[]`   | Defined below                                 | Config sources that are merged from left to right.                                                                                    |
-| `modifiers`      | `ModifierOption[]` | Defined below                                 | Config transformations that are run in given order before configs are merged.                                                         |
+| Option           | Type                 | Default                                       | Description                                                                                                                           |
+| ---------------- | -------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `importPath`     | `string`             | `"~config"`                                   | Import path alias for the config.                                                                                                     |
+| `file`           | `string \| false`    | `"config.json"`                               | File source for config.                                                                                                               |
+| `global`         | `string \| false`    | `"process.env"` (`"import.meta.env"` in Vite) | Environment variable source.                                                                                                          |
+| `fetch`          | `string \| false`    | `"config.json"`                               | URL or path to fetch config from. In the case of a relative path, it will be prefixed with `import.meta.env.BASE_URL` (if available). |
+| `stripPrefix`    | `string \| false`    | `"VITE_"` (in Vite) `"FARM_"` (in Farm)       | Prefix to remove from config variable names.                                                                                          |
+| `parseJsonValue` | `undefined \| false` | `undefined` (enabled by default)              | Whether to parse JSON values from config variable values.                                                                             |
+| `unflat`         | `undefined \| false` | `undefined` (enabled by default)              | Whether to unflat config variable names.                                                                                              |
+| `sources`        | `SourceOption[]`     | Defined below                                 | Config sources that are merged from left to right.                                                                                    |
+| `modifiers`      | `ModifierOption[]`   | Defined below                                 | Config transformations that are run in given order before configs are merged.                                                         |
 
 #### Default Sources
 
