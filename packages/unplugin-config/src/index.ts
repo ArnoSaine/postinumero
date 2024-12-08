@@ -13,7 +13,7 @@ function setDefaults<T, U>(entries: [T, U][]) {
 }
 
 export const unpluginFactory: UnpluginFactory<Options | undefined> = (
-  options: Options = {},
+  options = {},
 ) => {
   options.importPath ??= "~config";
   const virtualModuleId = options.importPath;
