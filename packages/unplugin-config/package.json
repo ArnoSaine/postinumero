@@ -86,7 +86,7 @@
     "@postinumero/config": "^0.3.0",
     "lodash-es": "^4.17.21",
     "tiny-invariant": "^1.3.3",
-    "unplugin": "^1.12.2"
+    "unplugin": "^2.0.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.0.0",
