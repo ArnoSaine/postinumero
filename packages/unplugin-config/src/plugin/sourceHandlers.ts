@@ -19,6 +19,11 @@ const sourceHandlers = {
   fetch: (value: string) => `(async () => {
   const url = ${value.startsWith("/") || value.includes("//") ? `"${value}"` : `(import.meta.env?.BASE_URL ?? "") + "${value}"`};
   try {
+    // On the server or during the build process, skip fetch if the URL is not absolute,
+    // as relative URLs won't resolve correctly in these environments
+    if (typeof document === "undefined" && !url.includes("//")) {
+      return;
+    }
     const response = await fetch(url, { cache: "no-store" });
     return await response.json();
   } catch (error) {
