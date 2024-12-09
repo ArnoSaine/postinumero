@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/unplugin-config",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A plugin for managing build-time and runtime configuration across multiple build tools.",
   "keywords": [
     "unplugin",

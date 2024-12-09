@@ -1,5 +1,11 @@
 # @postinumero/unplugin-config
 
+## 0.1.1
+
+### Patch Changes
+
+- 6d2b29d: On the server or during the build process, skip fetch if the URL is not absolute
+
 ## 0.1.0
 
 ### Minor Changes
