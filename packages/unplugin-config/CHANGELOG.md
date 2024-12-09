@@ -1,5 +1,11 @@
 # @postinumero/unplugin-config
 
+## 0.2.0
+
+### Minor Changes
+
+- b1e2f87: Upgrade to `unplugin@^2.0.0`
+
 ## 0.1.1
 
 ### Patch Changes
