@@ -84,7 +84,10 @@ process.stdout.write(await extract([], ${JSON.stringify({
 
     child.stdin!.write(
       routeIds
-        .map((routeId) => `defineMessage({defaultMessage:"${routeId}"})`)
+        .map(
+          (routeId) =>
+            `defineMessage({defaultMessage:"${routeId}",description:{format:"route"}})`,
+        )
         .join(";"),
     );
 
