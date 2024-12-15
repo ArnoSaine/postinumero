@@ -1,5 +1,11 @@
 # @postinumero/remix-react-intl
 
+## 0.2.9
+
+### Patch Changes
+
+- 86f48dc: Extract route messages with description: `format: "route"`
+
 ## 0.2.8
 
 ### Patch Changes
