@@ -1,5 +1,11 @@
 # @postinumero/remix-react-intl
 
+## 0.2.10
+
+### Patch Changes
+
+- d041604: Fix generating message IDs in production when description is an object type
+
 ## 0.2.9
 
 ### Patch Changes
