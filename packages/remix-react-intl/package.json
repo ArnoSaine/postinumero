@@ -35,6 +35,7 @@
     "@formatjs/cli-lib": "^6.3.6",
     "@formatjs/intl": "^2.10.0",
     "@formatjs/intl-localematcher": "^0.5.4",
+    "@formatjs/ts-transformer": "^3.13.26",
     "@mjackson/headers": "^0.7.2",
     "@postinumero/map-get-with-default": "^0.2.0",
     "@postinumero/vite-plugin-module-info": "^0.2.0",

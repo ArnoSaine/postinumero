@@ -1,7 +1,9 @@
 import { CompileOpts, ExtractOpts } from "@formatjs/cli-lib";
+import { interpolateName } from "@formatjs/ts-transformer";
 import { VitePluginConfig } from "@remix-run/dev";
 import { DEFAULT_ID_INTERPOLATION_PATTERN } from "babel-plugin-formatjs";
 import { Options as BabelPluginOpts } from "babel-plugin-formatjs/types.js";
+import stringify from "json-stable-stringify";
 import { cloneDeep, pick } from "lodash-es";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -172,6 +174,24 @@ export const getOptions = async (
   options._asyncManifest ??= Promise.withResolvers();
 
   options._ssrPromise ??= ssrPromise;
+
+  // For generated IDs to match, this must be same as when extracting messages:
+  // https://github.com/formatjs/formatjs/blob/main/packages/cli-lib/src/extract.ts#L131C1-L152C4
+  options.babel.overrideIdFn ??= (id, defaultMessage, description, fileName) =>
+    id ||
+    interpolateName(
+      { resourcePath: fileName },
+      options.extract.idInterpolationPattern!,
+      {
+        content: description
+          ? `${defaultMessage}#${
+              typeof description === "string"
+                ? description
+                : stringify(description)
+            }`
+          : defaultMessage,
+      },
+    );
 
   return options;
 };
