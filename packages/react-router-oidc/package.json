@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/react-router-oidc",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Integration of React Router and oidc-client-ts.",
   "keywords": [
     "react-router",
