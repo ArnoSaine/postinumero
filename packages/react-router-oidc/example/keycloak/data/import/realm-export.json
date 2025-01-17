@@ -1,0 +1,68 @@
+{
+  "realm": "example",
+  "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "user",
+        "description": "Basic user role"
+      },
+      {
+        "name": "viewer",
+        "description": "Read-only access"
+      }
+    ],
+    "client": {
+      "example-client": [
+        {
+          "name": "user",
+          "description": "Client-specific user role"
+        },
+        {
+          "name": "editor",
+          "description": "Client-specific editor role"
+        }
+      ]
+    }
+  },
+  "users": [
+    {
+      "username": "demo",
+      "enabled": true,
+      "email": "demo@example.com",
+      "firstName": "Demo",
+      "lastName": "User",
+      "attributes": {
+        "street": "123 Demo Street",
+        "locality": "Demo City",
+        "region": "Demo Region",
+        "postal_code": "12345",
+        "country": "DemoLand"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "demo",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["user", "viewer"],
+      "clientRoles": {
+        "example-client": ["user", "editor"]
+      }
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "example-client",
+      "enabled": true,
+      "publicClient": true,
+      "redirectUris": ["*"],
+      "webOrigins": ["*"],
+      "protocol": "openid-connect",
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false
+    }
+  ]
+}
