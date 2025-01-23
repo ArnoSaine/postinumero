@@ -327,7 +327,7 @@ async function write(
         path.join(compiledTarget, manifestFile),
         // File content hash is used to cache compile results.
         // Ensure keys are in same order.
-        stringify(manifest, { space: 2 }),
+        stringify(manifest, { space: 2 })!,
       );
     },
     {

@@ -11,6 +11,6 @@ export default function renderChildrenOrFallback(
     fallback?: React.ReactNode;
     [x: string]: any;
   }) {
-    return (useTest(mapProps(props)) ? children : fallback) as JSX.Element;
+    return useTest(mapProps(props)) ? children : fallback;
   };
 }

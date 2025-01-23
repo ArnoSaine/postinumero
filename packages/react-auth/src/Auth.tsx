@@ -5,5 +5,5 @@ export default withAuth(function Auth({
 }: {
   children: React.ReactNode;
 }) {
-  return children as JSX.Element;
+  return children;
 });
