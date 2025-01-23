@@ -1,5 +1,5 @@
 import { Form, FormProps } from "@remix-run/react";
-import React from "react";
+import React from "../../../../$node_modules/@types/react/index.js";
 import userConfig from "../../../config.js";
 import { RedirectURIInput } from "../../../helpers.js";
 

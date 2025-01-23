@@ -83,7 +83,7 @@ async function updateOptionalToDefaultClientScope({
     });
 
   const clientScopeId = optionalClientScopes.find(
-    (optionalClientScope) => optionalClientScope.name === name
+    (optionalClientScope) => optionalClientScope.name === name,
   )!.id!;
 
   await kcAdminClient.clients.delOptionalClientScope({
@@ -106,8 +106,8 @@ async function updateProtocolMapper(
     protocolMapperName,
   }: { realm: string; clientScopeName: string; protocolMapperName: string },
   updater: (
-    mapper: ProtocolMapperRepresentation
-  ) => ProtocolMapperRepresentation
+    mapper: ProtocolMapperRepresentation,
+  ) => ProtocolMapperRepresentation,
 ) {
   const clientScope = (await kcAdminClient.clientScopes.findOneByName({
     realm,
@@ -127,6 +127,6 @@ async function updateProtocolMapper(
       id: clientScope.id!,
       mapperId: protocolMapper.id!,
     },
-    updater(protocolMapper)
+    updater(protocolMapper),
   );
 }

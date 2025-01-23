@@ -1,7 +1,7 @@
-import { useUser } from "@postinumero/remix-oidc/lib";
-import SigninForm from "@postinumero/remix-oidc/lib/app/routes/signin/Form";
-import SignoutForm from "@postinumero/remix-oidc/lib/app/routes/signout/Form";
-import config from "@postinumero/remix-oidc/lib/config.js";
+import { useUser } from "../../lib/index.js";
+import SigninForm from "../../lib/app/routes/signin/Form.js";
+import SignoutForm from "../../lib/app/routes/signout/Form.js";
+import config from "../../lib/config.js";
 import {
   Link,
   Links,

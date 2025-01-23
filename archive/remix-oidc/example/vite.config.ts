@@ -1,10 +1,10 @@
 // For Node.js versions below 22, install and import the polyfill:
 //import "core-js/proposals/promise-with-resolvers";
 
-import remixOidc from "@postinumero/remix-oidc";
-import { vitePlugin as remix } from "@remix-run/dev";
-import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { vitePlugin as remix } from "../$node_modules/@remix-run/dev/dist/index.js";
+import tsconfigPaths from "../$node_modules/vite-tsconfig-paths/dist/index.mjs";
+import { defineConfig } from "../$node_modules/vite/dist/node/index.js";
+import remixOidc from "../lib/main.js";
 
 const oidc = await remixOidc();
 

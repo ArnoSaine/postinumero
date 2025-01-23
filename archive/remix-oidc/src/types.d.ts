@@ -1,3 +1,3 @@
 declare module "@postinumero/remix-oidc/user-config" {
-  export default import("./configFinal").Config;
+  export default import("./configFinal.ts").Config;
 }
