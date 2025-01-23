@@ -10,7 +10,7 @@
     "packages/*/examples/*"
   ],
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --filter=@postinumero/*",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "prepare": "husky install",

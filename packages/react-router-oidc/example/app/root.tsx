@@ -1,5 +1,4 @@
 import {
-  loadOIDCRoot,
   useRemoveLogoutIntentSearchParam,
   useRevalidateUser,
   withHandleAuthErrorBoundary,
@@ -7,6 +6,7 @@ import {
 import {
   getKeycloakUser,
   initKeycloak,
+  loadOIDCRoot,
 } from "@postinumero/react-router-oidc/keycloak";
 import type { PropsWithChildren } from "react";
 import {
@@ -26,7 +26,7 @@ import LoginForm from "./components/LoginForm";
 initKeycloak({
   url: "http://localhost:8080",
   realm: "example",
-  clientId: "example-client",
+  client_id: "example-client",
 });
 
 export const links: Route.LinksFunction = () => [

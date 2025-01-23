@@ -48,8 +48,8 @@ export const clientAction: ClientActionFunction = async (args) => {
   return replace(redirect_uri);
 };
 
-export const clientLoader: ClientLoaderFunction = async () => {
-  await authenticated();
+export const clientLoader: ClientLoaderFunction = async (args) => {
+  await authenticated(args);
 
   return replace(options.fallbackRoute);
 };
