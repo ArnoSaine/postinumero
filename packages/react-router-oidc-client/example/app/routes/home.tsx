@@ -5,8 +5,8 @@ import {
   HasRole,
   IsAuthenticated,
   type KeycloakUser,
-} from "@postinumero/react-router-oidc/keycloak";
-import type { Route } from "./+types/home";
+} from "../../../lib/keycloak/index.js";
+import type { Route } from "./+types/home.js";
 
 export const clientLoader = async () => {
   const user = await getKeycloakUser();

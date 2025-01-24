@@ -1,4 +1,4 @@
-# @postinumero/react-router-oidc
+# @postinumero/react-router-oidc-client
 
 Integration of React Router and oidc-client-ts.
 

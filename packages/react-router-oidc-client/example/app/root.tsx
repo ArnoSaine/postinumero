@@ -1,13 +1,3 @@
-import {
-  useRemoveLogoutIntentSearchParam,
-  useRevalidateUser,
-  withHandleAuthErrorBoundary,
-} from "@postinumero/react-router-oidc";
-import {
-  getKeycloakUser,
-  initKeycloak,
-  loadOIDCRoot,
-} from "@postinumero/react-router-oidc/keycloak";
 import type { PropsWithChildren } from "react";
 import {
   isRouteErrorResponse,
@@ -18,10 +8,20 @@ import {
   ScrollRestoration,
   type ClientLoaderFunctionArgs,
 } from "react-router";
-import type { Route } from "./+types/root";
+import {
+  useRemoveLogoutIntentSearchParam,
+  useRevalidateUser,
+  withHandleAuthErrorBoundary,
+} from "../../lib/index.js";
+import {
+  getKeycloakUser,
+  initKeycloak,
+  loadOIDCRoot,
+} from "../../lib/keycloak/index.js";
+import type { Route } from "./+types/root.js";
 import stylesheet from "./app.css?url";
-import AppBar from "./components/AppBar";
-import LoginForm from "./components/LoginForm";
+import AppBar from "./components/AppBar.js";
+import LoginForm from "./components/LoginForm.js";
 
 initKeycloak({
   url: "http://localhost:8080",

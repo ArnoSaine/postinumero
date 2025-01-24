@@ -1,5 +1,8 @@
-import { useLoginLinkProps, useUser } from "@postinumero/react-router-oidc";
-import { LogoutForm } from "@postinumero/react-router-oidc/components";
+import {
+  useLoginLinkProps,
+  useUser,
+} from "@postinumero/react-router-oidc-client";
+import { LogoutForm } from "@postinumero/react-router-oidc-client/components";
 import { Link } from "react-router";
 
 export default function AppBar() {

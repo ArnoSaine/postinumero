@@ -1,6 +1,6 @@
 {
-  "name": "@postinumero/react-router-oidc",
-  "version": "0.1.0",
+  "name": "@postinumero/react-router-oidc-client",
+  "version": "0.0.0",
   "description": "Integration of React Router and oidc-client-ts.",
   "keywords": [
     "react-router",
@@ -8,11 +8,11 @@
     "oidc",
     "keycloak"
   ],
-  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/react-router-oidc",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/react-router-oidc-client",
   "repository": {
     "type": "git",
     "url": "https://github.com/ArnoSaine/postinumero.git",
-    "directory": "packages/react-router-oidc"
+    "directory": "packages/react-router-oidc-client"
   },
   "license": "ISC",
   "author": {

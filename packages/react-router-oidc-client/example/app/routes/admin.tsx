@@ -1,4 +1,4 @@
-import { authenticated } from "@postinumero/react-router-oidc/keycloak";
+import { authenticated } from "@postinumero/react-router-oidc-client/keycloak";
 import type { ClientLoaderFunctionArgs } from "react-router";
 import type { Route } from "./+types/admin";
 

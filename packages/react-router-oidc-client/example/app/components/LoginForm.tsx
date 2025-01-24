@@ -1,4 +1,4 @@
-import { LoginForm } from "@postinumero/react-router-oidc/components";
+import { LoginForm } from "../../../lib/components/index.js";
 import { useFetcher } from "react-router";
 
 export default function LoginFormComponent() {
