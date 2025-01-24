@@ -19,9 +19,7 @@ export default function Home({ loaderData: { user } }: Route.ComponentProps) {
 
   return (
     <>
-      <div className="flex items-center justify-center pt-16 pb-4">
-        [Public home route]
-      </div>
+      <div className="pt-16 pb-4">[Public home route]</div>
       <IsAuthenticated
         fallback={
           <>
@@ -37,7 +35,9 @@ export default function Home({ loaderData: { user } }: Route.ComponentProps) {
         <Info>User has roles "user", "editor" & "viewer"</Info>
       </HasRole>
       <HasRealmRole user viewer>
-        <Info>User has realm roles "user" & "viewer"</Info>
+        <Info>
+          User has <em>realm</em> roles "user" & "viewer"
+        </Info>
       </HasRealmRole>
       <HasResourceRole example-client={["user", "editor"]}>
         <Info>User has "example-client" resource roles "user" & "editor"</Info>
@@ -52,21 +52,13 @@ function Info(
     HTMLDivElement
   >,
 ) {
-  return <div className="flex items-center justify-center pb-4" {...props} />;
+  return <div className="pb-4" {...props} />;
 }
 
 function Welcome() {
-  return (
-    <div className="flex items-center justify-center text-2xl pb-4">
-      Welcome, please log in
-    </div>
-  );
+  return <div className="text-2xl pb-4">Welcome, please log in</div>;
 }
 
 function Greeting({ user }: { user: KeycloakUser }) {
-  return (
-    <div className="flex items-center justify-center text-2xl pb-4">
-      Hi, {user.given_name}!
-    </div>
-  );
+  return <div className="text-2xl pb-4">Hi, {user.given_name}!</div>;
 }

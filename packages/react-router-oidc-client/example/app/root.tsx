@@ -59,7 +59,7 @@ export function Layout({ children }: PropsWithChildren) {
       <body>
         <div className="flex flex-col h-screen">
           <AppBar />
-          <main className="flex-grow flex flex-col bg-gray-100">
+          <main className="flex-grow flex flex-col bg-gray-100 items-center">
             {children}
           </main>
         </div>
