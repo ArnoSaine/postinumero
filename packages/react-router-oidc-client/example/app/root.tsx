@@ -1,3 +1,13 @@
+import {
+  useRemoveLogoutIntentSearchParam,
+  useRevalidateUser,
+  withHandleAuthErrorBoundary,
+} from "@postinumero/react-router-oidc-client";
+import {
+  getKeycloakUser,
+  initKeycloak,
+  loadOIDCRoot,
+} from "@postinumero/react-router-oidc-client/keycloak";
 import type { PropsWithChildren } from "react";
 import {
   isRouteErrorResponse,
@@ -8,23 +18,13 @@ import {
   ScrollRestoration,
   type ClientLoaderFunctionArgs,
 } from "react-router";
-import {
-  useRemoveLogoutIntentSearchParam,
-  useRevalidateUser,
-  withHandleAuthErrorBoundary,
-} from "../../lib/index.js";
-import {
-  getKeycloakUser,
-  initKeycloak,
-  loadOIDCRoot,
-} from "../../lib/keycloak/index.js";
 import type { Route } from "./+types/root.js";
 import stylesheet from "./app.css?url";
 import AppBar from "./components/AppBar.js";
 import LoginForm from "./components/LoginForm.js";
 
 initKeycloak({
-  url: "http://localhost:8080",
+  url: "http://main-keycloak.localhost:8080",
   realm: "example",
   client_id: "example-client",
 });
@@ -79,21 +79,30 @@ export default function App() {
 export const ErrorBoundary = withHandleAuthErrorBoundary(
   LoginForm,
   function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-    let message = "Oops!";
-    let details = "An unexpected error occurred.";
+    let message: string | undefined;
+    let details: string | undefined;
     let stack: string | undefined;
 
     if (isRouteErrorResponse(error)) {
-      message = error.status === 404 ? "404" : "Error";
-      details =
-        error.status === 404
-          ? "The requested page could not be found."
-          : error.statusText || details;
+      if (error.status === 403) {
+        message = "403";
+        details = "You don't have permission to access the requested page.";
+      }
+      if (error.status === 404) {
+        message = "404";
+        details = "The requested page could not be found.";
+      }
+      message ??= "Error";
+      details ??= error.statusText;
     } else if (import.meta.env.DEV && error && error instanceof Error) {
       details = error.message;
       stack = error.stack;
+
+      console.log(error);
     }
-    console.log(error);
+
+    message ??= "Oops!";
+    details ??= "An unexpected error occurred.";
 
     return (
       <div className="pt-16 p-4 container mx-auto">

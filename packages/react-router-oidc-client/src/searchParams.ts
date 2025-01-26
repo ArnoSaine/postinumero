@@ -22,12 +22,28 @@ export function deleteLogoutIntentParamIfExists(searchParams: URLSearchParams) {
   const exists = hasLogoutIntentParam(searchParams);
 
   if (exists) {
-    searchParams.delete(options.logoutIntentSearchParam.name);
+    searchParams.delete(options.searchParamsAndOptions.intent.name);
   }
 
   return exists;
 }
 
 export const hasLogoutIntentParam = (searchParams: URLSearchParams) =>
-  searchParams.get(options.logoutIntentSearchParam.name) ===
-  options.logoutIntentSearchParam.value;
+  searchParams.get(options.searchParamsAndOptions.intent.name) ===
+  options.searchParamsAndOptions.intent.values.logout;
+
+export const setSearchParamLogoutIntent = (url: URL) =>
+  url.searchParams.set(
+    options.searchParamsAndOptions.intent.name,
+    options.searchParamsAndOptions.intent.values.logout,
+  );
+
+export const getRedirectURI = (searchParams: URLSearchParams) =>
+  searchParams.get(options.searchParamsAndOptions.redirectURI.name);
+
+export const redirectURISearchParams = (value?: string | null) =>
+  value
+    ? `?${new URLSearchParams([
+        [options.searchParamsAndOptions.redirectURI.name, value],
+      ])}`
+    : "";

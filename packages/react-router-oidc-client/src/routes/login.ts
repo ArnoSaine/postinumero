@@ -1,57 +1,40 @@
-import type { UserManager } from "oidc-client-ts";
 import {
   ClientActionFunction,
   ClientLoaderFunction,
-  //data,
   replace,
 } from "react-router";
-import invariant from "tiny-invariant";
-import { asyncUserManager, authenticated } from "../index.js";
+import { actUserManager, authenticated, getRedirectURI } from "../index.js";
 import options from "../options.js";
+import { parseAndUnflatFormData } from "../utils.js";
 
 export const clientAction: ClientActionFunction = async (args) => {
-  const userManager: UserManager = await asyncUserManager.promise;
+  const url = new URL(args.request.url);
+  let redirectURI = getRedirectURI(url.searchParams);
 
-  const {
-    intent,
-    [options.redirectURIOptionName as "redirect_uri"]: redirect_uri,
-    ...credentials
-  } = Object.fromEntries(await args.request.formData()) as {
-    intent?: "sso";
-    redirect_uri: string;
-    username: string;
-    password: string;
-  };
+  const { intent = "resource-owner-credentials", ...data } =
+    await parseAndUnflatFormData(args);
 
-  if (intent === "sso") {
-    invariant(
-      !redirect_uri.startsWith("/"),
-      `'redirect_uri' must be full URL for signinRedirect. Got: ${redirect_uri}`,
-    );
-
-    userManager.signinRedirect({
-      redirect_uri,
-    });
-    return null;
-  }
-
-  try {
-    await userManager.signinResourceOwnerCredentials(credentials);
-  } catch (error) {
-    if (error instanceof Error) {
-      return new Response(error.message, {
-        status: 401,
-      });
+  if (intent === "redirect") {
+    data.redirect_uri ??= redirectURI;
+    if (data.redirect_uri?.startsWith("/")) {
+      data.redirect_uri = new URL(
+        data.redirect_uri,
+        location.toString(),
+      ).toString();
     }
   }
 
-  return replace(redirect_uri);
+  await actUserManager("signin", intent, data);
+
+  return null;
 };
 
 export const clientLoader: ClientLoaderFunction = async (args) => {
   await authenticated(args);
 
-  return replace(options.fallbackRoute);
+  const url = new URL(args.request.url);
+
+  return replace(getRedirectURI(url.searchParams) ?? options.fallbackRoute);
 };
 
 export default function Login() {

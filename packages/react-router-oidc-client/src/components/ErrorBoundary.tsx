@@ -6,8 +6,8 @@ import {
   useSearchParams,
 } from "react-router";
 import { CreateErrorBoundaryProps } from "react-router/route-module";
-import { hasLogoutIntentParam } from "../logoutIntentSearchParam.js";
 import options from "../options.js";
+import { hasLogoutIntentParam } from "../searchParams.js";
 
 export const withHandleAuthErrorBoundary = (
   UnauthorizedErrorBoundary: React.ComponentType<CreateErrorBoundaryProps<any>>,

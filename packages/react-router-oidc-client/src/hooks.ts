@@ -1,28 +1,33 @@
 import { LinkProps, useLocation } from "react-router";
 import options from "./options.js";
+import { redirectURISearchParams } from "./searchParams.js";
 import { useLocationString } from "./utils.js";
 
-export function useLoginLinkProps(): LinkProps {
+export function useIsLoginRoute() {
   const location = useLocation();
-  const redirectURI = useLocationString();
+
+  return location.pathname === options.routes.login;
+}
+
+export function useLoginLinkProps(): LinkProps {
+  const locationString = useLocationString();
 
   // If already at the login route, link to same route
-  if (location.pathname === options.routes.login) {
+  if (useIsLoginRoute()) {
     return {
-      to: redirectURI,
+      to: locationString,
       replace: true,
     };
   }
 
-  const searchParams = new URLSearchParams();
-
-  // If not at the root (fallback) route
-  if (redirectURI !== options.fallbackRoute) {
-    // Instruct to redirect back to this route after login
-    searchParams.set(options.redirectURIOptionName, redirectURI);
-  }
-
   return {
-    to: `${options.routes.login}?${searchParams}`,
+    to: `${options.routes.login}${redirectURISearchParams(
+      // If at the root (fallback) route
+      locationString === options.fallbackRoute
+        ? // No redirect param, successful login redirects to root
+          undefined
+        : // Instruct to redirect back to this route after login
+          locationString,
+    )}`,
   };
 }

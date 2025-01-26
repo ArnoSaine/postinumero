@@ -1,8 +1,8 @@
 import {
+  LogoutForm,
   useLoginLinkProps,
   useUser,
 } from "@postinumero/react-router-oidc-client";
-import { LogoutForm } from "@postinumero/react-router-oidc-client/components";
 import { Link } from "react-router";
 
 export default function AppBar() {
@@ -38,9 +38,7 @@ export default function AppBar() {
               className="text-white text-sm font-medium hover:underline"
             >
               Admin
-              <span className="ml-1 text-xs text-gray-200">
-                (protected route)
-              </span>
+              <Caption>protected route</Caption>
             </Link>
           </li>
           {user ? (
@@ -48,8 +46,35 @@ export default function AppBar() {
               <LogoutForm>
                 <button className="text-white text-sm font-medium hover:underline">
                   Logout
+                  <Caption>silent + fallback redirect</Caption>
                 </button>
               </LogoutForm>
+              {/* <LogoutForm redirect={location.href}>
+                <button className="text-white text-sm font-medium hover:underline">
+                  Logout
+                  <Caption>silent + no fallback redirect</Caption>
+                </button>
+              </LogoutForm>
+              <LogoutForm>
+                <button
+                  name="intent"
+                  value="redirect"
+                  className="text-white text-sm font-medium hover:underline"
+                >
+                  Logout
+                  <Caption>redirect + fallback redirect</Caption>
+                </button>
+              </LogoutForm>
+              <LogoutForm redirect={location.href}>
+                <button
+                  name="intent"
+                  value="redirect"
+                  className="text-white text-sm font-medium hover:underline"
+                >
+                  Logout
+                  <Caption>redirect + no fallback redirect</Caption>
+                </button>
+              </LogoutForm> */}
             </li>
           ) : (
             <li>
@@ -64,5 +89,19 @@ export default function AppBar() {
         </ul>
       </nav>
     </header>
+  );
+}
+
+function Caption({
+  children,
+  ...otherProps
+}: React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>) {
+  return (
+    <span className="ml-1 text-xs text-gray-200" {...otherProps}>
+      ({children})
+    </span>
   );
 }

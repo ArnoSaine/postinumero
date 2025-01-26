@@ -1,0 +1,37 @@
+{
+  "realm": "suomi-fi",
+  "displayName": "Suomi.fi (mock)",
+  "enabled": true,
+  "users": [
+    {
+      "username": "suomi_user",
+      "enabled": true,
+      "email": "suomi.user@example.com",
+      "firstName": "Suomi",
+      "lastName": "User",
+      "attributes": {
+        "hetu": "123456-789A"
+      },
+      "credentials": [
+        {
+          "type": "password",
+          "value": "suomi123",
+          "temporary": false
+        }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "main-client",
+      "secret": "fake-client-secret",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "redirectUris": ["*"],
+      "webOrigins": [],
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false
+    }
+  ]
+}

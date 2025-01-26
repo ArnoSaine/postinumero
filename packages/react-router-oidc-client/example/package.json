@@ -5,7 +5,8 @@
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
-    "keycloak": "docker rm keycloak-react-router-oidc-example && docker run --name keycloak-react-router-oidc-example -p 8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin -v ./keycloak/data/import:/opt/keycloak/data/import quay.io/keycloak/keycloak:latest start-dev --import-realm",
+    "keycloak:down": "docker-compose -f keycloak/docker-compose.yml down",
+    "keycloak:up": "docker-compose -f keycloak/docker-compose.yml up -d",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },

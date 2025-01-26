@@ -1,15 +1,17 @@
-import { LoginForm } from "../../../lib/components/index.js";
-import { useFetcher } from "react-router";
+import { LoginForm } from "@postinumero/react-router-oidc-client";
+import { isRouteErrorResponse } from "react-router";
+import type { CreateErrorBoundaryProps } from "react-router/route-module";
 
-export default function LoginFormComponent() {
-  const fetcher = useFetcher();
-  const errorMessage = fetcher.data;
+export default function LoginFormComponent(
+  props: CreateErrorBoundaryProps<any>,
+) {
+  const errorMessage = isRouteErrorResponse(props.error) && props.error.data;
 
   return (
     <div className="flex-grow flex flex-col items-center justify-center">
       <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-700">Login</h2>
-        <LoginForm component={fetcher.Form} className="mt-4">
+        <LoginForm className="mt-4">
           <div className="mb-4">
             <label
               htmlFor="username"
@@ -51,9 +53,24 @@ export default function LoginFormComponent() {
           )}
           <button
             type="submit"
-            className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-2"
           >
             Login
+          </button>
+        </LoginForm>
+        <LoginForm>
+          <input
+            type="hidden"
+            name="extraQueryParams.kc_idp_hint"
+            value="suomi-fi"
+          />
+          <button
+            name="intent"
+            value="redirect"
+            type="submit"
+            className="w-full px-4 py-2 text-sm font-medium text-blue-500 border border-blue-500 rounded hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            Suomi.fi
           </button>
         </LoginForm>
       </div>

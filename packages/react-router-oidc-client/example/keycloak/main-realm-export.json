@@ -52,6 +52,25 @@
       }
     }
   ],
+  "identityProviders": [
+    {
+      "alias": "suomi-fi",
+      "displayName": "Suomi.fi (mock)",
+      "providerId": "oidc",
+      "enabled": true,
+      "updateProfileFirstLoginMode": "on",
+      "trustEmail": true,
+      "config": {
+        "clientId": "main-client",
+        "clientSecret": "fake-client-secret",
+        "authorizationUrl": "http://suomi-fi-keycloak.localhost:8081/realms/suomi-fi/protocol/openid-connect/auth",
+        "tokenUrl": "http://suomi-fi-keycloak.localhost:8081/realms/suomi-fi/protocol/openid-connect/token",
+        "userInfoUrl": "http://suomi-fi-keycloak.localhost:8081/realms/suomi-fi/protocol/openid-connect/userinfo",
+        "issuer": "http://suomi-fi-keycloak.localhost:8081/realms/suomi-fi",
+        "logoutUrl": "http://suomi-fi-keycloak.localhost:8081/realms/suomi-fi/protocol/openid-connect/logout"
+      }
+    }
+  ],
   "clients": [
     {
       "clientId": "example-client",
@@ -61,8 +80,10 @@
       "webOrigins": ["*"],
       "protocol": "openid-connect",
       "directAccessGrantsEnabled": true,
-      "standardFlowEnabled": true,
-      "implicitFlowEnabled": false
+      "standardFlowEnabled": true
     }
-  ]
+  ],
+  "browserSecurityHeaders": {
+    "contentSecurityPolicy": "frame-src 'self'; frame-ancestors 'self' http://*.localhost:* http://localhost:*; object-src 'none';"
+  }
 }

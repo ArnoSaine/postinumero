@@ -6,12 +6,23 @@ export const options = {
     hasResourceRole: "__hasResourceRole",
     hasRole: "__hasRole",
   },
-  logoutIntentSearchParam: { name: "intent", value: "logout" },
-  redirectURIOptionName: "redirect_uri",
+  searchParamsAndOptions: {
+    redirectURI: {
+      name: "redirect_uri",
+    },
+    intent: {
+      name: "intent",
+      values: {
+        logout: "logout",
+        logoutCallback: "logout-callback",
+      },
+    },
+  },
   removeAuthParams: ["code", "error", "iss", "session_state", "state"],
   routes: {
     login: "/login",
     logout: "/logout",
+    logoutCallback: "/logout-callback",
   },
 };
 

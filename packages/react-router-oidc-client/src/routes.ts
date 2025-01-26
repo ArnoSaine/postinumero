@@ -10,6 +10,10 @@ const auth: RouteConfigEntry[] = [
     options.routes.logout,
     new URL("routes/logout.js", import.meta.url).pathname,
   ),
+  route(
+    options.routes.logoutCallback,
+    new URL("routes/logout-callback.js", import.meta.url).pathname,
+  ),
 ];
 
 export default auth;

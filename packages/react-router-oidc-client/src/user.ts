@@ -1,6 +1,8 @@
+import { camelCase } from "lodash-es";
 import { User, UserManager } from "oidc-client-ts";
 import { useEffect, useSyncExternalStore } from "react";
 import { useRevalidator } from "react-router";
+import { authorized } from "./response.js";
 
 export const asyncUserManager = Promise.withResolvers<UserManager>();
 
@@ -101,4 +103,29 @@ function subscribe(callback: () => void) {
     }
     state = "done";
   };
+}
+
+export async function actUserManager(
+  type: "signin" | "signout",
+  intent: string,
+  data: any,
+) {
+  const userManager: UserManager = await asyncUserManager.promise;
+
+  const method = camelCase(`${type}-${intent}`) as
+    | "signinPopup"
+    | "signinRedirect"
+    | "signinResourceOwnerCredentials"
+    | "signinSilent"
+    | "signoutPopup"
+    | "signoutRedirect"
+    | "signoutSilent";
+
+  try {
+    await userManager[method](data);
+  } catch (error) {
+    if (error instanceof Error) {
+      authorized(false, error.message);
+    }
+  }
 }

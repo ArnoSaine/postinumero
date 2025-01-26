@@ -1,28 +1,40 @@
-import type { UserManager } from "oidc-client-ts";
-import { ClientActionFunction, replace } from "react-router";
-import { asyncUserManager } from "../index.js";
+import {
+  ClientActionFunction,
+  ClientLoaderFunction,
+  replace,
+} from "react-router";
+import { actUserManager, getRedirectURI } from "../index.js";
 import options from "../options.js";
+import { parseAndUnflatFormData } from "../utils.js";
 
 export const clientAction: ClientActionFunction = async (args) => {
-  const userManager: UserManager = await asyncUserManager.promise;
-  await userManager.revokeTokens();
-  await userManager.removeUser();
-  const formData = await args.request.formData();
-  let redirectURI = formData.get(options.redirectURIOptionName) as string;
+  const url = new URL(args.request.url);
 
-  if (redirectURI.startsWith("/")) {
-    // We don't know if the current route is protected
-    // If redirectURI is internal, add logout intent search param
+  const { intent = "silent", ...data } = await parseAndUnflatFormData(args);
 
-    const url = new URL(location.href);
-
-    url.searchParams.set(
-      options.logoutIntentSearchParam.name,
-      options.logoutIntentSearchParam.value,
-    );
-
-    redirectURI = url.toString();
+  if (intent === "redirect") {
+    data.post_logout_redirect_uri ??= getRedirectURI(url.searchParams);
   }
 
-  return replace(redirectURI);
+  if (intent === "silent") {
+    if (!data.post_logout_redirect_uri) {
+      const url = new URL(options.routes.logoutCallback, location.toString());
+
+      data.post_logout_redirect_uri = url.toString();
+    }
+  }
+
+  await actUserManager("signout", intent, data);
+
+  return null;
 };
+
+export const clientLoader: ClientLoaderFunction = async (args) => {
+  const url = new URL(args.request.url);
+
+  return replace(getRedirectURI(url.searchParams) ?? options.fallbackRoute);
+};
+
+export default function Logout() {
+  return null;
+}
