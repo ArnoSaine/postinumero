@@ -96,8 +96,8 @@ function Caption({
   children,
   ...otherProps
 }: React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
+  React.HTMLAttributes<HTMLSpanElement>,
+  HTMLSpanElement
 >) {
   return (
     <span className="ml-1 text-xs text-gray-200" {...otherProps}>

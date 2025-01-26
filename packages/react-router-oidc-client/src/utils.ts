@@ -2,6 +2,7 @@ import { unflatten } from "flat";
 import {
   ActionFunctionArgs,
   ClientActionFunctionArgs,
+  Location,
   useLocation,
 } from "react-router";
 
@@ -33,8 +34,7 @@ export async function parseAndUnflatFormData(
   >;
 }
 
-export function useLocationString() {
-  const location = useLocation();
+export const useLocationString = () => locationString(useLocation());
 
-  return `${location.pathname}${location.search}${location.hash}`;
-}
+export const locationString = (url: URL | Location) =>
+  `${url.pathname}${url.search}${url.hash}`;

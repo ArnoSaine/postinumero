@@ -1,7 +1,7 @@
-import { LinkProps, useLocation } from "react-router";
+import { LinkProps, useLocation, useSearchParams } from "react-router";
 import options from "./options.js";
-import { redirectURISearchParams } from "./searchParams.js";
-import { useLocationString } from "./utils.js";
+import { getRedirectURI, redirectURISearchParams } from "./searchParams.js";
+import { locationString, useLocationString } from "./utils.js";
 
 export function useIsLoginRoute() {
   const location = useLocation();
@@ -30,4 +30,41 @@ export function useLoginLinkProps(): LinkProps {
           locationString,
     )}`,
   };
+}
+
+export function useLoginLocation(route = options.routes.login) {
+  const [searchParams] = useSearchParams();
+  const locationStr = useLocationString();
+  const isLoginRoute = useIsLoginRoute();
+
+  const url = new URL(route, location.toString());
+
+  // Set redirect after successful login
+  url.searchParams.set(
+    options.searchParamsAndOptions.redirectURI.name,
+    // Redirect to URI from search params
+    getRedirectURI(searchParams) ??
+      // If not available, use fallback
+      (isLoginRoute
+        ? // On login route, use fallback route option
+          options.fallbackRoute
+        : // Otherwise, use current route
+          locationStr),
+  );
+
+  return locationString(url);
+}
+
+export function useLoginLoaderLocation(data: Record<string, string>) {
+  const url = new URL(
+    useLoginLocation(options.routes.loginLoader),
+    location.toString(),
+  );
+
+  // Add data params
+  for (const [key, value] of Object.entries(data)) {
+    url.searchParams.append(key, value);
+  }
+
+  return locationString(url);
 }

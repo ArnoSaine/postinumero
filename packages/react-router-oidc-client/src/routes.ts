@@ -3,6 +3,10 @@ import options from "./options.js";
 
 const auth: RouteConfigEntry[] = [
   route(
+    options.routes.loginLoader,
+    new URL("routes/login-loader.js", import.meta.url).pathname,
+  ),
+  route(
     options.routes.login,
     new URL("routes/login.js", import.meta.url).pathname,
   ),

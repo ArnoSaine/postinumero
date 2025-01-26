@@ -1,3 +1,4 @@
+import { LoginLink } from "@postinumero/react-router-oidc-client";
 import {
   getKeycloakUser,
   HasRealmRole,
@@ -7,6 +8,7 @@ import {
   type KeycloakUser,
 } from "@postinumero/react-router-oidc-client/keycloak";
 import type { Route } from "./+types/home.js";
+import { Link } from "react-router";
 
 export const clientLoader = async () => {
   const user = await getKeycloakUser();
@@ -25,6 +27,21 @@ export default function Home({ loaderData: { user } }: Route.ComponentProps) {
           <>
             <Welcome />
             <Info>User is not authenticated</Info>
+            <Link
+              to="/login"
+              className="text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pb-4"
+            >
+              Login (form)
+            </Link>
+            <LoginLink
+              data={{
+                intent: "redirect",
+                "extraQueryParams.kc_idp_hint": "suomi-fi",
+              }}
+              className="text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              Login (redirect flow)
+            </LoginLink>
           </>
         }
       >

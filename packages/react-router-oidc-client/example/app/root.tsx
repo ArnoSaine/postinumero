@@ -8,7 +8,7 @@ import {
   initKeycloak,
   loadOIDCRoot,
 } from "@postinumero/react-router-oidc-client/keycloak";
-import type { PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -77,6 +77,14 @@ export default function App() {
 }
 
 export const ErrorBoundary = withHandleAuthErrorBoundary(
+  // () => (
+  //   <LoginRedirect
+  //     {...{
+  //       intent: "redirect",
+  //       "extraQueryParams.kc_idp_hint": "suomi-fi",
+  //     }}
+  //   />
+  // ),
   LoginForm,
   function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     let message: string | undefined;
