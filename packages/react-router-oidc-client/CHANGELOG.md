@@ -1,5 +1,22 @@
 # @postinumero/react-router-oidc-client
 
+## 0.2.0
+
+### Minor Changes
+
+- 0cbf62b: - Add redirect login flow
+
+  - Add silent logout flow
+  - Move `redirect_uri` from form data to search params for app redirects and base value for `redirect_uri` / `post_logout_redirect_uri`
+
+  Example:
+
+  - Simulate external authentication flow (Suomi.fi)
+
+### Patch Changes
+
+- 8d65e4e: Add `<LoginLink>` and `<LoginRedirect>` components and `/login-loader` route for other then form action logins
+
 ## 0.1.0
 
 ### Minor Changes
