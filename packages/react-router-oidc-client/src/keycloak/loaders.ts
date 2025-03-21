@@ -1,3 +1,4 @@
+import { toBooleanValues } from "@arnosaine/is";
 import { allowed } from "assert-response";
 import {
   ClientActionFunctionArgs,
@@ -22,9 +23,7 @@ export async function authenticated(
 
   const { realmRoles = [], resourceRoles = {} } = roles ?? {};
 
-  allowed(
-    hasRealmRole(Object.fromEntries(realmRoles.map((role) => [role, true]))),
-  );
+  allowed(hasRealmRole(toBooleanValues(realmRoles)));
 
   allowed(hasResourceRole(resourceRoles));
 
