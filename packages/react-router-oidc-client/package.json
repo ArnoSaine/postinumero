@@ -1,12 +1,13 @@
 {
   "name": "@postinumero/react-router-oidc-client",
   "version": "0.1.0",
-  "description": "Integration of React Router and oidc-client-ts.",
+  "description": "A React Router integration for OpenID Connect (OIDC) authentication, built on top of oidc-client-ts.",
   "keywords": [
     "react-router",
     "auth",
     "oidc",
-    "keycloak"
+    "keycloak",
+    "rbac"
   ],
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/react-router-oidc-client",
   "repository": {
