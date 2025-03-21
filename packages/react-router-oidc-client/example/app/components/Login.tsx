@@ -1,10 +1,18 @@
-import { LoginForm } from "@postinumero/react-router-oidc-client";
+import {
+  LoginForm,
+  // LoginRedirect,
+} from "@postinumero/react-router-oidc-client";
 import { isRouteErrorResponse } from "react-router";
 import type { CreateErrorBoundaryProps } from "react-router/route-module";
 
-export default function LoginFormComponent(
-  props: CreateErrorBoundaryProps<any>,
-) {
+export default function Login(props: CreateErrorBoundaryProps<any>) {
+  // return (
+  //   <LoginRedirect
+  //     intent="redirect"
+  //     {...{ "extraQueryParams.kc_idp_hint": "suomi-fi" }}
+  //   />
+  // );
+
   const errorMessage = isRouteErrorResponse(props.error) && props.error.data;
 
   return (
@@ -51,10 +59,7 @@ export default function LoginFormComponent(
               {errorMessage}
             </div>
           )}
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-2"
-          >
+          <button className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-2">
             Login
           </button>
         </LoginForm>
@@ -67,7 +72,6 @@ export default function LoginFormComponent(
           <button
             name="intent"
             value="redirect"
-            type="submit"
             className="w-full px-4 py-2 text-sm font-medium text-blue-500 border border-blue-500 rounded hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             Suomi.fi

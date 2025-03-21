@@ -4,7 +4,6 @@ import {
   withHandleAuthErrorBoundary,
 } from "@postinumero/react-router-oidc-client";
 import {
-  getKeycloakUser,
   initKeycloak,
   loadOIDCRoot,
 } from "@postinumero/react-router-oidc-client/keycloak";
@@ -21,7 +20,7 @@ import {
 import type { Route } from "./+types/root.js";
 import stylesheet from "./app.css?url";
 import AppBar from "./components/AppBar.js";
-import LoginForm from "./components/LoginForm.js";
+import Login from "./components/Login.js";
 
 initKeycloak({
   url: "http://main-keycloak.localhost:8080",
@@ -34,14 +33,8 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export const clientLoader = async (args: Route.ClientLoaderArgs) => {
-  // const user = await getUser();
-  // user?.access_token;
-
-  const user = await getKeycloakUser();
-
   return {
     ...(await loadOIDCRoot(args as ClientLoaderFunctionArgs)),
-    user,
   };
 };
 
@@ -77,16 +70,8 @@ export default function App() {
 }
 
 export const ErrorBoundary = withHandleAuthErrorBoundary(
-  // () => (
-  //   <LoginRedirect
-  //     {...{
-  //       intent: "redirect",
-  //       "extraQueryParams.kc_idp_hint": "suomi-fi",
-  //     }}
-  //   />
-  // ),
-  LoginForm,
-  function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  Login,
+  function ErrorBoundary({ error }) {
     let message: string | undefined;
     let details: string | undefined;
     let stack: string | undefined;

@@ -7,8 +7,9 @@ import {
   IsAuthenticated,
   type KeycloakUser,
 } from "@postinumero/react-router-oidc-client/keycloak";
-import type { Route } from "./+types/home.js";
+import options from "@postinumero/react-router-oidc-client/options";
 import { Link } from "react-router";
+import type { Route } from "./+types/home.js";
 
 export const clientLoader = async () => {
   const user = await getKeycloakUser();
@@ -17,8 +18,6 @@ export const clientLoader = async () => {
 };
 
 export default function Home({ loaderData: { user } }: Route.ComponentProps) {
-  //const user = useKeycloakUser();
-
   return (
     <>
       <div className="pt-16 pb-4">[Public home route]</div>
@@ -28,11 +27,17 @@ export default function Home({ loaderData: { user } }: Route.ComponentProps) {
             <Welcome />
             <Info>User is not authenticated</Info>
             <Link
-              to="/login"
+              to={options.routes.login}
               className="text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pb-4"
             >
               Login (form)
             </Link>
+            <LoginLink
+              data={{ intent: "redirect" }}
+              className="text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pb-4"
+            >
+              Login (redirect flow)
+            </LoginLink>
             <LoginLink
               data={{
                 intent: "redirect",
@@ -40,21 +45,19 @@ export default function Home({ loaderData: { user } }: Route.ComponentProps) {
               }}
               className="text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
-              Login (redirect flow)
+              Login (redirect flow with IDP hint)
             </LoginLink>
           </>
         }
       >
         <Greeting user={user!} />
-        <HasRole foo fallback={<Info>User has no role "foo"</Info>} />
+        <HasRole foo fallback={<Info>User does not have role "foo"</Info>} />
       </IsAuthenticated>
       <HasRole user viewer editor>
-        <Info>User has roles "user", "editor" & "viewer"</Info>
+        <Info>User has roles "user", "editor", & "viewer"</Info>
       </HasRole>
       <HasRealmRole user viewer>
-        <Info>
-          User has <em>realm</em> roles "user" & "viewer"
-        </Info>
+        <Info>User has realm roles "user" & "viewer"</Info>
       </HasRealmRole>
       <HasResourceRole example-client={["user", "editor"]}>
         <Info>User has "example-client" resource roles "user" & "editor"</Info>
