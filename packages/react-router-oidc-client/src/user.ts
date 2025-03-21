@@ -1,8 +1,8 @@
+import { unauthorized } from "assert-response";
 import { camelCase } from "lodash-es";
 import { User, UserManager } from "oidc-client-ts";
 import { useEffect, useSyncExternalStore } from "react";
 import { useRevalidator } from "react-router";
-import { authorized } from "./response.js";
 
 export const asyncUserManager = Promise.withResolvers<UserManager>();
 
@@ -125,7 +125,7 @@ export async function actUserManager(
     await userManager[method](data);
   } catch (error) {
     if (error instanceof Error) {
-      authorized(false, error.message);
+      unauthorized(true, error.message);
     }
   }
 }

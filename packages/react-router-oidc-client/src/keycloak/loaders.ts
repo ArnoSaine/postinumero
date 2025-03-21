@@ -1,8 +1,8 @@
+import { allowed } from "assert-response";
 import {
   ClientActionFunctionArgs,
   ClientLoaderFunctionArgs,
 } from "react-router";
-import { allowed } from "../index.js";
 import * as base from "../loaders.js";
 import { loadHasRealmRole, loadHasResourceRole, loadHasRole } from "./is.js";
 import { getKeycloakUser } from "./user.js";

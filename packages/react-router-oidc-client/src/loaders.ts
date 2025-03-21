@@ -1,3 +1,4 @@
+import { authorized } from "assert-response";
 import {
   ClientActionFunctionArgs,
   ClientLoaderFunctionArgs,
@@ -5,7 +6,6 @@ import {
 } from "react-router";
 import { loadIsAuthenticated } from "./is.js";
 import options from "./options.js";
-import { authorized } from "./response.js";
 import { asyncUserManager, getUser } from "./user.js";
 import { hasAuthParams } from "./utils.js";
 
@@ -15,7 +15,7 @@ export async function authenticated(
   const user = await getUser();
   const isAuthenticated = await loadIsAuthenticated(args);
 
-  authorized(isAuthenticated({ authenticated: true }));
+  authorized(isAuthenticated({ authenticated: true }), "");
 
   return user!;
 }
