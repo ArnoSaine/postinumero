@@ -1,11 +1,14 @@
 import {
+  actUserManager,
+  getRedirectURI,
+  options,
+  parseAndUnflatFormData,
+} from "@postinumero/react-router-oidc-client";
+import {
   ClientActionFunction,
   ClientLoaderFunction,
   replace,
 } from "react-router";
-import { actUserManager, getRedirectURI } from "../index.js";
-import options from "../options.js";
-import { parseAndUnflatFormData } from "../utils.js";
 
 export const clientAction: ClientActionFunction = async (args) => {
   const url = new URL(args.request.url);

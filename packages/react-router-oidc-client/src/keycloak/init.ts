@@ -1,9 +1,9 @@
+import { asyncUserManager } from "@postinumero/react-router-oidc-client";
 import {
   UserManager,
   UserManagerSettings,
   WebStorageStateStore,
 } from "oidc-client-ts";
-import { asyncUserManager } from "../index.js";
 
 export default function initKeycloak(
   settings: {

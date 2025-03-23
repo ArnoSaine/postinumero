@@ -1,6 +1,6 @@
+import { getUser, useUser } from "@postinumero/react-router-oidc-client";
 import { jwtDecode } from "jwt-decode";
 import { User } from "oidc-client-ts";
-import { getUser, useUser } from "../index.js";
 
 export interface Roles {
   roles: string[];

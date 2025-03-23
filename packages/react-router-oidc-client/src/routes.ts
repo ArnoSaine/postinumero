@@ -1,5 +1,5 @@
+import { options } from "@postinumero/react-router-oidc-client/options";
 import { RouteConfigEntry, route } from "@react-router/dev/routes";
-import options from "./options.js";
 
 const auth: RouteConfigEntry[] = [
   route(

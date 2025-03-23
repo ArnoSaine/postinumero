@@ -1,6 +1,6 @@
+import { useLoginLocation } from "@postinumero/react-router-oidc-client";
 import { ComponentType } from "react";
 import { FormProps, Form as RouterForm } from "react-router";
-import { useLoginLocation } from "../hooks.js";
 
 export default function LoginForm({
   component: Form = RouterForm,

@@ -1,7 +1,11 @@
+import {
+  getRedirectURI,
+  locationString,
+  options,
+  redirectURISearchParams,
+  useLocationString,
+} from "@postinumero/react-router-oidc-client";
 import { LinkProps, useLocation, useSearchParams } from "react-router";
-import options from "./options.js";
-import { getRedirectURI, redirectURISearchParams } from "./searchParams.js";
-import { locationString, useLocationString } from "./utils.js";
 
 export function useIsLoginRoute() {
   const location = useLocation();

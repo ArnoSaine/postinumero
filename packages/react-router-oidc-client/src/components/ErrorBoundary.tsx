@@ -1,3 +1,7 @@
+import {
+  hasLogoutIntentParam,
+  options,
+} from "@postinumero/react-router-oidc-client";
 import { useEffect } from "react";
 import {
   isRouteErrorResponse,
@@ -6,8 +10,6 @@ import {
   useSearchParams,
 } from "react-router";
 import { CreateErrorBoundaryProps } from "react-router/route-module";
-import options from "../options.js";
-import { hasLogoutIntentParam } from "../searchParams.js";
 
 export const withHandleAuthErrorBoundary = (
   UnauthorizedErrorBoundary: React.ComponentType<CreateErrorBoundaryProps<any>>,

@@ -1,10 +1,10 @@
-import { ComponentType } from "react";
-import { FormProps, Form as RouterForm } from "react-router";
-import options from "../options.js";
 import {
+  options,
   redirectURISearchParams,
   setSearchParamLogoutIntent,
-} from "../searchParams.js";
+} from "@postinumero/react-router-oidc-client";
+import { ComponentType } from "react";
+import { FormProps, Form as RouterForm } from "react-router";
 
 export default function LogoutForm({
   component: Form = RouterForm,

@@ -24,6 +24,7 @@
   "exports": {
     ".": "./lib/index.js",
     "./components": "./lib/components/index.js",
+    "./components/*": "./lib/components/*.js",
     "./keycloak": "./lib/keycloak/index.js",
     "./keycloak/*": "./lib/keycloak/*.js",
     "./routes/*": "./lib/routes/*.js",

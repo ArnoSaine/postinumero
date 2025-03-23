@@ -1,6 +1,6 @@
 import { createFromLoader, toBooleanValues } from "@arnosaine/is";
-import options from "../options.js";
-import { getKeycloakUser } from "./user.js";
+import { getKeycloakUser } from "@postinumero/react-router-oidc-client/keycloak";
+import { options } from "@postinumero/react-router-oidc-client/options";
 
 export * from "../is.js";
 

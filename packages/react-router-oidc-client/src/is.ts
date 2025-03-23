@@ -1,6 +1,6 @@
 import { createFromLoader } from "@arnosaine/is";
-import options from "./options.js";
-import { getUser } from "./user.js";
+import { getUser } from "@postinumero/react-router-oidc-client";
+import { options } from "@postinumero/react-router-oidc-client/options";
 
 export const isAuthenticatedConstructorDefaultArgs = [
   async () => ({ authenticated: Boolean(await getUser()) }),

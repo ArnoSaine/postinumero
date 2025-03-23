@@ -1,13 +1,16 @@
+import {
+  asyncUserManager,
+  getUser,
+  hasAuthParams,
+  loadIsAuthenticated,
+  options,
+} from "@postinumero/react-router-oidc-client";
 import { authorized } from "assert-response";
 import {
   ClientActionFunctionArgs,
   ClientLoaderFunctionArgs,
   replace,
 } from "react-router";
-import { loadIsAuthenticated } from "./is.js";
-import options from "./options.js";
-import { asyncUserManager, getUser } from "./user.js";
-import { hasAuthParams } from "./utils.js";
 
 export async function authenticated(
   args: ClientActionFunctionArgs | ClientLoaderFunctionArgs,

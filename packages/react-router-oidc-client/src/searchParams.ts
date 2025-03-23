@@ -1,6 +1,6 @@
+import { options } from "@postinumero/react-router-oidc-client";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router";
-import options from "./options.js";
 
 // Remove the search param in the app root.
 // The loader must not remove the search param because ErrorBoundary checks the

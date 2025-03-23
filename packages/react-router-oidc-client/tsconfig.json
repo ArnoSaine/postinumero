@@ -1,7 +1,25 @@
 {
   "extends": "../../tsconfig.base",
   "compilerOptions": {
-    "outDir": "lib"
+    "outDir": "lib",
+    "paths": {
+      "@postinumero/react-router-oidc-client": ["./src/index.js"],
+      "@postinumero/react-router-oidc-client/components": [
+        "./src/components/index.js"
+      ],
+      "@postinumero/react-router-oidc-client/components/*": [
+        "./src/components/*.js"
+      ],
+      "@postinumero/react-router-oidc-client/keycloak": [
+        "./src/keycloak/index.js"
+      ],
+      "@postinumero/react-router-oidc-client/keycloak/*": [
+        "./src/keycloak/*.js"
+      ],
+      "@postinumero/react-router-oidc-client/routes": ["./src/routes/index.js"],
+      "@postinumero/react-router-oidc-client/routes/*": ["./src/routes/*.js"],
+      "@postinumero/react-router-oidc-client/*": ["./src/*.js"]
+    }
   },
   "include": ["src"]
 }

@@ -1,12 +1,16 @@
 import { toBooleanValues } from "@arnosaine/is";
+import * as base from "@postinumero/react-router-oidc-client";
+import {
+  getKeycloakUser,
+  loadHasRealmRole,
+  loadHasResourceRole,
+  loadHasRole,
+} from "@postinumero/react-router-oidc-client/keycloak";
 import { allowed } from "assert-response";
 import {
   ClientActionFunctionArgs,
   ClientLoaderFunctionArgs,
 } from "react-router";
-import * as base from "../loaders.js";
-import { loadHasRealmRole, loadHasResourceRole, loadHasRole } from "./is.js";
-import { getKeycloakUser } from "./user.js";
 
 export async function authenticated(
   args: ClientActionFunctionArgs | ClientLoaderFunctionArgs,

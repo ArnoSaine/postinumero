@@ -1,5 +1,5 @@
+import { asyncUserManager } from "@postinumero/react-router-oidc-client";
 import { ClientLoaderFunction } from "react-router";
-import { asyncUserManager } from "../index.js";
 
 export const clientLoader: ClientLoaderFunction = async () => {
   const userManager = await asyncUserManager.promise;

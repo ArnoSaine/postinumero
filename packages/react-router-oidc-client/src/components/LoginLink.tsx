@@ -1,6 +1,6 @@
+import { useLoginLoaderLocation } from "@postinumero/react-router-oidc-client";
 import { ComponentType } from "react";
 import { LinkProps, Link as RouterLink } from "react-router";
-import { useLoginLoaderLocation } from "../hooks.js";
 
 export default function LoginLink({
   component: Link = RouterLink,
