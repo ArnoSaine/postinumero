@@ -1,4 +1,6 @@
 import {
+  oidc_ssr_clientMiddleware,
+  oidc_ssr_middleware,
   useRemoveLogoutIntentSearchParam,
   useRevalidateUser,
   withHandleAuthErrorBoundary,
@@ -15,7 +17,6 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  type ClientLoaderFunctionArgs,
 } from "react-router";
 import type { Route } from "./+types/root.js";
 import stylesheet from "./app.css?url";
@@ -23,7 +24,7 @@ import AppBar from "./components/AppBar.js";
 import Login from "./components/Login.js";
 
 initKeycloak({
-  url: "http://main-keycloak.localhost:8080",
+  url: "http://localhost:8080",
   realm: "example",
   client_id: "example-client",
 });
@@ -32,11 +33,23 @@ export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
 
-export const clientLoader = async (args: Route.ClientLoaderArgs) => {
+export const unstable_middleware = [oidc_ssr_middleware];
+export const unstable_clientMiddleware = [oidc_ssr_clientMiddleware];
+
+export const loader = async (args: Route.LoaderArgs) => {
   return {
-    ...(await loadOIDCRoot(args as ClientLoaderFunctionArgs)),
+    ...(await loadOIDCRoot(args)),
   };
 };
+
+export const clientLoader = async (args: Route.ClientLoaderArgs) => {
+  return {
+    ...(await loadOIDCRoot(args)),
+  };
+};
+
+// For redirect login flow
+clientLoader.hydrate = true;
 
 export function Layout({ children }: PropsWithChildren) {
   useRevalidateUser();

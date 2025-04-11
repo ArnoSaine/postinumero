@@ -7,8 +7,6 @@ Provides hooks and utilities for managing authentication in a React Router appli
 - 🔗 **Keycloak support with role-based access controls**
 - 📌 **See the [example](/example) for a complete implementation**
 
----
-
 ## Setup
 
 ### 1. Configure Authentication in `root.tsx`
@@ -23,7 +21,7 @@ import {
 // Load authentication state for the client
 export const clientLoader = async (args: Route.ClientLoaderArgs) => {
   return {
-    ...(await loadOIDCRoot(args as ClientLoaderFunctionArgs)),
+    ...(await loadOIDCRoot(args)),
   };
 };
 
@@ -110,8 +108,6 @@ export const ErrorBoundary = withHandleAuthErrorBoundary(
 );
 ```
 
----
-
 ## Keycloak Integration
 
 ### 1. Initialize Keycloak
@@ -132,12 +128,54 @@ initKeycloak({
 
 export const clientLoader = async (args: Route.ClientLoaderArgs) => {
   return {
-    ...(await loadOIDCRoot(args as ClientLoaderFunctionArgs)),
+    ...(await loadOIDCRoot(args)),
   };
 };
 ```
 
----
+## Server Side Rendering
+
+### 1. Add server and client `middleware`s, add `loader`, add `clientLoader.hydrate`
+
+In `root.tsx`:
+
+```ts
+import {
+  loadOIDCRoot,
+  oidc_ssr_clientMiddleware,
+  oidc_ssr_middleware,
+} from "@postinumero/react-router-oidc-client";
+
+export const unstable_middleware = [oidc_ssr_middleware];
+export const unstable_clientMiddleware = [oidc_ssr_clientMiddleware];
+
+export const loader = async (args: Route.LoaderArgs) => {
+  return {
+    ...(await loadOIDCRoot(args)),
+  };
+};
+
+export const clientLoader = async (args: Route.ClientLoaderArgs) => {
+  return {
+    ...(await loadOIDCRoot(args)),
+  };
+};
+
+// For redirect login flow
+clientLoader.hydrate = true;
+```
+
+### 2. Protect routes in loaders and actions
+
+```ts
+import { authenticated } from "@postinumero/react-router-oidc-client";
+
+export const loader = async (args: Route.LoaderArgs) => {
+  await authenticated(args);
+
+  return null;
+};
+```
 
 ## API Reference
 
@@ -310,12 +348,10 @@ Ensure a route is only accessible when authenticated.
 import { authenticated } from "@postinumero/react-router-oidc-client";
 
 export const clientLoader = async (args: Route.ClientLoaderArgs) => {
-  const user = await authenticated(args as ClientLoaderFunctionArgs);
+  const user = await authenticated(args);
   // ...
 };
 ```
-
----
 
 ### Keycloak-Specific API
 
@@ -400,7 +436,7 @@ Require specific roles for a protected route.
 import { authenticated } from "@postinumero/react-router-oidc-client/keycloak";
 
 export const clientLoader = async (args: Route.ClientLoaderArgs) => {
-  const user = await authenticated(args as ClientLoaderFunctionArgs, {
+  const user = await authenticated(args, {
     realmRoles: ["viewer"],
     resourceRoles: { "example-client": ["user", "editor"] },
   });

@@ -1,4 +1,4 @@
-import { toBooleanValues } from "@arnosaine/is";
+import { DataFunctionArgs, toBooleanValues } from "@arnosaine/is";
 import * as base from "@postinumero/react-router-oidc-client";
 import {
   getKeycloakUser,
@@ -7,13 +7,9 @@ import {
   loadHasRole,
 } from "@postinumero/react-router-oidc-client/keycloak";
 import { allowed } from "assert-response";
-import {
-  ClientActionFunctionArgs,
-  ClientLoaderFunctionArgs,
-} from "react-router";
 
 export async function authenticated(
-  args: ClientActionFunctionArgs | ClientLoaderFunctionArgs,
+  args: DataFunctionArgs,
   roles?: {
     realmRoles?: string[];
     resourceRoles?: { [clientId: string]: string[] };
@@ -34,13 +30,13 @@ export async function authenticated(
   return user;
 }
 
-export async function loadOIDCRoot(args: ClientLoaderFunctionArgs) {
+export async function loadOIDCRoot(args: DataFunctionArgs) {
   await base.loadOIDCRoot(args);
 
   return loadOIDCRootValues(args);
 }
 
-export async function loadOIDCRootValues(args: ClientLoaderFunctionArgs) {
+export async function loadOIDCRootValues(args: DataFunctionArgs) {
   const hasRealmRole = await loadHasRealmRole(args);
   const hasResourceRole = await loadHasResourceRole(args);
   const hasRole = await loadHasRole(args);

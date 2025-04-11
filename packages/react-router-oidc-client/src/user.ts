@@ -1,8 +1,9 @@
 import { unauthorized } from "assert-response";
-import { camelCase } from "lodash-es";
+import { camelCase, isEqual } from "lodash-es";
 import { User, UserManager } from "oidc-client-ts";
-import { useEffect, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import { useRevalidator } from "react-router";
+import { useEffectAfterMount } from "./utils.js";
 
 export const asyncUserManager = Promise.withResolvers<UserManager>();
 
@@ -17,9 +18,8 @@ export function useRevalidateUser() {
   const { revalidate } = useRevalidator();
   const user = useUser();
 
-  useEffect(() => {
-    // FIXME: Clash with login / logout
-    setTimeout(revalidate, 1000);
+  useEffectAfterMount(() => {
+    revalidate();
   }, [user]);
 }
 
@@ -61,7 +61,13 @@ const getSnapshot = () => user;
 function subscribe(callback: () => void) {
   async function handleUserManagerEvent() {
     const userManager = await asyncUserManager.promise;
-    user = await userManager.getUser();
+    const nextUser = await userManager.getUser();
+
+    if (isEqual(user, nextUser)) {
+      return;
+    }
+
+    user = nextUser;
 
     callback();
   }

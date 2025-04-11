@@ -1,3 +1,4 @@
+import { DataFunctionArgs } from "@arnosaine/is";
 import {
   asyncUserManager,
   getUser,
@@ -6,15 +7,9 @@ import {
   options,
 } from "@postinumero/react-router-oidc-client";
 import { authorized } from "assert-response";
-import {
-  ClientActionFunctionArgs,
-  ClientLoaderFunctionArgs,
-  replace,
-} from "react-router";
+import { replace } from "react-router";
 
-export async function authenticated(
-  args: ClientActionFunctionArgs | ClientLoaderFunctionArgs,
-) {
+export async function authenticated(args: DataFunctionArgs) {
   const user = await getUser();
   const isAuthenticated = await loadIsAuthenticated(args);
 
@@ -23,13 +18,13 @@ export async function authenticated(
   return user!;
 }
 
-export async function loadOIDCRoot(args: ClientLoaderFunctionArgs) {
+export async function loadOIDCRoot(args: DataFunctionArgs) {
   await removeAuthParamsReplace(args);
 
   return loadOIDCRootValues(args);
 }
 
-export async function loadOIDCRootValues(args: ClientLoaderFunctionArgs) {
+export async function loadOIDCRootValues(args: DataFunctionArgs) {
   const isAuthenticated = await loadIsAuthenticated(args);
 
   return {
@@ -37,12 +32,10 @@ export async function loadOIDCRootValues(args: ClientLoaderFunctionArgs) {
   };
 }
 
-export async function removeAuthParamsReplace({
-  request,
-}: ClientLoaderFunctionArgs) {
+export async function removeAuthParamsReplace({ request }: DataFunctionArgs) {
   const url = new URL(request.url);
 
-  if (hasAuthParams(url)) {
+  if (typeof document !== "undefined" && hasAuthParams(url)) {
     try {
       const userManager = await asyncUserManager.promise;
       await userManager.signinCallback();

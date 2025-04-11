@@ -1,3 +1,5 @@
+import { UserManagerSettingsStore } from "oidc-client-ts";
+
 export const options = {
   fallbackRoute: "/",
   isProps: {
@@ -25,6 +27,11 @@ export const options = {
     logout: "/logout",
     logoutCallback: "/logout-callback",
   },
+  cookie: "token",
+  jwtVerifyOptions: (settings: UserManagerSettingsStore) => ({
+    issuer: settings.authority,
+    //audience: userManager.settings.client_id,
+  }),
 };
 
 export default options;

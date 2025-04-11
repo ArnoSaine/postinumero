@@ -1,8 +1,9 @@
 import { unflatten } from "flat";
+import { useEffect, useRef } from "react";
 import {
   ActionFunctionArgs,
   ClientActionFunctionArgs,
-  Location,
+  createPath,
   useLocation,
 } from "react-router";
 
@@ -34,7 +35,18 @@ export async function parseAndUnflatFormData(
   >;
 }
 
-export const useLocationString = () => locationString(useLocation());
+export const useLocationString = () => createPath(useLocation());
 
-export const locationString = (url: URL | Location) =>
-  `${url.pathname}${url.search}${url.hash}`;
+export const useEffectAfterMount: typeof useEffect = (action, deps = []) => {
+  const isMountedRef = useRef(false);
+  useEffect(() => {
+    if (isMountedRef.current) {
+      return action();
+    }
+
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, deps);
+};

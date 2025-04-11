@@ -1,23 +1,15 @@
 import { LoginLink } from "@postinumero/react-router-oidc-client";
 import {
-  getKeycloakUser,
   HasRealmRole,
   HasResourceRole,
   HasRole,
   IsAuthenticated,
-  type KeycloakUser,
+  useKeycloakUser,
 } from "@postinumero/react-router-oidc-client/keycloak";
 import options from "@postinumero/react-router-oidc-client/options";
 import { Link } from "react-router";
-import type { Route } from "./+types/home.js";
 
-export const clientLoader = async () => {
-  const user = await getKeycloakUser();
-
-  return { user };
-};
-
-export default function Home({ loaderData: { user } }: Route.ComponentProps) {
+export default function Home() {
   return (
     <>
       <div className="pt-16 pb-4">[Public home route]</div>
@@ -50,7 +42,7 @@ export default function Home({ loaderData: { user } }: Route.ComponentProps) {
           </>
         }
       >
-        <Greeting user={user!} />
+        <Greeting />
         <HasRole foo fallback={<Info>User does not have role "foo"</Info>} />
       </IsAuthenticated>
       <HasRole user viewer editor>
@@ -79,6 +71,8 @@ function Welcome() {
   return <div className="text-2xl pb-4">Welcome, please log in</div>;
 }
 
-function Greeting({ user }: { user: KeycloakUser }) {
-  return <div className="text-2xl pb-4">Hi, {user.given_name}!</div>;
+function Greeting() {
+  const user = useKeycloakUser();
+
+  return user && <div className="text-2xl pb-4">Hi, {user.given_name}!</div>;
 }

@@ -1,25 +1,37 @@
-import { asyncUserManager } from "@postinumero/react-router-oidc-client";
+import {
+  asyncJWKS,
+  asyncUserManager,
+} from "@postinumero/react-router-oidc-client";
+import { createRemoteJWKSet } from "jose";
 import {
   UserManager,
   UserManagerSettings,
   WebStorageStateStore,
 } from "oidc-client-ts";
 
-export default function initKeycloak(
-  settings: {
-    url: string;
-    realm: string;
-  } & Pick<UserManagerSettings, "client_id"> &
-    Partial<UserManagerSettings>,
-) {
-  if (typeof localStorage !== "undefined") {
-    asyncUserManager.resolve(
-      new UserManager({
-        authority: `${settings.url}/realms/${settings.realm}`,
-        redirect_uri: "",
-        userStore: new WebStorageStateStore({ store: localStorage }),
-        ...settings,
-      }),
-    );
-  }
+export default function initKeycloak({
+  url,
+  realm,
+  ...otherSettings
+}: {
+  url: string;
+  realm: string;
+} & Pick<UserManagerSettings, "client_id"> &
+  Partial<UserManagerSettings>) {
+  const userManager = new UserManager({
+    authority: `${url}/realms/${realm}`,
+    redirect_uri: "",
+    userStore:
+      typeof localStorage === "undefined"
+        ? undefined
+        : new WebStorageStateStore({ store: localStorage }),
+    ...otherSettings,
+  });
+
+  const JWKS = createRemoteJWKSet(
+    new URL(`${userManager.settings.authority}/protocol/openid-connect/certs`),
+  );
+
+  asyncUserManager.resolve(userManager);
+  asyncJWKS.resolve(JWKS);
 }

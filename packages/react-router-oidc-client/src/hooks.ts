@@ -1,11 +1,16 @@
 import {
   getRedirectURI,
-  locationString,
   options,
   redirectURISearchParams,
   useLocationString,
 } from "@postinumero/react-router-oidc-client";
-import { LinkProps, useLocation, useSearchParams } from "react-router";
+import {
+  createPath,
+  LinkProps,
+  parsePath,
+  useLocation,
+  useSearchParams,
+} from "react-router";
 
 export function useIsLoginRoute() {
   const location = useLocation();
@@ -38,13 +43,11 @@ export function useLoginLinkProps(): LinkProps {
 
 export function useLoginLocation(route = options.routes.login) {
   const [searchParams] = useSearchParams();
-  const locationStr = useLocationString();
+  const locationString = useLocationString();
   const isLoginRoute = useIsLoginRoute();
 
-  const url = new URL(route, location.toString());
-
   // Set redirect after successful login
-  url.searchParams.set(
+  searchParams.set(
     options.searchParamsAndOptions.redirectURI.name,
     // Redirect to URI from search params
     getRedirectURI(searchParams) ??
@@ -53,22 +56,27 @@ export function useLoginLocation(route = options.routes.login) {
         ? // On login route, use fallback route option
           options.fallbackRoute
         : // Otherwise, use current route
-          locationStr),
+          locationString),
   );
 
-  return locationString(url);
+  return createPath({
+    ...useLocation(),
+    pathname: route,
+    search: searchParams.toString(),
+  });
 }
 
 export function useLoginLoaderLocation(data: Record<string, string>) {
-  const url = new URL(
-    useLoginLocation(options.routes.loginLoader),
-    location.toString(),
-  );
+  const location = parsePath(useLoginLocation(options.routes.loginLoader));
+
+  const searchParams = new URLSearchParams(location.search);
 
   // Add data params
   for (const [key, value] of Object.entries(data)) {
-    url.searchParams.append(key, value);
+    searchParams.append(key, value);
   }
 
-  return locationString(url);
+  location.search = searchParams.toString();
+
+  return createPath(location);
 }
