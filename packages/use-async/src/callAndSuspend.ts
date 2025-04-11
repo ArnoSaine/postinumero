@@ -12,7 +12,9 @@ function call<Func extends Fn>(
     memoized.cancel();
   }
   const result = func(...funcArgs);
-  return isAsyncIterator(result) ? callAsyncIterator(result, memoized) : result;
+  return isAsyncIterator(result)
+    ? (callAsyncIterator(result, memoized) as ReturnType<Func>)
+    : result;
 }
 
 async function createSuspenderAndCall<Func extends Fn>(
