@@ -2,6 +2,10 @@
   "name": "@postinumero/root",
   "private": true,
   "license": "ISC",
+  "author": {
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
+  },
   "type": "module",
   "workspaces": [
     "demos/*",

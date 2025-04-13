@@ -6,11 +6,14 @@
       "outputs": ["build/**", "dist/**", "lib/**"]
     },
     "test": {
-      "dependsOn": ["lint", "build"],
+      "dependsOn": ["lint", "typecheck", "build"],
       "outputs": [],
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", "test/**/*.tsx"]
     },
     "lint": {
+      "outputs": []
+    },
+    "typecheck": {
       "outputs": []
     },
     "deploy": {

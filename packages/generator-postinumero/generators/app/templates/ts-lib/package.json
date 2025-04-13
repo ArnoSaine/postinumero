@@ -1,0 +1,36 @@
+{
+  "name": "<%= name %>",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/<%= path %>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArnoSaine/postinumero.git",
+    "directory": "packages/<%= path %>"
+  },
+  "license": "<%= license %>",
+  "author": {
+    "name": "<%= author.name %>",
+    "email": "<%= author.email %>"
+  },
+  "type": "module",
+  "exports": "./lib/main.js",
+  "bin": "./lib/bin/main.js",
+  "files": [
+    "lib",
+    "src",
+    "!src/**/*.test.*"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.lib.json",
+    "dev": "npm run build -- --watch",
+    "test": "node --experimental-strip-types --disable-warning=ExperimentalWarning --test './src/**/*.test.ts'",
+    "typecheck": "npm run build -- --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "typescript": "^5.8.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
