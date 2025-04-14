@@ -110,8 +110,6 @@ export const ErrorBoundary = withHandleAuthErrorBoundary(
 
 ## Keycloak Integration
 
-### 1. Initialize Keycloak
-
 In `root.tsx`:
 
 ```tsx
@@ -428,7 +426,7 @@ export default function Component() {
 }
 ```
 
-### Keycloak Protected Route
+#### Keycloak Protected Route
 
 Require specific roles for a protected route.
 
