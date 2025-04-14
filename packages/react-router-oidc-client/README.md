@@ -40,7 +40,7 @@ export default function App() {
 }
 ```
 
-### 2. Define Authentication Routes
+### 2. Define Authentication Routes in `routes.ts`
 
 Add authentication-related routes from the package.
 
