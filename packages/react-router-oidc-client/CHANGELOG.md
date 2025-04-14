@@ -1,5 +1,11 @@
 # @postinumero/react-router-oidc-client
 
+## 0.2.1
+
+### Patch Changes
+
+- ad078df: Enable SSR support
+
 ## 0.2.0
 
 ### Minor Changes
