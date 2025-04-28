@@ -1,5 +1,11 @@
 # @postinumero/config
 
+## 0.4.1
+
+### Patch Changes
+
+- c07d190: Publish
+
 ## 0.4.0
 
 ### Minor Changes
