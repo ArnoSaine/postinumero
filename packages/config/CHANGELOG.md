@@ -1,5 +1,16 @@
 # @postinumero/config
 
+## 0.4.0
+
+### Minor Changes
+
+- d6c83f0: - Rename source `env` to `global`
+  - Rename source `runtime` to `fetch`
+  - Remove support for removing environment variable name prefix
+  - `env` source: Remove `init` API
+  - `fetch` source: Remove `VITE_RUNTIME_CONFIG_URL` and `BASE_URL`
+  - Add `file` source
+
 ## 0.3.1
 
 ### Patch Changes

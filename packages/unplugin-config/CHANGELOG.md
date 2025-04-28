@@ -1,5 +1,12 @@
 # @postinumero/unplugin-config
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [d6c83f0]
+  - @postinumero/config@0.4.0
+
 ## 0.2.0
 
 ### Minor Changes
