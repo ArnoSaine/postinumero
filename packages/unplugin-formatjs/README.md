@@ -10,7 +10,7 @@ Preconfigured. Minimal setup.
 ## Install
 
 ```bash
-npm i @postinumero/unplugin-formatjs
+npm i @postinumero/unplugin-formatjs --save-dev
 ```
 
 <details>
@@ -130,8 +130,8 @@ By default `preserveWhitespace` is `true`, and `removeDefaultMessage` is `true` 
 
 Set `options.swc` to `false` to disable transforming source files.
 
-See [`babel-plugin-formatjs`](https://formatjs.github.io/docs/tooling/babel-plugin) for other options.
+See [`babel-plugin-formatjs`](https://formatjs.github.io/docs/tooling/babel-plugin) for other available options.
 
-### `messages`
+### `processMessages`
 
-Set `options.messages` to `false` to disable message extraction and compilation.
+Set `options.processMessages` to `false` to disable message extraction and compilation.
