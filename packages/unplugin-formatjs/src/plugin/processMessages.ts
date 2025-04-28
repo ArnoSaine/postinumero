@@ -1,4 +1,4 @@
-import { processMessages } from "@postinumero/formatjs-tools/commands";
+import { processMessages } from "@postinumero/formatjs-tools/commands/process-messages";
 import type { UnpluginFactory } from "unplugin";
 import { createUnplugin } from "unplugin";
 import { Options } from "../types.ts";
