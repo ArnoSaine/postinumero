@@ -8,6 +8,7 @@
       "react": { "runtime": "automatic" }
     },
     "experimental": {
+      "cacheRoot": "node_modules/.cache/swc",
       "plugins": [
         [
           "@swc/plugin-formatjs",

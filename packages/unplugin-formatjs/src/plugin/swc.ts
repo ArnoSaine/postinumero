@@ -46,6 +46,7 @@ export const unpluginFactory: UnpluginFactory<
             syntax: ["ts", "tsx"].includes(ext) ? "typescript" : "ecmascript",
           },
           experimental: {
+            cacheRoot: "node_modules/.cache/swc",
             plugins: [["@swc/plugin-formatjs", options]],
           },
         },
