@@ -1,0 +1,30 @@
+{
+  "name": "formatjs-tools-example-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "aggregate": "formatjs-tools aggregate",
+    "aggregate (debug)": "formatjs-tools aggregate --log-level debug --clean",
+    "collect": "formatjs-tools collect",
+    "collect (debug)": "formatjs-tools collect --log-level debug --clean",
+    "compile": "formatjs-tools compile",
+    "compile (debug)": "formatjs-tools compile --log-level debug --clean",
+    "compile (public)": "formatjs-tools compile --out-dir public/.compiled-lang --hash",
+    "config": "formatjs-tools config",
+    "config (debug)": "formatjs-tools config --log-level debug --clean",
+    "extract": "formatjs-tools extract",
+    "extract (debug)": "formatjs-tools extract --log-level debug --clean",
+    "extract (legacy)": "formatjs-tools extract --out-file lang/en-DEFAULT.json",
+    "merge": "formatjs-tools merge",
+    "merge (debug)": "formatjs-tools merge --log-level debug --clean",
+    "process-messages": "formatjs-tools process-messages",
+    "process-messages (debug)": "formatjs-tools process-messages --log-level debug --clean"
+  },
+  "dependencies": {
+    "formatjs-tools-example-lib": "*",
+    "react-router": "^7.5.1"
+  },
+  "devDependencies": {
+    "@postinumero/formatjs-tools": "*"
+  }
+}

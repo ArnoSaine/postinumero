@@ -17,20 +17,14 @@
     "build": "turbo run build --filter=@postinumero/*",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "prepare": "husky install",
     "prettier": "prettier \"packages/*/{example{,s/*}/{app,src},src}/**/*.ts{,x}\" --write",
     "publish-packages": "turbo run build lint test --filter=@postinumero/* && changeset version && changeset publish",
     "start": "npm start --workspace=packages --if-present",
     "test": "turbo run test"
   },
-  "lint-staged": {
-    "*": "prettier --ignore-unknown --write",
-    "**/package.json": "sort-package-json"
-  },
   "devDependencies": {
     "@changesets/cli": "^2.25.2",
     "@types/node": "^22.14.0",
-    "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "sort-package-json": "^2.5.1",

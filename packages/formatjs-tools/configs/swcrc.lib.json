@@ -1,0 +1,23 @@
+{
+  "$schema": "https://swc.rs/schema.json",
+  "jsc": {
+    "parser": {
+      "syntax": "typescript"
+    },
+    "transform": {
+      "react": { "runtime": "automatic" }
+    },
+    "experimental": {
+      "plugins": [
+        [
+          "@swc/plugin-formatjs",
+          {
+            "preserveWhitespace": true,
+            "removeDefaultMessage": true
+          }
+        ]
+      ]
+    }
+  },
+  "sourceMaps": true
+}
