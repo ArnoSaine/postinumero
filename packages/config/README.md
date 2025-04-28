@@ -9,9 +9,9 @@ See also [@postinumero/unplugin-config](../unplugin-config).
 To use the configuration utility, simply import the desired source and format:
 
 ```ts
-import config from "@postinumero/config/env/runtime/awaited";
-//                                      ^^^^^^^^^^^ ^^^^^^^
-//                                      Sources     Format
+import config from "@postinumero/config/file/global/fetch/awaited";
+//                                      ^^^^^^^^^^^^^^^^^ ^^^^^^^
+//                                      Sources           Format
 
 console.log(config);
 ```
@@ -20,47 +20,39 @@ console.log(config);
 
 The configuration is derived from multiple sources. These sources are merged recursively, with priority given to sources listed later in the import path.
 
-#### `env`
+#### `file`
 
-The `env` source allows you to access configuration values directly from environment variables. The `VITE_` prefix is automatically stripped, variable names are unflattened into nested objects, and JSON values are parsed when possible. To remove another prefix or prefixes, import and modify `removePrefix` array from `@postinumero/config/env`.
+This source reads configuration at runtime from `/config.json`.
+
+```ts
+import config from "@postinumero/config/file/awaited";
+```
+
+#### `global`
+
+The `global` source allows you to access configuration values directly from environment variables. By default it reads values from `process.env`. Variable names are unflattened into nested objects, and JSON values are parsed when possible.
 
 **Example environment variables:**
 
 ```sh
-VITE_foo=true
-VITE_some.list=[1,2,3]
-VITE_some.list.1.prop=123
+foo=true
+some.list=[1,2,3]
+some.list.1.prop=123
 ```
 
-**Initialization in the app entry point:**
-
-To initialize the configuration with environment variables, call the `init` function:
-
 ```ts
-import { init } from "@postinumero/config/env/promise";
-
-init(import.meta.env); // Or init(process.env);
-
-// ...
-```
-
-**Accessing the configuration:**
-
-Once initialized, you can import and use the configuration in other parts of your application:
-
-```ts
-import config from "@postinumero/config/env/awaited";
+import config from "@postinumero/config/global/awaited";
 
 console.log(config.foo); // true
 console.log(config.some.list); // [1, { prop: 123 }, 3]
 ```
 
-#### `runtime`
+#### `fetch`
 
-This source fetches configuration at runtime from `BASE_URL + "config.json"`. Set `VITE_RUNTIME_CONFIG_URL` to use another URL.
+This source fetches configuration at runtime from `/config.json`.
 
 ```ts
-import config from "@postinumero/config/runtime/awaited";
+import config from "@postinumero/config/fetch/awaited";
 ```
 
 ### Formats

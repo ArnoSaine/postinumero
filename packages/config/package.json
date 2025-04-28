@@ -15,7 +15,6 @@
   },
   "type": "module",
   "exports": {
-    ".": "./lib/main.js",
     "./*": "./lib/*.js"
   },
   "files": [
@@ -32,10 +31,12 @@
     "test --watch": "node --test --watch"
   },
   "dependencies": {
+    "dotenv": "^16.5.0",
     "flat": "^6.0.1",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
+    "@types/node": "^22.14.1",
     "@types/recursive-readdir": "^2.2.4",
     "recursive-readdir": "^2.2.3",
     "replace-in-file": "^8.1.0",

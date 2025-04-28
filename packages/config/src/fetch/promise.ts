@@ -1,6 +1,10 @@
-const url: string =
-  import.meta.env?.VITE_RUNTIME_CONFIG_URL ??
-  (import.meta.env?.BASE_URL ?? "") + "config.json";
+// const url: string =
+//   import.meta.env?.VITE_RUNTIME_CONFIG_URL ??
+//   (import.meta.env?.BASE_URL ?? "") + "config.json";
+
+const url = "/config.json";
+// const url = "/__/config.json";
+// const url = "https://example.com/config.json";
 
 async function tryFetchConfig() {
   try {
