@@ -1,4 +1,5 @@
 import config from "@postinumero/config/file/global/awaited";
+import { ensureDir } from "fs-extra/esm";
 import { memoize } from "lodash-es";
 import { readdir } from "node:fs/promises";
 import path from "node:path";
@@ -49,7 +50,8 @@ export interface Config {
 }
 
 export const getConfig = memoize(async function getConfig() {
-  const langDirContents = await getLangDirContents();
+  await ensureDir(LANG_DIR);
+  const langDirContents = await getLangDirContents(LANG_DIR);
   const langDirEnvironments = langDirContents
     .filter(({ environment }) => environment)
     .map(({ environment }) => environment!)
@@ -99,8 +101,8 @@ export const getConfig = memoize(async function getConfig() {
   };
 });
 
-const getLangDirContents = async () =>
-  (await readdir(LANG_DIR))
+const getLangDirContents = async (dir: string) =>
+  (await readdir(dir))
     .map(path.parse)
     // Pathnames without extension
     .map(({ name }) => name)
