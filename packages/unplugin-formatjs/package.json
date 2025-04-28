@@ -1,7 +1,7 @@
 {
   "name": "@postinumero/unplugin-formatjs",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Preconfigured. Minimal setup.",
   "license": "ISC",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/unplugin-formatjs",
@@ -112,7 +112,7 @@
     }
   },
   "dependencies": {
-    "@postinumero/formatjs-tools": "^0.0.0",
+    "@postinumero/formatjs-tools": "^0.1.0",
     "@swc/core": "^1.11.21",
     "babel-plugin-formatjs": "^10.5.37",
     "unplugin": "^2.1.2"
