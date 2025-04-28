@@ -16,7 +16,6 @@
   "bin": "./lib/bin/main.js",
   "exports": {
     ".": "./lib/main.js",
-    "./commands": "./lib/commands/index.js",
     "./commands/*": "./lib/commands/*.js",
     "./configs/*": "./configs/*",
     "./utils/*": "./lib/utils/*.js",
