@@ -1,5 +1,11 @@
 # @postinumero/unplugin-formatjs
 
+## 0.1.2
+
+### Patch Changes
+
+- 0b55f51: Fix import
+
 ## 0.1.1
 
 ### Patch Changes
