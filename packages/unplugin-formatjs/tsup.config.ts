@@ -7,4 +7,12 @@ export default <Options>{
   dts: true,
   cjsInterop: true,
   splitting: true,
+  // For Babel
+  banner: ({ format }) => {
+    if (format === "esm")
+      return {
+        js: `import { createRequire } from 'module'; const require = createRequire(import.meta.url);`,
+      };
+    return {};
+  },
 };

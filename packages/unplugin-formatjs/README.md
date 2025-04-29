@@ -2,7 +2,7 @@
 
 Preconfigured. Minimal setup.
 
-- Interpolate message IDs
+- Inject message IDs
 - Remove `defaultMessage`s
 - Use [`react-intl` without parser](https://formatjs.github.io/docs/guides/advanced-usage/#react-intl-without-parser-40-smaller)
 - Extract and compile messages (see [`@postinumero/formatjs-tools`](https://www.npmjs.com/package/@postinumero/formatjs-tools))
@@ -122,7 +122,17 @@ build({
 
 ## Options
 
-### `swc`
+### `babel`
+
+Passes options to [`babel-plugin-formatjs`](https://formatjs.github.io/docs/tooling/babel-plugin).
+
+By default `preserveWhitespace` is `true`, and `removeDefaultMessage` is `true` in production.
+
+Set `options.babel` to `false` to disable transforming source files.
+
+See [`babel-plugin-formatjs`](https://formatjs.github.io/docs/tooling/babel-plugin) for other available options.
+
+<!-- ### `swc`
 
 Passes options to [`@swc/plugin-formatjs`](https://www.npmjs.com/package/@swc/plugin-formatjs).
 
@@ -130,8 +140,13 @@ By default `preserveWhitespace` is `true`, and `removeDefaultMessage` is `true` 
 
 Set `options.swc` to `false` to disable transforming source files.
 
-See [`babel-plugin-formatjs`](https://formatjs.github.io/docs/tooling/babel-plugin) for other available options.
+See [`babel-plugin-formatjs`](https://formatjs.github.io/docs/tooling/babel-plugin) for other available options. -->
 
 ### `processMessages`
 
 Set `options.processMessages` to `false` to disable message extraction and compilation.
+
+### `noParser`
+
+By default `react-intl` [ without parser](https://formatjs.github.io/docs/guides/advanced-usage#react-intl-without-parser-40-smaller) is used.  
+Set `options.noParser` to `false` to use `react-intl` with parser.

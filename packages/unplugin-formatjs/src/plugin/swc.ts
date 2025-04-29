@@ -1,25 +1,22 @@
 import swc from "@swc/core";
+import { Options } from "babel-plugin-formatjs/types.js";
 import { extname } from "node:path";
 import type { UnpluginFactory } from "unplugin";
 import { createUnplugin } from "unplugin";
-import type { Options } from "../types.ts";
+
+export type SWCOptions = Options;
 
 const extensionsRE = /\.(jsx?|tsx?|mdx?)$/;
 
-export const unpluginFactory: UnpluginFactory<
-  Exclude<Options["swc"], false> | undefined,
-  false
-> = (options = {}) => {
+export const unpluginFactory: UnpluginFactory<SWCOptions | undefined, false> = (
+  options = {},
+) => {
   options.preserveWhitespace ??= true;
   options.removeDefaultMessage ??= process.env.NODE_ENV === "production";
 
   return {
     name: "@postinumero/unplugin-formatjs/swc",
-    resolveId(id) {
-      if (id === "@formatjs/icu-messageformat-parser") {
-        return "@formatjs/icu-messageformat-parser/no-parser";
-      }
-    },
+    enforce: "pre",
     transformInclude(id) {
       if (id.includes("/node_modules/")) {
         return;
@@ -38,19 +35,33 @@ export const unpluginFactory: UnpluginFactory<
 
       const ext = extname(filepath).slice(1);
 
-      return swc.transform(code, {
+      const result = await swc.transform(code, {
         filename: id,
         sourceMaps: true,
         jsc: {
-          parser: {
-            syntax: ["ts", "tsx"].includes(ext) ? "typescript" : "ecmascript",
-          },
+          parser: ["ts", "tsx"].includes(ext)
+            ? {
+                syntax: "typescript",
+                tsx: true,
+              }
+            : {
+                syntax: "ecmascript",
+                jsx: true,
+              },
           experimental: {
             cacheRoot: "node_modules/.cache/swc",
             plugins: [["@swc/plugin-formatjs", options]],
           },
+          transform: {
+            react: {
+              runtime: "automatic",
+            },
+          },
         },
       });
+      console.log("swc", result.code);
+
+      return result;
     },
   };
 };

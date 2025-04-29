@@ -1,6 +1,11 @@
-import { Options as BabelPluginOpts } from "babel-plugin-formatjs/types.js";
+import { BabelOptions } from "./plugin/babel.ts";
+import { NoParserOptions } from "./plugin/noParser.ts";
+import { ProcessMessagesOptions } from "./plugin/processMessages.ts";
+import { SWCOptions } from "./plugin/swc.ts";
 
 export interface Options {
-  swc?: BabelPluginOpts | false;
-  processMessages?: {} | false;
+  babel?: BabelOptions | false;
+  noParser?: NoParserOptions | false;
+  processMessages?: ProcessMessagesOptions | false;
+  swc?: SWCOptions | false;
 }

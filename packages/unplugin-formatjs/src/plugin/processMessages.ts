@@ -1,19 +1,18 @@
 import { processMessages } from "@postinumero/formatjs-tools/commands/process-messages";
 import type { UnpluginFactory } from "unplugin";
 import { createUnplugin } from "unplugin";
-import { Options } from "../types.ts";
+
+export interface ProcessMessagesOptions {}
 
 export const unpluginFactory: UnpluginFactory<
-  Exclude<Options["processMessages"], false> | undefined,
+  ProcessMessagesOptions | undefined,
   false
-> = (options = {}) => {
-  return {
-    name: "@postinumero/unplugin-formatjs/process-messages",
-    async buildStart() {
-      await processMessages();
-    },
-  };
-};
+> = () => ({
+  name: "@postinumero/unplugin-formatjs/process-messages",
+  async buildStart() {
+    await processMessages();
+  },
+});
 
 export const unplugin = /* #__PURE__ */ createUnplugin(unpluginFactory);
 
