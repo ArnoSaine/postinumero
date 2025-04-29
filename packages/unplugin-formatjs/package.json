@@ -1,7 +1,7 @@
 {
   "name": "@postinumero/unplugin-formatjs",
   "type": "module",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Preconfigured. Minimal setup.",
   "license": "ISC",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/unplugin-formatjs",

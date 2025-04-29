@@ -1,5 +1,15 @@
 # @postinumero/unplugin-formatjs
 
+## 0.1.4
+
+### Patch Changes
+
+- 88ff93c: Fix injecting message IDs to JSX elements:
+
+  - Set `enforce: "pre"`
+
+  Also skip full AST transformation (by this plugin) by switching from SWC to Babel.
+
 ## 0.1.3
 
 ### Patch Changes
