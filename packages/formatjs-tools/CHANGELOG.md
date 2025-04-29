@@ -1,5 +1,12 @@
 # @postinumero/formatjs-tools
 
+## 0.1.2
+
+### Patch Changes
+
+- a8f4031: Ensure `lang` dir exists
+- bc62969: Set SWC `cacheRoot`
+
 ## 0.1.1
 
 ### Patch Changes
