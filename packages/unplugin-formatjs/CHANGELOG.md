@@ -1,5 +1,15 @@
 # @postinumero/unplugin-formatjs
 
+## 0.1.3
+
+### Patch Changes
+
+- a438b6f: Add missing dependency `@swc/plugin-formatjs`
+- bc62969: Set SWC `cacheRoot`
+- Updated dependencies [a8f4031]
+- Updated dependencies [bc62969]
+  - @postinumero/formatjs-tools@0.1.2
+
 ## 0.1.2
 
 ### Patch Changes
