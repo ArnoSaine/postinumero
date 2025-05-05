@@ -5,7 +5,7 @@ import { options } from "@postinumero/react-router-oidc-client/options";
 export * from "../is.js";
 
 export const hasRealmRoleConstructorDefaultArgs = [
-  async () => toBooleanValues((await getKeycloakUser())?.realm_access.roles),
+  async () => toBooleanValues((await getKeycloakUser())?.realm_access?.roles),
   undefined,
   { prop: options.isProps.hasRealmRole },
 ] as const;
@@ -26,7 +26,7 @@ export const hasRoleConstructorDefaultArgs = [
     const user = await getKeycloakUser();
 
     return toBooleanValues([
-      ...(user?.realm_access.roles ?? []),
+      ...(user?.realm_access?.roles ?? []),
       ...Object.values(user?.resource_access ?? {}).flatMap(
         ({ roles }) => roles,
       ),

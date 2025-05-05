@@ -7,8 +7,8 @@ export interface Roles {
 }
 
 export type KeycloakUser = User["profile"] & {
-  realm_access: Roles;
-  resource_access: { [clientId: string]: Roles };
+  realm_access?: Roles;
+  resource_access?: { [clientId: string]: Roles };
 };
 
 export const fromUser = (user: User | null | undefined) =>
