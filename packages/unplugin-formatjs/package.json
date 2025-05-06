@@ -113,6 +113,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.26.10",
+    "@babel/plugin-syntax-typescript": "^7.27.1",
     "@postinumero/formatjs-tools": "^0.1.2",
     "@swc/core": "^1.11.21",
     "@swc/plugin-formatjs": "^3.2.1",
