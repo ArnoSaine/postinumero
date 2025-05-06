@@ -1,7 +1,7 @@
-import { BabelOptions } from "./plugin/babel.ts";
-import { NoParserOptions } from "./plugin/noParser.ts";
-import { ProcessMessagesOptions } from "./plugin/processMessages.ts";
-import { SWCOptions } from "./plugin/swc.ts";
+import { BabelOptions } from "./plugins/babel.ts";
+import { NoParserOptions } from "./plugins/noParser.ts";
+import { ProcessMessagesOptions } from "./plugins/processMessages.ts";
+import { SWCOptions } from "./plugins/swc.ts";
 
 export interface Options {
   babel?: BabelOptions | false;
