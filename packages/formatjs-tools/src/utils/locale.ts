@@ -7,5 +7,5 @@ export const isLeafLocale = isLeaf("-");
 
 export const leafLocales = (locales: string[]) => locales.filter(isLeafLocale);
 
-// "fi-FI" --> ["fi-FI", "fi"]
+// "fi-FI" --> ["fi", "fi-FI"]
 export const baseLocales = toBasePaths("-");
