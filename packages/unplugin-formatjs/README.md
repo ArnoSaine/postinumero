@@ -154,5 +154,5 @@ Set `options.processMessages` to `false` to disable message extraction and compi
 
 ### `noParser`
 
-By default `react-intl` [ without parser](https://formatjs.github.io/docs/guides/advanced-usage#react-intl-without-parser-40-smaller) is used.  
+By default `react-intl` [without parser](https://formatjs.github.io/docs/guides/advanced-usage#react-intl-without-parser-40-smaller) is used.  
 Set `options.noParser` to `false` to use `react-intl` with parser.
