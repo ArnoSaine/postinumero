@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/react-router-oidc-client",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A React Router integration for OpenID Connect (OIDC) authentication, built on top of oidc-client-ts.",
   "keywords": [
     "react-router",
