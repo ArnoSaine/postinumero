@@ -24,10 +24,10 @@ export async function processMessages({
   compile: _compile,
   ...options
 }: ProcessMessagesOptions = {}) {
-  await config({ ..._config, ...options });
-  await extract({ ..._extract, ...options });
-  await aggregate({ ..._aggregate, ...options });
-  await collect({ ..._collect, ...options });
-  await merge({ ..._merge, ...options });
-  await compile({ ..._compile, ...options });
+  await config({ ...options, ..._config });
+  await extract({ ...options, ..._extract });
+  await aggregate({ ...options, ..._aggregate });
+  await collect({ ...options, ..._collect });
+  await merge({ ...options, ..._merge });
+  await compile({ ...options, ..._compile });
 }

@@ -74,8 +74,8 @@ const commands = {
       ...parseArgsConfig,
       options: {
         ...parseArgsConfig.options,
-        ...mapKeys(extractParseArgsOptionsConfig, (_, key) => `extract-${key}`),
-        ...mapKeys(compileParseArgsOptionsConfig, (_, key) => `compile-${key}`),
+        ...mapKeys(extractParseArgsOptionsConfig, (_, key) => `extract.${key}`),
+        ...mapKeys(compileParseArgsOptionsConfig, (_, key) => `compile.${key}`),
       },
     });
     await processMessages(

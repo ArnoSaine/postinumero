@@ -100,6 +100,8 @@ Run all of the commands above in correct order:
 formatjs-tools process-messages
 ```
 
+You can give options to individual commands by prefixing the option name with the command name (e.g. `--extract.path src`).
+
 ## API
 
 Use programmatically in Node.js:
