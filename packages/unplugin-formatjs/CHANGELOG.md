@@ -1,5 +1,14 @@
 # @postinumero/unplugin-formatjs
 
+## 0.1.5
+
+### Patch Changes
+
+- 882ce57: Pass options to `processMessages`
+- b2e4be8: Add missing dependency `@babel/plugin-syntax-typescript`
+- Updated dependencies [807a9e3]
+  - @postinumero/formatjs-tools@0.1.3
+
 ## 0.1.4
 
 ### Patch Changes

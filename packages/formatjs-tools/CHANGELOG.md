@@ -1,5 +1,11 @@
 # @postinumero/formatjs-tools
 
+## 0.1.3
+
+### Patch Changes
+
+- 807a9e3: Fix passing options to individual commands from `process-messages` options
+
 ## 0.1.2
 
 ### Patch Changes

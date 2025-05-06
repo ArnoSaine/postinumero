@@ -1,5 +1,11 @@
 # @postinumero/react-router-oidc-client
 
+## 0.2.2
+
+### Patch Changes
+
+- 362311f: Fixes an issue where Keycloak user does not always include the 'realm_access' property: "TypeError: Cannot read properties of undefined (reading 'roles')"
+
 ## 0.2.1
 
 ### Patch Changes
