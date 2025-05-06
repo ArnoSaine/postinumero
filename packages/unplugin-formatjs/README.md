@@ -5,7 +5,7 @@ Preconfigured. Minimal setup.
 - Inject message IDs
 - Remove `defaultMessage`s
 - Use [`react-intl` without parser](https://formatjs.github.io/docs/guides/advanced-usage/#react-intl-without-parser-40-smaller)
-- Extract and compile messages (see [`@postinumero/formatjs-tools`](https://www.npmjs.com/package/@postinumero/formatjs-tools))
+- Extract and compile messages, optionally for each environment (see [`@postinumero/formatjs-tools`](../formatjs-tools))
 
 ## Install
 
@@ -143,6 +143,12 @@ Set `options.swc` to `false` to disable transforming source files.
 See [`babel-plugin-formatjs`](https://formatjs.github.io/docs/tooling/babel-plugin) for other available options. -->
 
 ### `processMessages`
+
+Passes options to [`process-messages`](../formatjs-tools#process-messages).
+
+By default, the application source code is expected to be in the `app` directory.
+
+Set `options.processMessages` to e.g. `{ extract: { path: ["src"] } }` to override the default options.
 
 Set `options.processMessages` to `false` to disable message extraction and compilation.
 
