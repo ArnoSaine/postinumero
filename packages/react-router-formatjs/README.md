@@ -128,7 +128,6 @@ export function meta(args: Route.MetaArgs) {
     "defaultMessage": "Example.com: What's next?",
     "description": "List of resources"
   }
-  // ...
 }
 ```
 
