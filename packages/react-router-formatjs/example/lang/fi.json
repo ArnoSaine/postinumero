@@ -1,0 +1,30 @@
+{
+  "IS6UVP": {
+    "defaultMessage": "Liity Discordiin",
+    "description": "Discord link text"
+  },
+  "UXCtM4": {
+    "defaultMessage": "Mitä seuraavaksi?",
+    "description": "List of resources"
+  },
+  "ZsO0tc": {
+    "defaultMessage": "Virhe",
+    "description": "Route error heading: generic"
+  },
+  "cCUrRg": {
+    "defaultMessage": "Tapahtui odottamaton virhe.",
+    "description": "Error details: generic"
+  },
+  "f9g+9J": {
+    "defaultMessage": "Oho!",
+    "description": "Error heading: generic"
+  },
+  "icPpEV": {
+    "defaultMessage": "Pyydettyä sivua ei löytynyt.",
+    "description": "Route error details: 404"
+  },
+  "qLhXcE": {
+    "defaultMessage": "React Router -dokumentaatio",
+    "description": "React Router documentation link text"
+  }
+}
