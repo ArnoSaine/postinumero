@@ -11,13 +11,11 @@
   ],
   "scripts": {
     "prebuild": "formatjs-tools extract --path src",
-    "build": "swc src --config-file ../../../../node_modules/@postinumero/formatjs-tools/configs/swcrc.lib.json --out-dir lib --strip-leading-paths",
-    "build:tsc": "tsc --project tsconfig.lib.json"
+    "build": "tspc --project tsconfig.lib.json"
   },
   "devDependencies": {
     "@postinumero/formatjs-tools": "*",
-    "@swc/cli": "^0.7.3",
-    "@swc/core": "^1.11.21",
-    "@swc/plugin-formatjs": "^3.2.1"
+    "ts-patch": "^3.3.0",
+    "typescript": "^5.8.3"
   }
 }

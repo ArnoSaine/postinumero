@@ -180,13 +180,27 @@ You can override or extend this behavior:
 
 ## Library Usage
 
-[Example lib](./examples/lib/) uses [SWC](https://swc.rs/). In `package.json`:
+[Example lib](./examples/lib/) uses [`@formatjs/ts-transformer`](https://formatjs.github.io/docs/guides/bundler-plugins#using-formatjsts-transformer) and [ts-patch](https://github.com/nonara/ts-patch).
 
-```json
-{
-  "scripts": {
-    "prebuild": "formatjs-tools extract src",
-    "build": "swc src --config-file ./node_modules/@postinumero/formatjs-tools/configs/swcrc.lib.json --out-dir lib --strip-leading-paths"
-  }
-}
-```
+1. Extend your TSConfig\*\*
+
+   `tsconfig.json`:
+
+   ```json
+   {
+     "extends": "@postinumero/formatjs-tools/configs/tsconfig.lib.json"
+   }
+   ```
+
+2. Add `prebuild` script
+
+   `package.json`:
+
+   ```json
+   {
+     "scripts": {
+       "prebuild": "formatjs-tools extract --path src",
+       "build": "tspc"
+     }
+   }
+   ```

@@ -1,4 +1,5 @@
 {
+  "extends": "@postinumero/formatjs-tools/configs/tsconfig.lib.json",
   "compilerOptions": {
     "strict": true,
 
