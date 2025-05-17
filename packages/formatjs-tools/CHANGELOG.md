@@ -1,5 +1,11 @@
 # @postinumero/formatjs-tools
 
+## 0.1.4
+
+### Patch Changes
+
+- 6894a69: Change lib example to use `ts-patch`
+
 ## 0.1.3
 
 ### Patch Changes
