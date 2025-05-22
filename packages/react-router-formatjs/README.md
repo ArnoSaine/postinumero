@@ -37,21 +37,8 @@ export default intlRoutes([index("routes/home.tsx")] satisfies RouteConfig);
 `app/root.tsx`:
 
 ```tsx
-import {
-  loadIntl,
-  withLayoutIntlProvider,
-} from "@postinumero/react-router-formatjs";
+import { withLayoutIntlProvider } from "@postinumero/react-router-formatjs";
 import { useIntl } from "react-intl";
-
-import type { Route } from "./+types/root";
-
-export async function loader(args: Route.ClientLoaderArgs) {
-  const intl = await loadIntl(args);
-
-  return {
-    intl,
-  };
-}
 
 export const Layout = withLayoutIntlProvider(function Layout({ children }) {
   const { locale } = useIntl();
@@ -116,6 +103,53 @@ export function meta(args: Route.MetaArgs) {
     },
   ];
 }
+```
+
+## API
+
+### `useOptions`
+
+Get access to fully resolved options. Example:
+
+```ts
+import { useOptions } from "@postinumero/react-router-formatjs";
+
+const { availableLocales } = useOptions();
+```
+
+### `<LocaleSelect>`
+
+Render a `select` component to change the requested locale.
+
+```tsx
+import { LocaleSelect } from "@postinumero/react-router-formatjs";
+
+<LocaleSelect />;
+```
+
+### `<SetLocaleButton>`
+
+Render a `button` component to set the requested locale.
+
+```tsx
+import { SetLocaleButton } from "@postinumero/react-router-formatjs";
+
+<SetLocaleButton value="fi">Suomi</SetLocaleButton>;
+```
+
+### `CONFIG`
+
+Override the [default configuration](src/options.ts#L97-L115).
+
+```ts
+import { CONFIG } from "@postinumero/react-router-formatjs";
+
+CONFIG.strategies.requestedLocales = [
+  "searchParams",
+  "sessionStorage",
+  "acceptLanguageHeader",
+  "navigatorLanguages",
+];
 ```
 
 ## Add Translations

@@ -17,6 +17,7 @@
     ".": "./lib/index.js",
     "./components": "./lib/components/index.js",
     "./components/*": "./lib/components/*.js",
+    "./strategies/*": "./lib/strategies/*.js",
     "./intl": "./lib/intl/index.js",
     "./intl/*": "./lib/intl/*.js",
     "./utils/@formatjs/*": "./lib/utils/@formatjs/*.js",
@@ -24,26 +25,33 @@
     "./*": "./lib/*.js"
   },
   "files": [
+    "lang",
     "lib",
     "src",
     "!src/**/*.test.*"
   ],
   "scripts": {
-    "build": "tsc --project tsconfig.lib.json",
+    "prebuild": "formatjs-tools extract --path src",
+    "build": "tspc --project tsconfig.lib.json",
+    "predev": "npm run prebuild",
     "dev": "npm run build -- --watch",
     "test": "node --experimental-strip-types --disable-warning=ExperimentalWarning --test './src/**/*.test.ts'",
-    "typecheck": "npm run build -- --noEmit"
+    "typecheck": "npm run build --ignore-scripts -- --noEmit"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",
     "@mjackson/headers": "^0.10.0",
     "@postinumero/formatjs-tools": "^0.1.2",
+    "assert-response": "^0.2.1",
     "lodash-es": "^4.17.21",
+    "p-lazy": "^5.0.0",
     "tiny-invariant": "^1.3.3"
   },
   "devDependencies": {
     "@formatjs/intl": "^3.1.6",
     "@types/node": "^22.14.1",
+    "ts-patch": "^3.3.0",
+    "type-fest": "^4.41.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.4"
   },

@@ -1,4 +1,5 @@
 {
+  "extends": "@postinumero/formatjs-tools/configs/tsconfig.lib.json",
   "compilerOptions": {
     "strict": true,
     "types": ["node", "vite/client"],
@@ -16,9 +17,10 @@
     "skipLibCheck": true,
 
     "paths": {
-      "/app/root": ["./route.d.ts"]
+      "/app/root": ["./route.d.ts"],
+      "/react-router.config.ts": ["./react-router.config.d.ts"]
     }
   },
 
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/.d.ts"]
 }

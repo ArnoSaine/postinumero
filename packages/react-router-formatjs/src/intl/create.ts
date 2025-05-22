@@ -1,6 +1,9 @@
-import type { IntlConfig, OnErrorFn } from "@formatjs/intl";
-import { createIntl as _createIntl, createIntlCache } from "@formatjs/intl";
+import type { OnErrorFn } from "@formatjs/intl";
 import { pickBy } from "lodash-es";
+import { useMemo } from "react";
+import type { IntlConfig } from "react-intl";
+import { createIntl as _createIntl, createIntlCache } from "react-intl";
+import { DEFAULT_INTL_CONFIG } from "react-intl/src/utils.js";
 
 export const cache = createIntlCache();
 
@@ -17,12 +20,17 @@ export const handleError = (err: Parameters<OnErrorFn>[0]) => {
   throw err;
 };
 
-export const createIntl = (intlConfig: IntlConfig) =>
+export const createIntl = (intlConfig?: IntlConfig) =>
   _createIntl(
     {
       onError: handleError,
+      locale: DEFAULT_INTL_CONFIG.defaultLocale,
+      messages: DEFAULT_INTL_CONFIG.messages,
       // Remove falsy values from serialised intlConfig to make sure onError is not always overridden
-      ...(pickBy(intlConfig, Boolean) as IntlConfig),
+      ...pickBy(intlConfig, Boolean),
     },
     cache,
   );
+
+export const useCreateIntl = (intlConfig?: IntlConfig) =>
+  useMemo(() => createIntl(intlConfig), [intlConfig]);

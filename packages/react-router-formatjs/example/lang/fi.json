@@ -1,7 +1,19 @@
 {
+  "8Ej+CA": {
+    "defaultMessage": "Tuotanto",
+    "description": "Environment name: production"
+  },
+  "ICXj2n": {
+    "defaultMessage": "Uusi React Router -sovellus",
+    "description": "Home page title"
+  },
   "IS6UVP": {
     "defaultMessage": "Liity Discordiin",
     "description": "Discord link text"
+  },
+  "OeEHE9": {
+    "defaultMessage": "Testitoiminto",
+    "description": "Test action button"
   },
   "UXCtM4": {
     "defaultMessage": "Mitä seuraavaksi?",
@@ -15,16 +27,36 @@
     "defaultMessage": "Tapahtui odottamaton virhe.",
     "description": "Error details: generic"
   },
+  "e+2E75": {
+    "defaultMessage": "Tervetuloa React Routeriin!",
+    "description": "Home page description"
+  },
   "f9g+9J": {
     "defaultMessage": "Oho!",
     "description": "Error heading: generic"
+  },
+  "fRv3VX": {
+    "defaultMessage": "Example.com (testi)",
+    "description": "Environment name: com.example.test"
   },
   "icPpEV": {
     "defaultMessage": "Pyydettyä sivua ei löytynyt.",
     "description": "Route error details: 404"
   },
+  "nZtU4O": {
+    "defaultMessage": "ACME (testi)",
+    "description": "Environment name: com.acme.test"
+  },
   "qLhXcE": {
     "defaultMessage": "React Router -dokumentaatio",
     "description": "React Router documentation link text"
+  },
+  "sEHcnG": {
+    "defaultMessage": "Onnistui!",
+    "description": "Action success message"
+  },
+  "tx/2dq": {
+    "defaultMessage": "Pohja",
+    "description": "Base environment"
   }
 }

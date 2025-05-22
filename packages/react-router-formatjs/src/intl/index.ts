@@ -1,4 +1,3 @@
-export * from "./config.ts";
 export * from "./create.ts";
 export * from "./load.ts";
 export * from "./meta.ts";

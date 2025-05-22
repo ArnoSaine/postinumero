@@ -1,25 +1,16 @@
-import { DEFAULT_INTL_CONFIG } from "react-intl/src/utils.js";
-import { IntlProvider } from "react-intl";
-import { useLoaderData } from "react-router";
-import type { RouteModule } from "../../route.js";
-import { cache, handleError } from "../intl/create.ts";
+import { RawIntlProvider } from "react-intl";
+import type { RouteModule } from "../../route.d.ts";
+import { useCreateIntl } from "../intl/create.ts";
+import { useOptions } from "../options.ts";
 
 type Layout = NonNullable<RouteModule["Layout"]>;
 
 export default function withLayoutIntlProvider(Layout: Layout): Layout {
   return function WithLayoutIntlProvider(props) {
-    const { intl: intlConfig } = useLoaderData() ?? {};
-
     return (
-      <IntlProvider
-        cache={cache}
-        onError={handleError}
-        locale={DEFAULT_INTL_CONFIG.defaultLocale}
-        messages={DEFAULT_INTL_CONFIG.messages}
-        {...intlConfig}
-      >
+      <RawIntlProvider value={useCreateIntl(useOptions().intlConfig)}>
         <Layout {...props} />
-      </IntlProvider>
+      </RawIntlProvider>
     );
   };
 }

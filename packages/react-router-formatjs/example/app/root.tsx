@@ -1,32 +1,20 @@
 import {
   loadIntl,
-  options,
   withLayoutIntlProvider,
-  type Options,
 } from "@postinumero/react-router-formatjs";
 import { useIntl } from "react-intl";
 import {
   isRouteErrorResponse,
-  Link,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import EnvironmentAndLocaleSelectors from "./EnvironmentAndLocaleSelectors";
 
 import type { Route } from "./+types/root";
 import "./app.css";
-
-options.loadOptions = async (args) => {
-  const url = new URL(args.request.url);
-  const locale = url.searchParams.get("locale");
-  const environment = url.searchParams.get("environment");
-  return {
-    requestedLocales: locale ? [locale] : [],
-    environment,
-  } as Options;
-};
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -41,13 +29,15 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export async function loader(args: Route.LoaderArgs) {
+export const action = async (args: Route.ActionArgs) => {
   const intl = await loadIntl(args);
-
-  return {
-    intl,
-  };
-}
+  console.log(
+    intl.formatMessage({
+      defaultMessage: "Success!",
+      description: "Action success message",
+    }),
+  );
+};
 
 export const Layout = withLayoutIntlProvider(function Layout({ children }) {
   const { locale } = useIntl();
@@ -61,43 +51,7 @@ export const Layout = withLayoutIntlProvider(function Layout({ children }) {
         <Links />
       </head>
       <body>
-        <ul className="flex flex-row gap-4 p-4">
-          <li>
-            <Link to="/?environment=com.acme.test">ACME (test)</Link>
-          </li>
-          <li>
-            <Link to="/?environment=com.example.test">Example.com (test)</Link>
-          </li>
-          <li>
-            <Link to="/?environment=production">Production</Link>
-          </li>
-          <li>
-            <Link to="/?environment=com.acme">ACME</Link>
-          </li>
-          <li>
-            <Link to="/?environment=com.example">Example.com</Link>
-          </li>
-        </ul>
-        <ul className="flex flex-row gap-4 p-4">
-          <li>
-            <Link to="/">System</Link>
-          </li>
-          <li>
-            <Link to="/?locale=en">en</Link>
-          </li>
-          <li>
-            <Link to="/?locale=fi">fi</Link>
-          </li>
-          <li>
-            <Link to="/?locale=sv">sv</Link>
-          </li>
-          <li>
-            <Link to="/?locale=en-XB">en-XB</Link>
-          </li>
-          <li>
-            <Link to="/?locale=xx-AC">xx-AC</Link>
-          </li>
-        </ul>
+        <EnvironmentAndLocaleSelectors />
         {children}
         <ScrollRestoration />
         <Scripts />
