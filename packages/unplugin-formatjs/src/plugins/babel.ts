@@ -1,6 +1,9 @@
 import babel, { PluginItem } from "@babel/core";
+import { interpolateName } from "@formatjs/ts-transformer";
+import { DEFAULT_ID_INTERPOLATION_PATTERN } from "babel-plugin-formatjs";
 import { Options } from "babel-plugin-formatjs/types.js";
 import { extname } from "node:path";
+import stringify from "safe-stable-stringify";
 import type { UnpluginFactory } from "unplugin";
 import { createUnplugin } from "unplugin";
 
@@ -14,8 +17,26 @@ export const unpluginFactory: UnpluginFactory<
 > = (options = {}) => {
   const pluginsMap = new Map<string | undefined, PluginItem[]>();
 
+  options.idInterpolationPattern ??= DEFAULT_ID_INTERPOLATION_PATTERN;
   options.preserveWhitespace ??= true;
   options.removeDefaultMessage ??= process.env.NODE_ENV === "production";
+  // For generated IDs to match, this must be same as when extracting messages:
+  // https://github.com/formatjs/formatjs/blob/main/packages/cli-lib/src/extract.ts#L131C1-L152C4
+  options.overrideIdFn ??= (id, defaultMessage, description, fileName) =>
+    id ||
+    interpolateName(
+      { resourcePath: fileName },
+      options.idInterpolationPattern!,
+      {
+        content: description
+          ? `${defaultMessage}#${
+              typeof description === "string"
+                ? description
+                : stringify(description)
+            }`
+          : defaultMessage,
+      },
+    );
   const plugin = ["formatjs", options];
   pluginsMap.set(undefined, [plugin]);
   pluginsMap.set("ts", [plugin, "@babel/syntax-typescript"]);
