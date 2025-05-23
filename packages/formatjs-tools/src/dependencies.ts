@@ -15,7 +15,7 @@ export async function getDependencyPaths() {
     if (packageUp) {
       const { path, packageJson } = packageUp;
       if (!dependenciesSet.has(path)) {
-        const require = createRequire(`file://${dirname(path)}`);
+        const require = createRequire(`file://${path}`);
         dependenciesSet.add(path);
         const dependencies = Object.keys(packageJson.dependencies ?? []);
 
