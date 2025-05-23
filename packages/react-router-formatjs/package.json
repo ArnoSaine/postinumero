@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/react-router-formatjs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/react-router-formatjs",
   "repository": {
     "type": "git",
@@ -42,7 +42,7 @@
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",
     "@mjackson/headers": "^0.10.0",
-    "@postinumero/formatjs-tools": "^0.1.4",
+    "@postinumero/formatjs-tools": "^0.1.5",
     "assert-response": "^0.2.1",
     "lodash-es": "^4.17.21",
     "p-lazy": "^5.0.0",

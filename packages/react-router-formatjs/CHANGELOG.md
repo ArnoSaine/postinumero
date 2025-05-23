@@ -1,5 +1,18 @@
 # @postinumero/react-router-formatjs
 
+## 0.1.2
+
+### Patch Changes
+
+- 4cbdc92: Add missing types for '/app/root' and '/react-router.config.ts'
+- d3caf42: Fix Node.js compatibility:
+
+  - Use optional `import.meta.env` and `import.meta.glob`
+  - Move `/react-router.config.ts` imports to a utility
+
+- Updated dependencies [a21ff06]
+  - @postinumero/formatjs-tools@0.1.5
+
 ## 0.1.1
 
 ### Patch Changes
