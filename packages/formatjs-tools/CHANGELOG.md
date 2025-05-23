@@ -1,5 +1,11 @@
 # @postinumero/formatjs-tools
 
+## 0.1.5
+
+### Patch Changes
+
+- a21ff06: Fix aggregating messages from dependencies
+
 ## 0.1.4
 
 ### Patch Changes
