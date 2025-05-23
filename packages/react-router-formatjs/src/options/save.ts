@@ -7,26 +7,9 @@ import {
   CONFIG,
   type ActionFunction,
   type ClientActionFunction,
-  type EnvironmentStrategy,
-  type EnvironmentStrategyName,
-  type RequestedLocalesStrategy,
-  type RequestedLocalesStrategyName,
 } from "../options.ts";
 import isServer from "../utils/is-server.ts";
 import { resolvedStrategiesPromise } from "./strategies.ts";
-
-export const strategyModules = {
-  environment: (strategy: EnvironmentStrategyName) =>
-    import(
-      /* @vite-ignore */
-      `../strategies/environment/${strategy}.js`
-    ) as Promise<EnvironmentStrategy>,
-  requestedLocales: (strategy: RequestedLocalesStrategyName) =>
-    import(
-      /* @vite-ignore */
-      `../strategies/requestedLocales/${strategy}.js`
-    ) as Promise<RequestedLocalesStrategy>,
-} as const;
 
 export async function saveOptions(
   args: ActionFunctionArgs | ClientActionFunctionArgs,
