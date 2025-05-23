@@ -28,6 +28,7 @@
     "lang",
     "lib",
     "src",
+    "types",
     "!src/**/*.test.*"
   ],
   "scripts": {

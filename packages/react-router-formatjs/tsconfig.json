@@ -17,8 +17,8 @@
     "skipLibCheck": true,
 
     "paths": {
-      "/app/root": ["./route.d.ts"],
-      "/react-router.config.ts": ["./react-router.config.d.ts"]
+      "/app/root": ["./types/route.d.ts"],
+      "/react-router.config.ts": ["./types/react-router.config.d.ts"]
     }
   },
 
