@@ -1,5 +1,13 @@
 # @postinumero/unplugin-formatjs
 
+## 0.1.6
+
+### Patch Changes
+
+- f6bf061: Fix generating message IDs in production when description is an object type
+- Updated dependencies [6894a69]
+  - @postinumero/formatjs-tools@0.1.4
+
 ## 0.1.5
 
 ### Patch Changes
