@@ -20,18 +20,26 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: "npm"
 
+      - name: Install placeholder bin helper
+        run: npm ci --prefix ./tools/find-bins
+
+      # Allows npm ci to link bins to the correct location before bins have been
+      # built
+      - name: Create placeholder bins
+        run: node ./tools/find-bins/create-bin-placeholders.ts
+
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm ci
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets

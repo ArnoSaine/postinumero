@@ -1,0 +1,9 @@
+{
+  "name": "@postinumero/find-bins",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "find-workspaces": "^0.3.1"
+  }
+}

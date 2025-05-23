@@ -11,7 +11,8 @@
     "demos/*",
     "packages/*",
     "packages/*/example",
-    "packages/*/examples/*"
+    "packages/*/examples/*",
+    "tools/*"
   ],
   "scripts": {
     "build": "turbo run build --filter=@postinumero/*",
