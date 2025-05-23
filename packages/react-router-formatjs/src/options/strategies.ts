@@ -2,24 +2,13 @@ import PLazy from "p-lazy";
 import {
   CONFIG,
   type EnvironmentStrategy,
-  type EnvironmentStrategyName,
   type RequestedLocalesStrategy,
-  type RequestedLocalesStrategyName,
   type Strategy,
 } from "../options.ts";
 
-const strategyModules = {
-  environment: (strategy: EnvironmentStrategyName) =>
-    import(
-      /* @vite-ignore */
-      `../strategies/environment/${strategy}.js`
-    ) as Promise<EnvironmentStrategy>,
-  requestedLocales: (strategy: RequestedLocalesStrategyName) =>
-    import(
-      /* @vite-ignore */
-      `../strategies/requestedLocales/${strategy}.js`
-    ) as Promise<RequestedLocalesStrategy>,
-} as const;
+const strategyModules = import.meta.env
+  ? import.meta.glob<Strategy>("../strategies/*/*.js")
+  : {};
 
 export const resolvedStrategiesPromise = PLazy.from<{
   environment: EnvironmentStrategy[];
@@ -32,7 +21,7 @@ export const resolvedStrategiesPromise = PLazy.from<{
         await Promise.all(
           strategies.map((strategy: Strategy) =>
             typeof strategy === "string"
-              ? strategyModules[name](strategy)
+              ? strategyModules[`../strategies/${name}/${strategy}.js`]()
               : strategy,
           ),
         ),

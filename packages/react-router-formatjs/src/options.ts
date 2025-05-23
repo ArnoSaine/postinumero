@@ -10,7 +10,7 @@ import {
 } from "react-router";
 import { createOptions } from "./options/create.ts";
 import type { clientLoader } from "./routes/options.tsx";
-import routerConfig from "/react-router.config.ts";
+import routerConfig from "./utils/react-router/config.ts";
 
 export type DataFunctionArgs =
   | ActionFunctionArgs

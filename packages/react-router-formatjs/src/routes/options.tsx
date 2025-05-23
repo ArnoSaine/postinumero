@@ -10,8 +10,8 @@ import { CONFIG, type Options } from "../options.ts";
 import { createOptions } from "../options/create.ts";
 import { saveOptions } from "../options/save.ts";
 import { resolvedStrategiesPromise } from "../options/strategies.ts";
+import routerConfig from "../utils/react-router/config.ts";
 import * as root from "/app/root";
-import routerConfig from "/react-router.config.ts";
 
 // No client middleware. Unlike server, we use the client loader to set the context value.
 

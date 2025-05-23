@@ -3,11 +3,19 @@ import type { ResolvedIntlConfig } from "react-intl";
 import invariant from "tiny-invariant";
 import type { Environment } from "./options.ts";
 
-export const langDirModules = import.meta.glob<ResolvedIntlConfig["messages"]>(
-  "/.lang/compiled/*.json",
-  // Named exports are not supported. Some message IDs are not valid identifiers. Example: "f9g+9J"
-  { import: "default" },
-);
+export const langDirModules = import.meta.env
+  ? import.meta.glob<ResolvedIntlConfig["messages"]>(
+      "/.lang/compiled/*.json",
+      // Named exports are not supported. Some message IDs are not valid identifiers. Example: "f9g+9J"
+      { import: "default" },
+    )
+  : (new Proxy(
+      {},
+      {
+        get: (_target, prop: string) => () =>
+          import(`${process.cwd()}/${prop}`, { with: { type: "json" } }),
+      },
+    ) as Record<string, () => Promise<ResolvedIntlConfig["messages"]>>);
 
 export const langDirContents = Object.keys(langDirModules).map((key) => {
   let [environment, locale] = key.split("/").at(-1)!.split(":") as [

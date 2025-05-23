@@ -1,6 +1,7 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { intlMiddleware, loadIntlContext } from "../middleware.ts";
 import { saveOptions } from "../options/save.ts";
+import routerConfig from "../utils/react-router/config.ts";
 
 // Re-exporting clientAction using * does not work
 //export * from "./options.tsx";
@@ -10,7 +11,6 @@ export {
   ErrorBoundary,
   shouldRevalidate,
 } from "./options.tsx";
-import routerConfig from "/react-router.config.ts";
 
 export const unstable_middleware = routerConfig.future?.unstable_middleware
   ? [intlMiddleware]

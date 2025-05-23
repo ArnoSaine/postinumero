@@ -5,7 +5,7 @@ import {
   type RouteConfigEntry,
 } from "@react-router/dev/routes";
 import { CONFIG } from "../options.ts";
-import routerConfig from "/react-router.config.ts";
+import routerConfig from "../utils/react-router/config.ts";
 
 const ssr = routerConfig.ssr ? ".ssr" : "";
 

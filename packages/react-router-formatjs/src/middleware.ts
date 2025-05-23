@@ -9,7 +9,7 @@ import type { DataFunctionArgs, Options } from "./options.ts";
 import { createOptions } from "./options/create.ts";
 import { resolvedStrategiesPromise } from "./options/strategies.ts";
 import isServer from "./utils/is-server.ts";
-import routerConfig from "/react-router.config.ts";
+import routerConfig from "./utils/react-router/config.ts";
 
 export interface Context {
   options: Options;

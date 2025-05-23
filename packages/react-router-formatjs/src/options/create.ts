@@ -25,11 +25,11 @@ export async function createOptions(
   )) as [Environment[], RequestedLocales[]];
   const environment: Environment =
     environmentResults.find(Boolean) ??
-    import.meta.env.VITE_environment ??
+    import.meta.env?.VITE_environment ??
     null;
   const requestedLocales = [
     ...requestedLocalesResults.flat(),
-    (import.meta.env.VITE_defaultLocale as string | undefined) ?? null,
+    (import.meta.env?.VITE_defaultLocale as string | undefined) ?? null,
     DEFAULT_INTL_CONFIG.defaultLocale as string,
   ];
 
