@@ -5,7 +5,8 @@ import invariant from "tiny-invariant";
 export const match: typeof _match = (
   requestedLocales,
   availableLocales,
-  ...other
+  defaultLocale,
+  opts,
 ) => {
   let matchingLocale = _match(
     requestedLocales,
@@ -15,16 +16,19 @@ export const match: typeof _match = (
       // E.g. match requested "sv" to available "sv-FI".
       ...availableLocales.flatMap((locale) => baseLocales(locale).slice(0, -1)),
     ],
-    ...other,
+    defaultLocale,
+    opts,
   );
 
   // Some match implementations return the default locale if no match is found.
-  // E.g. match requested "en" to available ["en-US"] when default is "en".
+  // Prefer any matching locale with region over the default.
   const availableLocale = availableLocales.includes(matchingLocale)
     ? matchingLocale
     : (availableLocales.find((locale) =>
         locale.startsWith(`${matchingLocale}-`),
-      ) ?? availableLocales.at(0));
+      ) ??
+      availableLocales.at(0) ??
+      defaultLocale);
 
   invariant(availableLocale, "No available locale found");
 
