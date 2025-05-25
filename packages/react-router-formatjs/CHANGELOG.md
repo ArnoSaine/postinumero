@@ -1,5 +1,14 @@
 # @postinumero/react-router-formatjs
 
+## 0.1.3
+
+### Patch Changes
+
+- 8ef7f53: Export `<LocaleDisplayName>`
+- 17ca910: Fix development build
+- a9eef62: Add typings to mark MessageDescriptor as non-optional
+- 1a9eb69: Fix typing withLayoutIntlProvider Layout param
+
 ## 0.1.2
 
 ### Patch Changes
