@@ -1,8 +1,7 @@
 import "react-intl";
 
 declare module "react-intl" {
-  interface MessageDescriptor
-    extends import("@formatjs/intl").MessageDescriptor {
+  interface MessageDescriptor {
     id: string;
   }
 

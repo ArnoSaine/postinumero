@@ -46,6 +46,16 @@ export const Layout = withLayoutIntlProvider(function Layout({ children }) {
 });
 ```
 
+`tsconfig.json`:
+
+```json
+{
+  "include": [
+    "node_modules/@postinumero/react-router-formatjs/types/react-intl.d.ts"
+  ]
+}
+```
+
 ## Usage
 
 You can use `react-intl` components and hooks as you normally would:
