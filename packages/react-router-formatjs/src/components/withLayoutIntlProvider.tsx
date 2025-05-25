@@ -1,7 +1,7 @@
 import { RawIntlProvider } from "react-intl";
+import type { Layout as LayoutComponent } from "../../types/route.d.ts";
 import { useCreateIntl } from "../intl/create.ts";
 import { useOptions } from "../options.ts";
-import type { Layout as LayoutComponent } from "/app/root";
 
 type Layout = NonNullable<typeof LayoutComponent>;
 
