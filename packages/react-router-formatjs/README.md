@@ -4,13 +4,12 @@
 
 ```sh
 npm i @postinumero/react-router-formatjs react-intl
-npm i @postinumero/unplugin-formatjs --save-dev
 ```
 
 `vite.config.ts`:
 
 ```ts
-import formatjs from "@postinumero/unplugin-formatjs/vite";
+import formatjs from "@postinumero/react-router-formatjs/vite";
 
 export default defineConfig({
   plugins: [formatjs()],
