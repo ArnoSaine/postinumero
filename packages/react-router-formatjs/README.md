@@ -133,7 +133,7 @@ Render a `button` component to set the requested locale.
 ```tsx
 import { SetLocaleButton } from "@postinumero/react-router-formatjs";
 
-<SetLocaleButton value="fi">Suomi</SetLocaleButton>;
+<SetLocaleButton value="fi" />;
 ```
 
 ### `CONFIG`
