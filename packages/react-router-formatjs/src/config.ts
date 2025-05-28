@@ -12,8 +12,15 @@ export const langDirModules = import.meta.env
   : (new Proxy(
       {},
       {
-        get: (_target, prop: string) => () =>
-          import(`${process.cwd()}/${prop}`, { with: { type: "json" } }),
+        get: (_target, prop: string) => async () => {
+          try {
+            return await import(/* @vite-ignore */ `${process.cwd()}/${prop}`, {
+              with: { type: "json" },
+            });
+          } catch {
+            return {};
+          }
+        },
       },
     ) as Record<string, () => Promise<ResolvedIntlConfig["messages"]>>);
 
