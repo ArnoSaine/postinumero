@@ -45,7 +45,7 @@ export function Welcome() {
                     rel="noreferrer"
                   >
                     {icon}
-                    {intl.formatMessage(text)}
+                    <FormattedMessage {...text} />
                   </a>
                 </li>
               ))}
