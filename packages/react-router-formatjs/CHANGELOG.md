@@ -1,5 +1,11 @@
 # @postinumero/react-router-formatjs
 
+## 0.1.4
+
+### Patch Changes
+
+- 33b86e7: Fix initial build when `.lang` directory is not created
+
 ## 0.1.3
 
 ### Patch Changes
