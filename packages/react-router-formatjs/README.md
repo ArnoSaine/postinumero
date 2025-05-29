@@ -13,6 +13,14 @@ import formatjs from "@postinumero/react-router-formatjs/vite";
 
 export default defineConfig({
   plugins: [formatjs()],
+  build: {
+    target: "ES2022", // For top level await
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: "ES2022", // For top level await
+    },
+  },
 });
 ```
 

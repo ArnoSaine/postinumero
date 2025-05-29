@@ -11,12 +11,6 @@ const resolveReactRouterConfig = {
           process.cwd() + "/react-router.config.ts",
       },
     },
-    build: { target: "ES2022" },
-    optimizeDeps: {
-      esbuildOptions: {
-        target: "es2022",
-      },
-    },
   }),
 } as Plugin;
 
