@@ -9,11 +9,16 @@ export const unpluginFactory: UnpluginFactory<
 > = () => ({
   name: "@postinumero/unplugin-formatjs/no-parser",
   enforce: "pre",
-  resolveId(id) {
-    if (id === "@formatjs/icu-messageformat-parser") {
-      return require.resolve("@formatjs/icu-messageformat-parser/no-parser");
-    }
-  },
+  resolveId:
+    process.env.NODE_ENV === "production"
+      ? (id) => {
+          if (id === "@formatjs/icu-messageformat-parser") {
+            return require.resolve(
+              "@formatjs/icu-messageformat-parser/no-parser",
+            );
+          }
+        }
+      : undefined,
 });
 
 export const unplugin = /* #__PURE__ */ createUnplugin(unpluginFactory);
