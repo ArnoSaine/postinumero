@@ -46,8 +46,7 @@
     "@postinumero/unplugin-formatjs": "^0.1.6",
     "assert-response": "^0.2.1",
     "lodash-es": "^4.17.21",
-    "p-lazy": "^5.0.0",
-    "tiny-invariant": "^1.3.3"
+    "p-lazy": "^5.0.0"
   },
   "devDependencies": {
     "@formatjs/intl": "^3.1.6",

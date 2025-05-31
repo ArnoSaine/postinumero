@@ -1,5 +1,5 @@
+import { valid } from "assert-response";
 import { redirect } from "react-router";
-import invariant from "tiny-invariant";
 import { type EnvironmentStrategy } from "../../options.ts";
 
 export const clientAction: EnvironmentStrategy["clientAction"] = (
@@ -16,7 +16,7 @@ export const clientAction: EnvironmentStrategy["clientAction"] = (
     }
     currentUrl.hostname = parts.join(".");
   } else {
-    invariant(isLocal, "Environment is required");
+    valid(isLocal, "Environment is required");
     currentUrl.hostname = "localhost";
   }
   return redirect(currentUrl.toString());
