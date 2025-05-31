@@ -1,6 +1,5 @@
 import { match as _match } from "@formatjs/intl-localematcher";
 import { baseLocales } from "@postinumero/formatjs-tools/utils/locale";
-import invariant from "tiny-invariant";
 
 export const match: typeof _match = (
   requestedLocales,
@@ -22,15 +21,11 @@ export const match: typeof _match = (
 
   // Some match implementations return the default locale if no match is found.
   // Prefer any matching locale with region over the default.
-  const availableLocale = availableLocales.includes(matchingLocale)
+  return availableLocales.includes(matchingLocale)
     ? matchingLocale
     : (availableLocales.find((locale) =>
         locale.startsWith(`${matchingLocale}-`),
       ) ??
-      availableLocales.at(0) ??
-      defaultLocale);
-
-  invariant(availableLocale, "No available locale found");
-
-  return availableLocale;
+        availableLocales.at(0) ??
+        defaultLocale);
 };
