@@ -1,5 +1,5 @@
+import { DEFAULT_INTL_CONFIG } from "@formatjs/intl";
 import type { IntlConfig, ResolvedIntlConfig } from "react-intl";
-import { DEFAULT_INTL_CONFIG } from "react-intl/src/utils.js";
 import {
   useMatches,
   type ActionFunctionArgs,

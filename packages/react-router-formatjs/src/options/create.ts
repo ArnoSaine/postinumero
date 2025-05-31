@@ -1,4 +1,4 @@
-import { DEFAULT_INTL_CONFIG } from "react-intl/src/utils.js";
+import { DEFAULT_INTL_CONFIG } from "@formatjs/intl";
 import { environments, getMessages, locales } from "../config.ts";
 import type {
   AvailableLocales,

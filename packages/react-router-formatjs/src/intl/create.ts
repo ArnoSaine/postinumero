@@ -1,9 +1,8 @@
-import type { OnErrorFn } from "@formatjs/intl";
+import { DEFAULT_INTL_CONFIG, type OnErrorFn } from "@formatjs/intl";
 import { pickBy } from "lodash-es";
 import { useMemo } from "react";
 import type { IntlConfig } from "react-intl";
 import { createIntl as _createIntl, createIntlCache } from "react-intl";
-import { DEFAULT_INTL_CONFIG } from "react-intl/src/utils.js";
 
 export const cache = createIntlCache();
 
