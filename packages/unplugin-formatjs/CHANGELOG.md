@@ -1,5 +1,13 @@
 # @postinumero/unplugin-formatjs
 
+## 0.1.7
+
+### Patch Changes
+
+- c08310f: Use `react-intl` without parser only in production
+- Updated dependencies [0df275f]
+  - @postinumero/formatjs-tools@0.1.6
+
 ## 0.1.6
 
 ### Patch Changes

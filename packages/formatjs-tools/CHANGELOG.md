@@ -1,5 +1,11 @@
 # @postinumero/formatjs-tools
 
+## 0.1.6
+
+### Patch Changes
+
+- 0df275f: If no locales are configured, use `DEFAULT_INTL_CONFIG.defaultLocale` from `formatjs/intl` as a fallback (default: `en`)
+
 ## 0.1.5
 
 ### Patch Changes
