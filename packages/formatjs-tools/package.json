@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@formatjs/cli-lib": "^6.6.3",
+    "@formatjs/intl": "^3.1.6",
     "@formatjs/ts-transformer": "^3.13.34",
     "@postinumero/config": "*",
     "babel-plugin-formatjs": "^10.5.37",

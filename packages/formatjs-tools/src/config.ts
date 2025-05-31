@@ -11,6 +11,7 @@ import {
 import { reverseParentDomains, reverseSubDomains } from "./utils/domain.ts";
 import { isLeafLocale, isLocale } from "./utils/locale.ts";
 import { isLeaf, isPathname } from "./utils/string.ts";
+import { DEFAULT_INTL_CONFIG } from "@formatjs/intl";
 
 export const toLangDirPath = (locale: string) =>
   path.join(LANG_DIR, `${locale}.json`);
@@ -69,9 +70,9 @@ export const getConfig = memoize(async function getConfig() {
       .filter((entry) => entry.environment === environment && entry.locale)
       .map(({ locale }) => locale!);
 
-  const filteredBaseEnvironmentLocales = filterBy(
-    langDirBaseEnvironmentLocales,
-    config.locales,
+  const filteredBaseEnvironmentLocales = emptyArrayFallback(
+    filterBy(langDirBaseEnvironmentLocales, config.locales),
+    [DEFAULT_INTL_CONFIG.defaultLocale],
   );
 
   const environments = filterBy(langDirEnvironments, config.environments).map(
