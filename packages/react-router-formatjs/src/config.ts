@@ -1,6 +1,6 @@
+import { DEFAULT_INTL_CONFIG } from "@formatjs/intl";
 import { uniq } from "lodash-es";
 import type { ResolvedIntlConfig } from "react-intl";
-import invariant from "tiny-invariant";
 import type { Environment } from "./options.ts";
 
 export const langDirModules = import.meta.env
@@ -17,9 +17,7 @@ export const langDirModules = import.meta.env
             return await import(/* @vite-ignore */ `${process.cwd()}/${prop}`, {
               with: { type: "json" },
             });
-          } catch {
-            return {};
-          }
+          } catch {}
         },
       },
     ) as Record<string, () => Promise<ResolvedIntlConfig["messages"]>>);
@@ -66,12 +64,5 @@ export function getMessages(locale: string, environment: Environment) {
       `.lang/compiled/${[environment, locale].filter(Boolean).join(":")}.json`
     ];
 
-  invariant(
-    importLangDirModule,
-    `No messages found for locale "${locale}"${
-      environment ? ` and environment "${environment}"` : ""
-    }`,
-  );
-
-  return importLangDirModule();
+  return importLangDirModule?.() ?? DEFAULT_INTL_CONFIG.messages;
 }
