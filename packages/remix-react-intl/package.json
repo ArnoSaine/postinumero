@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/remix-react-intl",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "FormatJS (react-intl) & Remix integration",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/remix-react-intl",
   "repository": {
@@ -37,7 +37,7 @@
     "@formatjs/intl-localematcher": "^0.5.4",
     "@formatjs/ts-transformer": "^3.13.26",
     "@mjackson/headers": "^0.7.2",
-    "@postinumero/map-get-with-default": "^0.2.0",
+    "@postinumero/map-get-with-default": "^1.0.0",
     "@postinumero/vite-plugin-module-info": "^0.2.0",
     "@postinumero/vite-plugin-module-proxy": "^0.2.1",
     "@postinumero/vite-plugin-remix-resolve-config-path": "^0.1.2",
