@@ -1,5 +1,12 @@
 # @postinumero/remix-react-intl
 
+## 0.2.11
+
+### Patch Changes
+
+- Updated dependencies [0880c94]
+  - @postinumero/map-get-with-default@1.0.0
+
 ## 0.2.10
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@postinumero/storage",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/storage",
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
     "dev": "tsc --watch"
   },
   "dependencies": {
-    "@postinumero/map-get-with-default": "^0.2.0"
+    "@postinumero/map-get-with-default": "^1.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",

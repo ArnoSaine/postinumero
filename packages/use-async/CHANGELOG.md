@@ -1,5 +1,16 @@
 # @postinumero/use-async
 
+## 1.0.0
+
+### Major Changes
+
+- 0e323da: Fix importing `useUpdate` from `react-use` CommonJS module
+
+### Patch Changes
+
+- Updated dependencies [0880c94]
+  - @postinumero/map-get-with-default@1.0.0
+
 ## 0.3.6
 
 ### Patch Changes
