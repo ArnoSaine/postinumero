@@ -2,7 +2,10 @@ import {
   clientAction,
   clientLoader as loginClientLoader,
 } from "@postinumero/react-router-oidc-client/routes/login";
-import { ClientActionFunctionArgs, ClientLoaderFunction } from "react-router";
+import type {
+  ClientActionFunctionArgs,
+  ClientLoaderFunction,
+} from "react-router";
 
 export const clientLoader: ClientLoaderFunction = async (args) => {
   const url = new URL(args.request.url);

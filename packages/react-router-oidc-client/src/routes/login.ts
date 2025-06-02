@@ -6,8 +6,8 @@ import {
   parseAndUnflatFormData,
 } from "@postinumero/react-router-oidc-client";
 import {
-  ClientActionFunction,
-  ClientLoaderFunction,
+  type ClientActionFunction,
+  type ClientLoaderFunction,
   replace,
 } from "react-router";
 

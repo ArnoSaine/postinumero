@@ -5,7 +5,7 @@ import {
 import { createRemoteJWKSet } from "jose";
 import {
   UserManager,
-  UserManagerSettings,
+  type UserManagerSettings,
   WebStorageStateStore,
 } from "oidc-client-ts";
 

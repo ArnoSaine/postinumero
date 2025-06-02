@@ -1,4 +1,4 @@
-import { DataFunctionArgs } from "@arnosaine/is";
+import type { DataFunctionArgs } from "@arnosaine/is";
 import {
   asyncUserManager,
   getUser,

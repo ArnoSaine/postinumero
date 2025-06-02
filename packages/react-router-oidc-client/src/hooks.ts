@@ -6,7 +6,7 @@ import {
 } from "@postinumero/react-router-oidc-client";
 import {
   createPath,
-  LinkProps,
+  type LinkProps,
   parsePath,
   useLocation,
   useSearchParams,

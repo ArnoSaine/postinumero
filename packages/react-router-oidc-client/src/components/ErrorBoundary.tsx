@@ -9,7 +9,7 @@ import {
   useRouteError,
   useSearchParams,
 } from "react-router";
-import { CreateErrorBoundaryProps } from "react-router/route-module";
+import type { CreateErrorBoundaryProps } from "react-router/route-module";
 
 export const withHandleAuthErrorBoundary = (
   UnauthorizedErrorBoundary: React.ComponentType<CreateErrorBoundaryProps<any>>,

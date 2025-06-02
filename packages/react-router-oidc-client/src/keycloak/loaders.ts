@@ -1,4 +1,4 @@
-import { DataFunctionArgs, toBooleanValues } from "@arnosaine/is";
+import { type DataFunctionArgs, toBooleanValues } from "@arnosaine/is";
 import * as base from "@postinumero/react-router-oidc-client";
 import {
   getKeycloakUser,

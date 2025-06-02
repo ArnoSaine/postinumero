@@ -1,10 +1,10 @@
-import { DataFunctionArgs } from "@arnosaine/is";
+import type { DataFunctionArgs } from "@arnosaine/is";
 import { getUser, options } from "@postinumero/react-router-oidc-client";
 import { asyncUserManager } from "@postinumero/react-router-oidc-client/user";
 import { parse } from "cookie";
 import { createRemoteJWKSet, jwtVerify } from "jose";
-import { IdTokenClaims, User } from "oidc-client-ts";
-import { unstable_MiddlewareFunction } from "react-router";
+import { type IdTokenClaims, User } from "oidc-client-ts";
+import type { unstable_MiddlewareFunction } from "react-router";
 
 export function getTokenFromRequest(request: Request) {
   const cookieHeader = request.headers.get("cookie");
