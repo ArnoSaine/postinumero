@@ -1,11 +1,13 @@
-import { useLoginLocation } from "@postinumero/react-router-oidc-client";
-import { ComponentType } from "react";
-import { FormProps, Form as RouterForm } from "react-router";
+import {
+  type PolymorphicProps,
+  useLoginLocation,
+} from "@postinumero/react-router-oidc-client";
+import type { ElementType } from "react";
+import { Form as ReactRouterForm } from "react-router";
 
-export default function LoginForm({
-  component: Form = RouterForm,
-  ...props
-}: FormProps & { component?: ComponentType<FormProps> }) {
+export default function LoginForm<
+  C extends ElementType = typeof ReactRouterForm,
+>({ component: Form = ReactRouterForm, ...props }: PolymorphicProps<C>) {
   const loginLocation = useLoginLocation();
 
   return <Form method="POST" action={loginLocation} {...props} />;

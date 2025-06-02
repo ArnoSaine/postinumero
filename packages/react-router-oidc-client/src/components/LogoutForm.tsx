@@ -2,16 +2,18 @@ import {
   options,
   redirectURISearchParams,
   setSearchParamLogoutIntent,
+  type PolymorphicProps,
 } from "@postinumero/react-router-oidc-client";
-import { ComponentType } from "react";
-import { FormProps, Form as RouterForm } from "react-router";
+import type { ElementType } from "react";
+import { Form as ReactRouterForm } from "react-router";
 
-export default function LogoutForm({
-  component: Form = RouterForm,
+export default function LogoutForm<
+  C extends ElementType = typeof ReactRouterForm,
+>({
+  component: Form = ReactRouterForm,
   redirect = true,
   ...props
-}: FormProps & {
-  component?: ComponentType<FormProps>;
+}: PolymorphicProps<C> & {
   redirect?: boolean | null | string;
 }) {
   if (typeof redirect === "boolean") {

@@ -1,11 +1,20 @@
 import { unflatten } from "flat";
-import { useEffect, useRef } from "react";
 import {
-  ActionFunctionArgs,
-  ClientActionFunctionArgs,
+  type ComponentProps,
+  type ElementType,
+  useEffect,
+  useRef,
+} from "react";
+import {
+  type ActionFunctionArgs,
+  type ClientActionFunctionArgs,
   createPath,
   useLocation,
 } from "react-router";
+
+export type PolymorphicProps<C extends ElementType> = {
+  component?: C;
+} & ComponentProps<C>;
 
 // https://github.com/authts/react-oidc-context/blob/7a542d3e2710be1d350d66f0940f3b8ea717a388/src/utils.ts#L4
 export function hasAuthParams(location: URL) {
