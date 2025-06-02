@@ -4,11 +4,15 @@ import {
   redirectURISearchParams,
   useLocationString,
 } from "@postinumero/react-router-oidc-client";
+import type { ErrorResponse } from "oidc-client-ts";
+import { useIntl } from "react-intl";
 import {
   createPath,
+  isRouteErrorResponse,
   type LinkProps,
   parsePath,
   useLocation,
+  useRouteError,
   useSearchParams,
 } from "react-router";
 
@@ -79,4 +83,24 @@ export function useLoginLoaderLocation(data: Record<string, string>) {
   location.search = searchParams.toString();
 
   return createPath(location);
+}
+
+export function useLoginError() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error) && error.data?.error === "invalid_grant") {
+    return error.data as ErrorResponse;
+  }
+}
+
+export function useLoginErrorMessage() {
+  const intl = useIntl();
+  const loginError = useLoginError();
+
+  if (loginError?.error === "invalid_grant") {
+    return intl.formatMessage({
+      defaultMessage: "Invalid username or password",
+      description: "Error message for invalid user credentials",
+    });
+  }
 }

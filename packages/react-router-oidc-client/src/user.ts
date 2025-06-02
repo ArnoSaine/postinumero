@@ -131,7 +131,9 @@ export async function actUserManager(
     await userManager[method](data);
   } catch (error) {
     if (error instanceof Error) {
-      unauthorized(true, error.message);
+      unauthorized(true, JSON.stringify(error), {
+        headers: { "Content-Type": "application/json" },
+      });
     }
   }
 }

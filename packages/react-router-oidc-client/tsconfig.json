@@ -1,25 +1,20 @@
 {
-  "extends": "../../tsconfig.base",
+  "extends": "@postinumero/formatjs-tools/configs/tsconfig.lib.json",
   "compilerOptions": {
-    "outDir": "lib",
-    "paths": {
-      "@postinumero/react-router-oidc-client": ["./src/index.js"],
-      "@postinumero/react-router-oidc-client/components": [
-        "./src/components/index.js"
-      ],
-      "@postinumero/react-router-oidc-client/components/*": [
-        "./src/components/*.js"
-      ],
-      "@postinumero/react-router-oidc-client/keycloak": [
-        "./src/keycloak/index.js"
-      ],
-      "@postinumero/react-router-oidc-client/keycloak/*": [
-        "./src/keycloak/*.js"
-      ],
-      "@postinumero/react-router-oidc-client/routes": ["./src/routes/index.js"],
-      "@postinumero/react-router-oidc-client/routes/*": ["./src/routes/*.js"],
-      "@postinumero/react-router-oidc-client/*": ["./src/*.js"]
-    }
+    "strict": true,
+
+    // node type stripping settings
+    // https://nodejs.org/api/typescript.html#type-stripping
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "target": "ESNext",
+    "module": "NodeNext",
+
+    "jsx": "react-jsx",
+    "skipLibCheck": true
   },
-  "include": ["src"]
+
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

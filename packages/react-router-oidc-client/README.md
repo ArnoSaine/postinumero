@@ -311,6 +311,30 @@ Perform redirect logout, stay on current page even if current route is protected
 </LogoutForm>
 ```
 
+#### `useLoginError`
+
+Access the raw login error inside an error boundary (e.g., after a failed login redirect).
+
+```tsx
+import { useLoginError } from "@postinumero/react-router-oidc-client";
+
+const loginError = useLoginError();
+
+console.log(loginError?.error_description); // => "Invalid user credentials"
+```
+
+#### `useLoginErrorMessage`
+
+Access a user-friendly, translated error message. Requires `react-intl`.
+
+```tsx
+import { useLoginErrorMessage } from "@postinumero/react-router-oidc-client";
+
+const loginErrorMessage = useLoginErrorMessage();
+
+console.log(loginErrorMessage); // => "Invalid username or password"
+```
+
 #### `<IsAuthenticated>`
 
 Conditionally render content based on authentication state.

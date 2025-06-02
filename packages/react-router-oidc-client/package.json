@@ -31,12 +31,16 @@
     "./*": "./lib/*.js"
   },
   "files": [
+    "lang",
     "lib",
     "src"
   ],
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch"
+    "prebuild": "formatjs-tools extract --path src",
+    "build": "tspc --project tsconfig.lib.json",
+    "predev": "npm run prebuild",
+    "dev": "npm run build -- --watch",
+    "typecheck": "npm run build --ignore-scripts -- --noEmit"
   },
   "dependencies": {
     "@arnosaine/is": "^0.2.9",
@@ -49,8 +53,12 @@
     "oidc-client-ts": "^3.1.0",
     "typescript": "^5.7.3"
   },
+  "devDependencies": {
+    "@postinumero/formatjs-tools": "^0.1.6"
+  },
   "peerDependencies": {
     "@react-router/dev": ">=7.5.0",
+    "react-intl": ">=7.0.0",
     "react-router": ">=7.5.0"
   }
 }

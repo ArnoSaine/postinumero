@@ -1,11 +1,7 @@
-import {
-  LoginForm,
-  // LoginRedirect,
-} from "@postinumero/react-router-oidc-client";
-import { isRouteErrorResponse } from "react-router";
-import type { CreateErrorBoundaryProps } from "react-router/route-module";
+import { LoginForm } from "@postinumero/react-router-oidc-client";
+import { useLoginError } from "@postinumero/react-router-oidc-client";
 
-export default function Login(props: CreateErrorBoundaryProps<any>) {
+export default function Login() {
   // return (
   //   <LoginRedirect
   //     intent="redirect"
@@ -13,7 +9,7 @@ export default function Login(props: CreateErrorBoundaryProps<any>) {
   //   />
   // );
 
-  const errorMessage = isRouteErrorResponse(props.error) && props.error.data;
+  const loginError = useLoginError();
 
   return (
     <div className="flex-grow flex flex-col items-center justify-center">
@@ -54,9 +50,9 @@ export default function Login(props: CreateErrorBoundaryProps<any>) {
               defaultValue="demo"
             />
           </div>
-          {errorMessage && (
+          {loginError && (
             <div className="mb-4 text-sm text-red-600 bg-red-100 border border-red-300 rounded p-2">
-              {errorMessage}
+              {loginError.error_description}
             </div>
           )}
           <button className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-2">
