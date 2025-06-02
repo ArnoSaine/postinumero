@@ -9,7 +9,7 @@
 ### Patch Changes
 
 - 20df03a: Fallback to the default messages when no messages are found
-- 918cc45: Import `DEFAULT_INTL_CONFIG` from `@formatjs/intl` instead of the unofficial and incompatible `react-intl/src/utils.js`
+- 918cc45: Import `DEFAULT_INTL_CONFIG` from `@formatjs/intl` instead of the unofficial and incompatible export from `react-intl/src/utils.js`
 - Updated dependencies [0df275f]
 - Updated dependencies [c08310f]
   - @postinumero/formatjs-tools@0.1.6
