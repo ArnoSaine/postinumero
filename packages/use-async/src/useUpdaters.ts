@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { useUpdate } from "react-use";
+import useUpdateLib from "react-use/lib/useUpdate.js";
 import type { Fn, Memoized } from "./index.js";
+
+const useUpdate = useUpdateLib.default ?? useUpdateLib;
 
 export default function useUpdaters<Func extends Fn>(memoized: Memoized<Func>) {
   const update = useUpdate();
