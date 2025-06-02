@@ -23,7 +23,11 @@ export default function getWithDefault<K, V>(
   this: Map<K, V> | void,
   ...args: any[]
 ) {
-  return this
+  return this && (this as unknown as Module).default !== getWithDefault
     ? getWithDefaultBase(this as Map<K, V>, ...(args as [K, () => V]))
     : getWithDefaultBase(...(args as [Map<K, V>, K, () => V]));
+}
+
+interface Module {
+  default: typeof getWithDefault;
 }
