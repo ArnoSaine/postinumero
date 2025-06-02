@@ -23,6 +23,9 @@ export default function getWithDefault<K, V>(
   this: Map<K, V> | void,
   ...args: any[]
 ) {
+  // Detect method vs function call. In some cases `this` points to the module
+  // itself, so we check if `this.default` is not the function itself.
+  // `this instanceof Map` may also be used.
   return this && (this as unknown as Module).default !== getWithDefault
     ? getWithDefaultBase(this as Map<K, V>, ...(args as [K, () => V]))
     : getWithDefaultBase(...(args as [Map<K, V>, K, () => V]));
