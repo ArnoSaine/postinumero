@@ -1,5 +1,12 @@
 # @postinumero/react-router-oidc-client
 
+## 0.2.3
+
+### Patch Changes
+
+- aca2cb0: Add `useLoginError` and `useLoginErrorMessage` hooks
+- 569b9cf: Improve `<LoginForm>` and `<LogoutForm>` typings when `component` prop is used
+
 ## 0.2.2
 
 ### Patch Changes
