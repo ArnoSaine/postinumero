@@ -1,5 +1,12 @@
 # @postinumero/react-router-oidc-client
 
+## 0.2.4
+
+### Patch Changes
+
+- a53ac74: Fix listening storage events
+- aa6fa14: Add `useUserEvent` hook
+
 ## 0.2.3
 
 ### Patch Changes
