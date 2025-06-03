@@ -1,10 +1,5 @@
 import { unflatten } from "flat";
-import {
-  type ComponentProps,
-  type ElementType,
-  useEffect,
-  useRef,
-} from "react";
+import { type ComponentProps, type ElementType } from "react";
 import {
   type ActionFunctionArgs,
   type ClientActionFunctionArgs,
@@ -45,17 +40,3 @@ export async function parseAndUnflatFormData(
 }
 
 export const useLocationString = () => createPath(useLocation());
-
-export const useEffectAfterMount: typeof useEffect = (action, deps = []) => {
-  const isMountedRef = useRef(false);
-  useEffect(() => {
-    if (isMountedRef.current) {
-      return action();
-    }
-
-    isMountedRef.current = true;
-    return () => {
-      isMountedRef.current = false;
-    };
-  }, deps);
-};
