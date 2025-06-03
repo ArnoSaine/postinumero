@@ -22,29 +22,6 @@ export function useRevalidateUser() {
   }, [user]);
 }
 
-// function subscribe(callback: () => void) {
-//   async function handleUserManagerEvent() {
-//     const userManager = await asyncUserManager.promise;
-//     user = await userManager.getUser();
-
-//     callback();
-//   }
-
-//   async function handleStorageEvent({ key }: StorageEvent) {
-//     const userManager = await asyncUserManager.promise;
-
-//     if (key?.startsWith((userManager.settings.stateStore as any)._prefix)) {
-//       handleUserManagerEvent();
-//     }
-//   }
-
-//   window.addEventListener("storage", handleStorageEvent);
-//   handleUserManagerEvent();
-
-//   return () => {
-//     window.removeEventListener("storage", handleStorageEvent);
-//   };
-// }
 export const useUser = () => {
   const userRef = useRef<User | undefined | null>(undefined);
 
