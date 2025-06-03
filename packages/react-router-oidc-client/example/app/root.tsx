@@ -3,6 +3,7 @@ import {
   oidc_ssr_middleware,
   useRemoveLogoutIntentSearchParam,
   useRevalidateUser,
+  useUserEvent,
   withHandleAuthErrorBoundary,
 } from "@postinumero/react-router-oidc-client";
 import {
@@ -78,6 +79,10 @@ export function Layout({ children }: PropsWithChildren) {
 
 export default function App() {
   useRemoveLogoutIntentSearchParam();
+
+  useUserEvent("unloaded", () => {
+    console.log("You have been signed out.");
+  });
 
   return <Outlet />;
 }

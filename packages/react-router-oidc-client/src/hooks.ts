@@ -1,10 +1,13 @@
 import {
+  asyncUserManager,
   getRedirectURI,
   options,
   redirectURISearchParams,
   useLocationString,
 } from "@postinumero/react-router-oidc-client";
-import type { ErrorResponse } from "oidc-client-ts";
+import { camelCase } from "lodash-es";
+import type { ErrorResponse, UserManager } from "oidc-client-ts";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import {
   createPath,
@@ -103,4 +106,39 @@ export function useLoginErrorMessage() {
       description: "Error message for invalid user credentials",
     });
   }
+}
+
+export type EventType =
+  | "signedIn"
+  | "signedOut"
+  | "sessionChanged"
+  | "loaded"
+  | "unloaded";
+
+const getEventName = (eventType: EventType) => (updateType: "add" | "remove") =>
+  camelCase(`${updateType}-user-${eventType}`) as keyof UserManager["events"];
+
+export function useUserEvent(
+  type: EventType,
+  callback: (...args: any[]) => any,
+  deps?: React.DependencyList,
+) {
+  useEffect(() => {
+    const eventName = getEventName(type);
+    let shouldAddListener = true;
+    (async () => {
+      const userManager = await asyncUserManager.promise;
+      if (!shouldAddListener) {
+        return;
+      }
+      (userManager.events[eventName("add")] as any)(callback);
+    })();
+    return () => {
+      (async () => {
+        shouldAddListener = false;
+        const userManager = await asyncUserManager.promise;
+        (userManager.events[eventName("remove")] as any)(callback);
+      })();
+    };
+  }, deps);
 }

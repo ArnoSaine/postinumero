@@ -311,6 +311,18 @@ Perform redirect logout, stay on current page even if current route is protected
 </LogoutForm>
 ```
 
+#### `useUserEvent`
+
+Subscribe to [UserManager events](https://authts.github.io/oidc-client-ts/classes/UserManagerEvents.html).
+
+```tsx
+import { useUserEvent } from "@postinumero/react-router-oidc-client";
+
+useUserEvent("unloaded", () => {
+  console.log("You have been signed out.");
+});
+```
+
 #### `useLoginError`
 
 Access the raw login [error](https://authts.github.io/oidc-client-ts/classes/ErrorResponse.html) inside an error boundary (e.g., after a failed login redirect).
