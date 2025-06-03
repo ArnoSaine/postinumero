@@ -313,7 +313,7 @@ Perform redirect logout, stay on current page even if current route is protected
 
 #### `useLoginError`
 
-Access the raw login error inside an error boundary (e.g., after a failed login redirect).
+Access the raw login [error](https://authts.github.io/oidc-client-ts/classes/ErrorResponse.html) inside an error boundary (e.g., after a failed login redirect).
 
 ```tsx
 import { useLoginError } from "@postinumero/react-router-oidc-client";
