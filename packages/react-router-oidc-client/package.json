@@ -50,11 +50,11 @@
     "jose": "^6.0.10",
     "jwt-decode": "^4.0.0",
     "lodash-es": "^4.17.21",
-    "oidc-client-ts": "^3.1.0",
-    "typescript": "^5.7.3"
+    "oidc-client-ts": "^3.1.0"
   },
   "devDependencies": {
-    "@postinumero/formatjs-tools": "^0.1.6"
+    "@postinumero/formatjs-tools": "^0.1.6",
+    "typescript": "^5.7.3"
   },
   "peerDependencies": {
     "@react-router/dev": ">=7.5.0",
