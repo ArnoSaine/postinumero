@@ -1,5 +1,11 @@
 # @postinumero/react-router-formatjs
 
+## 0.2.1
+
+### Patch Changes
+
+- 142049d: Fix: Prevent duplicate instances of client context
+
 ## 0.2.0
 
 ### Minor Changes
