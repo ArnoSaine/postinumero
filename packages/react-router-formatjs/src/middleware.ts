@@ -16,12 +16,13 @@ export interface Context {
   intl: IntlShape;
 }
 
+declare global {
+  var __REACT_ROUTER_FORMATJS_CLIENT_CONTEXT__: PromiseWithResolvers<Context>;
+}
+
 // For client loaders and client actions
-export const clientContextRef: {
-  current: PromiseWithResolvers<Context>;
-} = {
-  current: Promise.withResolvers<Context>(),
-};
+globalThis.__REACT_ROUTER_FORMATJS_CLIENT_CONTEXT__ ??=
+  Promise.withResolvers<Context>();
 
 export const intlContext = unstable_createContext<Context>();
 
@@ -38,7 +39,7 @@ export const loadIntlContext = async (args: DataFunctionArgs) =>
         (args.context.get(intlContext) as Context)
       : // Create a new context value
         createIntlContext(args)
-    : clientContextRef.current.promise;
+    : globalThis.__REACT_ROUTER_FORMATJS_CLIENT_CONTEXT__.promise;
 
 async function createIntlContext(
   args: ActionFunctionArgs | LoaderFunctionArgs,

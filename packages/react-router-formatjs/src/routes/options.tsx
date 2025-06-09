@@ -5,7 +5,7 @@ import {
   type ShouldRevalidateFunction,
 } from "react-router";
 import { createIntl } from "../intl/create.ts";
-import { clientContextRef, type Context } from "../middleware.ts";
+import type { Context } from "../middleware.ts";
 import { CONFIG, type Options } from "../options.ts";
 import { createOptions } from "../options/create.ts";
 import { saveOptions } from "../options/save.ts";
@@ -28,7 +28,8 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 
 export const clientAction = async (args: ClientActionFunctionArgs) => {
   // Reset context value. Next client loader will set it again.
-  clientContextRef.current = Promise.withResolvers<Context>();
+  globalThis.__REACT_ROUTER_FORMATJS_CLIENT_CONTEXT__ =
+    Promise.withResolvers<Context>();
   const result = await saveOptions(
     args,
     "clientAction",
@@ -61,7 +62,7 @@ export const clientLoader = async (args: ClientLoaderFunctionArgs) => {
     ),
   );
 
-  clientContextRef.current.resolve({
+  globalThis.__REACT_ROUTER_FORMATJS_CLIENT_CONTEXT__.resolve({
     options,
     intl: createIntl(options.intlConfig),
   });
