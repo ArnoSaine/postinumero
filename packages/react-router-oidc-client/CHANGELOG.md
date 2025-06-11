@@ -6,7 +6,7 @@
 
 - 9b8bc9b: Fix maximum update depth exceeded error when logging out
 
-  - Add missing useEffect dependencies
+  - Add missing `useEffect` dependencies
 
 ## 0.2.4
 
