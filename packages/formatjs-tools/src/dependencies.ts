@@ -7,29 +7,39 @@ import { LANG_DIR } from "./config.ts";
 import { asyncFilter, asyncMap } from "./utils/array.ts";
 
 export async function getDependencyPaths() {
-  const dependenciesSet = new Set<string>();
+  const visitedDependenciesSet = new Set<string>();
 
-  await (async function recur(relativePath) {
+  const dependencies = await (async function recur(
+    relativePath,
+  ): Promise<string[]> {
     const packageUp = await readPackageUp({ cwd: relativePath });
 
     if (packageUp) {
       const { path, packageJson } = packageUp;
-      if (!dependenciesSet.has(path)) {
+      if (!visitedDependenciesSet.has(path)) {
         const require = createRequire(`file://${path}`);
-        dependenciesSet.add(path);
+        visitedDependenciesSet.add(path);
         const dependencies = Object.keys(packageJson.dependencies ?? []);
 
-        await asyncMap(dependencies, async (dependency) => {
-          try {
-            await recur(require.resolve(dependency));
-          } catch {}
-        });
+        const dependencyPaths = await asyncMap(
+          dependencies,
+          async (dependency) => {
+            try {
+              return await recur(require.resolve(dependency));
+            } catch {
+              return [];
+            }
+          },
+        );
+
+        return [path, ...dependencyPaths.flat()];
       }
     }
+    return [];
   })(process.cwd());
 
   return (
-    [...dependenciesSet]
+    dependencies
       .map(dirname)
       // Without self
       .slice(1)
