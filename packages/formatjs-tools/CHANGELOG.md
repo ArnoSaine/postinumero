@@ -1,5 +1,11 @@
 # @postinumero/formatjs-tools
 
+## 0.1.7
+
+### Patch Changes
+
+- 3626b7f: Fix: process dependencies in stable order
+
 ## 0.1.6
 
 ### Patch Changes
