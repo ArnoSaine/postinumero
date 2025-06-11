@@ -1,5 +1,13 @@
 # @postinumero/react-router-oidc-client
 
+## 0.2.5
+
+### Patch Changes
+
+- 9b8bc9b: Fix maximum update depth exceeded error when logging out
+
+  - Add missing `useEffect` dependencies
+
 ## 0.2.4
 
 ### Patch Changes
