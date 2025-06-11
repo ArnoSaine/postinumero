@@ -53,7 +53,7 @@ export function useHandleLogoutProtectedRoute() {
         preventScrollReset: true,
       });
     }
-  });
+  }, [isLoggingOutProtectedRoute, navigate]);
 
   return isLoggingOutProtectedRoute;
 }
