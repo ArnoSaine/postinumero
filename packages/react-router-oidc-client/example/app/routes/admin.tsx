@@ -1,7 +1,6 @@
 import { authenticated } from "@postinumero/react-router-oidc-client/keycloak";
-import type { Route } from "./+types/admin";
 import { Form } from "react-router";
-import { loadUser } from "@postinumero/react-router-oidc-client";
+import type { Route } from "./+types/admin";
 
 export const action = async (args: Route.ActionArgs) => {
   await authenticated(args, {
