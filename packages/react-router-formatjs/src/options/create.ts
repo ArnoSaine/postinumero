@@ -23,7 +23,7 @@ export async function createOptions(
   const [environmentResults, requestedLocalesResults] = (await Promise.all(
     strategyResultLists.map((strategyResults) => Promise.all(strategyResults)),
   )) as [Environment[], RequestedLocales[]];
-  const environment: Environment =
+  const requestedEnvironment: Environment =
     environmentResults.find(Boolean) ??
     import.meta.env?.VITE_environment ??
     null;
@@ -33,8 +33,11 @@ export async function createOptions(
     DEFAULT_INTL_CONFIG.defaultLocale as string,
   ];
 
-  const availableLocales =
-    environments.find(({ name }) => name === environment)?.locales ?? locales;
+  const environmentValue = environments.find(
+    ({ name }) => name === requestedEnvironment,
+  ) ?? { name: null, locales };
+
+  const { name: environment, locales: availableLocales } = environmentValue;
 
   const intlConfig = await createIntlConfig({
     requestedLocales,
