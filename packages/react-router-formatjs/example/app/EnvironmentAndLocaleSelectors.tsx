@@ -1,7 +1,7 @@
+import { FormattedMessageValue } from "@postinumero/formatjs-helpers";
 import {
   environmentNames,
   EnvironmentSelect,
-  FormattedMessageValue,
   LocaleSelect,
   SetEnvironmentButton,
   SetLocaleButton,
@@ -55,7 +55,7 @@ export default function EnvironmentAndLocaleSelectors() {
 function EnvironmentDisplayName({ value }: { value: string | null }) {
   return value ? (
     <FormattedMessageValue
-      messages={defineMessages({
+      optionMessages={defineMessages({
         "com.acme.test": {
           defaultMessage: "ACME (test)",
           description: "Environment name: com.acme.test",
@@ -77,7 +77,7 @@ function EnvironmentDisplayName({ value }: { value: string | null }) {
           description: "Environment name: production",
         },
       })}
-      messageKey={value}
+      value={value}
     />
   ) : (
     <FormattedMessage defaultMessage="Base" description="Base environment" />

@@ -9,6 +9,7 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@postinumero/formatjs-helpers": "*",
     "@postinumero/react-router-formatjs": "*",
     "@react-router/node": "^7.5.1",
     "@react-router/serve": "^7.5.1",

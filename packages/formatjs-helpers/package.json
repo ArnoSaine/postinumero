@@ -1,20 +1,30 @@
 {
-  "name": "<%= name %>",
+  "name": "@postinumero/formatjs-helpers",
   "version": "0.0.0",
-  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/<%= path %>",
+  "homepage": "https://github.com/ArnoSaine/postinumero/tree/main/packages/formatjs-helpers",
   "repository": {
     "type": "git",
     "url": "https://github.com/ArnoSaine/postinumero.git",
-    "directory": "packages/<%= path %>"
+    "directory": "packages/formatjs-helpers"
   },
-  "license": "<%= license %>",
+  "license": "ISC",
   "author": {
-    "name": "<%= author.name %>",
-    "email": "<%= author.email %>"
+    "name": "Arno Saine",
+    "email": "arno@mowhi.com"
   },
   "type": "module",
-  "exports": "./lib/main.js",
-  "bin": "./lib/bin/main.js",
+  "exports": {
+    ".": [
+      "./lib/index.js",
+      "./src/index.ts",
+      "./src/index.tsx"
+    ],
+    "./*": [
+      "./lib/*.js",
+      "./src/*.ts",
+      "./src/*.tsx"
+    ]
+  },
   "files": [
     "lib",
     "src",
@@ -29,6 +39,9 @@
   "devDependencies": {
     "@types/node": "^24.0.1",
     "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "react-intl": ">=6"
   },
   "publishConfig": {
     "access": "public"
