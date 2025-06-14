@@ -1,5 +1,12 @@
 # @postinumero/react-router-formatjs
 
+## 0.2.2
+
+### Patch Changes
+
+- 261b26f: Fix using base environment and locales in production. Fallback to base environment and locales when no environment is requested or requested environment is not available.
+- f87af41: Add `@postinumero/formatjs-helpers`
+
 ## 0.2.1
 
 ### Patch Changes
