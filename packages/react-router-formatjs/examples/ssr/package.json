@@ -1,5 +1,5 @@
 {
-  "name": "react-router-formatjs-example-app",
+  "name": "react-router-formatjs-ssr-example-app",
   "private": true,
   "type": "module",
   "scripts": {
