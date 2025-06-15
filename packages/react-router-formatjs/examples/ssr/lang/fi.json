@@ -1,4 +1,8 @@
 {
+  "2bwjjT": {
+    "defaultMessage": "Onnistui!",
+    "description": "Submit success message"
+  },
   "8Ej+CA": {
     "defaultMessage": "Tuotanto",
     "description": "Environment name: production"
@@ -11,10 +15,6 @@
     "defaultMessage": "Liity Discordiin",
     "description": "Discord link text"
   },
-  "OeEHE9": {
-    "defaultMessage": "Testitoiminto",
-    "description": "Test action button"
-  },
   "UXCtM4": {
     "defaultMessage": "Mitä seuraavaksi?",
     "description": "List of resources"
@@ -26,6 +26,10 @@
   "cCUrRg": {
     "defaultMessage": "Tapahtui odottamaton virhe.",
     "description": "Error details: generic"
+  },
+  "dqqPUE": {
+    "defaultMessage": "Testilähetys",
+    "description": "Test submit button"
   },
   "e+2E75": {
     "defaultMessage": "Tervetuloa React Routeriin!",
@@ -50,10 +54,6 @@
   "qLhXcE": {
     "defaultMessage": "React Router -dokumentaatio",
     "description": "React Router documentation link text"
-  },
-  "sEHcnG": {
-    "defaultMessage": "Onnistui!",
-    "description": "Action success message"
   },
   "tx/2dq": {
     "defaultMessage": "Pohja",

@@ -34,7 +34,7 @@ export const action = async (args: Route.ActionArgs) => {
   console.log(
     intl.formatMessage({
       defaultMessage: "Success!",
-      description: "Action success message",
+      description: "Submit success message",
     }),
   );
 };

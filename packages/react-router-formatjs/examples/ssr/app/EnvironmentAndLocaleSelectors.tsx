@@ -42,8 +42,8 @@ export default function EnvironmentAndLocaleSelectors() {
         <Form navigate={false} method="post">
           <Button>
             <FormattedMessage
-              defaultMessage="Test action"
-              description="Test action button"
+              defaultMessage="Test submit"
+              description="Test submit button"
             />
           </Button>
         </Form>
