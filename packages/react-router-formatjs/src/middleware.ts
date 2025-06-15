@@ -4,8 +4,8 @@ import {
   type ActionFunctionArgs,
   type LoaderFunctionArgs,
 } from "react-router";
+import type { DataFunctionArgs, Options } from "./config.ts";
 import { createIntl } from "./intl/create.ts";
-import type { DataFunctionArgs, Options } from "./options.ts";
 import { createOptions } from "./options/create.ts";
 import { resolvedStrategiesPromise } from "./options/strategies.ts";
 import isServer from "./utils/is-server.ts";

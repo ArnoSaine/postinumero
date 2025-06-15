@@ -1,5 +1,6 @@
 import { Form } from "react-router";
-import { CONFIG, useOptions, type StrategyType } from "../options.ts";
+import { CONFIG, type StrategyType } from "../config.ts";
+import { useOptions } from "../options.ts";
 import LocaleDisplayName from "./LocaleDisplayName.tsx";
 
 export type SetOptionButtonProps = Omit<

@@ -7,7 +7,7 @@ import {
   CONFIG,
   type ActionFunction,
   type ClientActionFunction,
-} from "../options.ts";
+} from "../config.ts";
 import isServer from "../utils/is-server.ts";
 import { resolvedStrategiesPromise } from "./strategies.ts";
 

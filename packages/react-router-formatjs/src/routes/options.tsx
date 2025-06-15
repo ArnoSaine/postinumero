@@ -4,9 +4,9 @@ import {
   type ClientLoaderFunctionArgs,
   type ShouldRevalidateFunction,
 } from "react-router";
+import { CONFIG, type Options } from "../config.ts";
 import { createIntl } from "../intl/create.ts";
 import type { Context } from "../middleware.ts";
-import { CONFIG, type Options } from "../options.ts";
 import { createOptions } from "../options/create.ts";
 import { saveOptions } from "../options/save.ts";
 import { resolvedStrategiesPromise } from "../options/strategies.ts";

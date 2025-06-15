@@ -5,7 +5,7 @@ import {
   type SessionIdStorageStrategy,
 } from "react-router";
 import type { Writable } from "type-fest";
-import { type RequestedLocalesStrategy } from "../../options.ts";
+import { type RequestedLocalesStrategy } from "../../config.ts";
 
 export const cookie: Writable<NonNullable<SessionIdStorageStrategy["cookie"]>> =
   {

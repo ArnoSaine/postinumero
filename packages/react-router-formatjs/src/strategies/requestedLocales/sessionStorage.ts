@@ -1,4 +1,4 @@
-import { CONFIG, type RequestedLocalesStrategy } from "../../options.ts";
+import { CONFIG, type RequestedLocalesStrategy } from "../../config.ts";
 
 export const create = (storage: () => Storage): RequestedLocalesStrategy => ({
   clientAction: (values) => {

@@ -4,16 +4,16 @@ import {
   type RouteConfig,
   type RouteConfigEntry,
 } from "@react-router/dev/routes";
-import { CONFIG } from "../options.ts";
-import routerConfig from "../utils/react-router/config.ts";
+import { CONFIG } from "./config.ts";
+import routerConfig from "./utils/react-router/config.ts";
 
 const ssr = routerConfig.ssr ? ".ssr" : "";
 
 const routeFile = (path: string) =>
-  `${import.meta.dirname}/../routes/${path}${ssr}.js`;
+  `${import.meta.dirname}/routes/${path}${ssr}.js`;
 
-export const intlRoutes = (children: RouteConfigEntry[]) =>
-  [
+export default function intlRoutes(children: RouteConfigEntry[]) {
+  return [
     {
       ...layout(routeFile("options"), [
         ...children,
@@ -23,3 +23,4 @@ export const intlRoutes = (children: RouteConfigEntry[]) =>
       id: CONFIG.route.id,
     },
   ] satisfies RouteConfig;
+}

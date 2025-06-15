@@ -4,7 +4,7 @@ import {
   type EnvironmentStrategy,
   type RequestedLocalesStrategy,
   type Strategy,
-} from "../options.ts";
+} from "../config.ts";
 
 const strategyModules = import.meta.env
   ? import.meta.glob<Strategy>("../strategies/*/*.js")

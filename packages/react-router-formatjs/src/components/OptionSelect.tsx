@@ -1,7 +1,7 @@
 import { cloneElement } from "react";
 import { useFetcher } from "react-router";
-import { environmentNames } from "../config.ts";
-import { CONFIG, useOptions, type StrategyType } from "../options.ts";
+import { CONFIG, type StrategyType } from "../config.ts";
+import { environmentNames, useOptions } from "../options.ts";
 import LocaleDisplayName from "./LocaleDisplayName.tsx";
 
 export type OptionsSelectProps = Omit<

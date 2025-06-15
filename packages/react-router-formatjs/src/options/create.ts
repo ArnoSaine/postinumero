@@ -1,11 +1,11 @@
 import { DEFAULT_INTL_CONFIG } from "@formatjs/intl";
-import { environments, getMessages, locales } from "../config.ts";
 import type {
   AvailableLocales,
   Environment,
   Options,
   RequestedLocales,
-} from "../options.ts";
+} from "../config.ts";
+import { environments, getMessages, locales } from "../options.ts";
 import { match } from "../utils/@formatjs/intl-localematcher.ts";
 
 export async function createOptions(
@@ -30,7 +30,7 @@ export async function createOptions(
   const requestedLocales = [
     ...requestedLocalesResults.flat(),
     (import.meta.env?.VITE_defaultLocale as string | undefined) ?? null,
-    DEFAULT_INTL_CONFIG.defaultLocale as string,
+    DEFAULT_INTL_CONFIG.defaultLocale,
   ];
 
   const environmentValue = environments.find(

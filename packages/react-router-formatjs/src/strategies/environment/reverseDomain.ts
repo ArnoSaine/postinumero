@@ -1,6 +1,6 @@
 import { valid } from "assert-response";
 import { redirect } from "react-router";
-import { type EnvironmentStrategy } from "../../options.ts";
+import { type EnvironmentStrategy } from "../../config.ts";
 
 export const clientAction: EnvironmentStrategy["clientAction"] = (
   [environment],
