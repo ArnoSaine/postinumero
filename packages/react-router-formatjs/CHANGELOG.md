@@ -1,5 +1,12 @@
 # @postinumero/react-router-formatjs
 
+## 0.2.3
+
+### Patch Changes
+
+- 00301cf: - **Deprecate** named export `intlRoutes`. Use the default export from `@postinumero/react-router-formatjs/routes` instead.
+  - Fix production build error caused by missing messages
+
 ## 0.2.2
 
 ### Patch Changes
