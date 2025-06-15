@@ -34,6 +34,7 @@
   "scripts": {
     "prebuild": "formatjs-tools extract --path src",
     "build": "tspc --project tsconfig.lib.json",
+    "create-spa-example": "./scripts/create-spa-example.sh",
     "predev": "npm run prebuild",
     "dev": "npm run build -- --watch",
     "test": "node --experimental-strip-types --disable-warning=ExperimentalWarning --test './src/**/*.test.ts'",
