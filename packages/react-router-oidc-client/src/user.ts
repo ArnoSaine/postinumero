@@ -2,7 +2,8 @@ import { unauthorized } from "assert-response";
 import { camelCase, isEqual } from "lodash-es";
 import type { User, UserManager } from "oidc-client-ts";
 import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
-import { useRevalidator } from "react-router";
+import { useLocation, useRevalidator } from "react-router";
+import options from "./options.ts";
 
 export const asyncUserManager = Promise.withResolvers<UserManager>();
 
@@ -12,14 +13,30 @@ export const getUser = async () => {
   return userManager.getUser();
 };
 
-// Revalidate loaders on user update
+const loginAndLogoutRoutes = Object.values(options.routes);
+
+/**
+ * Revalidate loaders on user update. Skips revalidation
+ * while logging in or out.
+ */
 export function useRevalidateUser() {
   const { revalidate } = useRevalidator();
   const user = useUser();
+  const prevUserRef = useRef<User | undefined | null>(undefined);
+  const { pathname } = useLocation();
+  const isLoggingInOrOut = loginAndLogoutRoutes.includes(pathname);
 
   useEffect(() => {
+    if (isLoggingInOrOut) {
+      return;
+    }
+    if (prevUserRef.current === user) {
+      return;
+    }
+    prevUserRef.current = user;
+
     revalidate();
-  }, [user]);
+  }, [user, isLoggingInOrOut]);
 }
 
 export const useUser = () => {
