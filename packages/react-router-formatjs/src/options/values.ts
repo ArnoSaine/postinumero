@@ -1,11 +1,6 @@
-import { DEFAULT_INTL_CONFIG } from "@formatjs/intl";
 import { uniq } from "lodash-es";
 import type { ResolvedIntlConfig } from "react-intl";
-import { useMatches, type UIMatch } from "react-router";
-import type { Environment } from "./config.ts";
-import { CONFIG } from "./config.ts";
-import { createOptions } from "./options/create.ts";
-import type { clientLoader } from "./routes/options.tsx";
+import type { Environment } from "../config.ts";
 
 export const langDirModules = import.meta.env
   ? import.meta.glob<ResolvedIntlConfig["messages"]>(
@@ -69,20 +64,3 @@ export function getMessages(locale: string, environment: Environment) {
   const importLangDirModule = langDirModules[langDirModulePath];
   return importLangDirModule();
 }
-
-const findMatch = (matches: UIMatch[]) =>
-  (matches as UIMatch<Awaited<ReturnType<typeof clientLoader>>>[]).find(
-    (match) => match.id === CONFIG.route.id,
-  );
-
-export const useOptions = () => getOptionsFromMatches(useMatches());
-
-export const getOptionsFromMatches = (matches: UIMatch[]) =>
-  findMatch(matches)?.data ?? defaultOptions;
-
-const defaultOptions = await createOptions();
-
-// Set default locale to one of the available locales
-DEFAULT_INTL_CONFIG.defaultLocale = defaultOptions.intlConfig.locale;
-// Set default messages by the default locale
-DEFAULT_INTL_CONFIG.messages = defaultOptions.intlConfig.messages;

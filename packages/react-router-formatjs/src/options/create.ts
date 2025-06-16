@@ -5,8 +5,8 @@ import type {
   Options,
   RequestedLocales,
 } from "../config.ts";
-import { environments, getMessages, locales } from "../options.ts";
 import { match } from "../utils/@formatjs/intl-localematcher.ts";
+import { environments, getMessages, locales } from "./values.ts";
 
 export async function createOptions(
   strategyResultLists: (
@@ -80,3 +80,10 @@ async function createIntlConfig({
     messages: await getMessages(matchingLocale, environment),
   };
 }
+
+export const defaultOptions = await createOptions();
+
+// Set default locale to one of the available locales
+DEFAULT_INTL_CONFIG.defaultLocale = defaultOptions.intlConfig.locale;
+// Set default messages by the default locale
+DEFAULT_INTL_CONFIG.messages = defaultOptions.intlConfig.messages;
