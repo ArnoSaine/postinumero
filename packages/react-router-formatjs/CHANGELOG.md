@@ -1,5 +1,12 @@
 # @postinumero/react-router-formatjs
 
+## 0.2.4
+
+### Patch Changes
+
+- d851fb7: - Fix error: Dynamic access of "import.meta.env" is not supported
+  - Organize modules to avoid cyclic imports
+
 ## 0.2.3
 
 ### Patch Changes

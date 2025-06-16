@@ -1,5 +1,11 @@
 # @postinumero/react-router-oidc-client
 
+## 0.2.6
+
+### Patch Changes
+
+- a84e359: Fix infinite redirect when login succeeds using search params and login-loader
+
 ## 0.2.5
 
 ### Patch Changes
