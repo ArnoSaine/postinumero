@@ -4,7 +4,7 @@ import type {
   Environment,
   Options,
   RequestedLocales,
-} from "../config.ts";
+} from "@postinumero/react-router-formatjs/config";
 import { match } from "../utils/@formatjs/intl-localematcher.ts";
 import { environments, getMessages, locales } from "./values.ts";
 

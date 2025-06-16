@@ -1,10 +1,10 @@
-import PLazy from "p-lazy";
 import {
   CONFIG,
   type EnvironmentStrategy,
   type RequestedLocalesStrategy,
   type Strategy,
-} from "../config.ts";
+} from "@postinumero/react-router-formatjs/config";
+import PLazy from "p-lazy";
 
 const strategyModules = import.meta.env
   ? import.meta.glob<Strategy>("../strategies/*/*.js")

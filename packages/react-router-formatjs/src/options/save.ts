@@ -1,13 +1,13 @@
+import {
+  CONFIG,
+  type ActionFunction,
+  type ClientActionFunction,
+} from "@postinumero/react-router-formatjs/config";
 import { valid } from "assert-response";
 import type {
   ActionFunctionArgs,
   ClientActionFunctionArgs,
 } from "react-router";
-import {
-  CONFIG,
-  type ActionFunction,
-  type ClientActionFunction,
-} from "../config.ts";
 import isServer from "../utils/is-server.ts";
 import { resolvedStrategiesPromise } from "./strategies.ts";
 

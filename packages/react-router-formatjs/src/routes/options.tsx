@@ -1,10 +1,13 @@
+import {
+  CONFIG,
+  type Options,
+} from "@postinumero/react-router-formatjs/config";
 import PLazy from "p-lazy";
 import {
   type ClientActionFunctionArgs,
   type ClientLoaderFunctionArgs,
   type ShouldRevalidateFunction,
 } from "react-router";
-import { CONFIG, type Options } from "../config.ts";
 import { createIntl } from "../intl/create.ts";
 import type { Context } from "../middleware.ts";
 import { createOptions } from "../options/create.ts";

@@ -1,6 +1,9 @@
+import {
+  CONFIG,
+  type StrategyType,
+} from "@postinumero/react-router-formatjs/config";
 import { cloneElement } from "react";
 import { useFetcher } from "react-router";
-import { CONFIG, type StrategyType } from "../config.ts";
 import { useOptions } from "../options/useOptions.ts";
 import { environmentNames } from "../options/values.ts";
 import LocaleDisplayName from "./LocaleDisplayName.tsx";

@@ -1,3 +1,4 @@
+import { type RequestedLocalesStrategy } from "@postinumero/react-router-formatjs/config";
 import PLazy from "p-lazy";
 import {
   createCookieSessionStorage,
@@ -5,7 +6,6 @@ import {
   type SessionIdStorageStrategy,
 } from "react-router";
 import type { Writable } from "type-fest";
-import { type RequestedLocalesStrategy } from "../../config.ts";
 
 export const cookie: Writable<NonNullable<SessionIdStorageStrategy["cookie"]>> =
   {

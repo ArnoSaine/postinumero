@@ -1,5 +1,5 @@
+import { CONFIG } from "@postinumero/react-router-formatjs/config";
 import { type UIMatch } from "react-router";
-import { CONFIG } from "../config.ts";
 import type { clientLoader } from "../routes/options.tsx";
 import { defaultOptions } from "./create.ts";
 

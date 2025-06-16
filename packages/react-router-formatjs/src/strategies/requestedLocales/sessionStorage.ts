@@ -1,4 +1,7 @@
-import { CONFIG, type RequestedLocalesStrategy } from "../../config.ts";
+import {
+  CONFIG,
+  type RequestedLocalesStrategy,
+} from "@postinumero/react-router-formatjs/config";
 
 export const create = (storage: () => Storage): RequestedLocalesStrategy => ({
   clientAction: (values) => {

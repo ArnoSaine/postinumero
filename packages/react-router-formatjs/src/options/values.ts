@@ -1,6 +1,6 @@
+import type { Environment } from "@postinumero/react-router-formatjs/config";
 import { uniq } from "lodash-es";
 import type { ResolvedIntlConfig } from "react-intl";
-import type { Environment } from "../config.ts";
 
 export const langDirModules = import.meta.env
   ? import.meta.glob<ResolvedIntlConfig["messages"]>(

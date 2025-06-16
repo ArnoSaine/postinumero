@@ -1,6 +1,6 @@
+import { type EnvironmentStrategy } from "@postinumero/react-router-formatjs/config";
 import { valid } from "assert-response";
 import { redirect } from "react-router";
-import { type EnvironmentStrategy } from "../../config.ts";
 
 export const clientAction: EnvironmentStrategy["clientAction"] = (
   [environment],

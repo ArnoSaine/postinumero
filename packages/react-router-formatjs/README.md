@@ -156,17 +156,17 @@ import { SetLocaleButton } from "@postinumero/react-router-formatjs";
 
 ### `CONFIG`
 
-Override the [default configuration](src/options.ts#L97-L115).
+Override the [default configuration](src/config.ts#L92-L110).
 
 ```ts
-import { CONFIG } from "@postinumero/react-router-formatjs";
+import { CONFIG } from "@postinumero/react-router-formatjs/config";
 
-CONFIG.strategies.requestedLocales = [
-  "searchParams",
-  "sessionStorage",
-  "acceptLanguageHeader",
-  "navigatorLanguages",
-];
+if (import.meta.env.VITE_defaultLocale) {
+  CONFIG.strategies.requestedLocales = [
+    "localStorage",
+    { clientLoader: () => [import.meta.env.VITE_defaultLocale] },
+  ];
+}
 ```
 
 ## Add Translations

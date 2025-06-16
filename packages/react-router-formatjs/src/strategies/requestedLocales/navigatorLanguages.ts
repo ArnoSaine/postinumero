@@ -1,4 +1,4 @@
-import type { RequestedLocalesStrategy } from "../../config.ts";
+import type { RequestedLocalesStrategy } from "@postinumero/react-router-formatjs/config";
 
 export const clientLoader: RequestedLocalesStrategy["clientLoader"] = () =>
   navigator.languages;

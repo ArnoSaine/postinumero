@@ -1,10 +1,10 @@
+import { CONFIG } from "@postinumero/react-router-formatjs/config";
 import {
   layout,
   route,
   type RouteConfig,
   type RouteConfigEntry,
 } from "@react-router/dev/routes";
-import { CONFIG } from "./config.ts";
 import routerConfig from "./utils/react-router/config.ts";
 
 const ssr = routerConfig.ssr ? ".ssr" : "";

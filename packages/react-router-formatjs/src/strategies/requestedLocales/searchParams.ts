@@ -1,5 +1,8 @@
+import {
+  CONFIG,
+  type RequestedLocalesStrategy,
+} from "@postinumero/react-router-formatjs/config";
 import { replace } from "react-router";
-import { CONFIG, type RequestedLocalesStrategy } from "../../config.ts";
 
 export const clientAction: RequestedLocalesStrategy["clientAction"] = (
   values,

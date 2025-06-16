@@ -1,5 +1,8 @@
+import {
+  CONFIG,
+  type StrategyType,
+} from "@postinumero/react-router-formatjs/config";
 import { Form } from "react-router";
-import { CONFIG, type StrategyType } from "../config.ts";
 import { useOptions } from "../options/useOptions.ts";
 import LocaleDisplayName from "./LocaleDisplayName.tsx";
 

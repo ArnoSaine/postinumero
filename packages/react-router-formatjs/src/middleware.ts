@@ -1,10 +1,13 @@
+import type {
+  DataFunctionArgs,
+  Options,
+} from "@postinumero/react-router-formatjs/config";
 import { type IntlShape } from "react-intl";
 import {
   unstable_createContext,
   type ActionFunctionArgs,
   type LoaderFunctionArgs,
 } from "react-router";
-import type { DataFunctionArgs, Options } from "./config.ts";
 import { createIntl } from "./intl/create.ts";
 import { createOptions } from "./options/create.ts";
 import { resolvedStrategiesPromise } from "./options/strategies.ts";
