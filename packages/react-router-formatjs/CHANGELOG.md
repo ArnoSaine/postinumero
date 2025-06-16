@@ -1,5 +1,11 @@
 # @postinumero/react-router-formatjs
 
+## 0.2.5
+
+### Patch Changes
+
+- ecf1d3b: Prevent duplicate instances of `CONFIG` by using absolute imports
+
 ## 0.2.4
 
 ### Patch Changes
