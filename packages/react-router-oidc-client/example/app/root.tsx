@@ -30,6 +30,10 @@ initKeycloak({
   client_id: "example-client",
 });
 
+if (import.meta.env.VITE_MOCK_KEYCLOAK) {
+  await import("./mocks/keycloak/init");
+}
+
 export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
