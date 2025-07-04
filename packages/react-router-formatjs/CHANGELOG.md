@@ -1,5 +1,11 @@
 # @postinumero/react-router-formatjs
 
+## 0.2.6
+
+### Patch Changes
+
+- 407e27b: Support `BASE_URL`
+
 ## 0.2.5
 
 ### Patch Changes

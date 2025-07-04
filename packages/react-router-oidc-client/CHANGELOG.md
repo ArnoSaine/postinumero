@@ -1,5 +1,11 @@
 # @postinumero/react-router-oidc-client
 
+## 0.3.0
+
+### Minor Changes
+
+- 9abd3ab: Use relative paths for the login and logout routes
+
 ## 0.2.6
 
 ### Patch Changes
