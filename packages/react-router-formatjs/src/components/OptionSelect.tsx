@@ -6,6 +6,7 @@ import { cloneElement } from "react";
 import { useFetcher } from "react-router";
 import { useOptions } from "../options/useOptions.ts";
 import { environmentNames } from "../options/values.ts";
+import CurrentUrlHiddenInput from "./CurrentUrlHiddenInput.tsx";
 import LocaleDisplayName from "./LocaleDisplayName.tsx";
 
 export type OptionsSelectProps = Omit<
@@ -68,6 +69,7 @@ export function OptionSelect({
       method="POST"
       action={CONFIG.route.path}
     >
+      <CurrentUrlHiddenInput />
       <Component
         // Remount the select when the default value changes
         key={props.defaultValue}

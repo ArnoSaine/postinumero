@@ -4,6 +4,7 @@ import {
 } from "@postinumero/react-router-formatjs/config";
 import { Form } from "react-router";
 import { useOptions } from "../options/useOptions.ts";
+import CurrentUrlHiddenInput from "./CurrentUrlHiddenInput.tsx";
 import LocaleDisplayName from "./LocaleDisplayName.tsx";
 
 export type SetOptionButtonProps = Omit<
@@ -22,6 +23,7 @@ export function SetOptionButton({
 }: SetOptionButtonProps) {
   return (
     <Form navigate={false} method="POST" action={CONFIG.route.path}>
+      <CurrentUrlHiddenInput />
       <Component
         name={CONFIG.strategyTypeKeys[name]}
         children={props.value}

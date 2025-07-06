@@ -43,15 +43,21 @@ export async function saveOptions(
   }
 
   const values = formData.getAll(keyValue) as string[];
+  const currentUrl = isServer
+    ? (new URL(args.request.url).searchParams.get(CONFIG.keys.currentUrl) ??
+      (formData.get(CONFIG.keys.currentUrl) as string) ??
+      args.request.headers.get("referer") ??
+      "/")
+    : location.href;
   const context = {
     formData,
     currentUrl: new URL(
-      isServer
-        ? (args.request.headers.get("referer") ??
-          new URL(args.request.url).searchParams.get(CONFIG.keys.currentUrl) ??
-          (formData.get(CONFIG.keys.currentUrl) as string) ??
-          "/")
-        : location.href,
+      currentUrl,
+      currentUrl.startsWith("http")
+        ? undefined
+        : isServer
+          ? args.request.url
+          : location.origin,
     ),
   };
 
