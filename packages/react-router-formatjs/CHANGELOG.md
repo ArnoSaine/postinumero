@@ -1,5 +1,16 @@
 # @postinumero/react-router-formatjs
 
+## 0.3.0
+
+### Minor Changes
+
+- 3565bef: Use relative path for the options
+
+### Patch Changes
+
+- 407e27b: Support `BASE_URL`
+- 9e74d2b: Fix locale change when `currentUrl` is not available. Set cookie using `Response` instead of `replace`.
+
 ## 0.2.5
 
 ### Patch Changes
