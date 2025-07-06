@@ -1,5 +1,11 @@
 # @postinumero/react-router-formatjs
 
+## 0.3.2
+
+### Patch Changes
+
+- 78de9e4: Revert relative paths (3565bef, 9abd3ab)
+
 ## 0.3.1
 
 ### Patch Changes

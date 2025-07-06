@@ -1,5 +1,11 @@
 # @postinumero/react-router-oidc-client
 
+## 0.3.1
+
+### Patch Changes
+
+- 78de9e4: Revert relative paths (3565bef, 9abd3ab)
+
 ## 0.3.0
 
 ### Minor Changes
