@@ -2,7 +2,6 @@ import { type RequestedLocalesStrategy } from "@postinumero/react-router-formatj
 import PLazy from "p-lazy";
 import {
   createCookieSessionStorage,
-  replace,
   type SessionIdStorageStrategy,
 } from "react-router";
 import type { Writable } from "type-fest";
@@ -24,7 +23,7 @@ const cookieSessionStoragePromise = PLazy.from(() =>
 
 export const action: RequestedLocalesStrategy["action"] = async (
   values,
-  { currentUrl },
+  {},
   args,
 ) => {
   const { getSession, commitSession, destroySession } =
@@ -35,7 +34,7 @@ export const action: RequestedLocalesStrategy["action"] = async (
   if (!destroy) {
     session.set("requestedLocales", valuesFiltered);
   }
-  return replace(currentUrl.toString(), {
+  return new Response(null, {
     headers: {
       "Set-Cookie": destroy
         ? await destroySession(session)
