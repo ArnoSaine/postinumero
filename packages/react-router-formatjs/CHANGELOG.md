@@ -1,5 +1,14 @@
 # @postinumero/react-router-formatjs
 
+## 0.3.1
+
+### Patch Changes
+
+- e42777b: Revert 9e74d2b
+
+  - Use hidden input for `currentUrl`
+  - Fix `shouldRevalidate`
+
 ## 0.3.0
 
 ### Minor Changes
