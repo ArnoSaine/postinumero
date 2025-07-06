@@ -22,10 +22,10 @@ export const options = {
   },
   removeAuthParams: ["code", "error", "iss", "session_state", "state"],
   routes: {
-    login: "login",
-    loginLoader: "login-loader",
-    logout: "logout",
-    logoutCallback: "logout-callback",
+    login: "/login",
+    loginLoader: "/login-loader",
+    logout: "/logout",
+    logoutCallback: "/logout-callback",
   },
   cookie: "token",
   jwtVerifyOptions: (settings: UserManagerSettingsStore) => ({

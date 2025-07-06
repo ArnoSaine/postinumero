@@ -22,7 +22,9 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   formAction,
   defaultShouldRevalidate,
 }) => {
-  if (formAction !== `${import.meta.env.BASE_URL}${CONFIG.route.path}`) {
+  if (
+    formAction !== `${import.meta.env.BASE_URL}${CONFIG.route.path.slice(1)}`
+  ) {
     return false;
   }
 
