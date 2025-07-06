@@ -95,7 +95,7 @@ export const CONFIG: Config = {
   },
   route: {
     id: "@postinumero/react-router-formatjs/options",
-    path: "/__locale",
+    path: "__locale",
   },
   strategies: {
     environment: ["reverseDomain"],
