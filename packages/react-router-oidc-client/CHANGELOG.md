@@ -1,5 +1,12 @@
 # @postinumero/react-router-oidc-client
 
+## 0.3.2
+
+### Patch Changes
+
+- 060a0bd: Add `unauthorized_client` to known login errors
+- cdb97e1: Fix infinite redirect loop when IDP is unavailable
+
 ## 0.3.1
 
 ### Patch Changes
