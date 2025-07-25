@@ -1,6 +1,6 @@
 import { unauthorized } from "assert-response";
 import { camelCase, isEqual } from "lodash-es";
-import type { User, UserManager } from "oidc-client-ts";
+import { ErrorResponse, type User, type UserManager } from "oidc-client-ts";
 import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import { useLocation, useRevalidator } from "react-router";
 import options from "./options.ts";
@@ -118,10 +118,12 @@ export async function actUserManager(
   try {
     await userManager[method](data);
   } catch (error) {
-    if (error instanceof Error) {
+    if (error instanceof ErrorResponse) {
       unauthorized(true, JSON.stringify(error), {
         headers: { "Content-Type": "application/json" },
       });
     }
+
+    throw error;
   }
 }
