@@ -91,7 +91,10 @@ export function useLoginLoaderLocation(data: Record<string, string>) {
 export function useLoginError() {
   const error = useRouteError();
 
-  if (isRouteErrorResponse(error) && error.data?.error === "invalid_grant") {
+  if (
+    isRouteErrorResponse(error) &&
+    ["invalid_grant", "unauthorized_client"].includes(error.data?.error)
+  ) {
     return error.data as ErrorResponse;
   }
 }
