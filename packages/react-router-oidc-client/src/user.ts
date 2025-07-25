@@ -99,7 +99,7 @@ export const useUser = () => {
   );
 };
 
-export async function actUserManager(
+export async function performUserManagerAction(
   type: "signin" | "signout",
   intent: string,
   data: any,

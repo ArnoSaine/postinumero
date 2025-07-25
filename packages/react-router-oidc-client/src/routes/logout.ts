@@ -1,5 +1,5 @@
 import {
-  actUserManager,
+  performUserManagerAction,
   getRedirectURI,
   options,
   parseAndUnflatFormData,
@@ -27,7 +27,7 @@ export const clientAction: ClientActionFunction = async (args) => {
     }
   }
 
-  await actUserManager("signout", intent, data);
+  await performUserManagerAction("signout", intent, data);
 
   return null;
 };

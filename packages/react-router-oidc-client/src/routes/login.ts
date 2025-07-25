@@ -1,9 +1,9 @@
 import {
-  actUserManager,
   authenticated,
   getRedirectURI,
   options,
   parseAndUnflatFormData,
+  performUserManagerAction,
 } from "@postinumero/react-router-oidc-client";
 import {
   type ClientActionFunction,
@@ -28,7 +28,7 @@ export const clientAction: ClientActionFunction = async (args) => {
     }
   }
 
-  await actUserManager("signin", intent, data);
+  await performUserManagerAction("signin", intent, data);
 
   return null;
 };
