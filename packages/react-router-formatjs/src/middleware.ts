@@ -4,7 +4,7 @@ import type {
 } from "@postinumero/react-router-formatjs/config";
 import { type IntlShape } from "react-intl";
 import {
-  unstable_createContext,
+  createContext,
   type ActionFunctionArgs,
   type LoaderFunctionArgs,
 } from "react-router";
@@ -27,7 +27,7 @@ declare global {
 globalThis.__REACT_ROUTER_FORMATJS_CLIENT_CONTEXT__ ??=
   Promise.withResolvers<Context>();
 
-export const intlContext = unstable_createContext<Context>();
+export const intlContext = createContext<Context>();
 
 export const intlMiddleware = async (
   args: ActionFunctionArgs | LoaderFunctionArgs,
@@ -37,7 +37,7 @@ export const intlMiddleware = async (
 
 export const loadIntlContext = async (args: DataFunctionArgs) =>
   isServer
-    ? routerConfig.future?.unstable_middleware
+    ? routerConfig.future?.v8_middleware
       ? // Get value from context, set by the middleware
         (args.context.get(intlContext) as Context)
       : // Create a new context value

@@ -57,8 +57,8 @@
     "typescript": "^5.7.3"
   },
   "peerDependencies": {
-    "@react-router/dev": ">=7.5.0",
+    "@react-router/dev": ">=7.9.1",
     "react-intl": ">=7.0.0",
-    "react-router": ">=7.5.0"
+    "react-router": ">=7.9.1"
   }
 }

@@ -58,9 +58,9 @@
     "vite": "^6.3.4"
   },
   "peerDependencies": {
-    "@react-router/dev": ">=7.5.0",
+    "@react-router/dev": ">=7.9.1",
     "react-intl": ">=7.0.0",
-    "react-router": ">=7.5.0"
+    "react-router": ">=7.9.1"
   },
   "publishConfig": {
     "access": "public"

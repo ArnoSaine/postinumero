@@ -9,13 +9,12 @@ import {
   useRouteError,
   useSearchParams,
 } from "react-router";
-import type { CreateErrorBoundaryProps } from "react-router/route-module";
 
 export const withHandleAuthErrorBoundary = (
-  UnauthorizedErrorBoundary: React.ComponentType<CreateErrorBoundaryProps<any>>,
-  ErrorBoundary: React.ComponentType<CreateErrorBoundaryProps<any>>,
+  UnauthorizedErrorBoundary: React.ComponentType<any>,
+  ErrorBoundary: React.ComponentType<any>,
 ) =>
-  function WithHandleAuthErrorBoundary(props: CreateErrorBoundaryProps<any>) {
+  function WithHandleAuthErrorBoundary(props: any) {
     const isLoggingOutProtectedRoute = useHandleLogoutProtectedRoute();
     const isUnauthorizedRouteError = useIsUnauthorizedRouteError();
 

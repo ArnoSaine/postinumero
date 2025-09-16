@@ -4,7 +4,7 @@ import { asyncUserManager } from "@postinumero/react-router-oidc-client/user";
 import { parse } from "cookie";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 import { type IdTokenClaims, User } from "oidc-client-ts";
-import type { unstable_MiddlewareFunction } from "react-router";
+import type { MiddlewareFunction } from "react-router";
 
 export function getTokenFromRequest(request: Request) {
   const cookieHeader = request.headers.get("cookie");
@@ -61,10 +61,9 @@ export const loadUser = async (args: DataFunctionArgs) => {
   await userManager.removeUser();
 };
 
-export const oidc_ssr_middleware: unstable_MiddlewareFunction = loadUser;
+export const oidc_ssr_middleware: MiddlewareFunction = loadUser;
 
-export const oidc_ssr_clientMiddleware: unstable_MiddlewareFunction =
-  async () => {
-    const user = await getUser();
-    document.cookie = `${options.cookie}=${user?.access_token ?? ""}`;
-  };
+export const oidc_ssr_clientMiddleware: MiddlewareFunction = async () => {
+  const user = await getUser();
+  document.cookie = `${options.cookie}=${user?.access_token ?? ""}`;
+};

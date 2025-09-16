@@ -12,7 +12,7 @@ export {
   shouldRevalidate,
 } from "./options.tsx";
 
-export const unstable_middleware = routerConfig.future?.unstable_middleware
+export const middleware = routerConfig.future?.v8_middleware
   ? [intlMiddleware]
   : undefined;
 
