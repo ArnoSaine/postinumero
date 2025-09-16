@@ -1,5 +1,13 @@
 # @postinumero/react-router-oidc-client
 
+## 0.3.2
+
+### Patch Changes
+
+- a4b8d9a: Upgrade to `react-router@^7.9.1`
+- 060a0bd: Add `unauthorized_client` to known login errors
+- cdb97e1: Fix infinite redirect loop when IDP is unavailable
+
 ## 0.3.1
 
 ### Patch Changes
@@ -23,7 +31,6 @@
 ### Patch Changes
 
 - 9b8bc9b: Fix maximum update depth exceeded error when logging out
-
   - Add missing `useEffect` dependencies
 
 ## 0.2.4
@@ -57,12 +64,10 @@
 ### Minor Changes
 
 - 0cbf62b: - Add redirect login flow
-
   - Add silent logout flow
   - Move `redirect_uri` from form data to search params for app redirects and base value for `redirect_uri` / `post_logout_redirect_uri`
 
   Example:
-
   - Simulate external authentication flow (Suomi.fi)
 
 ### Patch Changes

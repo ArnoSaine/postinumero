@@ -1,5 +1,11 @@
 # @postinumero/react-router-formatjs
 
+## 0.3.3
+
+### Patch Changes
+
+- a4b8d9a: Upgrade to `react-router@^7.9.1`
+
 ## 0.3.2
 
 ### Patch Changes
@@ -11,7 +17,6 @@
 ### Patch Changes
 
 - e42777b: Revert 9e74d2b
-
   - Use hidden input for `currentUrl`
   - Fix `shouldRevalidate`
 
@@ -95,7 +100,6 @@
 
 - 4cbdc92: Add missing types for '/app/root' and '/react-router.config.ts'
 - d3caf42: Fix Node.js compatibility:
-
   - Use optional `import.meta.env` and `import.meta.glob`
   - Move `/react-router.config.ts` imports to a utility
 
