@@ -1,7 +1,7 @@
 import {
   oidc_ssr_clientMiddleware,
   oidc_ssr_middleware,
-  useRemoveLogoutIntentSearchParam,
+  useOIDC,
   useRevalidateUser,
   useUserEvent,
   withHandleAuthErrorBoundary,
@@ -82,7 +82,7 @@ export function Layout({ children }: PropsWithChildren) {
 }
 
 export default function App() {
-  useRemoveLogoutIntentSearchParam();
+  useOIDC();
 
   useUserEvent("unloaded", () => {
     console.log("You have been signed out.");

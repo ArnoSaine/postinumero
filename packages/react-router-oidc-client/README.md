@@ -14,7 +14,7 @@ Provides hooks and utilities for managing authentication in a React Router appli
 ```tsx
 import {
   loadOIDCRoot,
-  useRemoveLogoutIntentSearchParam,
+  useOIDC,
   useRevalidateUser,
 } from "@postinumero/react-router-oidc-client";
 
@@ -34,7 +34,7 @@ export function Layout({ children }: PropsWithChildren) {
 
 // Root component
 export default function App() {
-  useRemoveLogoutIntentSearchParam(); // Clean up logout parameters from URL
+  useOIDC(); // Clean up logout parameters from URL, use refresh token if access token has expired.
 
   return <>{/* App content here */}</>;
 }

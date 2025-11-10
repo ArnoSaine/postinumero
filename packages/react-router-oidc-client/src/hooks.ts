@@ -4,6 +4,8 @@ import {
   options,
   redirectURISearchParams,
   useLocationString,
+  useRemoveLogoutIntentSearchParam,
+  useUser,
 } from "@postinumero/react-router-oidc-client";
 import { camelCase } from "lodash-es";
 import type { ErrorResponse, UserManager } from "oidc-client-ts";
@@ -17,6 +19,7 @@ import {
   useLocation,
   useRouteError,
   useSearchParams,
+  useSubmit,
 } from "react-router";
 
 export function useIsLoginRoute() {
@@ -144,4 +147,22 @@ export function useUserEvent(
       })();
     };
   }, deps);
+}
+
+// Token refresh is not started automatically by oidc-client-ts when access token is expired
+// https://github.com/authts/oidc-client-ts/issues/2012
+export function useRefreshToken() {
+  const loginLocation = useLoginLocation();
+  const submit = useSubmit();
+  const user = useUser();
+  useEffect(() => {
+    if (user?.expired) {
+      submit({ intent: "silent" }, { action: loginLocation, method: "post" });
+    }
+  }, [user, loginLocation, submit]);
+}
+
+export function useOIDC() {
+  useRemoveLogoutIntentSearchParam();
+  useRefreshToken();
 }
