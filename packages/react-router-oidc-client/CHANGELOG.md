@@ -1,5 +1,11 @@
 # @postinumero/react-router-oidc-client
 
+## 0.3.3
+
+### Patch Changes
+
+- 77d333a: Fix refreshing token when access token has expired
+
 ## 0.3.2
 
 ### Patch Changes
