@@ -1,5 +1,11 @@
 # @postinumero/react-router-formatjs
 
+## 0.3.4
+
+### Patch Changes
+
+- e6fb468: Fix SSR
+
 ## 0.3.3
 
 ### Patch Changes
