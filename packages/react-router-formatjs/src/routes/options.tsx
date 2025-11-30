@@ -2,6 +2,7 @@ import {
   CONFIG,
   type Options,
 } from "@postinumero/react-router-formatjs/config";
+import { resolvedStrategiesPromise } from "@postinumero/react-router-formatjs/options/strategies";
 import PLazy from "p-lazy";
 import {
   type ClientActionFunctionArgs,
@@ -12,7 +13,6 @@ import { createIntl } from "../intl/create.ts";
 import type { Context } from "../middleware.ts";
 import { createOptions } from "../options/create.ts";
 import { saveOptions } from "../options/save.ts";
-import { resolvedStrategiesPromise } from "../options/strategies.ts";
 import routerConfig from "../utils/react-router/config.ts";
 import * as root from "/app/root";
 

@@ -10,7 +10,7 @@ import {
 } from "react-router";
 import { createIntl } from "./intl/create.ts";
 import { createOptions } from "./options/create.ts";
-import { resolvedStrategiesPromise } from "./options/strategies.ts";
+import { resolvedStrategiesPromise } from "@postinumero/react-router-formatjs/options/strategies";
 import isServer from "./utils/is-server.ts";
 import routerConfig from "./utils/react-router/config.ts";
 
@@ -35,7 +35,7 @@ export const intlMiddleware = async (
   args.context.set(intlContext, createIntlContext(args));
 };
 
-export const loadIntlContext = async (args: DataFunctionArgs) =>
+export const loadIntlContext = (args: DataFunctionArgs) =>
   isServer
     ? routerConfig.future?.v8_middleware
       ? // Get value from context, set by the middleware

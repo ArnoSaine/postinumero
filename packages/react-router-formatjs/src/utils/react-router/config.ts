@@ -1,6 +1,7 @@
 import type { Config } from "@react-router/dev/config";
+import isVite from "../is-vite.ts";
 
-const routerConfig = await (import.meta.env && typeof process === "undefined"
+const routerConfig = await (isVite
   ? import("@postinumero/react-router-formatjs/react-router.config")
   : import(/* @vite-ignore */ process.cwd() + "/react-router.config.ts"));
 

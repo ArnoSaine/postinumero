@@ -1,5 +1,8 @@
+import {
+  intlMiddleware,
+  loadIntlContext,
+} from "@postinumero/react-router-formatjs/middleware";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { intlMiddleware, loadIntlContext } from "../middleware.ts";
 import { saveOptions } from "../options/save.ts";
 import routerConfig from "../utils/react-router/config.ts";
 
