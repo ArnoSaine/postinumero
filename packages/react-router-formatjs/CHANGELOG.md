@@ -1,5 +1,11 @@
 # @postinumero/react-router-formatjs
 
+## 0.3.5
+
+### Patch Changes
+
+- b4d195f: **Fixed:** Root-relative `import.meta.glob` paths now resolve correctly under pnpm.
+
 ## 0.3.4
 
 ### Patch Changes
