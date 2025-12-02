@@ -1,19 +1,25 @@
 import type { Environment } from "@postinumero/react-router-formatjs/config";
-import { uniq } from "lodash-es";
+import { mapKeys, uniq } from "lodash-es";
 import type { ResolvedIntlConfig } from "react-intl";
 
+const normalizeProjectRootPath = (path: string) =>
+  path.startsWith("/") ? path : `/${path}`;
+
 export const langDirModules = import.meta.env
-  ? import.meta.glob<ResolvedIntlConfig["messages"]>(
-      "/.lang/compiled/*.json",
-      // Named exports are not supported. Some message IDs are not valid identifiers. Example: "f9g+9J"
-      { import: "default" },
+  ? mapKeys(
+      import.meta.glob<ResolvedIntlConfig["messages"]>(
+        "/.lang/compiled/*.json",
+        // Named exports are not supported. Some message IDs are not valid identifiers. Example: "f9g+9J"
+        { import: "default" },
+      ),
+      (_value, key) => normalizeProjectRootPath(key),
     )
   : (new Proxy(
       {},
       {
         get: (_target, prop: string) => async () =>
           (
-            await import(/* @vite-ignore */ `${process.cwd()}/${prop}`, {
+            await import(/* @vite-ignore */ `${process.cwd()}${prop}`, {
               with: { type: "json" },
             })
           ).default,
@@ -21,7 +27,7 @@ export const langDirModules = import.meta.env
     ) as Record<string, () => Promise<ResolvedIntlConfig["messages"]>>);
 
 const getLangDirModulePath = (locale: string, environment: Environment) =>
-  `.lang/compiled/${[environment, locale].filter(Boolean).join(":")}.json`;
+  `/.lang/compiled/${[environment, locale].filter(Boolean).join(":")}.json`;
 
 export const langDirContents = Object.keys(langDirModules).map((key) => {
   let [environment, locale] = key.split("/").at(-1)!.split(":") as [
