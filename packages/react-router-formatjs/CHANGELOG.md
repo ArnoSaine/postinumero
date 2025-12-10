@@ -1,5 +1,11 @@
 # @postinumero/react-router-formatjs
 
+## 0.3.6
+
+### Patch Changes
+
+- 967cfcc: **Fixed:** Reading `lang` directory in SSR mode
+
 ## 0.3.5
 
 ### Patch Changes
