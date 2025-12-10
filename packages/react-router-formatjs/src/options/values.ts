@@ -1,11 +1,12 @@
 import type { Environment } from "@postinumero/react-router-formatjs/config";
 import { mapKeys, uniq } from "lodash-es";
 import type { ResolvedIntlConfig } from "react-intl";
+import isVite from "../utils/is-vite.ts";
 
 const normalizeProjectRootPath = (path: string) =>
   path.startsWith("/") ? path : `/${path}`;
 
-export const langDirModules = import.meta.env
+export const langDirModules = isVite
   ? mapKeys(
       import.meta.glob<ResolvedIntlConfig["messages"]>(
         "/.lang/compiled/*.json",
@@ -23,6 +24,16 @@ export const langDirModules = import.meta.env
               with: { type: "json" },
             })
           ).default,
+        ownKeys: (_target) =>
+          globalThis.process
+            .getBuiltinModule("fs")
+            .readdirSync(`${process.cwd()}/.lang/compiled`)
+            .filter((file: string) => file.endsWith(".json"))
+            .map((file) => `/.lang/compiled/${file}`),
+        getOwnPropertyDescriptor: () => ({
+          enumerable: true,
+          configurable: true,
+        }),
       },
     ) as Record<string, () => Promise<ResolvedIntlConfig["messages"]>>);
 
