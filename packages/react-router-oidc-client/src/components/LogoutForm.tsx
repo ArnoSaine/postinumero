@@ -1,11 +1,10 @@
-import {
-  options,
-  redirectURISearchParams,
-  setSearchParamLogoutIntent,
-  type PolymorphicProps,
-} from "@postinumero/react-router-oidc-client";
 import type { ElementType } from "react";
 import { Form as ReactRouterForm } from "react-router";
+import config from "../config.ts";
+import { setSearchParamLogoutIntent } from "../logoutIntent.ts";
+import { redirectURISearchParams } from "../searchParams.ts";
+import type { PolymorphicProps } from "../utils/PolymorphicProps.ts";
+import { request } from "../utils/react-router/requestMiddleware.ts";
 
 export default function LogoutForm<
   C extends ElementType = typeof ReactRouterForm,
@@ -19,7 +18,7 @@ export default function LogoutForm<
   if (typeof redirect === "boolean") {
     // Stay on current route
 
-    const url = new URL(location.toString());
+    const url = new URL(request?.url ?? location.toString());
 
     if (redirect) {
       // In case of protected content, redirect to the fallback route.
@@ -35,7 +34,7 @@ export default function LogoutForm<
 
   return (
     <Form
-      action={`${options.routes.logout}${redirectURISearchParams(redirect)}`}
+      action={`${config.paths.logout}${redirectURISearchParams(redirect)}`}
       method="POST"
       {...props}
     />

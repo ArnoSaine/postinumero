@@ -2,6 +2,7 @@
   "extends": "@postinumero/formatjs-tools/configs/tsconfig.lib.json",
   "compilerOptions": {
     "strict": true,
+    "types": ["node", "vite/client"],
 
     // node type stripping settings
     // https://nodejs.org/api/typescript.html#type-stripping
@@ -13,8 +14,12 @@
     "module": "NodeNext",
 
     "jsx": "react-jsx",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    "paths": {
+      "/react-router.config": ["./types/react-router.config.d.ts"]
+    }
   },
 
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/.d.ts"]
 }

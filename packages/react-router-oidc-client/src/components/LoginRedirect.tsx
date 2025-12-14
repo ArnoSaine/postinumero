@@ -1,6 +1,6 @@
-import { useLoginLoaderLocation } from "@postinumero/react-router-oidc-client";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import useLoginLoaderLocation from "../hooks/useLoginLoaderLocation.ts";
 
 export default function LoginRedirect(data: Record<string, string>) {
   const loginLoaderLocation = useLoginLoaderLocation(data);

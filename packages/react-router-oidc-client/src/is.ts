@@ -1,14 +1,15 @@
 import { createFromLoader } from "@arnosaine/is";
-import { getUser } from "@postinumero/react-router-oidc-client";
-import { options } from "@postinumero/react-router-oidc-client/options";
-
-export const isAuthenticatedConstructorDefaultArgs = [
-  async () => ({ authenticated: Boolean(await getUser()) }),
-  { authenticated: true },
-  { prop: options.isProps.isAuthenticated },
-] as const;
+import type { LoaderFunctionArgs } from "react-router";
+import config from "./config.ts";
+import loadUser from "./loaders/loadUser.ts";
 
 const [IsAuthenticated, useIsAuthenticated, loadIsAuthenticated] =
-  createFromLoader(...isAuthenticatedConstructorDefaultArgs);
+  createFromLoader(
+    (args: LoaderFunctionArgs) => ({
+      authenticated: Boolean(loadUser(args)),
+    }),
+    { authenticated: true },
+    { prop: "__isAuthenticated", routeId: config.route.id },
+  );
 
 export { IsAuthenticated, loadIsAuthenticated, useIsAuthenticated };

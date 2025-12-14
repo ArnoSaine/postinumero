@@ -1,15 +1,8 @@
 import {
-  oidc_ssr_clientMiddleware,
-  oidc_ssr_middleware,
-  useOIDC,
-  useRevalidateUser,
   useUserEvent,
-  withHandleAuthErrorBoundary,
+  withAuthErrorBoundary,
 } from "@postinumero/react-router-oidc-client";
-import {
-  initKeycloak,
-  loadOIDCRoot,
-} from "@postinumero/react-router-oidc-client/keycloak";
+import { initKeycloak } from "@postinumero/react-router-oidc-client/keycloak";
 import { type PropsWithChildren } from "react";
 import {
   isRouteErrorResponse,
@@ -38,27 +31,7 @@ export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
 
-export const unstable_middleware = [oidc_ssr_middleware];
-export const unstable_clientMiddleware = [oidc_ssr_clientMiddleware];
-
-export const loader = async (args: Route.LoaderArgs) => {
-  return {
-    ...(await loadOIDCRoot(args)),
-  };
-};
-
-export const clientLoader = async (args: Route.ClientLoaderArgs) => {
-  return {
-    ...(await loadOIDCRoot(args)),
-  };
-};
-
-// For redirect login flow
-clientLoader.hydrate = true;
-
 export function Layout({ children }: PropsWithChildren) {
-  useRevalidateUser();
-
   return (
     <html lang="en">
       <head>
@@ -82,8 +55,6 @@ export function Layout({ children }: PropsWithChildren) {
 }
 
 export default function App() {
-  useOIDC();
-
   useUserEvent("unloaded", () => {
     console.log("You have been signed out.");
   });
@@ -91,7 +62,7 @@ export default function App() {
   return <Outlet />;
 }
 
-export const ErrorBoundary = withHandleAuthErrorBoundary(
+export const ErrorBoundary = withAuthErrorBoundary(
   Login,
   function ErrorBoundary({ error }) {
     let message: string | undefined;

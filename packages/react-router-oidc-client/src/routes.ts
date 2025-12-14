@@ -1,23 +1,43 @@
-import { options } from "@postinumero/react-router-oidc-client/options";
-import { type RouteConfigEntry, route } from "@react-router/dev/routes";
+import {
+  layout,
+  route,
+  type RouteConfig,
+  type RouteConfigEntry,
+} from "@react-router/dev/routes";
+import config from "./config.ts";
+import routerConfig from "./utils/react-router/config.ts";
 
-const auth: RouteConfigEntry[] = [
+export const getAuthRoutes = (): RouteConfigEntry[] => [
   route(
-    options.routes.loginLoader,
-    new URL("routes/login-loader.js", import.meta.url).pathname,
-  ),
-  route(
-    options.routes.login,
+    config.paths.login,
     new URL("routes/login.js", import.meta.url).pathname,
   ),
   route(
-    options.routes.logout,
+    config.paths.logout,
     new URL("routes/logout.js", import.meta.url).pathname,
   ),
   route(
-    options.routes.logoutCallback,
+    config.paths.logoutCallback,
     new URL("routes/logout-callback.js", import.meta.url).pathname,
   ),
 ];
 
-export default auth;
+export const authRoutes = getAuthRoutes();
+
+export const defineAuthRoutes =
+  ({ provider = "" } = {}) =>
+  (children: RouteConfigEntry[]) =>
+    [
+      {
+        ...layout(
+          new URL(
+            `${provider}routes/provider${routerConfig.ssr ? ".ssr" : ""}.js`,
+            import.meta.url,
+          ).pathname,
+          [...children, ...getAuthRoutes()],
+        ),
+        id: config.route.id,
+      },
+    ] satisfies RouteConfig;
+
+export const createAuthRoutes = defineAuthRoutes();

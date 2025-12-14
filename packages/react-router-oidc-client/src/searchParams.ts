@@ -1,49 +1,19 @@
-import { options } from "@postinumero/react-router-oidc-client";
-import { useEffect } from "react";
-import { useSearchParams } from "react-router";
-
-// Remove the search param in the app root.
-// The loader must not remove the search param because ErrorBoundary checks the
-// logout intent for protected route logouts.
-export const useRemoveLogoutIntentSearchParam = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  useEffect(() => {
-    if (deleteLogoutIntentParamIfExists(searchParams)) {
-      setSearchParams(searchParams, {
-        replace: true,
-        preventScrollReset: true,
-      });
-    }
-  }, [searchParams, setSearchParams]);
+export const options = {
+  redirectURI: {
+    name: "redirect_uri",
+  },
 };
 
-export function deleteLogoutIntentParamIfExists(searchParams: URLSearchParams) {
-  const exists = hasLogoutIntentParam(searchParams);
-
-  if (exists) {
-    searchParams.delete(options.searchParamsAndOptions.intent.name);
-  }
-
-  return exists;
-}
-
-export const hasLogoutIntentParam = (searchParams: URLSearchParams) =>
-  searchParams.get(options.searchParamsAndOptions.intent.name) ===
-  options.searchParamsAndOptions.intent.values.logout;
-
-export const setSearchParamLogoutIntent = (url: URL) =>
-  url.searchParams.set(
-    options.searchParamsAndOptions.intent.name,
-    options.searchParamsAndOptions.intent.values.logout,
-  );
-
 export const getRedirectURI = (searchParams: URLSearchParams) =>
-  searchParams.get(options.searchParamsAndOptions.redirectURI.name);
+  searchParams.get(options.redirectURI.name);
+
+export const setRedirectURI = (
+  searchParams: URLSearchParams,
+  value: string | null,
+) =>
+  value
+    ? searchParams.set(options.redirectURI.name, value)
+    : searchParams.delete(options.redirectURI.name);
 
 export const redirectURISearchParams = (value?: string | null) =>
-  value
-    ? `?${new URLSearchParams([
-        [options.searchParamsAndOptions.redirectURI.name, value],
-      ])}`
-    : "";
+  value ? `?${new URLSearchParams([[options.redirectURI.name, value]])}` : "";

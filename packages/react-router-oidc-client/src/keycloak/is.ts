@@ -1,29 +1,36 @@
 import { createFromLoader, toBooleanValues } from "@arnosaine/is";
-import { getKeycloakUser } from "@postinumero/react-router-oidc-client/keycloak";
-import { options } from "@postinumero/react-router-oidc-client/options";
+import config from "../config.ts";
+import type { DataFunctionArgs } from "../utils/react-router/DataFunctionArgs.ts";
+import { loadKeycloakUser } from "./user.ts";
 
 export * from "../is.js";
 
-export const hasRealmRoleConstructorDefaultArgs = [
-  async () => toBooleanValues((await getKeycloakUser())?.realm_access?.roles),
+const [HasRealmRole, useHasRealmRole, loadHasRealmRole] = createFromLoader(
+  (args: DataFunctionArgs) =>
+    toBooleanValues(loadKeycloakUser(args)?.realm_access?.roles),
   undefined,
-  { prop: options.isProps.hasRealmRole },
-] as const;
+  { prop: "__hasRealmRole", routeId: config.route.id },
+);
 
-export const hasResourceRoleConstructorDefaultArgs = [
-  async () =>
-    Object.fromEntries(
-      Object.entries((await getKeycloakUser())?.resource_access ?? {}).map(
-        ([clientId, { roles }]) => [clientId, roles],
+const [HasResourceRole, useHasResourceRole, loadHasResourceRole] =
+  createFromLoader(
+    (args: DataFunctionArgs) =>
+      Object.fromEntries(
+        Object.entries(loadKeycloakUser(args)?.resource_access ?? {}).map(
+          ([clientId, { roles }]) => [clientId, roles],
+        ),
       ),
-    ),
-  undefined,
-  { method: "every", prop: options.isProps.hasResourceRole },
-] as const;
+    undefined,
+    {
+      method: "every",
+      prop: "__hasResourceRole",
+      routeId: config.route.id,
+    },
+  );
 
-export const hasRoleConstructorDefaultArgs = [
-  async () => {
-    const user = await getKeycloakUser();
+const [HasRole, useHasRole, loadHasRole] = createFromLoader(
+  (args: DataFunctionArgs) => {
+    const user = loadKeycloakUser(args);
 
     return toBooleanValues([
       ...(user?.realm_access?.roles ?? []),
@@ -35,18 +42,7 @@ export const hasRoleConstructorDefaultArgs = [
     };
   },
   undefined,
-  { prop: options.isProps.hasRole },
-] as const;
-
-const [HasRealmRole, useHasRealmRole, loadHasRealmRole] = createFromLoader(
-  ...hasRealmRoleConstructorDefaultArgs,
-);
-
-const [HasResourceRole, useHasResourceRole, loadHasResourceRole] =
-  createFromLoader(...hasResourceRoleConstructorDefaultArgs);
-
-const [HasRole, useHasRole, loadHasRole] = createFromLoader(
-  ...hasRoleConstructorDefaultArgs,
+  { prop: "__hasRole", routeId: config.route.id },
 );
 
 export {

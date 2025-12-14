@@ -1,13 +1,11 @@
-import {
-  asyncJWKS,
-  asyncUserManager,
-} from "@postinumero/react-router-oidc-client";
 import { createRemoteJWKSet } from "jose";
 import {
   UserManager,
   type UserManagerSettings,
   WebStorageStateStore,
 } from "oidc-client-ts";
+import { asyncJWKS } from "../token/jwks.ts";
+import { asyncUserManager } from "../user/manager.ts";
 
 export default function initKeycloak({
   url,

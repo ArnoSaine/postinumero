@@ -1,4 +1,4 @@
-export { default as initKeycloak } from "@postinumero/react-router-oidc-client/keycloak/init";
-export * from "@postinumero/react-router-oidc-client/keycloak/is";
-export * from "@postinumero/react-router-oidc-client/keycloak/loaders";
-export * from "@postinumero/react-router-oidc-client/keycloak/user";
+export { default as initKeycloak } from "./initKeycloak.ts";
+export * from "./is.ts";
+export { default as authenticated } from "./loaders/authenticated.ts";
+export * from "./user.ts";

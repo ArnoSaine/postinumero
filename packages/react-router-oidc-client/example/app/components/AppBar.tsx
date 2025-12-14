@@ -1,12 +1,11 @@
 import {
+  IsAuthenticated,
   LogoutForm,
   useLoginLinkProps,
-  useUser,
 } from "@postinumero/react-router-oidc-client";
 import { Link } from "react-router";
 
 export default function AppBar() {
-  const user = useUser();
   const loginLinkProps = useLoginLinkProps();
 
   return (
@@ -41,7 +40,18 @@ export default function AppBar() {
               <Caption>protected route</Caption>
             </Link>
           </li>
-          {user ? (
+          <IsAuthenticated
+            fallback={
+              <li>
+                <Link
+                  {...loginLinkProps}
+                  className="text-white text-sm font-medium hover:underline"
+                >
+                  Login
+                </Link>
+              </li>
+            }
+          >
             <li>
               <LogoutForm>
                 <button className="text-white text-sm font-medium hover:underline">
@@ -76,16 +86,7 @@ export default function AppBar() {
                 </button>
               </LogoutForm> */}
             </li>
-          ) : (
-            <li>
-              <Link
-                {...loginLinkProps}
-                className="text-white text-sm font-medium hover:underline"
-              >
-                Login
-              </Link>
-            </li>
-          )}
+          </IsAuthenticated>
         </ul>
       </nav>
     </header>

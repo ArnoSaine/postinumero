@@ -13,30 +13,38 @@ Provides hooks and utilities for managing authentication in a React Router appli
 
 ```tsx
 import {
-  loadOIDCRoot,
-  useOIDC,
-  useRevalidateUser,
+  oidcSsrClientMiddleware, // oidcClientMiddleware in SPA mode
+  oidcSsrMiddleware,
+  useOidcProvider,
+  withAuthErrorBoundary,
 } from "@postinumero/react-router-oidc-client";
+import { loader as loadOidcProvider } from "@postinumero/react-router-oidc-client/routes/provider.ssr"; // provider.spa in SPA mode
 
-// Load authentication state for the client
-export const clientLoader = async (args: Route.ClientLoaderArgs) => {
+export const middleware: Route.MiddlewareFunction[] = [oidcSsrMiddleware];
+
+export const clientMiddleware: Route.MiddlewareFunction[] = [
+  oidcSsrClientMiddleware,
+];
+
+// Load authentication state
+export const loader = async (args: Route.LoaderArgs) => {
   return {
-    ...(await loadOIDCRoot(args)),
+    ...(await loadOidcProvider(args)),
   };
 };
 
-// App Layout with authentication revalidation
-export function Layout({ children }: PropsWithChildren) {
-  useRevalidateUser(); // Ensure user state is kept up to date
+export const clientLoader = async (args: Route.ClientLoaderArgs) => {
+  return args.serverLoader();
+};
 
-  return <>{children}</>;
-}
+// For redirect login flow and HydrateFallback
+clientLoader.hydrate = true;
 
 // Root component
 export default function App() {
-  useOIDC(); // Clean up logout parameters from URL, use refresh token if access token has expired.
+  useOidcProvider();
 
-  return <>{/* App content here */}</>;
+  return <>{/* ... */}</>;
 }
 ```
 
@@ -45,27 +53,37 @@ export default function App() {
 Add authentication-related routes from the package.
 
 ```tsx
-import auth from "@postinumero/react-router-oidc-client/routes";
+import { authRoutes } from "@postinumero/react-router-oidc-client/routes";
 
 export default [
+  ...authRoutes, // Includes login & logout handlers
   // Other application routes
-  ...auth, // Includes login & logout handlers
 ];
 ```
 
-### 3. Handle Unauthorized Access with an Error Boundary
+### 3. Update `vite.config.ts`
 
-To handle `401 Unauthorized` route errors, wrap `root.tsx`'s `ErrorBoundary` with `withHandleAuthErrorBoundary`.
+```ts
+export default defineConfig({
+  optimizeDeps: {
+    exclude: ["@postinumero/react-router-oidc-client"],
+  },
+});
+```
+
+### 4. Handle Unauthorized Access with an Error Boundary
+
+To handle `401 Unauthorized` route errors, wrap `root.tsx`'s `ErrorBoundary` with `withAuthErrorBoundary`.
 
 ```tsx
 import {
   LoginForm,
   LoginRedirect,
-  withHandleAuthErrorBoundary,
+  withAuthErrorBoundary,
 } from "@postinumero/react-router-oidc-client";
 import { isRouteErrorResponse } from "react-router";
 
-export const ErrorBoundary = withHandleAuthErrorBoundary(
+export const ErrorBoundary = withAuthErrorBoundary(
   function UnauthorizedErrorBoundary(props) {
     // Redirect directly to external login flow with optional IDP hint:
     return (
@@ -108,15 +126,24 @@ export const ErrorBoundary = withHandleAuthErrorBoundary(
 );
 ```
 
+### 5. Protect routes in loaders and actions
+
+```ts
+import { authenticated } from "@postinumero/react-router-oidc-client";
+
+export const loader = async (args: Route.LoaderArgs) => {
+  await authenticated(args);
+  //...
+};
+```
+
 ## Keycloak Integration
 
 In `root.tsx`:
 
 ```tsx
-import {
-  initKeycloak,
-  loadOIDCRoot,
-} from "@postinumero/react-router-oidc-client/keycloak";
+import { initKeycloak } from "@postinumero/react-router-oidc-client/keycloak";
+import { loader as loadProvider } from "@postinumero/react-router-oidc-client/keycloak/routes/provider.ssr"; // provider.spa in SPA mode
 
 initKeycloak({
   url: "https://example.com",
@@ -124,54 +151,10 @@ initKeycloak({
   client_id: "example-client",
 });
 
-export const clientLoader = async (args: Route.ClientLoaderArgs) => {
-  return {
-    ...(await loadOIDCRoot(args)),
-  };
-};
-```
-
-## Server Side Rendering
-
-### 1. Add server and client `middleware`s, add `loader`, add `clientLoader.hydrate`
-
-In `root.tsx`:
-
-```ts
-import {
-  loadOIDCRoot,
-  oidc_ssr_clientMiddleware,
-  oidc_ssr_middleware,
-} from "@postinumero/react-router-oidc-client";
-
-export const unstable_middleware = [oidc_ssr_middleware];
-export const unstable_clientMiddleware = [oidc_ssr_clientMiddleware];
-
 export const loader = async (args: Route.LoaderArgs) => {
   return {
-    ...(await loadOIDCRoot(args)),
+    ...(await loadProvider(args)),
   };
-};
-
-export const clientLoader = async (args: Route.ClientLoaderArgs) => {
-  return {
-    ...(await loadOIDCRoot(args)),
-  };
-};
-
-// For redirect login flow
-clientLoader.hydrate = true;
-```
-
-### 2. Protect routes in loaders and actions
-
-```ts
-import { authenticated } from "@postinumero/react-router-oidc-client";
-
-export const loader = async (args: Route.LoaderArgs) => {
-  await authenticated(args);
-
-  return null;
 };
 ```
 
@@ -179,16 +162,27 @@ export const loader = async (args: Route.LoaderArgs) => {
 
 ### Authentication Hooks & Utilities
 
-#### `getUser`
+#### `getUser` (client only)
 
 Retrieve the current authenticated user.
 
 ```tsx
 import { getUser } from "@postinumero/react-router-oidc-client";
 
-export const clientLoader = async () => {
-  const user = await getUser();
-  console.log(user?.access_token);
+const user = await getUser();
+console.log(user?.access_token);
+```
+
+#### `loadUser` (client & server)
+
+Retrieve the current authenticated user.
+
+```tsx
+import { loadUser } from "@postinumero/react-router-oidc-client";
+
+export const loader = (args: Route.LoaderArgs) => {
+  const user = loadUser(args);
+  // ...
 };
 ```
 
@@ -374,14 +368,14 @@ function Component() {
 }
 ```
 
-#### Protected Route
+#### Protected Route (client & server)
 
 Ensure a route is only accessible when authenticated.
 
 ```tsx
 import { authenticated } from "@postinumero/react-router-oidc-client";
 
-export const clientLoader = async (args: Route.ClientLoaderArgs) => {
+export const loader = async (args: Route.LoaderArgs) => {
   const user = await authenticated(args);
   // ...
 };
@@ -389,15 +383,25 @@ export const clientLoader = async (args: Route.ClientLoaderArgs) => {
 
 ### Keycloak-Specific API
 
-#### `getKeycloakUser`
+#### `getKeycloakUser` (client only)
 
 Retrieve the current authenticated Keycloak user.
 
 ```tsx
 import { getKeycloakUser } from "@postinumero/react-router-oidc-client/keycloak";
 
-export const clientLoader = async () => {
-  const user = await getKeycloakUser();
+const user = await getKeycloakUser();
+```
+
+#### `loadKeycloakUser` (client & server)
+
+Retrieve the current authenticated Keycloak user.
+
+```tsx
+import { loadKeycloakUser } from "@postinumero/react-router-oidc-client/keycloak";
+
+export const loader = (args: Route.LoaderArgs) => {
+  const user = loadKeycloakUser(args);
   // ...
 };
 ```
@@ -462,14 +466,14 @@ export default function Component() {
 }
 ```
 
-#### Keycloak Protected Route
+#### Keycloak Protected Route (client & server)
 
 Require specific roles for a protected route.
 
 ```tsx
 import { authenticated } from "@postinumero/react-router-oidc-client/keycloak";
 
-export const clientLoader = async (args: Route.ClientLoaderArgs) => {
+export const loader = async (args: Route.LoaderArgs) => {
   const user = await authenticated(args, {
     realmRoles: ["viewer"],
     resourceRoles: { "example-client": ["user", "editor"] },

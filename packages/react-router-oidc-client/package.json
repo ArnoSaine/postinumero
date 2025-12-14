@@ -23,11 +23,22 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./client/hooks/*": "./lib/client/hooks/*.js",
+    "./client/loaders/*": "./lib/client/loaders/*.js",
+    "./client/*": "./lib/client/*.js",
     "./components": "./lib/components/index.js",
     "./components/*": "./lib/components/*.js",
+    "./hooks/*": "./lib/hooks/*.js",
     "./keycloak": "./lib/keycloak/index.js",
+    "./keycloak/loaders/*": "./lib/keycloak/loaders/*.js",
+    "./keycloak/routes/*": "./lib/keycloak/routes/*.js",
     "./keycloak/*": "./lib/keycloak/*.js",
+    "./loaders/*": "./lib/loaders/*.js",
     "./routes/*": "./lib/routes/*.js",
+    "./server/*": "./lib/server/*.js",
+    "./token/*": "./lib/token/*.js",
+    "./user/*": "./lib/user/*.js",
+    "./utils/*": "./lib/utils/*.js",
     "./*": "./lib/*.js"
   },
   "files": [
@@ -45,10 +56,8 @@
   "dependencies": {
     "@arnosaine/is": "^0.2.9",
     "assert-response": "^0.2.1",
-    "cookie": "^1.0.2",
     "flat": "^6.0.1",
     "jose": "^6.0.10",
-    "jwt-decode": "^4.0.0",
     "lodash-es": "^4.17.21",
     "oidc-client-ts": "^3.1.0"
   },

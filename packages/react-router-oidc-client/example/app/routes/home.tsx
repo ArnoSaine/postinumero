@@ -6,8 +6,6 @@ import {
   IsAuthenticated,
   useKeycloakUser,
 } from "@postinumero/react-router-oidc-client/keycloak";
-import options from "@postinumero/react-router-oidc-client/options";
-import { Link } from "react-router";
 
 export default function Home() {
   return (
@@ -18,12 +16,9 @@ export default function Home() {
           <>
             <Welcome />
             <Info>User is not authenticated</Info>
-            <Link
-              to={options.routes.login}
-              className="text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pb-4"
-            >
-              Login (form)
-            </Link>
+            <LoginLink className="text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pb-4">
+              Login (default flow)
+            </LoginLink>
             <LoginLink
               data={{ intent: "redirect" }}
               className="text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pb-4"
@@ -39,6 +34,55 @@ export default function Home() {
             >
               Login (redirect flow with IDP hint)
             </LoginLink>
+            {/* <LoginLink
+              data={{ intent: "silent" }}
+              className="block text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pt-4"
+            >
+              Login (silent flow)
+            </LoginLink>
+            <LoginLink
+              data={{
+                intent: "silent",
+                "extraQueryParams.kc_idp_hint": "suomi-fi",
+              }}
+              className="block text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pt-4"
+            >
+              Login (silent flow with IDP hint)
+            </LoginLink>
+            <LoginLink
+              data={{ intent: "popup" }}
+              className="block text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pt-4"
+            >
+              Login (popup flow)
+            </LoginLink>
+            <LoginLink
+              data={{
+                intent: "popup",
+                "extraQueryParams.kc_idp_hint": "suomi-fi",
+              }}
+              className="block text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pt-4"
+            >
+              Login (popup flow with IDP hint)
+            </LoginLink> */}
+            <LoginLink
+              data={{
+                intent: "resource-owner-credentials",
+                username: "demo",
+                password: "demo",
+              }}
+              className="block text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pt-4"
+            >
+              Login (resource owner credentials flow, not recommended)
+            </LoginLink>
+            {/* <LoginLink
+              data={{
+                intent: "resource-owner-credentials",
+                "extraQueryParams.kc_idp_hint": "suomi-fi",
+              }}
+              className="block text-blue-500 underline hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 pt-4"
+            >
+              Login (resource owner credentials flow with IDP hint)
+            </LoginLink> */}
           </>
         }
       >
@@ -74,5 +118,5 @@ function Welcome() {
 function Greeting() {
   const user = useKeycloakUser();
 
-  return user && <div className="text-2xl pb-4">Hi, {user.given_name}!</div>;
+  return <div className="text-2xl pb-4">Hi, {user?.given_name}!</div>;
 }

@@ -1,5 +1,5 @@
-export * from "@postinumero/react-router-oidc-client/components/ErrorBoundary";
-export { default as LoginForm } from "@postinumero/react-router-oidc-client/components/LoginForm";
-export { default as LoginLink } from "@postinumero/react-router-oidc-client/components/LoginLink";
-export { default as LoginRedirect } from "@postinumero/react-router-oidc-client/components/LoginRedirect";
-export { default as LogoutForm } from "@postinumero/react-router-oidc-client/components/LogoutForm";
+export * from "./ErrorBoundary.tsx";
+export { default as LoginForm } from "./LoginForm.tsx";
+export { default as LoginLink } from "./LoginLink.tsx";
+export { default as LoginRedirect } from "./LoginRedirect.tsx";
+export { default as LogoutForm } from "./LogoutForm.tsx";
