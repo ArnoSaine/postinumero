@@ -7,8 +7,9 @@ on:
     types: [opened, synchronize]
 
 permissions:
+  contents: write
+  pull-requests: write
   id-token: write
-  contents: read
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
