@@ -1,5 +1,19 @@
 # @postinumero/react-router-oidc-client
 
+## 0.4.0
+
+### Minor Changes
+
+- c8d1dbd: - **Breaking:** Renamed `withHandleAuthErrorBoundary` to `withAuthErrorBoundary`
+  - **Breaking:** Renamed `oidc_ssr_middleware` to `oidcSsrMiddleware`
+  - **Breaking:** Renamed `oidc_ssr_clientMiddleware` to `oidcSsrClientMiddleware`
+  - **Breaking:** Renamed `useOIDC` to `useProvider`
+  - **Breaking:** Renamed default export to named export `authRoutes` in
+    `@postinumero/react-router-oidc-client/routes`
+  - **Breaking:** Replaced `loadOIDCRoot` with
+    `import { loader as loadOidcProvider } from "@postinumero/react-router-oidc-client/[keycloak/]routes/provider.{ssr|spa}"`
+  - **Fix:** Various SSR-related fixes
+
 ## 0.3.3
 
 ### Patch Changes
