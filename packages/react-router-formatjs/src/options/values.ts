@@ -19,11 +19,18 @@ export const langDirModules = isVite
       {},
       {
         get: (_target, prop: string) => async () =>
-          (
-            await import(/* @vite-ignore */ `${process.cwd()}${prop}`, {
-              with: { type: "json" },
-            })
-          ).default,
+          // Vite drops import assertions from dynamic imports in server builds → runtime error.
+          // Use fs-based JSON loading instead.
+          // (
+          //   await import(/* @vite-ignore */ `${process.cwd()}${prop}`, {
+          //     with: { type: "json" },
+          //   })
+          // ).default,
+          JSON.parse(
+            await globalThis.process
+              .getBuiltinModule("fs/promises")
+              .readFile(`${process.cwd()}${prop}`, "utf-8"),
+          ),
         ownKeys: (_target) =>
           globalThis.process
             .getBuiltinModule("fs")
