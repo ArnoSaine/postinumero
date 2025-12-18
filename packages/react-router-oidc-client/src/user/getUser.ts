@@ -1,7 +1,5 @@
-import { asyncUserManager } from "./manager.ts";
+import isServer from "../utils/isServer.ts";
+import clientGetUser from "./client/getUser.ts";
+import serverGetUser from "./server/getUser.ts";
 
-export default async function getUser() {
-  const userManager = await asyncUserManager.promise;
-
-  return userManager.getUser();
-}
+export default isServer ? serverGetUser : clientGetUser;

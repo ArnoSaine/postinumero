@@ -162,7 +162,7 @@ export const loader = async (args: Route.LoaderArgs) => {
 
 ### Authentication Hooks & Utilities
 
-#### `getUser` (client only)
+#### `getUser`
 
 Retrieve the current authenticated user.
 
@@ -173,7 +173,7 @@ const user = await getUser();
 console.log(user?.access_token);
 ```
 
-#### `loadUser` (client & server)
+#### `loadUser`
 
 Retrieve the current authenticated user.
 
@@ -383,7 +383,7 @@ export const loader = async (args: Route.LoaderArgs) => {
 
 ### Keycloak-Specific API
 
-#### `getKeycloakUser` (client only)
+#### `getKeycloakUser`
 
 Retrieve the current authenticated Keycloak user.
 
@@ -393,7 +393,7 @@ import { getKeycloakUser } from "@postinumero/react-router-oidc-client/keycloak"
 const user = await getKeycloakUser();
 ```
 
-#### `loadKeycloakUser` (client & server)
+#### `loadKeycloakUser`
 
 Retrieve the current authenticated Keycloak user.
 

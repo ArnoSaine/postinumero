@@ -37,7 +37,10 @@
     "./routes/*": "./lib/routes/*.js",
     "./server/*": "./lib/server/*.js",
     "./token/*": "./lib/token/*.js",
+    "./user/client/*": "./lib/user/client/*.js",
+    "./user/server/*": "./lib/user/server/*.js",
     "./user/*": "./lib/user/*.js",
+    "./utils/react-router/*": "./lib/utils/react-router/*.js",
     "./utils/*": "./lib/utils/*.js",
     "./*": "./lib/*.js"
   },
@@ -63,6 +66,7 @@
   },
   "devDependencies": {
     "@postinumero/formatjs-tools": "^0.1.6",
+    "@types/node": "^24.0.0",
     "typescript": "^5.7.3"
   },
   "peerDependencies": {
