@@ -143,7 +143,7 @@ In `root.tsx`:
 
 ```tsx
 import { initKeycloak } from "@postinumero/react-router-oidc-client/keycloak";
-import { loader as loadProvider } from "@postinumero/react-router-oidc-client/keycloak/routes/provider.ssr"; // provider.spa in SPA mode
+import { loader as loadOidcProvider } from "@postinumero/react-router-oidc-client/keycloak/routes/provider.ssr"; // provider.spa in SPA mode
 
 initKeycloak({
   url: "https://example.com",
@@ -153,7 +153,7 @@ initKeycloak({
 
 export const loader = async (args: Route.LoaderArgs) => {
   return {
-    ...(await loadProvider(args)),
+    ...(await loadOidcProvider(args)),
   };
 };
 ```
