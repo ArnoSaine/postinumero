@@ -1,5 +1,11 @@
 # @postinumero/react-router-formatjs
 
+## 0.3.7
+
+### Patch Changes
+
+- e3dfb48: Fixed server-side JSON loading in Vite builds
+
 ## 0.3.6
 
 ### Patch Changes
