@@ -1,5 +1,13 @@
 # @postinumero/react-router-oidc-client
 
+## 0.4.1
+
+### Patch Changes
+
+- 40df651: Remove unnecessary delay in clientAction
+- c507541: Use `resource-owner-credentials` as the default intent when username and password are provided
+- 572c696: Make `getUser` available on the server
+
 ## 0.4.0
 
 ### Minor Changes
