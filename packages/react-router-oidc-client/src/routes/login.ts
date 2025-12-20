@@ -32,8 +32,6 @@ export const clientAction: ClientActionFunction = async (args) => {
 
   await login(data);
 
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
   return null;
 };
 
