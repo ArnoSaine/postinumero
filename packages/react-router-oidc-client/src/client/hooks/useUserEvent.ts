@@ -1,13 +1,13 @@
 import { camelCase } from "lodash-es";
 import type { UserManager } from "oidc-client-ts";
 import { useEffect } from "react";
-import { asyncUserManager } from "../../user/manager.ts";
+import { userManager } from "../../user/manager.ts";
 
 export type EventType =
+  | "loaded"
+  | "sessionChanged"
   | "signedIn"
   | "signedOut"
-  | "sessionChanged"
-  | "loaded"
   | "unloaded";
 
 const getEventName = (eventType: EventType) => (updateType: "add" | "remove") =>
@@ -20,20 +20,9 @@ export default function useUserEvent(
 ) {
   useEffect(() => {
     const eventName = getEventName(type);
-    let shouldAddListener = true;
-    (async () => {
-      const userManager = await asyncUserManager.promise;
-      if (!shouldAddListener) {
-        return;
-      }
-      (userManager.events[eventName("add")] as any)(callback);
-    })();
+    (userManager.events[eventName("add")] as any)(callback);
     return () => {
-      (async () => {
-        shouldAddListener = false;
-        const userManager = await asyncUserManager.promise;
-        (userManager.events[eventName("remove")] as any)(callback);
-      })();
+      (userManager.events[eventName("remove")] as any)(callback);
     };
   }, deps);
 }

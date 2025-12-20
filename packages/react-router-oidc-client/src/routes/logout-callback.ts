@@ -1,8 +1,7 @@
 import type { ClientLoaderFunction } from "react-router";
-import { asyncUserManager } from "../user/manager.ts";
+import { userManager } from "../user/manager.ts";
 
-export const clientLoader: ClientLoaderFunction = async () => {
-  const userManager = await asyncUserManager.promise;
+export const clientLoader: ClientLoaderFunction = async () => { 
   await userManager.signoutSilentCallback();
 
   return null;

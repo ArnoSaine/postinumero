@@ -1,5 +1,5 @@
 import { replace } from "react-router";
-import { asyncUserManager } from "../../user/manager.ts";
+import { userManager } from "../../user/manager.ts";
 import hasAuthParams from "../../utils/hasAuthParams.ts";
 import type { DataFunctionArgs } from "../../utils/react-router/DataFunctionArgs.ts";
 
@@ -13,7 +13,6 @@ export default async function handleSigninCallback({
   const url = new URL(request.url);
   if (hasAuthParams(url)) {
     try {
-      const userManager = await asyncUserManager.promise;
       await userManager.signinCallback();
     } catch {
       /* empty */

@@ -1,7 +1,5 @@
-import { asyncUserManager } from "../manager.ts";
+import { userManager } from "../manager.ts";
 
-export default async function getUser() {
-  const userManager = await asyncUserManager.promise;
-
+export default function getUser() {
   return userManager.getUser();
 }
