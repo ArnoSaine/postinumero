@@ -45,13 +45,39 @@ const [HasRole, useHasRole, loadHasRole] = createFromLoader(
   { prop: "__hasRole", routeId: config.route.id },
 );
 
+const [Has, useHas, loadHas] = createFromLoader(
+  (args: DataFunctionArgs) => {
+    const user = loadKeycloakUser(args);
+
+    const realmRoles = user?.realm_access?.roles ?? [];
+    const resourceRoles = Object.values(user?.resource_access ?? {}).flatMap(
+      ({ roles }) => roles,
+    );
+
+    return {
+      role: [...realmRoles, ...resourceRoles],
+      "realm-role": realmRoles,
+      ...Object.fromEntries(
+        Object.entries(user?.resource_access ?? {}).map(
+          ([clientId, { roles }]) => [`${clientId}-role`, roles],
+        ),
+      ),
+    };
+  },
+  undefined,
+  { prop: "__has", routeId: config.route.id },
+);
+
 export {
+  Has,
   HasRealmRole,
   HasResourceRole,
   HasRole,
+  loadHas,
   loadHasRealmRole,
   loadHasResourceRole,
   loadHasRole,
+  useHas,
   useHasRealmRole,
   useHasResourceRole,
   useHasRole,

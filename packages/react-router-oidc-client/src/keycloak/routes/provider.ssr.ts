@@ -1,5 +1,10 @@
 import { type LoaderFunctionArgs } from "react-router";
-import { loadHasRealmRole, loadHasResourceRole, loadHasRole } from "../is.ts";
+import {
+  loadHas,
+  loadHasRealmRole,
+  loadHasResourceRole,
+  loadHasRole,
+} from "../is.ts";
 
 import * as base from "../../routes/provider.ssr.ts";
 
@@ -13,4 +18,5 @@ export const loader = async (args: LoaderFunctionArgs) => ({
   ...(await loadHasRealmRole(args)),
   ...(await loadHasResourceRole(args)),
   ...(await loadHasRole(args)),
+  ...(await loadHas(args)),
 });

@@ -12,7 +12,10 @@ export const action = async (args: Route.ActionArgs) => {
   return null;
 };
 
-export const loader = async (args: Route.LoaderArgs) => {
+export const loader = async (args: Route.LoaderArgs) => { 
+  await authenticated(args, ["viewer", "viewer"]);
+  await authenticated(args, "viewer");
+
   await authenticated(args, {
     realmRoles: ["viewer"],
   });

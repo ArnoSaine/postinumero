@@ -1,5 +1,6 @@
 import { LoginLink } from "@postinumero/react-router-oidc-client";
 import {
+  Has,
   HasRealmRole,
   HasResourceRole,
   HasRole,
@@ -96,8 +97,27 @@ export default function Home() {
         <Info>User has realm roles "user" & "viewer"</Info>
       </HasRealmRole>
       <HasResourceRole example-client={["user", "editor"]}>
-        <Info>User has "example-client" resource roles "user" & "editor"</Info>
+        <Info>User has example-client resource roles "user" & "editor"</Info>
       </HasResourceRole>
+      <Has role="user">
+        <Info>User has role "user"</Info>
+      </Has>
+      <Has realm-role={["viewer", "foo"]}>
+        <Info>User has realm role "viewer" | "foo"</Info>
+      </Has>
+      <Has example-client-role={["user", "editor", "foo"]}>
+        <Info>User has example-client role "user" | "editor" | "foo"</Info>
+      </Has>
+      <Has
+        role="user"
+        realm-role={["viewer", "foo"]}
+        example-client-role={["user", "editor", "foo"]}
+      >
+        <Info>
+          User has role "user", realm roles "viewer" | "foo", and
+          "example-client" roles "user" | "editor" | "foo"
+        </Info>
+      </Has>
     </>
   );
 }
