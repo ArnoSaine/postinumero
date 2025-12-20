@@ -41,6 +41,10 @@ export const clientLoader: ClientLoaderFunction = async (args) => {
   const url = new URL(args.request.url);
   const data = unflattenRequestData(url.searchParams);
 
+  if (data.username && data.password) {
+    data.intent = "resource-owner-credentials";
+  }
+
   if (data.intent) {
     await login(data);
   } else {

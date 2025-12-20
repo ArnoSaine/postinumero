@@ -66,7 +66,6 @@ export default function Home() {
             </LoginLink> */}
             <LoginLink
               data={{
-                intent: "resource-owner-credentials",
                 username: "demo",
                 password: "demo",
               }}
