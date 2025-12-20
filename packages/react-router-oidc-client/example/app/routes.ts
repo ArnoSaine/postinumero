@@ -1,4 +1,4 @@
-import { createAuthRoutes } from "@postinumero/react-router-oidc-client/routes";
+import { createAuthRoutes } from "@postinumero/react-router-oidc-client/keycloak/routes";
 import { index, route } from "@react-router/dev/routes";
 
 export default createAuthRoutes([
