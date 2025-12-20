@@ -1,47 +1,23 @@
 import type { MiddlewareFunction } from "react-router";
-import invariant from "tiny-invariant";
 import isServer from "../isServer.ts";
+import createAsyncLocalStorageContext from "./createAsyncLocalStorageContext.ts";
 
-const REQUEST =
-  isServer &&
-  new (process.getBuiltinModule(
-    "node:async_hooks",
-  ).AsyncLocalStorage)<Request>();
+export const asyncRequestStorage = createAsyncLocalStorageContext<Request>();
 
-function getStorage() {
-  invariant(
-    REQUEST,
-    "Request storage is not available in the current environment.",
-  );
-  return REQUEST;
-}
-
-export const provideRequest = async (
-  request: Request,
-  cb: () => Promise<Response>,
-) => getStorage().run(request, cb);
-
-export const getRequest = () => {
-  const request = getStorage().getStore();
-  invariant(
-    request,
-    "Request is not available in the current context. Please use requestMiddleware to provide the Request object.",
-  );
-  return request;
-};
+export const provideRequest = asyncRequestStorage.run.bind(asyncRequestStorage);
 
 export const request = isServer
   ? new Proxy<Request>({} as Request, {
       get(_, prop) {
-        return getRequest()[prop as keyof Request];
+        return asyncRequestStorage.get()[prop as keyof Request];
       },
       has(_, prop) {
-        return prop in getRequest();
+        return prop in asyncRequestStorage.get();
       },
     })
   : undefined;
 
-export const requestMiddleware: MiddlewareFunction<Response> = async (
+export const requestMiddleware: MiddlewareFunction<Response> = (
   { request },
   next,
 ) => provideRequest(request, next);
