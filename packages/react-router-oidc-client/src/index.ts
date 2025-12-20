@@ -4,7 +4,7 @@ export * from "./components/index.ts";
 export { default as useLoginError } from "./hooks/useLoginError.ts";
 export { default as useLoginErrorMessage } from "./hooks/useLoginErrorMessage.ts";
 export { default as useLoginLinkProps } from "./hooks/useLoginLinkProps.ts";
-export { default as useOidcProvider } from "./hooks/useOidcProvider.tsx";
+export { default as useOidcProvider } from "./hooks/useOidcProvider.ts";
 export * from "./is.ts";
 export { default as authenticated } from "./loaders/authenticated.ts";
 export { default as loadUser } from "./loaders/loadUser.ts";
