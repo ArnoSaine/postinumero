@@ -4,6 +4,7 @@ import {
   useLoginLinkProps,
 } from "@postinumero/react-router-oidc-client";
 import { Link } from "react-router";
+//import { request } from "@postinumero/react-router-oidc-client/utils/react-router/requestMiddleware";
 
 export default function AppBar() {
   const loginLinkProps = useLoginLinkProps();
@@ -36,8 +37,7 @@ export default function AppBar() {
               to="/admin"
               className="text-white text-sm font-medium hover:underline"
             >
-              Admin
-              <Caption>protected route</Caption>
+              Admin <Caption>protected route</Caption>
             </Link>
           </li>
           <IsAuthenticated
@@ -55,14 +55,12 @@ export default function AppBar() {
             <li>
               <LogoutForm>
                 <button className="text-white text-sm font-medium hover:underline">
-                  Logout
-                  <Caption>silent + fallback redirect</Caption>
+                  Logout <Caption>silent + fallback redirect</Caption>
                 </button>
               </LogoutForm>
-              {/* <LogoutForm redirect={location.href}>
+              {/* <LogoutForm redirect={request?.url ?? location.href}>
                 <button className="text-white text-sm font-medium hover:underline">
-                  Logout
-                  <Caption>silent + no fallback redirect</Caption>
+                  Logout <Caption>silent + no fallback redirect</Caption>
                 </button>
               </LogoutForm>
               <LogoutForm>
@@ -71,18 +69,16 @@ export default function AppBar() {
                   value="redirect"
                   className="text-white text-sm font-medium hover:underline"
                 >
-                  Logout
-                  <Caption>redirect + fallback redirect</Caption>
+                  Logout <Caption>redirect + fallback redirect</Caption>
                 </button>
               </LogoutForm>
-              <LogoutForm redirect={location.href}>
+              <LogoutForm redirect={request?.url ?? location.href}>
                 <button
                   name="intent"
                   value="redirect"
                   className="text-white text-sm font-medium hover:underline"
                 >
-                  Logout
-                  <Caption>redirect + no fallback redirect</Caption>
+                  Logout <Caption>redirect + no fallback redirect</Caption>
                 </button>
               </LogoutForm> */}
             </li>
@@ -101,7 +97,7 @@ function Caption({
   HTMLSpanElement
 >) {
   return (
-    <span className="ml-1 text-xs text-gray-200" {...otherProps}>
+    <span className="text-xs text-gray-200" {...otherProps}>
       ({children})
     </span>
   );
