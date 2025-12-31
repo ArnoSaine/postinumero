@@ -21,18 +21,11 @@ export default function useUserManagerUser() {
         callback();
       }
 
-      function handleStorageEvent({ key, newValue }: StorageEvent) {
-        if (key?.startsWith((userManager.settings.stateStore as any)._prefix)) {
-          handleUserManagerEvent();
-        }
-      }
-
       userManager.events.addUserSignedIn(handleUserManagerEvent);
       userManager.events.addUserSignedOut(handleUserManagerEvent);
       userManager.events.addUserSessionChanged(handleUserManagerEvent);
       userManager.events.addUserLoaded(handleUserManagerEvent);
       userManager.events.addUserUnloaded(handleUserManagerEvent);
-      window.addEventListener("storage", handleStorageEvent);
       handleUserManagerEvent();
 
       return () => {
@@ -41,7 +34,6 @@ export default function useUserManagerUser() {
         userManager.events.removeUserSessionChanged(handleUserManagerEvent);
         userManager.events.removeUserLoaded(handleUserManagerEvent);
         userManager.events.removeUserUnloaded(handleUserManagerEvent);
-        window.removeEventListener("storage", handleStorageEvent);
       };
     }, []),
     () => userRef.current,

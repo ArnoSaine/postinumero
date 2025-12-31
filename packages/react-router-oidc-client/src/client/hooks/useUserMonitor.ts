@@ -2,9 +2,11 @@ import { type User } from "oidc-client-ts";
 import { useEffect, useRef } from "react";
 import { useRevalidator } from "react-router";
 import { setCookie } from "../cookie.ts";
+import useSyncStorage from "./useSyncStorage.ts";
 import useUserManagerUser from "./useUserManagerUser.ts";
 
 export default function useUserMonitor() {
+  useSyncStorage();
   const { revalidate } = useRevalidator();
   const user = useUserManagerUser();
   const prevUserRef = useRef<User | null>(user);
