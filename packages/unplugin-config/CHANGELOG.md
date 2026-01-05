@@ -1,5 +1,11 @@
 # @postinumero/unplugin-config
 
+## 0.2.2
+
+### Patch Changes
+
+- 37d8f87: Improve fetch handler on server to read file from public build path for non-absolute URLs
+
 ## 0.2.1
 
 ### Patch Changes
