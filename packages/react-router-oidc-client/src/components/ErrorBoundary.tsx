@@ -5,7 +5,7 @@ import {
   useRouteError,
   useSearchParams,
 } from "react-router";
-import useUserMonitor from "../client/hooks/useUserMonitor.ts";
+import useSyncStorage from "../client/hooks/useSyncStorage.ts";
 import config from "../config.ts";
 import { hasLogoutIntentParam } from "../logoutIntent.ts";
 import { tokenVerifyErrorCode } from "../user/getUserFromRequest.ts";
@@ -26,7 +26,7 @@ export const next_withAuthErrorBoundary = (
   function WithAuthErrorBoundary(props: any) {
     const isLoggingOutProtectedRoute = useHandleLogoutProtectedRoute();
     const isUnauthorizedRouteError = useIsUnauthorizedRouteError();
-    useUserMonitor();
+    useSyncStorage();
 
     if (isLoggingOutProtectedRoute) {
       return <UnauthorizedWhileLogout {...props} />;

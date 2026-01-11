@@ -1,7 +1,9 @@
-import useUserMonitor from "../client/hooks/useUserMonitor.ts";
+import useLoaderUserValidation from "../client/hooks/useLoaderUserValidation.ts";
+import useSyncStorage from "../client/hooks/useSyncStorage.ts";
 import { useRemoveLogoutIntentSearchParam } from "../logoutIntent.ts";
 
 export default function useOidcProvider() {
   useRemoveLogoutIntentSearchParam();
-  useUserMonitor();
+  useSyncStorage();
+  useLoaderUserValidation();
 }
