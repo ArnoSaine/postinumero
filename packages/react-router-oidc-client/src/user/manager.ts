@@ -49,3 +49,12 @@ export async function performUserManagerAction(
     throw error;
   }
 }
+
+export async function trySigninSilent() {
+  try {
+    await userManager.signinSilent();
+  } catch (error) {
+    console.log("Silent renew failed", error);
+    await userManager.removeUser();
+  }
+}
