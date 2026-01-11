@@ -8,7 +8,7 @@ const oidcSsrMiddleware: MiddlewareFunction<void | Response> = async (
   next,
 ) => {
   const user = await getUserFromRequest(request);
-  context.set(userContext, user); 
+  context.set(userContext, user);
   return asyncUserStorage.run(user, next);
 };
 
