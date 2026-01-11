@@ -20,6 +20,10 @@ export const getAuthRoutes = (): RouteConfigEntry[] => [
     config.paths.logoutCallback,
     new URL("routes/logout-callback.js", import.meta.url).pathname,
   ),
+  route(
+    config.paths.loginCallback,
+    new URL("routes/login-callback.js", import.meta.url).pathname,
+  ),
 ];
 
 export const authRoutes = getAuthRoutes();

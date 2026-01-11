@@ -78,50 +78,59 @@ To handle `401 Unauthorized` route errors, wrap `root.tsx`'s `ErrorBoundary` wit
 ```tsx
 import {
   LoginForm,
+  LoginLink,
   LoginRedirect,
   withAuthErrorBoundary,
 } from "@postinumero/react-router-oidc-client";
 import { isRouteErrorResponse } from "react-router";
 
 export const ErrorBoundary = withAuthErrorBoundary(
-  function UnauthorizedErrorBoundary(props) {
-    // Redirect directly to external login flow with optional IDP hint:
-    return (
-      <LoginRedirect
-        intent="redirect"
-        {...{ "extraQueryParams.kc_idp_hint": "suomi-fi" }}
-      />
-    );
-
-    // OR render a login form:
-    return (
-      <LoginForm>
-        <input type="text" name="username" placeholder="Username" required />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        {isRouteErrorResponse(props.error) && props.error.data}
-        <button>Login</button>
-      </LoginForm>
-    );
-
-    // OR render a login link with optional IDP hint for external authentication:
-    return (
-      <LoginLink
-        data={{
-          intent: "redirect",
-          "extraQueryParams.kc_idp_hint": "suomi-fi",
-        }}
-      >
-        Login with Suomi.fi
-      </LoginLink>
-    );
-  },
   function ErrorBoundary() {
     // Handle other errors
+  },
+  // Optional
+  {
+    // Fallback component while in unauthorized state.
+    Unauthorized(props) {
+      // Redirect directly to external login flow with optional IDP hint:
+      return (
+        <LoginRedirect
+          intent="redirect"
+          {...{ "extraQueryParams.kc_idp_hint": "suomi-fi" }}
+        />
+      );
+
+      // OR render a login form:
+      // return (
+      //   <LoginForm>
+      //     <input type="text" name="username" placeholder="Username" required />
+      //     <input
+      //       type="password"
+      //       name="password"
+      //       placeholder="Password"
+      //       required
+      //     />
+      //     {isRouteErrorResponse(props.error) && props.error.data}
+      //     <button>Login</button>
+      //   </LoginForm>
+      // );
+
+      // OR render a login link with optional IDP hint for external authentication:
+      // return (
+      //   <LoginLink
+      //     data={{
+      //       intent: "redirect",
+      //       "extraQueryParams.kc_idp_hint": "suomi-fi",
+      //     }}
+      //   >
+      //     Login with Suomi.fi
+      //   </LoginLink>
+      // );
+    },
+    // Fallback component while in SSR mode server verification of token fails.
+    VerifyToken: () => <div>Logging in...</div>,
+    // Fallback component while logging out in protected routes.
+    UnauthorizedWhileLogout: () => <div>Logging out...</div>,
   },
 );
 ```

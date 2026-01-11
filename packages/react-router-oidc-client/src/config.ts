@@ -5,6 +5,7 @@ export const config = {
   paths: {
     fallback: "/",
     login: "/login",
+    loginCallback: "/login-callback",
     logout: "/logout",
     logoutCallback: "/logout-callback",
   },

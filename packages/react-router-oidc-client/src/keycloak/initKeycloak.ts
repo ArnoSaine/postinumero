@@ -6,6 +6,7 @@ import {
 } from "oidc-client-ts";
 import { asyncJWKS } from "../token/jwks.ts";
 import { asyncUserManager } from "../user/manager.ts";
+import isServer from "../utils/isServer.ts";
 
 export default function initKeycloak({
   url,
@@ -19,6 +20,12 @@ export default function initKeycloak({
   const userManager = new UserManager({
     authority: `${url}/realms/${realm}`,
     redirect_uri: "",
+    silent_redirect_uri: isServer
+      ? undefined
+      : new URL(
+          `${import.meta.env.BASE_URL}login-callback`,
+          location.href,
+        ).toString(),
     userStore:
       typeof localStorage === "undefined"
         ? undefined

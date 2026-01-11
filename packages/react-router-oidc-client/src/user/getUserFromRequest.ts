@@ -1,8 +1,13 @@
+import { unauthorized } from "assert-response";
 import { User, type IdTokenClaims } from "oidc-client-ts";
 import getTokenFromRequest from "../token/getTokenFromRequest.ts";
 import verifyToken from "../token/verifyToken.ts";
 
-export default async function getUserFromRequest(request: Request) {
+export const tokenVerifyErrorCode = "token_verify";
+
+export default async function getUserFromRequest(
+  request: Request,
+): Promise<User | null> {
   const token = await getTokenFromRequest(request);
   if (!token) return null;
 
@@ -21,8 +26,11 @@ export default async function getUserFromRequest(request: Request) {
       // userState?: unknown;
       // url_state?: string;
     });
-  } catch (err) {
-    console.error("Token verification failed", err);
-    return null;
+  } catch (error) {
+    unauthorized(true, JSON.stringify({ code: tokenVerifyErrorCode, error }), {
+      headers: { "Content-Type": "application/json" },
+    });
+    // Only for correct return type. 401 response is thrown above.
+    throw error;
   }
 }

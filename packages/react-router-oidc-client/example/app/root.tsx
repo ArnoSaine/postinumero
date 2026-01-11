@@ -63,7 +63,6 @@ export default function App() {
 }
 
 export const ErrorBoundary = withAuthErrorBoundary(
-  Login,
   function ErrorBoundary({ error }) {
     let message: string | undefined;
     let details: string | undefined;
@@ -101,5 +100,10 @@ export const ErrorBoundary = withAuthErrorBoundary(
         )}
       </div>
     );
+  },
+  {
+    Unauthorized: Login,
+    VerifyToken: () => <div className="p-4">Logging in...</div>,
+    UnauthorizedWhileLogout: () => <div className="p-4">Logging out...</div>,
   },
 );

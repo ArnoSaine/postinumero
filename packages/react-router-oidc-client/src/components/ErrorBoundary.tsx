@@ -8,10 +8,20 @@ import {
 import useUserMonitor from "../client/hooks/useUserMonitor.ts";
 import config from "../config.ts";
 import { hasLogoutIntentParam } from "../logoutIntent.ts";
+import { tokenVerifyErrorCode } from "../user/getUserFromRequest.ts";
+import TrySigninSilent from "./TrySigninSilent.tsx";
 
-export const withAuthErrorBoundary = (
-  UnauthorizedErrorBoundary: React.ComponentType<any>,
+export const next_withAuthErrorBoundary = (
   ErrorBoundary: React.ComponentType<any>,
+  {
+    VerifyToken = () => null,
+    UnauthorizedWhileLogout = () => null,
+    Unauthorized = () => null,
+  }: {
+    VerifyToken?: React.ComponentType<any>;
+    UnauthorizedWhileLogout?: React.ComponentType<any>;
+    Unauthorized?: React.ComponentType<any>;
+  } = {},
 ) =>
   function WithAuthErrorBoundary(props: any) {
     const isLoggingOutProtectedRoute = useHandleLogoutProtectedRoute();
@@ -19,15 +29,52 @@ export const withAuthErrorBoundary = (
     useUserMonitor();
 
     if (isLoggingOutProtectedRoute) {
-      return null;
+      return <UnauthorizedWhileLogout {...props} />;
     }
 
     if (isUnauthorizedRouteError) {
-      return <UnauthorizedErrorBoundary {...props} />;
+      // Server was unable to verify token. Try silent sign-in.
+      if (props.error?.data?.code === tokenVerifyErrorCode) {
+        return (
+          <TrySigninSilent>
+            <VerifyToken {...props} />
+          </TrySigninSilent>
+        );
+      }
+
+      return <Unauthorized {...props} />;
     }
 
     return <ErrorBoundary {...props} />;
   };
+
+/**
+ * @deprecated Use `withAuthErrorBoundary` with the new signature instead.
+ */
+const legacy_withAuthErrorBoundary = (
+  Unauthorized: React.ComponentType<any>,
+  ErrorBoundary: React.ComponentType<any>,
+) =>
+  next_withAuthErrorBoundary(ErrorBoundary, {
+    Unauthorized,
+    VerifyToken: Unauthorized,
+  });
+
+export function withAuthErrorBoundary(
+  ...args:
+    | Parameters<typeof legacy_withAuthErrorBoundary>
+    | Parameters<typeof next_withAuthErrorBoundary>
+) {
+  if (typeof args[1] === "function") {
+    return legacy_withAuthErrorBoundary(
+      ...(args as Parameters<typeof legacy_withAuthErrorBoundary>),
+    );
+  } else {
+    return next_withAuthErrorBoundary(
+      ...(args as Parameters<typeof next_withAuthErrorBoundary>),
+    );
+  }
+}
 
 export function useIsUnauthorizedRouteError() {
   const error = useRouteError();
