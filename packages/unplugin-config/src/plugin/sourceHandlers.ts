@@ -22,17 +22,18 @@ const sourceHandlers = {
     // On the server, read the file from public build path, if the URL is not
     // absolute, as relative URLs won't resolve correctly in these environments
     if (typeof document === "undefined" && !url.includes("//")) {
+      const publicPath = import.meta.dirname === "\\x00~config" ? "public" : \`\${import.meta.dirname}/../client\`;
       return JSON.parse(
         await globalThis.process
           .getBuiltinModule("fs/promises")
-          .readFile(\`\${import.meta.dirname}/../client/${value}\`, "utf-8")
+          .readFile(\`\${publicPath}/${value}\`, "utf-8")
       );
     }
     const response = await fetch(url, { cache: "no-store" });
     return await response.json();
   } catch (error) {
-  console.warn(\`Failed to fetch config from "\$\{url\}".\`, error);
-}
+    console.warn(\`Failed to fetch config from "\$\{url\}".\`, error);
+  }
 })()`,
 };
 
