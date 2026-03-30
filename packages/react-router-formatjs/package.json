@@ -19,6 +19,8 @@
     "./components/*": "./lib/components/*.js",
     "./options": "./lib/options/index.js",
     "./options/*": "./lib/options/*.js",
+    "./strategies/environment/*": "./lib/strategies/environment/*.js",
+    "./strategies/requestedLocales/*": "./lib/strategies/requestedLocales/*.js",
     "./strategies/*": "./lib/strategies/*.js",
     "./intl": "./lib/intl/index.js",
     "./intl/*": "./lib/intl/*.js",
