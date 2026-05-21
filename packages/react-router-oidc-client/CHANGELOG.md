@@ -1,5 +1,13 @@
 # @postinumero/react-router-oidc-client
 
+## 0.4.2
+
+### Patch Changes
+
+- d0d2e9a: - **Deprecation:** `withAuthErrorBoundary` signature has been changed from ~~`withAuthErrorBoundary(Unauthorized, ErrorBoundary)`~~ to `withAuthErrorBoundary(ErrorBoundary, { Unauthorized })`
+  - Add way to set error fallbacks for token verification error state and logging out state
+- bdd33da: Fix ErrorBoundary reset: Use navigate instead of trySigninSilent and revalidator
+
 ## 0.4.1
 
 ### Patch Changes

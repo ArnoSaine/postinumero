@@ -1,5 +1,12 @@
 # @postinumero/react-router-formatjs
 
+## 0.3.8
+
+### Patch Changes
+
+- 0f9d009: Update cookie to return new Response instead of redirect
+- be4ee80: Add exports for environment and requestedLocales strategies in package.json
+
 ## 0.3.7
 
 ### Patch Changes
