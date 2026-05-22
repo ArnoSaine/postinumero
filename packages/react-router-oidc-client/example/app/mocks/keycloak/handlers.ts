@@ -1,4 +1,4 @@
-import { asyncUserManager } from "@postinumero/react-router-oidc-client";
+import { asyncUserManager } from "@postinumero/react-router-oidc-client/user/manager";
 import { generateKeyPair, SignJWT } from "jose";
 import { http, HttpResponse } from "msw";
 import { users } from "../../../keycloak/main-realm-export.json";
