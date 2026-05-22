@@ -23,9 +23,9 @@
   ],
   "scripts": {
     "prebuild": "npm run generate-apis",
-    "build": "tsc",
+    "build": "tsc --project tsconfig.lib.json",
     "predev": "npm run generate-apis",
-    "dev": "tsc --watch",
+    "dev": "npm run build -- --watch",
     "generate-apis": "tsx scripts/generate-apis.ts",
     "test": "node --test",
     "test --watch": "node --test --watch"

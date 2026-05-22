@@ -18,11 +18,11 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch"
+    "build": "tsc --project tsconfig.lib.json",
+    "dev": "npm run build -- --watch"
   },
   "devDependencies": {
-    "typescript": "^4.4.3"
+    "typescript": "^5.8.3"
   },
   "publishConfig": {
     "access": "public",

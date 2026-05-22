@@ -1,7 +1,20 @@
 {
-  "extends": "../../tsconfig.base",
   "compilerOptions": {
-    "outDir": "lib"
+    "strict": true,
+    "types": ["node", "vite/client"],
+
+    // node type stripping settings
+    // https://nodejs.org/api/typescript.html#type-stripping
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "target": "ESNext",
+    "module": "NodeNext",
+
+    "jsx": "react-jsx",
+    "skipLibCheck": true
   },
-  "include": ["src"]
+
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/.d.ts"]
 }
