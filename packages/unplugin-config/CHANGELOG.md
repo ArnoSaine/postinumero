@@ -1,5 +1,11 @@
 # @postinumero/unplugin-config
 
+## 1.0.0
+
+### Major Changes
+
+- bf6c121: Change in the way arrays are merged: if the value to be merged is an array, it overwrites the entire default value
+
 ## 0.2.3
 
 ### Patch Changes
