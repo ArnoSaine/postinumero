@@ -34,10 +34,21 @@ export default async function promise(
 
   return `import parseJsonValues from "@postinumero/config/utils/parseJsonValues";
 import unflat from "@postinumero/config/utils/unflat";
-import { flow, map, merge } from "lodash-es";
+import { flow, isArray, map, mergeWith } from "lodash-es";
 import raw from "${options.importPath}/raw${query}";
 
 export default (async () => 
-  merge({}, ...map((await Promise.all(raw)).filter(Boolean), flow(${resolvedModifiers})))
+  mergeWith(
+    {},
+    ...map(
+      (await Promise.all(raw)).filter(Boolean),
+      flow(${resolvedModifiers}),
+    ),
+    (_objValue, srcValue) => {
+      if (isArray(srcValue)) {
+        return srcValue;
+      }
+    },
+  )
 )();`;
 }
